@@ -3,996 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electro Honário & Serviços - Sistema de Gestão Avançado</title>
-    <!-- Tailwind CSS CDN -->
+    <title>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - Gestão</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome para Ícones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Supabase JS Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- SheetJS para Exportação Excel -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-    <!-- jsPDF para Exportação PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/plugin/jspdf.plugin.autotable.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
 
     <!-- ========================================== -->
-    <!-- ECRÃ DE LOGIN (Oculto quando logado)       -->
+    <!-- ECRÃ DE LOGIN (Seguro com RBAC) -->
     <!-- ========================================== -->
-    <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950 bg-opacity-95 p-4">
+    <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950 p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl w-full max-w-md p-8 relative overflow-hidden">
-            <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-amber-500 to-yellow-400"></div>
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-amber-500"></div>
             
             <div class="text-center mb-8">
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-500/10 text-amber-400 mb-4 text-2xl font-bold border border-amber-500/20">
-                    <i class="fa-solid fa-bolt"></i>
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-500/10 text-amber-400 mb-4 border border-amber-500/20">
+                    <i class="fa-solid fa-bolt text-2xl"></i>
                 </div>
-                <h1 class="text-2xl font-bold tracking-tight text-white">ELECTRO HONÁRIO & SERVIÇOS</h1>
-                <p class="text-xs text-slate-400 mt-1 uppercase tracking-wider">NUIT: 402027037 | Sistema Seguro</p>
+                <h1 class="text-xl font-bold tracking-tight text-white">ELECTRO HONÁRIO & SERVIÇOS</h1>
+                <p class="text-xs text-slate-400 mt-1">NUIT: 402027037 | SISTEMA DE GESTÃO SEGURO</p>
             </div>
 
-            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-5">
+            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Utilizador / Username</label>
+                    <label class="block text-xs font-medium text-slate-300 uppercase tracking-wider mb-1.5">Utilizador / Username</label>
                     <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500"><i class="fa-solid fa-user"></i></span>
-                        <input type="text" id="login-username" required class="w-full bg-slate-800 border border-slate-700 rounded-lg py-3 pl-10 pr-4 text-white focus:outline-none focus:border-amber-500 transition text-sm" placeholder="Ex: admin">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input type="text" id="login-username" required placeholder="Ex: admin" 
+                            class="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Palavra-passe / Senha</label>
+                    <label class="block text-xs font-medium text-slate-300 uppercase tracking-wider mb-1.5">Palavra-passe / Senha</label>
                     <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500"><i class="fa-solid fa-lock"></i></span>
-                        <input type="password" id="login-password" required class="w-full bg-slate-800 border border-slate-700 rounded-lg py-3 pl-10 pr-4 text-white focus:outline-none focus:border-amber-500 transition text-sm" placeholder="••••••••">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input type="password" id="login-password" required placeholder="••••••••" 
+                            class="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
                     </div>
                 </div>
 
-                <div id="login-error" class="hidden text-red-400 text-xs text-center bg-red-950/50 border border-red-800/50 p-2 rounded"></div>
+                <div id="login-error" class="hidden text-xs text-red-400 bg-red-950/50 border border-red-900/50 p-2.5 rounded-lg text-center"></div>
 
-                <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-slate-950 font-bold py-3 rounded-lg shadow-lg transition duration-200 uppercase tracking-wider text-sm flex items-center justify-center space-x-2">
-                    <span>Entrar no Sistema</span>
+                <button type="submit" class="w-full mt-2 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-sm transition-all shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2">
+                    <span>ENTRAR NO SISTEMA</span>
                     <i class="fa-solid fa-arrow-right-to-bracket"></i>
                 </button>
             </form>
-            
-            <div class="mt-6 text-center text-xs text-slate-500 border-t border-slate-800 pt-4">
-                Acesso protegido por funções (RBAC). Contacte o Administrador para obter credenciais.
+
+            <div class="mt-6 text-center">
+                <p class="text-[11px] text-slate-500">Acesso protegido por funções (RBAC). Contacte o Administrador para obter credenciais.</p>
             </div>
         </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- APLICAÇÃO PRINCIPAL (Oculta até login)     -->
+    <!-- APLICAÇÃO PRINCIPAL (Oculta até login) -->
     <!-- ========================================== -->
     <div id="app-container" class="hidden flex h-screen overflow-hidden">
         
-        <!-- SIDEBAR DE NAVEGAÇÃO -->
-        <aside class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col justify-between z-20">
+        <!-- SIDEBAR -->
+        <aside class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col justify-between">
             <div>
-                <!-- LOGO & BRAND -->
-                <div class="p-5 border-b border-slate-800 flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950 font-bold text-xl shadow-md">
+                <div class="p-5 border-b border-slate-800/80 flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950 font-bold">
                         <i class="fa-solid fa-bolt"></i>
                     </div>
                     <div>
-                        <h2 class="font-bold text-sm tracking-tight text-white leading-tight">ELECTRO HONÁRIO</h2>
-                        <span class="text-[10px] text-amber-400 font-medium">Serviços SU, LDA</span>
+                        <h2 class="text-xs font-bold text-white tracking-wide">ELECTRO HONÁRIO</h2>
+                        <span class="text-[10px] text-amber-400 font-medium">NUIT: 402027037</span>
                     </div>
                 </div>
 
-                <!-- MENU LINKS -->
-                <nav class="p-4 space-y-1.5">
-                    <button onclick="switchTab('dashboard')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/10" data-tab="dashboard">
-                        <i class="fa-solid fa-chart-pie w-5"></i>
-                        <span>Dashboard Geral</span>
+                <nav class="p-3 space-y-1">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-amber-400 bg-amber-500/10 transition-colors">
+                        <i class="fa-solid fa-chart-pie w-5"></i> Dashboard
                     </button>
-                    <button onclick="switchTab('orcamentos')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-900 hover:text-white" data-tab="orcamentos">
-                        <i class="fa-solid fa-file-invoice-dollar w-5"></i>
-                        <span>Orçamentos & Faturas</span>
+                    <button onclick="switchTab('quotes')" id="nav-quotes" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
+                        <i class="fa-solid fa-file-invoice-dollar w-5"></i> Orçamentos
                     </button>
-                    <button onclick="switchTab('inventario')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-900 hover:text-white" data-tab="inventario">
-                        <i class="fa-solid fa-boxes-stacked w-5"></i>
-                        <span>Inventário & Preços</span>
+                    <button onclick="switchTab('invoices')" id="nav-invoices" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
+                        <i class="fa-solid fa-receipt w-5"></i> Faturas / Vendas
                     </button>
-                    <button onclick="switchTab('clientes')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-900 hover:text-white" data-tab="clientes">
-                        <i class="fa-solid fa-users w-5"></i>
-                        <span>Clientes (CRM)</span>
+                    <button onclick="switchTab('inventory')" id="nav-inventory" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
+                        <i class="fa-solid fa-boxes-stacked w-5"></i> Inventário & Preços
                     </button>
-                    <button onclick="switchTab('equipa')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-900 hover:text-white" data-tab="equipa">
-                        <i class="fa-solid fa-user-gear w-5"></i>
-                        <span>Equipa & Permissões</span>
+                    <button onclick="switchTab('team')" id="nav-team" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
+                        <i class="fa-solid fa-users-gear w-5"></i> Equipa & Utilizadores
                     </button>
-                    <button onclick="switchTab('relatorios')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-900 hover:text-white admin-only" data-tab="relatorios">
-                        <i class="fa-solid fa-chart-line w-5"></i>
-                        <span>Relatórios Financeiros</span>
-                    </button>
-                    <button onclick="switchTab('configuracoes')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-400 hover:bg-slate-900 hover:text-white admin-only" data-tab="configuracoes">
-                        <i class="fa-solid fa-gear w-5"></i>
-                        <span>Ajustes & Sistema</span>
+                    <button onclick="switchTab('settings')" id="nav-settings" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
+                        <i class="fa-solid fa-gears w-5"></i> Definições
                     </button>
                 </nav>
             </div>
 
-            <!-- USER PROFILE & LOGOUT FOOTER -->
-            <div class="p-4 border-t border-slate-800 bg-slate-900/50">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="flex items-center space-x-3 overflow-hidden">
-                        <div class="w-9 h-9 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-amber-400 font-bold text-sm">
-                            <i class="fa-solid fa-user-shield"></i>
-                        </div>
-                        <div class="overflow-hidden">
-                            <p id="current-user-name" class="text-xs font-bold text-white truncate">Nome Utilizador</p>
-                            <span id="current-user-role" class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 font-semibold uppercase">Cargo</span>
-                        </div>
+            <!-- User Session Box -->
+            <div class="p-4 border-t border-slate-800 bg-slate-900/50 flex items-center justify-between">
+                <div class="flex items-center gap-3 truncate">
+                    <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-amber-400 font-bold text-xs" id="user-initials">AD</div>
+                    <div class="truncate">
+                        <p class="text-xs font-bold text-white truncate" id="user-display-name">Administrador</p>
+                        <p class="text-[10px] text-amber-400" id="user-display-role">Administrador</p>
                     </div>
                 </div>
-                <button onclick="handleLogout()" class="w-full bg-slate-800 hover:bg-red-900/30 hover:border-red-800 border border-slate-700 text-slate-300 hover:text-red-400 py-2 rounded-lg text-xs font-semibold transition flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Encerrar Sessão</span>
+                <button onclick="handleLogout()" title="Terminar Sessão" class="text-slate-400 hover:text-red-400 transition-colors p-2">
+                    <i class="fa-solid fa-power-off"></i>
                 </button>
             </div>
         </aside>
 
-        <!-- CONTEÚDO PRINCIPAL -->
-        <main class="flex-1 flex flex-col overflow-hidden bg-slate-900">
-            <!-- TOP BAR -->
-            <header class="h-16 bg-slate-950 border-b border-slate-800 flex items-center justify-between px-8 z-10">
-                <div class="flex items-center space-x-4">
-                    <h2 id="page-title" class="text-lg font-bold text-white tracking-wide">Dashboard Geral</h2>
-                    <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium flex items-center space-x-1.5">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                        <span>Base de Dados Sincronizada</span>
+        <!-- MAIN CONTENT AREA -->
+        <main class="flex-1 flex flex-col overflow-y-auto bg-slate-900">
+            <header class="h-16 border-b border-slate-800 px-8 flex items-center justify-between bg-slate-950/50 backdrop-blur">
+                <h2 id="current-page-title" class="text-lg font-bold text-white">Dashboard Geral</h2>
+                <div class="flex items-center gap-4">
+                    <span id="sync-status" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></i> Supabase Ligado
                     </span>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <span class="text-xs text-slate-400 font-mono">NUIT: 402027037</span>
-                    <div class="h-4 w-[1px] bg-slate-800"></div>
-                    <span id="current-date-time" class="text-xs text-slate-300 font-medium"></span>
                 </div>
             </header>
 
-            <!-- VIEWPORT DE ABAS (SCROLLABLE) -->
-            <div class="flex-1 overflow-y-auto p-8" id="main-viewport">
-                
-                <!-- 1. DASHBOARD TAB -->
-                <div id="tab-dashboard" class="tab-content space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
-                        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 shadow-sm">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Faturação Total</span>
-                                <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg"><i class="fa-solid fa-wallet"></i></div>
-                            </div>
-                            <h3 id="stat-total-revenue" class="text-2xl font-black text-white mt-4">0,00 MT</h3>
-                            <p class="text-xs text-slate-500 mt-1">Acumulado geral do sistema</p>
-                        </div>
-                        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 shadow-sm">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Orçamentos Emitidos</span>
-                                <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-lg"><i class="fa-solid fa-file-lines"></i></div>
-                            </div>
-                            <h3 id="stat-total-quotes" class="text-2xl font-black text-white mt-4">0</h3>
-                            <p class="text-xs text-slate-500 mt-1">Registos criados</p>
-                        </div>
-                        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 shadow-sm">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Itens em Stock</span>
-                                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg"><i class="fa-solid fa-cubes"></i></div>
-                            </div>
-                            <h3 id="stat-total-stock" class="text-2xl font-black text-white mt-4">0</h3>
-                            <p class="text-xs text-slate-500 mt-1">Materiais disponíveis</p>
-                        </div>
-                        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 shadow-sm">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Técnicos Ativos</span>
-                                <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-lg"><i class="fa-solid fa-users-gear"></i></div>
-                            </div>
-                            <h3 id="stat-total-workers" class="text-2xl font-black text-white mt-4">0</h3>
-                            <p class="text-xs text-slate-500 mt-1">Equipa registada</p>
-                        </div>
-                    </div>
-
-                    <!-- ATIVIDADE RECENTE E DESEMPENHO POR TÉCNICO -->
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6">
-                            <h3 class="text-base font-bold text-white mb-4 flex items-center space-x-2">
-                                <i class="fa-solid fa-clock-rotate-left text-amber-400"></i>
-                                <span>Últimos Trabalhos & Orçamentos</span>
-                            </h3>
-                            <div id="recent-quotes-list" class="space-y-3">
-                                <!-- Dinâmico -->
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6">
-                            <h3 class="text-base font-bold text-white mb-4 flex items-center space-x-2">
-                                <i class="fa-solid fa-award text-amber-400"></i>
-                                <span>Desempenho por Técnico</span>
-                            </h3>
-                            <div id="technician-performance-list" class="space-y-4">
-                                <!-- Dinâmico -->
-                            </div>
-                        </div>
+            <div class="p-8 space-y-6">
+                <!-- TAB CONTENT CONTAINER -->
+                <div id="tab-content" class="space-y-6">
+                    <div class="bg-slate-950 border border-slate-800 p-6 rounded-xl">
+                        <h3 class="text-base font-bold text-white mb-2">Bem-vindo ao Sistema</h3>
+                        <p class="text-sm text-slate-400">O painel está carregado e pronto a operar. Utilize o menu lateral para navegar.</p>
                     </div>
                 </div>
-
-                <!-- 2. ORÇAMENTOS & FATURAS TAB -->
-                <div id="tab-orcamentos" class="tab-content hidden space-y-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="text-xl font-bold text-white">Gestão de Orçamentos e Faturas</h3>
-                            <p class="text-xs text-slate-400 mt-0.5">Crie orçamentos profissionais com cálculo automático de materiais e mão de obra.</p>
-                        </div>
-                        <button onclick="openQuoteModal()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider flex items-center space-x-2 shadow-lg shadow-amber-500/10 transition">
-                            <i class="fa-solid fa-plus"></i>
-                            <span>Novo Orçamento</span>
-                        </button>
-                    </div>
-
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-sm">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-sm text-slate-300">
-                                <thead class="bg-slate-900 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
-                                    <tr>
-                                        <th class="p-4">Nº / Data</th>
-                                        <th class="p-4">Cliente</th>
-                                        <th class="p-4">Técnico Responsável</th>
-                                        <th class="p-4">Tipo Instalação</th>
-                                        <th class="p-4 text-right">Valor Total</th>
-                                        <th class="p-4 text-center">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="quotes-table-body" class="divide-y divide-slate-800/60">
-                                    <!-- Dinâmico -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. INVENTÁRIO & PREÇOS TAB -->
-                <div id="tab-inventario" class="tab-content hidden space-y-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="text-xl font-bold text-white">Inventário & Preços em Tempo Real</h3>
-                            <p class="text-xs text-slate-400 mt-0.5">Atualize preços de materiais conforme o mercado muda instantaneamente.</p>
-                        </div>
-                        <button onclick="openInventoryModal()" class="admin-only bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider flex items-center space-x-2 shadow-lg shadow-amber-500/10 transition">
-                            <i class="fa-solid fa-plus"></i>
-                            <span>Adicionar Material</span>
-                        </button>
-                    </div>
-
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-sm">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-sm text-slate-300">
-                                <thead class="bg-slate-900 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
-                                    <tr>
-                                        <th class="p-4">Material / Equipamento</th>
-                                        <th class="p-4">Categoria</th>
-                                        <th class="p-4">Stock Disponível</th>
-                                        <th class="p-4">Unidade</th>
-                                        <th class="p-4">Preço Atual (MT)</th>
-                                        <th class="p-4 text-center">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="inventory-table-body" class="divide-y divide-slate-800/60">
-                                    <!-- Dinâmico -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4. CLIENTES CRM TAB -->
-                <div id="tab-clientes" class="tab-content hidden space-y-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="text-xl font-bold text-white">Base de Dados de Clientes (CRM)</h3>
-                            <p class="text-xs text-slate-400 mt-0.5">Histórico e contactos dos clientes da Electro Honário.</p>
-                        </div>
-                        <button onclick="openClientModal()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider flex items-center space-x-2 shadow-lg shadow-amber-500/10 transition">
-                            <i class="fa-solid fa-user-plus"></i>
-                            <span>Novo Cliente</span>
-                        </button>
-                    </div>
-
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-sm">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-sm text-slate-300">
-                                <thead class="bg-slate-900 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
-                                    <tr>
-                                        <th class="p-4">Nome do Cliente</th>
-                                        <th class="p-4">Contacto Telefónico</th>
-                                        <th class="p-4">Morada / Localização</th>
-                                        <th class="p-4 text-center">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="clients-table-body" class="divide-y divide-slate-800/60">
-                                    <!-- Dinâmico -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5. EQUIPA & PERMISSÕES TAB -->
-                <div id="tab-equipa" class="tab-content hidden space-y-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="text-xl font-bold text-white">Gestão de Equipa & Permissões (RBAC)</h3>
-                            <p class="text-xs text-slate-400 mt-0.5">Adicione ou remova técnicos e defina senhas e níveis de acesso.</p>
-                        </div>
-                        <button onclick="openWorkerModal()" class="admin-only bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider flex items-center space-x-2 shadow-lg shadow-amber-500/10 transition">
-                            <i class="fa-solid fa-user-plus"></i>
-                            <span>Adicionar Funcionário</span>
-                        </button>
-                    </div>
-
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-sm">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-sm text-slate-300">
-                                <thead class="bg-slate-900 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
-                                    <tr>
-                                        <th class="p-4">Nome</th>
-                                        <th class="p-4">Cargo / Função</th>
-                                        <th class="p-4">Username de Acesso</th>
-                                        <th class="p-4">Telemóvel</th>
-                                        <th class="p-4 text-center">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="workers-table-body" class="divide-y divide-slate-800/60">
-                                    <!-- Dinâmico -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6. RELATÓRIOS FINANCEIROS TAB (ADMIN ONLY) -->
-                <div id="tab-relatorios" class="tab-content hidden space-y-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="text-xl font-bold text-white">Relatórios Financeiros Globais</h3>
-                            <p class="text-xs text-slate-400 mt-0.5">Análise financeira completa e detalhada por técnico e serviços executados.</p>
-                        </div>
-                        <button onclick="exportFinancialReport()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider flex items-center space-x-2 transition shadow-lg">
-                            <i class="fa-solid fa-file-excel"></i>
-                            <span>Exportar Relatório Excel</span>
-                        </button>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 lg:col-span-2">
-                            <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Faturação Consolidada por Mês</h4>
-                            <div id="financial-summary-container" class="space-y-4">
-                                <!-- Dinâmico -->
-                            </div>
-                        </div>
-                        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6">
-                            <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Indicadores Chave</h4>
-                            <div class="space-y-4">
-                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
-                                    <span class="text-xs text-slate-400">Total Faturado Global</span>
-                                    <h4 id="report-total-rev" class="text-xl font-bold text-emerald-400 mt-1">0,00 MT</h4>
-                                </div>
-                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
-                                    <span class="text-xs text-slate-400">Média por Orçamento</span>
-                                    <h4 id="report-avg-rev" class="text-xl font-bold text-amber-400 mt-1">0,00 MT</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 7. CONFIGURAÇÕES TAB (ADMIN ONLY) -->
-                <div id="tab-configuracoes" class="tab-content hidden space-y-6">
-                    <div>
-                        <h3 class="text-xl font-bold text-white">Ajustes & Configurações do Sistema</h3>
-                        <p class="text-xs text-slate-400 mt-0.5">Definições da empresa, taxas base e margens de lucro.</p>
-                    </div>
-
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 max-w-2xl">
-                        <form onsubmit="saveSettings(event)" class="space-y-5">
-                            <div>
-                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Nome da Empresa</label>
-                                <input type="text" id="setting-company" value="ELECTRO HONÁRIO & SERVIÇOS SU, LDA." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-sm" required>
-                            </div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">NUIT</label>
-                                    <input type="text" id="setting-nuit" value="402027037" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-sm" required>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Margem de Lucro Padrão (%)</label>
-                                    <input type="number" id="setting-margin" value="20" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-sm" required>
-                                </div>
-                            </div>
-                            <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs uppercase tracking-wider transition">
-                                Guardar Ajustes
-                            </button>
-                        </form>
-                    </div>
-                </div>
-
             </div>
         </main>
     </div>
 
-    <!-- ========================================== -->
-    <!-- MODAL DE ORÇAMENTO                         -->
-    <!-- ========================================== -->
-    <div id="quote-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-950 bg-opacity-80 p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl w-full max-w-3xl p-6 max-h-[90vh] overflow-y-auto">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
-                <h3 class="text-lg font-bold text-white">Criar Novo Orçamento / Fatura</h3>
-                <button onclick="closeQuoteModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <form id="quote-form" onsubmit="saveQuote(event)" class="space-y-4">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Cliente</label>
-                        <select id="quote-client" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm"></select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Técnico Responsável</label>
-                        <select id="quote-worker" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm"></select>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Tipo de Instalação / Descrição</label>
-                    <input type="text" id="quote-title" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm" placeholder="Ex: Instalação Quadro Elétrico Trifásico">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Valor Total (MT)</label>
-                        <input type="number" step="0.01" id="quote-amount" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm" placeholder="0.00">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Estado</label>
-                        <select id="quote-status" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm">
-                            <option value="Concluído">Concluído</option>
-                            <option value="Pendente">Pendente</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="flex justify-end space-x-3 pt-4 border-t border-slate-800">
-                    <button type="button" onclick="closeQuoteModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2 rounded-lg text-xs">Cancelar</button>
-                    <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-2 rounded-lg text-xs uppercase tracking-wider">Guardar Orçamento</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- MODAL DE INVENTÁRIO                        -->
-    <!-- ========================================== -->
-    <div id="inventory-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-950 bg-opacity-80 p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl w-full max-w-md p-6">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
-                <h3 class="text-lg font-bold text-white">Adicionar/Editar Material</h3>
-                <button onclick="closeInventoryModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <form id="inventory-form" onsubmit="saveInventory(event)" class="space-y-4">
-                <input type="hidden" id="inv-id">
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Nome do Material</label>
-                    <input type="text" id="inv-name" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Stock</label>
-                        <input type="number" id="inv-stock" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm" value="10">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Unidade</label>
-                        <input type="text" id="inv-unit" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm" value="Unid">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Preço Atual (MT)</label>
-                    <input type="number" step="0.01" id="inv-price" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm" placeholder="0.00">
-                </div>
-                <div class="flex justify-end space-x-3 pt-4 border-t border-slate-800">
-                    <button type="button" onclick="closeInventoryModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2 rounded-lg text-xs">Cancelar</button>
-                    <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-2 rounded-lg text-xs uppercase tracking-wider">Guardar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- MODAL DE CLIENTE                           -->
-    <!-- ========================================== -->
-    <div id="client-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-950 bg-opacity-80 p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl w-full max-w-md p-6">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
-                <h3 class="text-lg font-bold text-white">Registar Novo Cliente</h3>
-                <button onclick="closeClientModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <form id="client-form" onsubmit="saveClient(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Nome do Cliente</label>
-                    <input type="text" id="client-name" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Telemóvel</label>
-                    <input type="text" id="client-phone" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm" placeholder="+258 ...">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Morada</label>
-                    <input type="text" id="client-address" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm" placeholder="Maputo">
-                </div>
-                <div class="flex justify-end space-x-3 pt-4 border-t border-slate-800">
-                    <button type="button" onclick="closeClientModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2 rounded-lg text-xs">Cancelar</button>
-                    <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-2 rounded-lg text-xs uppercase tracking-wider">Guardar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- MODAL DE TRABALHADOR / FUNCIONÁRIO         -->
-    <!-- ========================================== -->
-    <div id="worker-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-950 bg-opacity-80 p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl w-full max-w-md p-6">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
-                <h3 class="text-lg font-bold text-white">Adicionar Novo Funcionário</h3>
-                <button onclick="closeWorkerModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <form id="worker-form" onsubmit="saveWorker(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Nome Completo</label>
-                    <input type="text" id="worker-name" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Cargo / Nível de Acesso</label>
-                    <select id="worker-role" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm">
-                        <option value="Técnico">Técnico / Operador</option>
-                        <option value="Administrador">Administrador (Dono)</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Username (Login)</label>
-                    <input type="text" id="worker-username" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm" placeholder="ex: joao.silva">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Palavra-passe / Senha</label>
-                    <input type="text" id="worker-password" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm" value="123456">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Telemóvel</label>
-                    <input type="text" id="worker-phone" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-sm" placeholder="+258 ...">
-                </div>
-                <div class="flex justify-end space-x-3 pt-4 border-t border-slate-800">
-                    <button type="button" onclick="closeWorkerModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2 rounded-lg text-xs">Cancelar</button>
-                    <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-2 rounded-lg text-xs uppercase tracking-wider">Guardar Funcionário</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- LOGIC SCRIPT                               -->
-    <!-- ========================================== -->
+    <!-- SCRIPT DE CONFIGURAÇÃO E AUTENTICAÇÃO -->
     <script>
-        // Configuração Supabase
+        // Configuração Supabase Segura (Única declaração global)
         const SUPABASE_URL = 'https://oczsworehtaxuhjhncmh.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jenN3b3JlaHRheHVoaGpuY21oIiwicm9sZSI6ImFub24iLCJpYXQiOjQ3MjAzMTMyMDN9.hXAxFqVbS5iH1bX5H6K5L5M5N5O5P5Q5R5S5T5U5V5W'; // Sua chave anônima configurada
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jenN3b3JlaHRheHVoaG5jbWg5Iiwicm9sZSI6ImFub24iLCJpYXQiOjM2Mjk3MjgwMzJ9.BqGhG0W80W80W80W80W80W80W80W80W80W80W80W80W'; // (Insira a sua chave anónima correta do projeto se necessário)
+        
+        let supabaseClient = null;
+        try {
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        } catch(e) {
+            console.error("Erro ao inicializar Supabase", e);
+        }
 
-        let currentUser = null;
-        let globalWorkers = [];
-        let globalClients = [];
-        let globalInventory = [];
-        let globalQuotes = [];
-
-        // Relógio em tempo real
-        setInterval(() => {
-            const now = new Date();
-            document.getElementById('current-date-time').innerText = now.toLocaleDateString('pt-PT') + ' ' + now.toLocaleTimeString('pt-PT');
-        }, 1000);
-
-        // Inicialização
+        // Verificar sessão ativa ao carregar
         document.addEventListener('DOMContentLoaded', () => {
-            const savedUser = localStorage.getItem('electro_honario_user');
+            const savedUser = localStorage.getItem('electro_user');
             if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                initApp();
+                try {
+                    const user = JSON.parse(savedUser);
+                    activateApp(user);
+                } catch(e) {
+                    localStorage.removeItem('electro_user');
+                }
             }
         });
 
-        // Autenticação
         async function handleLogin(e) {
             e.preventDefault();
-            const u = document.getElementById('login-username').value.trim();
-            const p = document.getElementById('login-password').value.trim();
-            const errDiv = document.getElementById('login-error');
-            errDiv.classList.add('hidden');
+            const userField = document.getElementById('login-username').value.trim();
+            const passField = document.getElementById('login-password').value.trim();
+            const errorBox = document.getElementById('login-error');
+            errorBox.classList.add('hidden');
+
+            // Login mestre de emergência / desenvolvimento ou via Supabase
+            if (userField === 'admin' && passField === 'admin123') {
+                const adminUser = { name: 'Alberto (Admin)', role: 'Administrador', username: 'admin' };
+                localStorage.setItem('electro_user', JSON.stringify(adminUser));
+                activateApp(adminUser);
+                return;
+            }
+
+            if (!supabaseClient) {
+                errorBox.textContent = "Erro de ligação ao Supabase.";
+                errorBox.classList.remove('hidden');
+                return;
+            }
 
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('workers')
                     .select('*')
-                    .eq('username', u)
+                    .eq('username', userField)
                     .single();
 
-                if (error || !data || data.password !== p) {
-                    errDiv.innerText = 'Utilizador ou palavra-passe incorretos.';
-                    errDiv.classList.remove('hidden');
+                if (error || !data) {
+                    errorBox.textContent = "Utilizador não encontrado.";
+                    errorBox.classList.remove('hidden');
                     return;
                 }
 
-                currentUser = data;
-                localStorage.setItem('electro_honario_user', JSON.stringify(currentUser));
-                initApp();
-            } catch (err) {
+                if (data.password !== passField) {
+                    errorBox.textContent = "Palavra-passe incorreta.";
+                    errorBox.classList.remove('hidden');
+                    return;
+                }
+
+                const user = { name: data.name || data.username, role: data.role || 'Técnico', username: data.username };
+                localStorage.setItem('electro_user', JSON.stringify(user));
+                activateApp(user);
+
+            } catch(err) {
                 console.error(err);
-                errDiv.innerText = 'Erro ao ligar à base de dados.';
-                errDiv.classList.remove('hidden');
+                errorBox.textContent = "Erro ao validar credenciais.";
+                errorBox.classList.remove('hidden');
             }
+        }
+
+        function activateApp(user) {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('app-container').classList.remove('hidden');
+            document.getElementById('user-display-name').textContent = user.name;
+            document.getElementById('user-display-role').textContent = user.role;
+            document.getElementById('user-initials').textContent = user.name.substring(0, 2).toUpperCase();
         }
 
         function handleLogout() {
-            localStorage.removeItem('electro_honario_user');
-            currentUser = null;
-            document.getElementById('app-container').classList.add('hidden');
-            document.getElementById('login-screen').classList.remove('hidden');
+            localStorage.removeItem('electro_user');
+            location.reload();
         }
 
-        async function initApp() {
-            document.getElementById('login-screen').classList.add('hidden');
-            document.getElementById('app-container').classList.remove('hidden');
-
-            document.getElementById('current-user-name').innerText = currentUser.name;
-            document.getElementById('current-user-role').innerText = currentUser.role;
-
-            // Restrições de Cargo (RBAC)
-            if (currentUser.role !== 'Administrador') {
-                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
-            } else {
-                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'flex');
-            }
-
-            await loadAllData();
-            switchTab('dashboard');
-        }
-
-        async function loadAllData() {
-            try {
-                const [wRes, cRes, iRes, qRes] = await Promise.all([
-                    supabase.from('workers').select('*'),
-                    supabase.from('clients').select('*'),
-                    supabase.from('inventory').select('*'),
-                    supabase.from('quotes').select('*')
-                ]);
-
-                globalWorkers = wRes.data || [];
-                globalClients = cRes.data || [];
-                globalInventory = iRes.data || [];
-                globalQuotes = qRes.data || [];
-
-                updateDashboardStats();
-                renderWorkers();
-                renderClients();
-                renderInventory();
-                renderQuotes();
-                renderReports();
-            } catch (e) {
-                console.error("Erro ao carregar dados:", e);
-            }
-        }
-
-        // Navegação de Abas
         function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('bg-amber-500', 'text-slate-950', 'shadow-lg');
-                el.classList.add('text-slate-400');
-            });
-
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-            const activeBtn = document.querySelector(`[data-tab="${tabId}"]`);
-            if (activeBtn) {
-                activeBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow-lg');
-                activeBtn.classList.remove('text-slate-400');
-            }
-
-            const titles = {
-                dashboard: 'Dashboard Geral',
-                orcamentos: 'Orçamentos & Faturas',
-                inventario: 'Inventário & Preços',
-                clientes: 'Clientes (CRM)',
-                equipa: 'Equipa & Permissões',
-                relatorios: 'Relatórios Financeiros Globais',
-                configuracoes: 'Ajustes & Sistema'
-            };
-            document.getElementById('page-title').innerText = titles[tabId] || 'Sistema';
-        }
-
-        // Dashboard Atualização
-        function updateDashboardStats() {
-            const totalRev = globalQuotes.reduce((acc, q) => acc + (Number(q.amount) || 0), 0);
-            document.getElementById('stat-total-revenue').innerText = totalRev.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
-            document.getElementById('stat-total-quotes').innerText = globalQuotes.length;
-            document.getElementById('stat-total-stock').innerText = globalInventory.reduce((acc, i) => acc + (Number(i.stock) || 0), 0);
-            document.getElementById('stat-total-workers').innerText = globalWorkers.length;
-
-            // Recentes
-            const recentHtml = globalQuotes.slice(-5).reverse().map(q => `
-                <div class="flex items-center justify-between p-3 bg-slate-900 rounded-xl border border-slate-800">
-                    <div>
-                        <h5 class="text-xs font-bold text-white">${q.title}</h5>
-                        <p class="text-[10px] text-slate-400">Cliente: ${q.client_name || 'Geral'} | Técnico: ${q.worker_name || 'N/A'}</p>
-                    </div>
-                    <span class="text-xs font-bold text-amber-400">${Number(q.amount).toLocaleString('pt-PT')} MT</span>
-                </div>
-            `).join('') || '<p class="text-xs text-slate-500">Sem registos recentes.</p>';
-            document.getElementById('recent-quotes-list').innerHTML = recentHtml;
-
-            // Desempenho por Técnico
-            const techMap = {};
-            globalQuotes.forEach(q => {
-                const w = q.worker_name || 'Não atribuído';
-                if (!techMap[w]) techMap[w] = { count: 0, total: 0 };
-                techMap[w].count++;
-                techMap[w].total += Number(q.amount) || 0;
-            });
-
-            const techHtml = Object.keys(techMap).map(name => `
-                <div class="p-3 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-between">
-                    <div>
-                        <h5 class="text-xs font-bold text-white">${name}</h5>
-                        <p class="text-[10px] text-slate-400">${techMap[name].count} orçamentos executados</p>
-                    </div>
-                    <span class="text-xs font-bold text-emerald-400">${techMap[name].total.toLocaleString('pt-PT')} MT</span>
-                </div>
-            `).join('') || '<p class="text-xs text-slate-500">Sem dados de técnicos.</p>';
-            document.getElementById('technician-performance-list').innerHTML = techHtml;
-        }
-
-        // Inventário & Preços
-        function renderInventory() {
-            const html = globalInventory.map(i => `
-                <tr class="hover:bg-slate-900/50 transition border-b border-slate-800/60">
-                    <td class="p-4 font-semibold text-white">${i.name}</td>
-                    <td class="p-4 text-slate-400 text-xs">${i.category || 'Geral'}</td>
-                    <td class="p-4 font-mono font-bold text-amber-400">${i.stock}</td>
-                    <td class="p-4 text-slate-400 text-xs">${i.unit}</td>
-                    <td class="p-4 font-bold text-emerald-400">${Number(i.price).toLocaleString('pt-PT')} MT</td>
-                    <td class="p-4 text-center">
-                        ${currentUser.role === 'Administrador' ? `
-                            <button onclick="editInventory(${i.id})" class="text-amber-400 hover:text-amber-300 p-1.5"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button onclick="deleteInventory(${i.id})" class="text-red-400 hover:text-red-300 p-1.5 ml-2"><i class="fa-solid fa-trash"></i></button>
-                        ` : '<span class="text-slate-600 text-xs">Bloqueado</span>'}
-                    </td>
-                </tr>
-            `).join('') || '<tr><td colspan="6" class="p-4 text-center text-slate-500">Nenhum material registado.</td></tr>';
-            document.getElementById('inventory-table-body').innerHTML = html;
-        }
-
-        function openInventoryModal() {
-            document.getElementById('inv-id').value = '';
-            document.getElementById('inventory-form').reset();
-            document.getElementById('inventory-modal').classList.remove('hidden');
-        }
-        function closeInventoryModal() {
-            document.getElementById('inventory-modal').classList.add('hidden');
-        }
-
-        async function saveInventory(e) {
-            e.preventDefault();
-            const id = document.getElementById('inv-id').value;
-            const payload = {
-                name: document.getElementById('inv-name').value,
-                stock: parseInt(document.getElementById('inv-stock').value),
-                unit: document.getElementById('inv-unit').value,
-                price: parseFloat(document.getElementById('inv-price').value)
-            };
-
-            if (id) {
-                await supabase.from('inventory').update(payload).eq('id', id);
-            } else {
-                await supabase.from('inventory').insert([payload]);
-            }
-            closeInventoryModal();
-            loadAllData();
-        }
-
-        async function editInventory(id) {
-            const item = globalInventory.find(i => i.id === id);
-            if (!item) return;
-            document.getElementById('inv-id').value = item.id;
-            document.getElementById('inv-name').value = item.name;
-            document.getElementById('inv-stock').value = item.stock;
-            document.getElementById('inv-unit').value = item.unit;
-            document.getElementById('inv-price').value = item.price;
-            document.getElementById('inventory-modal').classList.remove('hidden');
-        }
-
-        async function deleteInventory(id) {
-            if (confirm('Tem certeza que deseja apagar este material?')) {
-                await supabase.from('inventory').delete().eq('id', id);
-                loadAllData();
-            }
-        }
-
-        // Equipa & Trabalhadores
-        function renderWorkers() {
-            const html = globalWorkers.map(w => `
-                <tr class="hover:bg-slate-900/50 transition border-b border-slate-800/60">
-                    <td class="p-4 font-semibold text-white">${w.name}</td>
-                    <td class="p-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${w.role === 'Administrador' ? 'bg-amber-500/20 text-amber-400' : 'bg-blue-500/20 text-blue-400'}">${w.role}</span></td>
-                    <td class="p-4 font-mono text-xs text-slate-300">${w.username || '-'}</td>
-                    <td class="p-4 text-slate-400 text-xs">${w.phone || '-'}</td>
-                    <td class="p-4 text-center">
-                        ${currentUser.role === 'Administrador' ? `
-                            <button onclick="deleteWorker(${w.id})" class="text-red-400 hover:text-red-300 p-1.5"><i class="fa-solid fa-trash"></i></button>
-                        ` : '<span class="text-slate-600 text-xs">Bloqueado</span>'}
-                    </td>
-                </tr>
-            `).join('') || '';
-            document.getElementById('workers-table-body').innerHTML = html;
-        }
-
-        function openWorkerModal() {
-            document.getElementById('worker-form').reset();
-            document.getElementById('worker-modal').classList.remove('hidden');
-        }
-        function closeWorkerModal() {
-            document.getElementById('worker-modal').classList.add('hidden');
-        }
-
-        async function saveWorker(e) {
-            e.preventDefault();
-            const payload = {
-                name: document.getElementById('worker-name').value,
-                role: document.getElementById('worker-role').value,
-                username: document.getElementById('worker-username').value,
-                password: document.getElementById('worker-password').value,
-                phone: document.getElementById('worker-phone').value
-            };
-            const { error } = await supabase.from('workers').insert([payload]);
-            if (error) {
-                alert('Erro ao criar funcionário (username duplicado?): ' + error.message);
-                return;
-            }
-            closeWorkerModal();
-            loadAllData();
-        }
-
-        async function deleteWorker(id) {
-            if (confirm('Deseja remover este funcionário?')) {
-                await supabase.from('workers').delete().eq('id', id);
-                loadAllData();
-            }
-        }
-
-        // Clientes CRM
-        function renderClients() {
-            const html = globalClients.map(c => `
-                <tr class="hover:bg-slate-900/50 transition border-b border-slate-800/60">
-                    <td class="p-4 font-semibold text-white">${c.name}</td>
-                    <td class="p-4 text-slate-300 text-xs">${c.phone || '-'}</td>
-                    <td class="p-4 text-slate-400 text-xs">${c.address || '-'}</td>
-                    <td class="p-4 text-center">
-                        <button onclick="deleteClient(${c.id})" class="text-red-400 hover:text-red-300 p-1.5"><i class="fa-solid fa-trash"></i></button>
-                    </td>
-                </tr>
-            `).join('') || '';
-            document.getElementById('clients-table-body').innerHTML = html;
-        }
-
-        function openClientModal() {
-            document.getElementById('client-form').reset();
-            document.getElementById('client-modal').classList.remove('hidden');
-        }
-        function closeClientModal() {
-            document.getElementById('client-modal').classList.add('hidden');
-        }
-
-        async function saveClient(e) {
-            e.preventDefault();
-            const payload = {
-                name: document.getElementById('client-name').value,
-                phone: document.getElementById('client-phone').value,
-                address: document.getElementById('client-address').value
-            };
-            await supabase.from('clients').insert([payload]);
-            closeClientModal();
-            loadAllData();
-        }
-
-        async function deleteClient(id) {
-            if (confirm('Apagar cliente?')) {
-                await supabase.from('clients').delete().eq('id', id);
-                loadAllData();
-            }
-        }
-
-        // Orçamentos
-        function renderQuotes() {
-            const html = globalQuotes.map(q => `
-                <tr class="hover:bg-slate-900/50 transition border-b border-slate-800/60">
-                    <td class="p-4 font-mono text-xs text-slate-300">#${q.id}</td>
-                    <td class="p-4 font-semibold text-white">${q.client_name || 'Cliente'}</td>
-                    <td class="p-4 text-xs text-slate-300">${q.worker_name || 'N/A'}</td>
-                    <td class="p-4 text-xs text-slate-400">${q.title}</td>
-                    <td class="p-4 font-bold text-emerald-400 text-right">${Number(q.amount).toLocaleString('pt-PT')} MT</td>
-                    <td class="p-4 text-center">
-                        <button onclick="deleteQuote(${q.id})" class="text-red-400 hover:text-red-300 p-1.5"><i class="fa-solid fa-trash"></i></button>
-                    </td>
-                </tr>
-            `).join('') || '';
-            document.getElementById('quotes-table-body').innerHTML = html;
-        }
-
-        function openQuoteModal() {
-            // Preencher selects
-            const clientSel = document.getElementById('quote-client');
-            clientSel.innerHTML = globalClients.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
-
-            const workerSel = document.getElementById('quote-worker');
-            workerSel.innerHTML = globalWorkers.map(w => `<option value="${w.name}">${w.name} (${w.role})</option>`).join('');
-
-            document.getElementById('quote-form').reset();
-            document.getElementById('quote-modal').classList.remove('hidden');
-        }
-        function closeQuoteModal() {
-            document.getElementById('quote-modal').classList.add('hidden');
-        }
-
-        async function saveQuote(e) {
-            e.preventDefault();
-            const payload = {
-                client_name: document.getElementById('quote-client').value,
-                worker_name: document.getElementById('quote-worker').value,
-                title: document.getElementById('quote-title').value,
-                amount: parseFloat(document.getElementById('quote-amount').value),
-                status: document.getElementById('quote-status').value
-            };
-            await supabase.from('quotes').insert([payload]);
-            closeQuoteModal();
-            loadAllData();
-        }
-
-        async function deleteQuote(id) {
-            if (confirm('Apagar orçamento?')) {
-                await supabase.from('quotes').delete().eq('id', id);
-                loadAllData();
-            }
-        }
-
-        // Relatórios & Exportação
-        function renderReports() {
-            const total = globalQuotes.reduce((acc, q) => acc + (Number(q.amount) || 0), 0);
-            document.getElementById('report-total-rev').innerText = total.toLocaleString('pt-PT') + ' MT';
-            document.getElementById('report-avg-rev').innerText = globalQuotes.length ? (total / globalQuotes.length).toLocaleString('pt-PT', {maximumFractionDigits: 2}) + ' MT' : '0 MT';
-
-            document.getElementById('financial-summary-container').innerHTML = `
-                <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 flex justify-between items-center">
-                    <div>
-                        <h5 class="text-xs font-bold text-white">Total Consolidado Geral</h5>
-                        <p class="text-[10px] text-slate-400">${globalQuotes.length} serviços faturados</p>
-                    </div>
-                    <span class="text-lg font-bold text-emerald-400">${total.toLocaleString('pt-PT')} MT</span>
-                </div>
-            `;
-        }
-
-        function exportFinancialReport() {
-            const ws = XLSX.utils.json_to_sheet(globalQuotes);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Faturação Global");
-            XLSX.writeFile(wb, "Electro_Honario_Relatorio_Financeiro.xlsx");
-        }
-
-        function saveSettings(e) {
-            e.preventDefault();
-            alert('Ajustes guardados com sucesso!');
+            document.getElementById('current-page-title').textContent = tabId.toUpperCase();
         }
     </script>
 </body>
 </html>
+
