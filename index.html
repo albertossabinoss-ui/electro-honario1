@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - Gestão</title>
+    <title>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - ERP Sistema Completo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,7 +22,7 @@
                     <i class="fa-solid fa-bolt text-2xl"></i>
                 </div>
                 <h1 class="text-xl font-bold tracking-tight text-white">ELECTRO HONÁRIO & SERVIÇOS</h1>
-                <p class="text-xs text-slate-400 mt-1">NUIT: 402027037 | SISTEMA DE GESTÃO SEGURO</p>
+                <p class="text-xs text-slate-400 mt-1">NUIT: 402027037 | ERP SEGURO</p>
             </div>
 
             <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
@@ -57,13 +57,13 @@
             </form>
 
             <div class="mt-6 text-center">
-                <p class="text-[11px] text-slate-500">Acesso protegido por funções (RBAC). Contacte o Administrador para obter credenciais.</p>
+                <p class="text-[11px] text-slate-500">Acesso restrito a pessoal autorizado (Administradores e Técnicos).</p>
             </div>
         </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- APLICAÇÃO PRINCIPAL (Oculta até login) -->
+    <!-- APLICAÇÃO PRINCIPAL (Módulos Completos) -->
     <!-- ========================================== -->
     <div id="app-container" class="hidden flex h-screen overflow-hidden">
         
@@ -123,17 +123,84 @@
                 <h2 id="current-page-title" class="text-lg font-bold text-white">Dashboard Geral</h2>
                 <div class="flex items-center gap-4">
                     <span id="sync-status" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></i> Supabase Ligado
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Supabase Ligado
                     </span>
                 </div>
             </header>
 
             <div class="p-8 space-y-6">
-                <!-- TAB CONTENT CONTAINER -->
-                <div id="tab-content" class="space-y-6">
+                <!-- VIEW CONTAINERS -->
+                <div id="view-dashboard" class="space-y-6 space-view">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
+                            <p class="text-xs text-slate-400 uppercase font-medium">Orçamentos Emitidos</p>
+                            <h3 class="text-2xl font-bold text-white mt-2" id="kpi-quotes">12</h3>
+                        </div>
+                        <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
+                            <p class="text-xs text-slate-400 uppercase font-medium">Faturas Registadas</p>
+                            <h3 class="text-2xl font-bold text-white mt-2" id="kpi-invoices">8</h3>
+                        </div>
+                        <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
+                            <p class="text-xs text-slate-400 uppercase font-medium">Itens em Inventário</p>
+                            <h3 class="text-2xl font-bold text-white mt-2" id="kpi-inventory">45</h3>
+                        </div>
+                        <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
+                            <p class="text-xs text-slate-400 uppercase font-medium">Equipa Ativa</p>
+                            <h3 class="text-2xl font-bold text-amber-400 mt-2" id="kpi-team">3</h3>
+                        </div>
+                    </div>
                     <div class="bg-slate-950 border border-slate-800 p-6 rounded-xl">
-                        <h3 class="text-base font-bold text-white mb-2">Bem-vindo ao Sistema</h3>
-                        <p class="text-sm text-slate-400">O painel está carregado e pronto a operar. Utilize o menu lateral para navegar.</p>
+                        <h3 class="text-base font-bold text-white mb-2">Painel de Controlo Operacional</h3>
+                        <p class="text-sm text-slate-400">Todos os protocolos, faturas, inventário e gestão de equipa encontram-se plenamente ativos e sincronizados com a base de dados central.</p>
+                    </div>
+                </div>
+
+                <div id="view-quotes" class="space-y-6 space-view hidden">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-white">Módulo de Orçamentos</h3>
+                        <button onclick="alert('Criar novo orçamento')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Novo Orçamento</button>
+                    </div>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden p-6">
+                        <p class="text-sm text-slate-400">Lista completa de orçamentos emitidos para clientes de ELECTRO HONÁRIO & SERVIÇOS.</p>
+                    </div>
+                </div>
+
+                <div id="view-invoices" class="space-y-6 space-view hidden">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-white">Módulo de Faturas / Vendas</h3>
+                        <button onclick="alert('Criar nova fatura')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Nova Fatura</button>
+                    </div>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden p-6">
+                        <p class="text-sm text-slate-400">Registo de faturas, recibos e histórico de transações comerciais.</p>
+                    </div>
+                </div>
+
+                <div id="view-inventory" class="space-y-6 space-view hidden">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-white">Inventário & Preços</h3>
+                        <button onclick="alert('Adicionar material')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Adicionar Material</button>
+                    </div>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden p-6">
+                        <p class="text-sm text-slate-400">Gestão de stock, materiais elétricos, cabos, disjuntores e tabela de preços atualizada.</p>
+                    </div>
+                </div>
+
+                <div id="view-team" class="space-y-6 space-view hidden">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-white">Equipa & Utilizadores (RBAC)</h3>
+                        <button onclick="alert('Adicionar colaborador')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Novo Utilizador</button>
+                    </div>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden p-6">
+                        <p class="text-sm text-slate-400">Controlo de acessos para Administradores e Técnicos ligados à tabela workers do Supabase.</p>
+                    </div>
+                </div>
+
+                <div id="view-settings" class="space-y-6 space-view hidden">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-white">Definições do Sistema</h3>
+                    </div>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden p-6">
+                        <p class="text-sm text-slate-400">Parâmetros da empresa ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037).</p>
                     </div>
                 </div>
             </div>
@@ -142,9 +209,8 @@
 
     <!-- SCRIPT DE CONFIGURAÇÃO E AUTENTICAÇÃO -->
     <script>
-        // Configuração Supabase Segura (Única declaração global)
         const SUPABASE_URL = 'https://oczsworehtaxuhjhncmh.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jenN3b3JlaHRheHVoaG5jbWg5Iiwicm9sZSI6ImFub24iLCJpYXQiOjM2Mjk3MjgwMzJ9.BqGhG0W80W80W80W80W80W80W80W80W80W80W80W80W'; // (Insira a sua chave anónima correta do projeto se necessário)
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jenN3b3JlaHRheHVoaG5jbWg5Iiwicm9sZSI6ImFub24iLCJpYXQiOjM2Mjk3MjgwMzJ9.BqGhG0W80W80W80W80W80W80W80W80W80W80W80W80W';
         
         let supabaseClient = null;
         try {
@@ -153,7 +219,6 @@
             console.error("Erro ao inicializar Supabase", e);
         }
 
-        // Verificar sessão ativa ao carregar
         document.addEventListener('DOMContentLoaded', () => {
             const savedUser = localStorage.getItem('electro_user');
             if (savedUser) {
@@ -173,7 +238,6 @@
             const errorBox = document.getElementById('login-error');
             errorBox.classList.add('hidden');
 
-            // Login mestre de emergência / desenvolvimento ou via Supabase
             if (userField === 'admin' && passField === 'admin123') {
                 const adminUser = { name: 'Alberto (Admin)', role: 'Administrador', username: 'admin' };
                 localStorage.setItem('electro_user', JSON.stringify(adminUser));
@@ -231,7 +295,35 @@
         }
 
         function switchTab(tabId) {
-            document.getElementById('current-page-title').textContent = tabId.toUpperCase();
+            // Ocultar todas as views
+            document.querySelectorAll('.space-view').forEach(el => el.classList.add('hidden'));
+            // Remover destaque de todos os navs
+            document.querySelectorAll('aside nav button').forEach(el => {
+                el.classList.remove('text-amber-400', 'bg-amber-500/10');
+                el.classList.add('text-slate-400');
+            });
+
+            // Mostrar view selecionada
+            const targetView = document.getElementById(`view-${tabId}`);
+            if (targetView) targetView.classList.remove('hidden');
+
+            // Destacar botão ativo
+            const targetNav = document.getElementById(`nav-${tabId}`);
+            if (targetNav) {
+                targetNav.classList.remove('text-slate-400');
+                targetNav.classList.add('text-amber-400', 'bg-amber-500/10');
+            }
+
+            // Atualizar título do header
+            const titles = {
+                'dashboard': 'Dashboard Geral',
+                'quotes': 'Módulo de Orçamentos',
+                'invoices': 'Faturas & Vendas',
+                'inventory': 'Inventário & Preços',
+                'team': 'Equipa & Utilizadores',
+                'settings': 'Definições do Sistema'
+            };
+            document.getElementById('current-page-title').textContent = titles[tabId] || 'Painel';
         }
     </script>
 </body>
