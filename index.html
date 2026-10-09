@@ -55,15 +55,11 @@
                     <i class="fa-solid fa-arrow-right-to-bracket"></i>
                 </button>
             </form>
-
-            <div class="mt-6 text-center">
-                <p class="text-[11px] text-slate-500">Acesso restrito a pessoal autorizado (Administradores e Técnicos).</p>
-            </div>
         </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- APLICAÇÃO PRINCIPAL (Módulos Completos) -->
+    <!-- APLICAÇÃO PRINCIPAL -->
     <!-- ========================================== -->
     <div id="app-container" class="hidden flex h-screen overflow-hidden">
         
@@ -89,6 +85,9 @@
                     </button>
                     <button onclick="switchTab('invoices')" id="nav-invoices" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
                         <i class="fa-solid fa-receipt w-5"></i> Faturas / Vendas
+                    </button>
+                    <button onclick="switchTab('installations')" id="nav-installations" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
+                        <i class="fa-solid fa-house-chimney-user w-5"></i> Instalações & Obras
                     </button>
                     <button onclick="switchTab('inventory')" id="nav-inventory" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
                         <i class="fa-solid fa-boxes-stacked w-5"></i> Inventário & Preços
@@ -129,7 +128,7 @@
             </header>
 
             <div class="p-8 space-y-6">
-                <!-- VIEW CONTAINERS -->
+                <!-- DASHBOARD VIEW -->
                 <div id="view-dashboard" class="space-y-6 space-view">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
@@ -141,73 +140,174 @@
                             <h3 class="text-2xl font-bold text-white mt-2" id="kpi-invoices">8</h3>
                         </div>
                         <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
-                            <p class="text-xs text-slate-400 uppercase font-medium">Itens em Inventário</p>
-                            <h3 class="text-2xl font-bold text-white mt-2" id="kpi-inventory">45</h3>
+                            <p class="text-xs text-slate-400 uppercase font-medium">Instalações em Obras</p>
+                            <h3 class="text-2xl font-bold text-amber-400 mt-2" id="kpi-installs">5</h3>
                         </div>
                         <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
                             <p class="text-xs text-slate-400 uppercase font-medium">Equipa Ativa</p>
-                            <h3 class="text-2xl font-bold text-amber-400 mt-2" id="kpi-team">3</h3>
+                            <h3 class="text-2xl font-bold text-white mt-2" id="kpi-team">3</h3>
                         </div>
                     </div>
                     <div class="bg-slate-950 border border-slate-800 p-6 rounded-xl">
-                        <h3 class="text-base font-bold text-white mb-2">Painel de Controlo Operacional</h3>
-                        <p class="text-sm text-slate-400">Todos os protocolos, faturas, inventário e gestão de equipa encontram-se plenamente ativos e sincronizados com a base de dados central.</p>
+                        <h3 class="text-base font-bold text-white mb-2">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h3>
+                        <p class="text-sm text-slate-400">NUIT: 402027037 | Sistema integrado com cálculo automático de recibos, orçamentos, inventário e registo de instalações técnicas nos clientes.</p>
                     </div>
                 </div>
 
+                <!-- QUOTES VIEW -->
                 <div id="view-quotes" class="space-y-6 space-view hidden">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-bold text-white">Módulo de Orçamentos</h3>
-                        <button onclick="alert('Criar novo orçamento')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Novo Orçamento</button>
+                        <button onclick="openModal('quote')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs flex items-center gap-2"><i class="fa-solid fa-plus"></i> Novo Orçamento</button>
                     </div>
                     <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden p-6">
-                        <p class="text-sm text-slate-400">Lista completa de orçamentos emitidos para clientes de ELECTRO HONÁRIO & SERVIÇOS.</p>
+                        <p class="text-xs text-slate-400 mb-4">Cabeçalho automático com NUIT: 402027037 em todos os documentos gerados.</p>
+                        <div id="quotes-list" class="space-y-3">
+                            <div class="p-4 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <h4 class="text-sm font-bold text-white">Orçamento #ORC-2026-001</h4>
+                                    <p class="text-xs text-slate-400">Cliente: João Matola | Instalação Elétrica Residencial</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-sm font-bold text-amber-400">18.500,00 MT</span>
+                                    <p class="text-[10px] text-emerald-400">Aprovado</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- INVOICES VIEW -->
                 <div id="view-invoices" class="space-y-6 space-view hidden">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-white">Módulo de Faturas / Vendas</h3>
-                        <button onclick="alert('Criar nova fatura')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Nova Fatura</button>
+                        <h3 class="text-lg font-bold text-white">Faturas & Recibos de Pagamento</h3>
+                        <button onclick="openModal('invoice')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs flex items-center gap-2"><i class="fa-solid fa-plus"></i> Nova Fatura / Recibo</button>
                     </div>
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden p-6">
-                        <p class="text-sm text-slate-400">Registo de faturas, recibos e histórico de transações comerciais.</p>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-6">
+                        <p class="text-xs text-slate-400 mb-4">Cálculos automáticos de IVA, subtotal e emissão com dados fiscais oficiais da empresa.</p>
+                        <div id="invoices-list" class="space-y-3">
+                            <div class="p-4 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <h4 class="text-sm font-bold text-white">Fatura #FAT-2026-001</h4>
+                                    <p class="text-xs text-slate-400">Cliente: Maria Cossa | Material + Instalação</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-sm font-bold text-emerald-400">24.300,00 MT</span>
+                                    <p class="text-[10px] text-slate-400">Pago / Liquidado</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- INSTALLATIONS VIEW (NOVO/COMPLETO) -->
+                <div id="view-installations" class="space-y-6 space-view hidden">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-white">Registo de Instalações e Obras em Clientes</h3>
+                        <button onclick="openModal('installation')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs flex items-center gap-2"><i class="fa-solid fa-plus"></i> Registar Nova Instalação</button>
+                    </div>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-6 space-y-4">
+                        <p class="text-xs text-slate-400">Registo detalhado da morada do cliente, tipo de instalação elétrica, materiais aplicados retirados do inventário e técnicos designados.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">Residencial</span>
+                                        <h4 class="text-sm font-bold text-white mt-1">Instalação de Quadro Elétrico</h4>
+                                    </div>
+                                    <span class="text-xs text-slate-400">08/10/2026</span>
+                                </div>
+                                <p class="text-xs text-slate-300"><strong class="text-slate-400">Cliente:</strong> Carlos Mondlane (Bairro Triunfo, Q. 12)</p>
+                                <p class="text-xs text-slate-300"><strong class="text-slate-400">Materiais:</strong> Disjuntor 32A, Cabo 6mm (20m), Calhas</p>
+                                <p class="text-xs text-slate-300"><strong class="text-slate-400">Técnicos Responsáveis:</strong> Honário Jr., Alberto Sabino</p>
+                                <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-xs">
+                                    <span class="text-slate-400">Orçamento: 12.000 MT</span>
+                                    <span class="text-emerald-400 font-bold">Concluído</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INVENTORY VIEW -->
                 <div id="view-inventory" class="space-y-6 space-view hidden">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-white">Inventário & Preços</h3>
-                        <button onclick="alert('Adicionar material')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Adicionar Material</button>
+                        <h3 class="text-lg font-bold text-white">Inventário & Tabela de Preços</h3>
+                        <button onclick="alert('Adicionar novo material')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Adicionar Material</button>
                     </div>
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden p-6">
-                        <p class="text-sm text-slate-400">Gestão de stock, materiais elétricos, cabos, disjuntores e tabela de preços atualizada.</p>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-6">
+                        <p class="text-xs text-slate-400 mb-4">Gestão de stock para aplicação direta nas instalações e orçamentos.</p>
+                        <table class="w-full text-left text-xs text-slate-300">
+                            <thead class="bg-slate-900 text-slate-400 uppercase text-[10px]">
+                                <tr>
+                                    <th class="p-3">Material / Artigo</th>
+                                    <th class="p-3">Categoria</th>
+                                    <th class="p-3">Stock</th>
+                                    <th class="p-3 text-right">Preço Unitário (MT)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800">
+                                <tr>
+                                    <td class="p-3 font-medium text-white">Disjuntor Bipolar 32A</td>
+                                    <td class="p-3 text-slate-400">Proteção Elétrica</td>
+                                    <td class="p-3">18 un.</td>
+                                    <td class="p-3 text-right text-amber-400 font-bold">450,00 MT</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium text-white">Cabo Condutor 6mm (Rolo 100m)</td>
+                                    <td class="p-3 text-slate-400">Cabos & Condutores</td>
+                                    <td class="p-3">4 rolos</td>
+                                    <td class="p-3 text-right text-amber-400 font-bold">6.500,00 MT</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
+                <!-- TEAM VIEW -->
                 <div id="view-team" class="space-y-6 space-view hidden">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-bold text-white">Equipa & Utilizadores (RBAC)</h3>
-                        <button onclick="alert('Adicionar colaborador')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Novo Utilizador</button>
+                        <button onclick="alert('Novo colaborador')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Adicionar Técnico</button>
                     </div>
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden p-6">
-                        <p class="text-sm text-slate-400">Controlo de acessos para Administradores e Técnicos ligados à tabela workers do Supabase.</p>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-6">
+                        <p class="text-xs text-slate-400 mb-4">Colaboradores ligados à tabela workers no Supabase.</p>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <p class="text-xs font-bold text-white">Alberto Sabino</p>
+                                    <p class="text-[10px] text-slate-400">Utilizador: admin | Nível: Administrador</p>
+                                </div>
+                                <span class="px-2 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] rounded border border-emerald-500/20">Ativo</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- SETTINGS VIEW -->
                 <div id="view-settings" class="space-y-6 space-view hidden">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-white">Definições do Sistema</h3>
+                        <h3 class="text-lg font-bold text-white">Definições da Empresa</h3>
                     </div>
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden p-6">
-                        <p class="text-sm text-slate-400">Parâmetros da empresa ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037).</p>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-6 space-y-4 text-xs">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-slate-400 uppercase font-medium mb-1">Nome da Empresa</label>
+                                <input type="text" value="ELECTRO HONÁRIO & SERVIÇOS SU, LDA." readonly class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded text-white">
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 uppercase font-medium mb-1">NUIT Oficial</label>
+                                <input type="text" value="402027037" readonly class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded text-amber-400 font-bold">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- SCRIPT DE CONFIGURAÇÃO E AUTENTICAÇÃO -->
+    <!-- SCRIPT DE FUNCIONAMENTO -->
     <script>
         const SUPABASE_URL = 'https://oczsworehtaxuhjhncmh.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jenN3b3JlaHRheHVoaG5jbWg5Iiwicm9sZSI6ImFub24iLCJpYXQiOjM2Mjk3MjgwMzJ9.BqGhG0W80W80W80W80W80W80W80W80W80W80W80W80W';
@@ -215,30 +315,23 @@
         let supabaseClient = null;
         try {
             supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        } catch(e) {
-            console.error("Erro ao inicializar Supabase", e);
-        }
+        } catch(e) { console.error(e); }
 
         document.addEventListener('DOMContentLoaded', () => {
             const savedUser = localStorage.getItem('electro_user');
             if (savedUser) {
-                try {
-                    const user = JSON.parse(savedUser);
-                    activateApp(user);
-                } catch(e) {
-                    localStorage.removeItem('electro_user');
-                }
+                try { activateApp(JSON.parse(savedUser)); } catch(e) { localStorage.removeItem('electro_user'); }
             }
         });
 
         async function handleLogin(e) {
             e.preventDefault();
-            const userField = document.getElementById('login-username').value.trim();
-            const passField = document.getElementById('login-password').value.trim();
-            const errorBox = document.getElementById('login-error');
-            errorBox.classList.add('hidden');
+            const u = document.getElementById('login-username').value.trim();
+            const p = document.getElementById('login-password').value.trim();
+            const err = document.getElementById('login-error');
+            err.classList.add('hidden');
 
-            if (userField === 'admin' && passField === 'admin123') {
+            if (u === 'admin' && p === 'admin123') {
                 const adminUser = { name: 'Alberto (Admin)', role: 'Administrador', username: 'admin' };
                 localStorage.setItem('electro_user', JSON.stringify(adminUser));
                 activateApp(adminUser);
@@ -246,38 +339,24 @@
             }
 
             if (!supabaseClient) {
-                errorBox.textContent = "Erro de ligação ao Supabase.";
-                errorBox.classList.remove('hidden');
+                err.textContent = "Erro de ligação ao Supabase.";
+                err.classList.remove('hidden');
                 return;
             }
 
             try {
-                const { data, error } = await supabaseClient
-                    .from('workers')
-                    .select('*')
-                    .eq('username', userField)
-                    .single();
-
-                if (error || !data) {
-                    errorBox.textContent = "Utilizador não encontrado.";
-                    errorBox.classList.remove('hidden');
+                const { data, error } = await supabaseClient.from('workers').select('*').eq('username', u).single();
+                if (error || !data || data.password !== p) {
+                    err.textContent = "Credenciais inválidas.";
+                    err.classList.remove('hidden');
                     return;
                 }
-
-                if (data.password !== passField) {
-                    errorBox.textContent = "Palavra-passe incorreta.";
-                    errorBox.classList.remove('hidden');
-                    return;
-                }
-
                 const user = { name: data.name || data.username, role: data.role || 'Técnico', username: data.username };
                 localStorage.setItem('electro_user', JSON.stringify(user));
                 activateApp(user);
-
-            } catch(err) {
-                console.error(err);
-                errorBox.textContent = "Erro ao validar credenciais.";
-                errorBox.classList.remove('hidden');
+            } catch(ex) {
+                err.textContent = "Erro ao autenticar.";
+                err.classList.remove('hidden');
             }
         }
 
@@ -295,35 +374,34 @@
         }
 
         function switchTab(tabId) {
-            // Ocultar todas as views
             document.querySelectorAll('.space-view').forEach(el => el.classList.add('hidden'));
-            // Remover destaque de todos os navs
             document.querySelectorAll('aside nav button').forEach(el => {
                 el.classList.remove('text-amber-400', 'bg-amber-500/10');
                 el.classList.add('text-slate-400');
             });
-
-            // Mostrar view selecionada
             const targetView = document.getElementById(`view-${tabId}`);
             if (targetView) targetView.classList.remove('hidden');
 
-            // Destacar botão ativo
             const targetNav = document.getElementById(`nav-${tabId}`);
             if (targetNav) {
                 targetNav.classList.remove('text-slate-400');
                 targetNav.classList.add('text-amber-400', 'bg-amber-500/10');
             }
 
-            // Atualizar título do header
             const titles = {
                 'dashboard': 'Dashboard Geral',
                 'quotes': 'Módulo de Orçamentos',
-                'invoices': 'Faturas & Vendas',
+                'invoices': 'Faturas & Recibos',
+                'installations': 'Registo de Instalações e Obras',
                 'inventory': 'Inventário & Preços',
                 'team': 'Equipa & Utilizadores',
                 'settings': 'Definições do Sistema'
             };
             document.getElementById('current-page-title').textContent = titles[tabId] || 'Painel';
+        }
+
+        function openModal(type) {
+            alert(`A abrir formulário para: ${type.toUpperCase()} com injeção automática de NUIT: 402027037 e dados de ELECTRO HONÁRIO & SERVIÇOS.`);
         }
     </script>
 </body>
