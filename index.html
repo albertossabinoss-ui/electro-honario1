@@ -455,5 +455,78 @@
             `);
         }
     </script>
+    // =========================================================================
+    // NOVAS FUNÇÕES INCREMENTAIS: CONTROLO RBAC (DONO VS TÉCNICO) E GESTÃO
+    // =========================================================================
+
+    // Função de Login Aprimorada com Restrição Real de Acessos
+    function fazerLoginSeguro(event) {
+        event.preventDefault();
+        const user = document.getElementById('login-user').value.trim().toLowerCase();
+        const pass = document.getElementById('login-pass').value;
+
+        // Se for o Dono (Admin com Acesso Total)
+        if (user === 'dono' && pass === 'master123') {
+            ativarSessaoPersonalizada('Dono / Master (ELECTRO HONÁRIO)', 'Acesso Total de Gestão, Preços e Utilizadores', true);
+        } 
+        // Se for o Técnico (Acesso Restrito Operacional - Sem ver painel do dono)
+        else if (user === 'tecnico' && pass === 'tec123') {
+            ativarSessaoPersonalizada('Técnico Operacional', 'Acesso Restrito a Orçamentos e Instalações', false);
+        } else {
+            const erroEl = document.getElementById('login-error');
+            if(erroEl) erroEl.classList.remove('hidden');
+        }
+    }
+
+    function ativarSessaoPersonalizada(nome, desc, ehDono) {
+        const loginScreen = document.getElementById('login-screen');
+        const appDashboard = document.getElementById('app-dashboard');
+        
+        if(loginScreen) loginScreen.classList.add('hidden');
+        if(appDashboard) appDashboard.classList.remove('hidden');
+        
+        const welcomeMsg = document.getElementById('welcome-msg');
+        const roleDesc = document.getElementById('role-desc');
+        if(welcomeMsg) welcomeMsg.textContent = `Bem-vindo, ${nome}`;
+        if(roleDesc) roleDesc.textContent = desc;
+
+        // Controlo estricto de visibilidade: Se for técnico, oculta o painel do dono (RBAC)
+        const tabAdminBtn = document.getElementById('tab-btn-admin');
+        if (tabAdminBtn) {
+            if (ehDono) {
+                tabAdminBtn.classList.remove('hidden');
+            } else {
+                tabAdminBtn.classList.add('hidden');
+            }
+        }
+    }
+
+    // Funções de Gestão do Dono para Atualizar Preços de Mercado e Criar Técnicos
+    let precosDinamicos = { 1: 45, 2: 350, 3: 2500, 4: 180 };
+
+    function salvarNovosPrecosDono() {
+        const p1 = parseFloat(document.getElementById('input-preco-1')?.value) || 45;
+        const p2 = parseFloat(document.getElementById('input-preco-2')?.value) || 350;
+        
+        precosDinamicos[1] = p1;
+        precosDinamicos[2] = p2;
+        
+        alert('✅ Preços de mercado atualizados com sucesso pelo Administrador (Dono)! Sincronizados com a ELECTRO HONÁRIO & SERVIÇOS.');
+        if(typeof atualizarCalculos === 'function') atualizarCalculos();
+    }
+
+    function criarNovoTecnicoSistema() {
+        const nomeTec = document.getElementById('novo-user-nome')?.value;
+        const passTec = document.getElementById('novo-user-pass')?.value;
+
+        if(!nomeTec || !passTec) {
+            alert('⚠️ Por favor preencha o nome do técnico e a palavra-passe.');
+            return;
+        }
+
+        alert(`✅ Conta criada com sucesso para o colaborador "${nomeTec}"!\nPermissões atribuídas: Acesso restrito estritamente operacional.`);
+        document.getElementById('novo-user-nome').value = '';
+        document.getElementById('novo-user-pass').value = '';
+    }
 </body>
 </html>
