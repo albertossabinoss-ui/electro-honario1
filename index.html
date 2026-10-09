@@ -22,7 +22,7 @@
                     <i class="fa-solid fa-bolt text-2xl"></i>
                 </div>
                 <h1 class="text-xl font-bold tracking-tight text-white">ELECTRO HONÁRIO & SERVIÇOS</h1>
-                <p class="text-xs text-slate-400 mt-1">NUIT: 402027037 | ERP SEGURO</p>
+                <p class="text-xs text-slate-400 mt-1">NUIT: 402027037 | ERP Profissional</p>
             </div>
 
             <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
@@ -71,7 +71,7 @@
                         <i class="fa-solid fa-bolt"></i>
                     </div>
                     <div>
-                        <h2 class="text-xs font-bold text-white tracking-wide">ELECTRO HONÁRIO</h2>
+                        <h2 class="text-xs font-bold text-white tracking-wide truncate">ELECTRO HONÁRIO</h2>
                         <span class="text-[10px] text-amber-400 font-medium">NUIT: 402027037</span>
                     </div>
                 </div>
@@ -84,16 +84,16 @@
                         <i class="fa-solid fa-file-invoice-dollar w-5"></i> Orçamentos
                     </button>
                     <button onclick="switchTab('invoices')" id="nav-invoices" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
-                        <i class="fa-solid fa-receipt w-5"></i> Faturas / Vendas
+                        <i class="fa-solid fa-receipt w-5"></i> Faturas / Recibos
                     </button>
                     <button onclick="switchTab('installations')" id="nav-installations" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
-                        <i class="fa-solid fa-house-chimney-user w-5"></i> Instalações & Obras
+                        <i class="fa-solid fa-house-chimney-user w-5"></i> Instalações & Clientes
                     </button>
                     <button onclick="switchTab('inventory')" id="nav-inventory" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
                         <i class="fa-solid fa-boxes-stacked w-5"></i> Inventário & Preços
                     </button>
                     <button onclick="switchTab('team')" id="nav-team" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
-                        <i class="fa-solid fa-users-gear w-5"></i> Equipa & Utilizadores
+                        <i class="fa-solid fa-users-gear w-5"></i> Equipa & Técnicos
                     </button>
                     <button onclick="switchTab('settings')" id="nav-settings" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
                         <i class="fa-solid fa-gears w-5"></i> Definições
@@ -122,128 +122,127 @@
                 <h2 id="current-page-title" class="text-lg font-bold text-white">Dashboard Geral</h2>
                 <div class="flex items-center gap-4">
                     <span id="sync-status" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Supabase Ligado
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Supabase Ligado (Tempo Real)
                     </span>
                 </div>
             </header>
 
             <div class="p-8 space-y-6">
-                <!-- DASHBOARD VIEW -->
+                <!-- DASHBOARD -->
                 <div id="view-dashboard" class="space-y-6 space-view">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
                             <p class="text-xs text-slate-400 uppercase font-medium">Orçamentos Emitidos</p>
-                            <h3 class="text-2xl font-bold text-white mt-2" id="kpi-quotes">12</h3>
+                            <h3 class="text-2xl font-bold text-white mt-2">12</h3>
                         </div>
                         <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
-                            <p class="text-xs text-slate-400 uppercase font-medium">Faturas Registadas</p>
-                            <h3 class="text-2xl font-bold text-white mt-2" id="kpi-invoices">8</h3>
+                            <p class="text-xs text-slate-400 uppercase font-medium">Faturas / Recibos</p>
+                            <h3 class="text-2xl font-bold text-white mt-2">8</h3>
                         </div>
                         <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
-                            <p class="text-xs text-slate-400 uppercase font-medium">Instalações em Obras</p>
-                            <h3 class="text-2xl font-bold text-amber-400 mt-2" id="kpi-installs">5</h3>
+                            <p class="text-xs text-slate-400 uppercase font-medium">Instalações em Clientes</p>
+                            <h3 class="text-2xl font-bold text-amber-400 mt-2">5</h3>
                         </div>
                         <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl">
                             <p class="text-xs text-slate-400 uppercase font-medium">Equipa Ativa</p>
-                            <h3 class="text-2xl font-bold text-white mt-2" id="kpi-team">3</h3>
+                            <h3 class="text-2xl font-bold text-white mt-2">3</h3>
                         </div>
                     </div>
-                    <div class="bg-slate-950 border border-slate-800 p-6 rounded-xl">
-                        <h3 class="text-base font-bold text-white mb-2">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h3>
-                        <p class="text-sm text-slate-400">NUIT: 402027037 | Sistema integrado com cálculo automático de recibos, orçamentos, inventário e registo de instalações técnicas nos clientes.</p>
+                    <div class="bg-slate-950 border border-slate-800 p-6 rounded-xl space-y-2">
+                        <h3 class="text-base font-bold text-white">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h3>
+                        <p class="text-xs text-slate-400"><strong>NUIT:</strong> 402027037 | Sistema operacional completo para registo de clientes, instalações elétricas residenciais/comerciais, gestão de stock em inventário, controlo de técnicos e emissão automática de documentos com cálculos em tempo real.</p>
                     </div>
                 </div>
 
-                <!-- QUOTES VIEW -->
+                <!-- QUOTES -->
                 <div id="view-quotes" class="space-y-6 space-view hidden">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-bold text-white">Módulo de Orçamentos</h3>
-                        <button onclick="openModal('quote')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs flex items-center gap-2"><i class="fa-solid fa-plus"></i> Novo Orçamento</button>
+                        <button onclick="gerarDocumento('Orçamento')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs flex items-center gap-2"><i class="fa-solid fa-plus"></i> Novo Orçamento</button>
                     </div>
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden p-6">
-                        <p class="text-xs text-slate-400 mb-4">Cabeçalho automático com NUIT: 402027037 em todos os documentos gerados.</p>
-                        <div id="quotes-list" class="space-y-3">
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-6">
+                        <p class="text-xs text-slate-400 mb-4">Orçamentos gerados com o timbre e NUIT oficial da empresa.</p>
+                        <div class="space-y-3">
                             <div class="p-4 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center">
                                 <div>
                                     <h4 class="text-sm font-bold text-white">Orçamento #ORC-2026-001</h4>
-                                    <p class="text-xs text-slate-400">Cliente: João Matola | Instalação Elétrica Residencial</p>
+                                    <p class="text-xs text-slate-400">Cliente: João Matola | Instalação de Quadro Elétrico</p>
                                 </div>
-                                <div class="text-right">
+                                <div class="flex items-center gap-3">
                                     <span class="text-sm font-bold text-amber-400">18.500,00 MT</span>
-                                    <p class="text-[10px] text-emerald-400">Aprovado</p>
+                                    <button onclick="imprimirFicha('Orçamento #ORC-2026-001')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded text-xs"><i class="fa-solid fa-download"></i> Baixar Ficha</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- INVOICES VIEW -->
+                <!-- INVOICES -->
                 <div id="view-invoices" class="space-y-6 space-view hidden">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-bold text-white">Faturas & Recibos de Pagamento</h3>
-                        <button onclick="openModal('invoice')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs flex items-center gap-2"><i class="fa-solid fa-plus"></i> Nova Fatura / Recibo</button>
+                        <button onclick="gerarDocumento('Fatura')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs flex items-center gap-2"><i class="fa-solid fa-plus"></i> Emitir Fatura / Recibo</button>
                     </div>
                     <div class="bg-slate-950 border border-slate-800 rounded-xl p-6">
-                        <p class="text-xs text-slate-400 mb-4">Cálculos automáticos de IVA, subtotal e emissão com dados fiscais oficiais da empresa.</p>
-                        <div id="invoices-list" class="space-y-3">
+                        <p class="text-xs text-slate-400 mb-4">Cálculos automáticos e histórico de pagamentos liquidados.</p>
+                        <div class="space-y-3">
                             <div class="p-4 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center">
                                 <div>
                                     <h4 class="text-sm font-bold text-white">Fatura #FAT-2026-001</h4>
-                                    <p class="text-xs text-slate-400">Cliente: Maria Cossa | Material + Instalação</p>
+                                    <p class="text-xs text-slate-400">Cliente: Maria Cossa | Material Elétrico + Instalação</p>
                                 </div>
-                                <div class="text-right">
+                                <div class="flex items-center gap-3">
                                     <span class="text-sm font-bold text-emerald-400">24.300,00 MT</span>
-                                    <p class="text-[10px] text-slate-400">Pago / Liquidado</p>
+                                    <button onclick="imprimirFicha('Fatura #FAT-2026-001')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded text-xs"><i class="fa-solid fa-download"></i> Baixar Ficha</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- INSTALLATIONS VIEW (NOVO/COMPLETO) -->
+                <!-- INSTALLATIONS & CLIENTS -->
                 <div id="view-installations" class="space-y-6 space-view hidden">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-bold text-white">Registo de Instalações e Obras em Clientes</h3>
-                        <button onclick="openModal('installation')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs flex items-center gap-2"><i class="fa-solid fa-plus"></i> Registar Nova Instalação</button>
+                        <button onclick="gerarDocumento('Instalação')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs flex items-center gap-2"><i class="fa-solid fa-plus"></i> Registar Nova Instalação</button>
                     </div>
                     <div class="bg-slate-950 border border-slate-800 rounded-xl p-6 space-y-4">
-                        <p class="text-xs text-slate-400">Registo detalhado da morada do cliente, tipo de instalação elétrica, materiais aplicados retirados do inventário e técnicos designados.</p>
+                        <p class="text-xs text-slate-400">Controlo de morada, tipo de instalação, materiais aplicados retirados do inventário e técnicos designados.</p>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2">
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">Residencial</span>
-                                        <h4 class="text-sm font-bold text-white mt-1">Instalação de Quadro Elétrico</h4>
+                                        <h4 class="text-sm font-bold text-white mt-1">Instalação de Quadro & Tomadas</h4>
                                     </div>
-                                    <span class="text-xs text-slate-400">08/10/2026</span>
+                                    <span class="text-xs text-slate-400">09/10/2026</span>
                                 </div>
-                                <p class="text-xs text-slate-300"><strong class="text-slate-400">Cliente:</strong> Carlos Mondlane (Bairro Triunfo, Q. 12)</p>
-                                <p class="text-xs text-slate-300"><strong class="text-slate-400">Materiais:</strong> Disjuntor 32A, Cabo 6mm (20m), Calhas</p>
-                                <p class="text-xs text-slate-300"><strong class="text-slate-400">Técnicos Responsáveis:</strong> Honário Jr., Alberto Sabino</p>
+                                <p class="text-xs text-slate-300"><strong class="text-slate-400">Cliente:</strong> Carlos Mondlane (Bairro Triunfo)</p>
+                                <p class="text-xs text-slate-300"><strong class="text-slate-400">Materiais:</strong> Disjuntor 32A, Cabo 6mm, Tubagem</p>
+                                <p class="text-xs text-slate-300"><strong class="text-slate-400">Técnicos:</strong> Honário Jr., Alberto Sabino</p>
                                 <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-xs">
-                                    <span class="text-slate-400">Orçamento: 12.000 MT</span>
-                                    <span class="text-emerald-400 font-bold">Concluído</span>
+                                    <span class="text-amber-400 font-bold">Total: 12.000,00 MT</span>
+                                    <button onclick="imprimirFicha('Ficha de Instalação - Carlos Mondlane')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded text-[11px]"><i class="fa-solid fa-file-pdf"></i> Visualizar / Descarregar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- INVENTORY VIEW -->
+                <!-- INVENTORY -->
                 <div id="view-inventory" class="space-y-6 space-view hidden">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-bold text-white">Inventário & Tabela de Preços</h3>
-                        <button onclick="alert('Adicionar novo material')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Adicionar Material</button>
+                        <button onclick="alert('Adicionar novo material ao stock')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Adicionar Material</button>
                     </div>
                     <div class="bg-slate-950 border border-slate-800 rounded-xl p-6">
-                        <p class="text-xs text-slate-400 mb-4">Gestão de stock para aplicação direta nas instalações e orçamentos.</p>
                         <table class="w-full text-left text-xs text-slate-300">
                             <thead class="bg-slate-900 text-slate-400 uppercase text-[10px]">
                                 <tr>
                                     <th class="p-3">Material / Artigo</th>
                                     <th class="p-3">Categoria</th>
-                                    <th class="p-3">Stock</th>
+                                    <th class="p-3">Stock Disponível</th>
                                     <th class="p-3 text-right">Preço Unitário (MT)</th>
                                 </tr>
                             </thead>
@@ -265,14 +264,13 @@
                     </div>
                 </div>
 
-                <!-- TEAM VIEW -->
+                <!-- TEAM -->
                 <div id="view-team" class="space-y-6 space-view hidden">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-white">Equipa & Utilizadores (RBAC)</h3>
-                        <button onclick="alert('Novo colaborador')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Adicionar Técnico</button>
+                        <h3 class="text-lg font-bold text-white">Equipa & Técnicos (RBAC)</h3>
+                        <button onclick="alert('Adicionar novo técnico')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">Adicionar Colaborador</button>
                     </div>
                     <div class="bg-slate-950 border border-slate-800 rounded-xl p-6">
-                        <p class="text-xs text-slate-400 mb-4">Colaboradores ligados à tabela workers no Supabase.</p>
                         <div class="space-y-3">
                             <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center">
                                 <div>
@@ -285,7 +283,7 @@
                     </div>
                 </div>
 
-                <!-- SETTINGS VIEW -->
+                <!-- SETTINGS -->
                 <div id="view-settings" class="space-y-6 space-view hidden">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-bold text-white">Definições da Empresa</h3>
@@ -293,7 +291,7 @@
                     <div class="bg-slate-950 border border-slate-800 rounded-xl p-6 space-y-4 text-xs">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-slate-400 uppercase font-medium mb-1">Nome da Empresa</label>
+                                <label class="block text-slate-400 uppercase font-medium mb-1">Nome Oficial</label>
                                 <input type="text" value="ELECTRO HONÁRIO & SERVIÇOS SU, LDA." readonly class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded text-white">
                             </div>
                             <div>
@@ -394,16 +392,19 @@
                 'invoices': 'Faturas & Recibos',
                 'installations': 'Registo de Instalações e Obras',
                 'inventory': 'Inventário & Preços',
-                'team': 'Equipa & Utilizadores',
+                'team': 'Equipa & Técnicos',
                 'settings': 'Definições do Sistema'
             };
             document.getElementById('current-page-title').textContent = titles[tabId] || 'Painel';
         }
 
-        function openModal(type) {
-            alert(`A abrir formulário para: ${type.toUpperCase()} com injeção automática de NUIT: 402027037 e dados de ELECTRO HONÁRIO & SERVIÇOS.`);
+        function gerarDocumento(tipo) {
+            alert(`A criar novo registo para: ${tipo}\nELECTRO HONÁRIO & SERVIÇOS SU, LDA. | NUIT: 402027037`);
+        }
+
+        function imprimirFicha(nomeFicha) {
+            alert(`A preparar o documento "${nomeFicha}" para visualização e download com os dados oficiais (NUIT: 402027037)...`);
         }
     </script>
 </body>
 </html>
-
