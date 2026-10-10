@@ -449,8 +449,238 @@
                             <p>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - NUIT: 402027037</p>
                             <button onclick="window.print()" class="mt-4 px-4 py-2 bg-slate-900 text-white rounded text-xs font-bold">Imprimir / Descarregar PDF</button>
                         </div>
-                    <script>
-        // O seu código JavaScript e as novas funções ficam aqui dentro
-    </script>
-</body>
+                    // =========================================================================
+    // LÓGICA DE SISTEMA, RELÓGIO E GESTÃO DINÂMICA DE UTILIZADORES (RBAC)
+    // =========================================================================
+
+    function atualizarRelogio() {
+        const agora = new Date();
+        const dia = String(agora.getDate()).padStart(2, '0');
+        const mes = String(agora.getMonth() + 1).padStart(2, '0');
+        const ano = agora.getFullYear();
+        
+        const horas = String(agora.getHours()).padStart(2, '0');
+        const minutos = String(agora.getMinutes()).padStart(2, '0');
+        const segundos = String(agora.getSeconds()).padStart(2, '0');
+
+        const elDate = document.getElementById('current-date');
+        const elTime = document.getElementById('current-time');
+        if(elDate) elDate.textContent = `${dia}/${mes}/${ano}`;
+        if(elTime) elTime.textContent = `${horas}:${minutos}:${segundos}`;
+    }
+    setInterval(atualizarRelogio, 1000);
+    atualizarRelogio();
+
+    function preencherLogin(user, pass) {
+        const uInput = document.getElementById('login-user');
+        const pInput = document.getElementById('login-pass');
+        if(uInput) uInput.value = user;
+        if(pInput) pInput.value = pass;
+    }
+
+    // Base de dados inicial de utilizadores armazenada no navegador (localStorage)
+    function obterUtilizadoresDoSistema() {
+        let utilizadoresSalvos = localStorage.getItem('electro_honario_users');
+        if (!utilizadoresSalvos) {
+            // Contas padrão iniciais
+            const usersIniciais = [
+                { user: 'alberto', pass: 'mugabe', nome: 'Alberto (Dono / Master)', admin: true, cargo: 'Administrador Geral' },
+                { user: 'tecnico', pass: 'tec123', nome: 'António Silva (Eletricista)', admin: false, cargo: 'Técnico Operacional' }
+            ];
+            localStorage.setItem('electro_honario_users', JSON.stringify(usersIniciais));
+            return usersIniciais;
+        }
+        return JSON.parse(utilizadoresSalvos);
+    }
+
+    function fazerLogin(event) {
+        event.preventDefault();
+        const inputUser = document.getElementById('login-user').value.trim().toLowerCase();
+        const inputPass = document.getElementById('login-pass').value;
+        const erroEl = document.getElementById('login-error');
+
+        const listaUsers = obterUtilizadoresDoSistema();
+        const utilizadorEncontrado = listaUsers.find(u => u.user === inputUser && u.pass === inputPass);
+
+        if (utilizadorEncontrado) {
+            if(erroEl) erroEl.classList.add('hidden');
+            ativarSessao(utilizadorEncontrado.nome, utilizadorEncontrado.cargo, utilizadorEncontrado.admin);
+        } else {
+            // Verificar se o utilizador existe mas errou a senha
+            const existeUser = listaUsers.find(u => u.user === inputUser);
+            if (existeUser) {
+                alert('⚠️ Palavra-passe incorreta. Se bloqueou a sua conta, por favor contacte o Administrador do Sistema (Alberto Mugabe) para redefinir as suas permissões.');
+            }
+            if(erroEl) erroEl.classList.remove('hidden');
+        }
+    }
+
+    function ativarSessao(nome, desc, ehDono) {
+        const loginScreen = document.getElementById('login-screen');
+        const appDashboard = document.getElementById('app-dashboard');
+        
+        if(loginScreen) loginScreen.classList.add('hidden');
+        if(appDashboard) appDashboard.classList.remove('hidden');
+        
+        const welcomeMsg = document.getElementById('welcome-msg');
+        const roleDesc = document.getElementById('role-desc');
+        if(welcomeMsg) welcomeMsg.textContent = `Bem-vindo, ${nome}`;
+        if(roleDesc) roleDesc.textContent = desc;
+
+        const tabAdminBtn = document.getElementById('tab-btn-admin');
+        if (tabAdminBtn) {
+            if (ehDono) {
+                tabAdminBtn.classList.remove('hidden');
+            } else {
+                tabAdminBtn.classList.add('hidden');
+            }
+        }
+    }
+
+    function terminarSessao() {
+        const appDashboard = document.getElementById('app-dashboard');
+        const loginScreen = document.getElementById('login-screen');
+        const loginUser = document.getElementById('login-user');
+        const loginPass = document.getElementById('login-pass');
+        const loginError = document.getElementById('login-error');
+
+        if(appDashboard) appDashboard.classList.add('hidden');
+        if(loginScreen) loginScreen.classList.remove('hidden');
+        if(loginUser) loginUser.value = '';
+        if(loginPass) loginPass.value = '';
+        if(loginError) loginError.classList.add('hidden');
+    }
+
+    function mudarAba(aba) {
+        const tabOrcamentos = document.getElementById('tab-orcamentos');
+        const tabVendas = document.getElementById('tab-vendas');
+        const tabAdmin = document.getElementById('tab-admin');
+
+        if(tabOrcamentos) tabOrcamentos.classList.add('hidden');
+        if(tabVendas) tabVendas.classList.add('hidden');
+        if(tabAdmin) tabAdmin.classList.add('hidden');
+
+        const btnOrc = document.getElementById('tab-btn-orcamentos');
+        const btnVnd = document.getElementById('tab-btn-vendas');
+        const btnAdm = document.getElementById('tab-btn-admin');
+
+        if(btnOrc) btnOrc.className = 'px-4 py-2 bg-slate-800 text-slate-300 font-semibold text-xs rounded-xl transition';
+        if(btnVnd) btnVnd.className = 'px-4 py-2 bg-slate-800 text-slate-300 font-semibold text-xs rounded-xl transition';
+        if(btnAdm) btnAdm.className = 'px-4 py-2 bg-slate-800 text-amber-400 font-semibold text-xs rounded-xl transition border border-amber-500/30';
+
+        const abaAtiva = document.getElementById(`tab-${aba}`);
+        const btnAtivo = document.getElementById(`tab-btn-${aba}`);
+        if(abaAtiva) abaAtiva.classList.remove('hidden');
+        if(btnAtivo) btnAtivo.className = 'px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow';
+    }
+
+    // Gestão de Utilizadores Dinâmica dentro do Painel do Administrador
+    function criarNovoUtilizadorSistema() {
+        const novoUser = document.getElementById('novo-user-login')?.value.trim().toLowerCase();
+        const novoPass = document.getElementById('novo-user-pass')?.value;
+        const novoNome = document.getElementById('novo-user-nome')?.value.trim();
+        const novoCargo = document.getElementById('novo-user-cargo')?.value;
+
+        if (!novoUser || !novoPass || !novoNome) {
+            alert('⚠️ Por favor preencha todos os campos para criar o novo utilizador.');
+            return;
+        }
+
+        let listaUsers = obterUtilizadoresDoSistema();
+        if (listaUsers.some(u => u.user === novoUser)) {
+            alert('❌ Já existe um utilizador com esse nome de login!');
+            return;
+        }
+
+        const ehAdminMaster = (novoCargo === 'admin');
+        listaUsers.push({
+            user: novoUser,
+            pass: novoPass,
+            nome: novoNome,
+            admin: ehAdminMaster,
+            cargo: ehAdminMaster ? 'Administrador Geral' : 'Técnico Operacional'
+        });
+
+        localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
+        alert(`✅ Utilizador "${novoNome}" criado com sucesso! Já pode fazer login com o utilizador "${novoUser}".`);
+        
+        // Limpar campos
+        document.getElementById('novo-user-login').value = '';
+        document.getElementById('novo-user-pass').value = '';
+        document.getElementById('novo-user-nome').value = '';
+    }
+
+    const precosMateriais = { 1: 45, 2: 350, 3: 2500, 4: 180, 5: 450 };
+
+    function atualizarCalculos() {
+        let totalMateriais = 0;
+        for (let i = 1; i <= 5; i++) {
+            let campoMat = document.getElementById(`mat-${i}`);
+            let qtd = campoMat ? (parseInt(campoMat.value) || 0) : 0;
+            totalMateriais += qtd * precosMateriais[i];
+        }
+
+        let maoObra = 1500;
+        let selectCorrente = document.getElementById('cli-corrente');
+        let tipoCorrente = selectCorrente ? selectCorrente.value : 'monofasico';
+        let taxaCorrente = tipoCorrente === 'trifasico' ? 1200 : 300;
+
+        let totalGeral = totalMateriais + maoObra + taxaCorrente;
+
+        const resMat = document.getElementById('res-materiais');
+        const resMao = document.getElementById('res-mao-obra');
+        const resTax = document.getElementById('res-taxa');
+        const resTot = document.getElementById('res-total');
+
+        if(resMat) resMat.textContent = totalMateriais.toLocaleString('pt-PT') + '.00 MT';
+        if(resMao) resMao.textContent = maoObra.toLocaleString('pt-PT') + '.00 MT';
+        if(resTax) resTax.textContent = taxaCorrente.toLocaleString('pt-PT') + '.00 MT (' + (tipoCorrente.toUpperCase()) + ')';
+        if(resTot) resTot.textContent = totalGeral.toLocaleString('pt-PT') + '.00 MT';
+    }
+
+    function gerarFaturaPDF() {
+        const cliente = document.getElementById('cli-nome')?.value || 'Cliente Geral';
+        const contacto = document.getElementById('cli-contacto')?.value || 'N/A';
+        const total = document.getElementById('res-total')?.textContent || '0.00 MT';
+        const dataHora = (document.getElementById('current-date')?.textContent || '') + ' às ' + (document.getElementById('current-time')?.textContent || '');
+
+        const janelaPDF = window.open('', '_blank');
+        if(janelaPDF) {
+            janelaPDF.document.write(`
+                <html>
+                <head>
+                    <title>Fatura / Orçamento Oficial - ELECTRO HONÁRIO & SERVIÇOS</title>
+                    <script src="https://cdn.tailwindcss.com"><\/script>
+                </head>
+                <body class="bg-white text-slate-900 p-8 font-sans">
+                    <div class="max-w-2xl mx-auto border p-8 rounded-xl shadow space-y-6">
+                        <div class="flex justify-between border-b pb-4">
+                            <div>
+                                <h1 class="font-bold text-lg text-slate-900">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h1>
+                                <p class="text-xs text-slate-600">NUIT: 402027037 | Maputo, Moçambique</p>
+                            </div>
+                            <div class="text-right">
+                                <h2 class="font-bold text-amber-600 text-sm">FATURA / ORÇAMENTO OFICIAL</h2>
+                                <p class="text-xs text-slate-500">${dataHora}</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2 text-xs">
+                            <p><strong>Cliente:</strong> ${cliente}</p>
+                            <p><strong>Contacto:</strong> ${contacto}</p>
+                            <p><strong>Descrição:</strong> Instalação e montagem elétrica profissional com materiais certificados.</p>
+                        </div>
+                        <div class="bg-slate-100 p-4 rounded flex justify-between items-center text-sm font-bold">
+                            <span>Total Geral (Meticais):</span>
+                            <span class="text-amber-600">${total}</span>
+                        </div>
+                        <div class="pt-6 border-t text-center text-[10px] text-slate-500">
+                            <p>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - NUIT: 402027037</p>
+                            <button onclick="window.print()" class="mt-4 px-4 py-2 bg-slate-900 text-white rounded text-xs font-bold">Imprimir / Descarregar PDF</button>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `);
+        }
+    }</body>
 </html>
