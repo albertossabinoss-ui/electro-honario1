@@ -61,7 +61,11 @@
                     <i class="fa-solid fa-shield-halved text-3xl"></i>
                 </div>
                 <h2 class="text-2xl font-bold tracking-tight text-white">Acesso Restrito ao Sistema</h2>
-                <p class="text-xs text-slate-400">Introduza as suas credenciais profissionais</p>
+                <p class="text-xs text-slate-400">Entre com as suas credenciais de Administrador</p>
+                <div class="bg-amber-500/10 border border-amber-500/30 p-2 rounded text-[11px] text-amber-400 mt-2">
+                    🔑 <strong>Dica de Acesso Admin:</strong><br>
+                    Utilizador: <code>alberto</code> | Palavra-passe: <code>mugabe</code>
+                </div>
             </div>
 
             <form onsubmit="fazerLogin(event)" class="space-y-4">
@@ -80,7 +84,7 @@
             </form>
             
             <div id="login-error" class="hidden text-center text-red-400 text-xs font-medium bg-red-500/10 border border-red-500/20 p-2.5 rounded-lg">
-                Utilizador ou palavra-passe incorretos. Verifique com o Administrador.
+                Utilizador ou palavra-passe incorretos. Verifique as credenciais.
             </div>
         </div>
 
@@ -253,7 +257,6 @@
                         </div>
                     </div>
 
-                    <!-- Indicadores Gráficos em Tempo Real -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
                             <span class="text-slate-400 uppercase font-semibold">Total Operações</span>
@@ -388,7 +391,7 @@
         ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema Profissional
     </footer>
 
-    <!-- SCRIPT DE LÓGICA RIGOROSA EM TEMPO REAL -->
+    <!-- SCRIPT COM RECUPERAÇÃO AUTOMÁTICA DE ADMIN -->
     <script>
         function atualizarRelogio() {
             const agora = new Date();
@@ -408,9 +411,10 @@
         setInterval(atualizarRelogio, 1000);
         atualizarRelogio();
 
-        // INICIALIZAÇÃO RIGOROSA DO BANCO DE DADOS LOCAL
+        // RECUPERAÇÃO AUTOMÁTICA DO ADMIN (Garante que nunca fica sem acesso)
         function inicializarBancoDados() {
-            if (!localStorage.getItem('electro_honario_users')) {
+            let users = localStorage.getItem('electro_honario_users');
+            if (!users || JSON.parse(users).length === 0) {
                 const adminUnico = [
                     { id: 1, user: 'alberto', pass: 'mugabe', nome: 'Alberto Mugabe (Administrador)', role: 'admin', online: false }
                 ];
@@ -746,13 +750,11 @@
             }
         }
 
-        // Relatórios com Gráficos Visuais e Ficha Completa Clicável
         function renderizarRelatorios() {
             const container = document.getElementById('lista-logs');
             if(!container) return;
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
             
-            // Atualizar Gráficos e Estatísticas
             let totalOps = logs.length;
             let totalOrc = logs.filter(l => l.tipo === 'Orçamento').length;
             let totalVen = logs.filter(l => l.tipo === 'Venda Balcão').length;
@@ -803,7 +805,7 @@
                     `;
                 });
             } else {
-                itensHTML = `<tr><td colspan="4" class="py-3 text-center text-xs text-slate-500">Orçamento Geral emitido sem listagem detalhada estática.</td></tr>`;
+                itensHTML = `<tr><td colspan="4" class="py-3 text-center text-xs text-slate-500">Orçamento Geral emitido sem listagem estática.</td></tr>`;
             }
 
             const janelaFicha = window.open('', '_blank');
