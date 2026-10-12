@@ -20,15 +20,22 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black">
 
-    <!-- CABEÇALHO GLOBAL COM RELÓGIO -->
+    <!-- CABEÇALHO GLOBAL COM LOGÓTIPO CRIATIVO E RELÓGIO -->
     <header class="bg-slate-900 border-b border-slate-800 py-3 px-6 shadow-md flex flex-wrap justify-between items-center gap-4">
-        <div class="flex items-center space-x-3">
-            <div class="bg-amber-500 p-2.5 rounded-xl text-slate-950 shadow-lg shadow-amber-500/20">
-                <i class="fa-solid fa-bolt-lightning text-2xl animate-pulse"></i>
+        <div class="flex items-center space-x-3.5">
+            <!-- Logótipo Exclusivo com Luz e Fios Elétricos -->
+            <div class="relative bg-gradient-to-br from-amber-400 to-amber-600 p-2.5 rounded-2xl text-slate-950 shadow-lg shadow-amber-500/30 flex items-center justify-center border border-amber-300">
+                <i class="fa-solid fa-lightbulb text-2xl animate-pulse text-slate-950"></i>
+                <div class="absolute -bottom-1 -right-1 bg-slate-950 text-amber-400 p-1 rounded-full text-[10px] border border-amber-500">
+                    <i class="fa-solid fa-network-wired"></i>
+                </div>
             </div>
             <div>
-                <h1 class="text-xl font-black tracking-wider uppercase text-white">ELECTRO HONÁRIO & SERVIÇOS <span class="text-amber-500 text-xs px-2 py-0.5 bg-amber-500/10 rounded-full border border-amber-500/30">NUIT: 402027037</span></h1>
-                <p class="text-xs text-slate-400">Sistema ERP para Instalações, Orçamentos & Faturação</p>
+                <h1 class="text-xl font-black tracking-wider uppercase text-white flex items-center gap-2">
+                    ELECTRO HONÁRIO & SERVIÇOS 
+                    <span class="text-amber-500 text-xs px-2 py-0.5 bg-amber-500/10 rounded-full border border-amber-500/30">NUIT: 402027037</span>
+                </h1>
+                <p class="text-xs text-slate-400">Instalações Elétricas, Orçamentos Profissionais & Faturação</p>
             </div>
         </div>
         
@@ -49,37 +56,24 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="flex-grow flex items-center justify-center p-4">
         
-        <!-- TELA DE LOGIN -->
+        <!-- TELA DE LOGIN (Sem botões de atalho rápidos) -->
         <div id="login-screen" class="w-full max-w-md bg-slate-900/90 backdrop-blur-md border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
             <div class="text-center space-y-2">
-                <div class="inline-block p-3 rounded-full bg-amber-500/10 text-amber-500 mb-2 border border-amber-500/20">
-                    <i class="fa-solid fa-lock text-3xl"></i>
+                <div class="inline-block p-3.5 rounded-full bg-amber-500/10 text-amber-500 mb-2 border border-amber-500/20 shadow-inner">
+                    <i class="fa-solid fa-shield-halved text-3xl"></i>
                 </div>
-                <h2 class="text-2xl font-bold tracking-tight">Acesso ao Sistema</h2>
-                <p class="text-xs text-slate-400">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</p>
-            </div>
-
-            <!-- Seletores Rápidos de Demonstração -->
-            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-2">
-                <span class="text-slate-400 font-medium block">Acesso Rápido de Teste:</span>
-                <div class="grid grid-cols-2 gap-2">
-                    <button type="button" onclick="preencherLogin('alberto', 'mugabe')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 p-2 rounded-lg font-semibold transition flex items-center justify-center gap-1.5">
-                        <i class="fa-solid fa-crown"></i> Alberto (Dono)
-                    </button>
-                    <button type="button" onclick="preencherLogin('tecnico', 'tec123')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 p-2 rounded-lg font-semibold transition flex items-center justify-center gap-1.5">
-                        <i class="fa-solid fa-hard-hat"></i> Técnico
-                    </button>
-                </div>
+                <h2 class="text-2xl font-bold tracking-tight text-white">Acesso Restrito ao Sistema</h2>
+                <p class="text-xs text-slate-400">Introduza as suas credenciais profissionais</p>
             </div>
 
             <form onsubmit="fazerLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Utilizador</label>
-                    <input type="text" id="login-user" required placeholder="Ex: alberto ou tecnico" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-amber-500 text-sm text-white">
+                    <input type="text" id="login-user" required placeholder="Insira o seu nome de utilizador" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-amber-500 text-sm text-white transition">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Palavra-passe</label>
-                    <input type="password" id="login-pass" required placeholder="••••••••" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-amber-500 text-sm text-white">
+                    <input type="password" id="login-pass" required placeholder="••••••••" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-amber-500 text-sm text-white transition">
                 </div>
                 <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg shadow-amber-500/20 transition flex items-center justify-center gap-2">
                     <span>Entrar no Sistema</span>
@@ -95,11 +89,11 @@
         <!-- PAINEL PRINCIPAL DO APLICATIVO -->
         <div id="app-dashboard" class="hidden w-full max-w-6xl space-y-6">
             
-            <!-- Barra de Boas-vindas e Controlo -->
+            <!-- Barra de Boas-vindas e Controlo por Permissões -->
             <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex flex-wrap justify-between items-center gap-4">
                 <div class="flex items-center space-x-3">
                     <div id="user-badge-icon" class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold">
-                        <i class="fa-solid fa-crown"></i>
+                        <i class="fa-solid fa-user-shield"></i>
                     </div>
                     <div>
                         <h3 class="font-bold text-base" id="welcome-msg">Bem-vindo</h3>
@@ -111,20 +105,21 @@
                     <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow">
                         <i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras
                     </button>
+                    <!-- Aba de Vendas (Disponível para Técnico e Dono) -->
                     <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition">
                         <i class="fa-solid fa-cart-shopping mr-1.5"></i> Vendas de Material
                     </button>
-                    <!-- BOTÃO EXCLUSIVO DO DONO ALBERTO -->
+                    <!-- Painel do Dono (EXCLUSIVO para Administrador Alberto) -->
                     <button onclick="mudarAba('admin')" id="tab-btn-admin" class="hidden px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-400 font-semibold text-xs rounded-xl transition border border-amber-500/30">
-                        <i class="fa-solid fa-sliders mr-1.5"></i> Painel do Dono (Ajustes & Utilizadores)
+                        <i class="fa-solid fa-sliders mr-1.5"></i> Painel do Dono (Gestão & Stock)
                     </button>
-                    <button onclick="terminarSessao()" class="px-3 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs rounded-xl transition" title="Sair">
+                    <button onclick="terminarSessao()" class="px-3 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs rounded-xl transition" title="Terminar Sessão">
                         <i class="fa-solid fa-power-off"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- ABA 1: ORÇAMENTOS E INSTALAÇÕES -->
+            <!-- ABA 1: ORÇAMENTOS E INSTALAÇÕES (Técnico e Dono) -->
             <div id="tab-orcamentos" class="space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
@@ -173,57 +168,9 @@
                                 <span class="text-xs text-slate-400 font-normal">Preços em Meticais (MT)</span>
                             </h4>
 
-                            <div class="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">
-                                <div class="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs">
-                                    <div>
-                                        <span class="font-bold text-white block">Cabo Flexível 2.5mm² (Metro)</span>
-                                        <span class="text-amber-500 font-semibold">45.00 MT</span>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
-                                        <input type="number" min="0" value="0" id="mat-1" onchange="atualizarCalculos()" class="w-16 p-1.5 bg-slate-900 border border-slate-700 rounded text-center text-white font-bold">
-                                        <span class="text-slate-400">un</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs">
-                                    <div>
-                                        <span class="font-bold text-white block">Disjuntor Termomagnético 16A</span>
-                                        <span class="text-amber-500 font-semibold">350.00 MT</span>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
-                                        <input type="number" min="0" value="0" id="mat-2" onchange="atualizarCalculos()" class="w-16 p-1.5 bg-slate-900 border border-slate-700 rounded text-center text-white font-bold">
-                                        <span class="text-slate-400">un</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs">
-                                    <div>
-                                        <span class="font-bold text-white block">Disjuntor Tetrapolar 63A</span>
-                                        <span class="text-amber-500 font-semibold">2,500.00 MT</span>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
-                                        <input type="number" min="0" value="0" id="mat-3" onchange="atualizarCalculos()" class="w-16 p-1.5 bg-slate-900 border border-slate-700 rounded text-center text-white font-bold">
-                                        <span class="text-slate-400">un</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs">
-                                    <div>
-                                        <span class="font-bold text-white block">Tomada Dupla Com Terra</span>
-                                        <span class="text-amber-500 font-semibold">180.00 MT</span>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
-                                        <input type="number" min="0" value="0" id="mat-4" onchange="atualizarCalculos()" class="w-16 p-1.5 bg-slate-900 border border-slate-700 rounded text-center text-white font-bold">
-                                        <span class="text-slate-400">un</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs">
-                                    <div>
-                                        <span class="font-bold text-white block">Painel LED de Embutir 18W</span>
-                                        <span class="text-amber-500 font-semibold">450.00 MT</span>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
-                                        <input type="number" min="0" value="0" id="mat-5" onchange="atualizarCalculos()" class="w-16 p-1.5 bg-slate-900 border border-slate-700 rounded text-center text-white font-bold">
-                                        <span class="text-slate-400">un</span>
-                                    </div>
-                                </div>
+                            <!-- Catálogo Dinâmico de Materiais -->
+                            <div id="catalogo-materiais-container" class="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">
+                                <!-- Preenchido dinamicamente -->
                             </div>
                         </div>
 
@@ -248,32 +195,33 @@
 
                         <button onclick="gerarFaturaPDF()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-sm">
                             <i class="fa-solid fa-file-arrow-down"></i>
-                            <span>Gerar Fatura / Orçamento Oficial & Baixar PDF</span>
+                            <span>Gerar Fatura / Orçamento Detalhado & Baixar PDF</span>
                         </button>
                     </div>
 
                 </div>
             </div>
 
-            <!-- ABA 2: VENDAS DE MATERIAL -->
+            <!-- ABA 2: VENDAS DE MATERIAL (Balcão de Venda Direta) -->
             <div id="tab-vendas" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
                     <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2">
                         <i class="fa-solid fa-cash-register mr-2"></i> Balcão de Vendas Diretas de Equipamentos
                     </h4>
-                    <div class="p-8 text-center bg-slate-950 rounded-xl border border-slate-800 text-slate-400 text-sm">
-                        Módulo de vendas rápidas integrado com a tabela de inventário. Pronto para emitir talão de caixa oficial.
+                    <div class="p-8 text-center bg-slate-950 rounded-xl border border-slate-800 text-slate-400 text-sm space-y-3">
+                        <p class="text-white font-medium">Módulo exclusivo para venda direta de material a clientes de balcão (sem pedido de instalação).</p>
+                        <p class="text-xs text-slate-500">Selecione os produtos pretendidos no balcão e emita o talão de venda oficial instantaneamente.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- ABA 3: PAINEL DO DONO / AJUSTES (EXCLUSIVO ALBERTO MUGABE) -->
+            <!-- ABA 3: PAINEL DO DONO / AJUSTES (EXCLUSIVO ADMINISTRADOR ALBERTO) -->
             <div id="tab-admin" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
                         <div>
                             <h4 class="font-bold text-base text-amber-400">
-                                <i class="fa-solid fa-sliders mr-2"></i> Painel de Controlo do Dono & Ajustes Master
+                                <i class="fa-solid fa-sliders mr-2"></i> Painel de Controlo do Dono & Gestão Master
                             </h4>
                             <p class="text-xs text-slate-400">ELECTRO HONÁRIO & SERVIÇOS SU, LDA. | NUIT: 402027037</p>
                         </div>
@@ -281,24 +229,29 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                        
+                        <!-- ADICIONAR NOVO MATERIAL AO SISTEMA -->
                         <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
                             <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-solid fa-tag text-amber-500"></i> Preços de Mercado (Meticais)
+                                <i class="fa-solid fa-box-open text-amber-500"></i> Adicionar Novo Material ao Catálogo
                             </h5>
-                            <p class="text-slate-400">Tabela de preços ativa nos orçamentos e faturas.</p>
-                            <div class="space-y-2">
-                                <div class="flex justify-between items-center bg-slate-900 p-2.5 rounded-lg border border-slate-800">
-                                    <span class="text-slate-300">Materiais Elétricos</span>
-                                    <span class="text-amber-400 font-bold">Homologados</span>
-                                </div>
+                            <p class="text-slate-400">Cadastre novos artigos e preços em Meticais (MT).</p>
+                            
+                            <div class="space-y-2.5">
+                                <input type="text" id="novo-mat-nome" placeholder="Nome do Material (Ex: Fita Isolante)" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                <input type="number" step="0.01" id="novo-mat-preco" placeholder="Preço Unitário em MT (Ex: 100)" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                <button onclick="adicionarNovoMaterialSistema()" class="w-full mt-2 bg-amber-500 text-slate-950 font-bold py-2.5 rounded-lg hover:bg-amber-400 transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-plus"></i> Guardar Novo Material no Sistema
+                                </button>
                             </div>
                         </div>
 
+                        <!-- CRIAR NOVO UTILIZADOR -->
                         <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
                             <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-solid fa-users-gear text-amber-500"></i> Criar Novo Utilizador & Atribuir Categoria
+                                <i class="fa-solid fa-users-gear text-amber-500"></i> Criar Novo Utilizador & Acessos
                             </h5>
-                            <p class="text-slate-400">Adicione novos colaboradores diretamente no sistema.</p>
+                            <p class="text-slate-400">Adicione colaboradores e defina as permissões.</p>
                             
                             <div class="space-y-2.5">
                                 <input type="text" id="novo-user-nome" placeholder="Nome Completo do Colaborador" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
@@ -311,11 +264,12 @@
                                         <option value="admin">Administrador Geral (Acesso Total)</option>
                                     </select>
                                 </div>
-                                <button onclick="criarNovoUtilizadorSistema()" class="w-full mt-2 bg-amber-500 text-slate-950 font-bold py-2.5 rounded-lg hover:bg-amber-400 transition flex items-center justify-center gap-2">
-                                    <i class="fa-solid fa-user-plus"></i> Guardar e Criar Utilizador
+                                <button onclick="criarNovoUtilizadorSistema()" class="w-full mt-2 bg-slate-800 text-amber-400 font-bold py-2.5 rounded-lg hover:bg-slate-700 transition flex items-center justify-center gap-2 border border-amber-500/30">
+                                    <i class="fa-solid fa-user-plus"></i> Registar Colaborador
                                 </button>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -328,7 +282,7 @@
         ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema Profissional
     </footer>
 
-    <!-- SCRIPT DE RELÓGIO, SEGURANÇA E LÓGICA DO SISTEMA -->
+    <!-- SCRIPT DE LÓGICA E PERMISSÕES DO SISTEMA -->
     <script>
         function atualizarRelogio() {
             const agora = new Date();
@@ -348,13 +302,7 @@
         setInterval(atualizarRelogio, 1000);
         atualizarRelogio();
 
-        function preencherLogin(user, pass) {
-            const uInput = document.getElementById('login-user');
-            const pInput = document.getElementById('login-pass');
-            if(uInput) uInput.value = user;
-            if(pInput) pInput.value = pass;
-        }
-
+        // Gestão Centralizada de Utilizadores
         function obterUtilizadoresDoSistema() {
             let utilizadoresSalvos = localStorage.getItem('electro_honario_users');
             if (!utilizadoresSalvos) {
@@ -383,7 +331,9 @@
             } else {
                 const existeUser = listaUsers.find(u => u.user === inputUser);
                 if (existeUser) {
-                    alert('⚠️ Palavra-passe incorreta. Se bloqueou a sua conta, por favor contacte o Administrador do Sistema (Alberto Mugabe).');
+                    alert('⚠️ Palavra-passe incorreta. Contacte o Administrador (Alberto Mugabe).');
+                } else {
+                    alert('❌ Utilizador não encontrado. Contacte o Administrador (Alberto Mugabe).');
                 }
                 if(erroEl) erroEl.classList.remove('hidden');
             }
@@ -475,22 +425,90 @@
             });
 
             localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
-            alert(`✅ Utilizador "${novoNome}" criado com sucesso! Já pode fazer login com o utilizador "${novoUser}".`);
+            alert(`✅ Utilizador "${novoNome}" criado com sucesso!`);
             
             document.getElementById('novo-user-login').value = '';
             document.getElementById('novo-user-pass').value = '';
             document.getElementById('novo-user-nome').value = '';
         }
 
-        const precosMateriais = { 1: 45, 2: 350, 3: 2500, 4: 180, 5: 450 };
+        // Gestão Dinâmica de Materiais e Preços
+        function obterMateriaisDoSistema() {
+            let matsSalvos = localStorage.getItem('electro_honario_materiais');
+            if (!matsSalvos) {
+                const matsIniciais = [
+                    { id: 1, nome: 'Cabo Flexível 2.5mm² (Metro)', preco: 45.00 },
+                    { id: 2, nome: 'Disjuntor Termomagnético 16A', preco: 350.00 },
+                    { id: 3, nome: 'Disjuntor Tetrapolar 63A', preco: 2500.00 },
+                    { id: 4, nome: 'Tomada Dupla Com Terra', preco: 180.00 },
+                    { id: 5, nome: 'Painel LED de Embutir 18W', preco: 450.00 }
+                ];
+                localStorage.setItem('electro_honario_materiais', JSON.stringify(matsIniciais));
+                return matsIniciais;
+            }
+            return JSON.parse(matsSalvos);
+        }
+
+        function renderizarCatalogoMateriais() {
+            const container = document.getElementById('catalogo-materiais-container');
+            if (!container) return;
+
+            const materiais = obterMateriaisDoSistema();
+            let html = '';
+
+            materiais.forEach(mat => {
+                html += `
+                    <div class="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs">
+                        <div>
+                            <span class="font-bold text-white block">${mat.nome}</span>
+                            <span class="text-amber-500 font-semibold">${mat.preco.toFixed(2)} MT</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input type="number" min="0" value="0" id="mat-${mat.id}" onchange="atualizarCalculos()" class="w-16 p-1.5 bg-slate-900 border border-slate-700 rounded text-center text-white font-bold">
+                            <span class="text-slate-400">un</span>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function adicionarNovoMaterialSistema() {
+            const nomeMat = document.getElementById('novo-mat-nome')?.value.trim();
+            const precoMat = parseFloat(document.getElementById('novo-mat-preco')?.value);
+
+            if (!nomeMat || isNaN(precoMat) || precoMat <= 0) {
+                alert('⚠️ Por favor insira um nome válido e o preço em Meticais.');
+                return;
+            }
+
+            let materiais = obterMateriaisDoSistema();
+            const novoId = materiais.length > 0 ? Math.max(...materiais.map(m => m.id)) + 1 : 1;
+
+            materiais.push({
+                id: novoId,
+                nome: nomeMat,
+                preco: precoMat
+            });
+
+            localStorage.setItem('electro_honario_materiais', JSON.stringify(materiais));
+            alert(`✅ Material "${nomeMat}" adicionado com sucesso por ${precoMat.toFixed(2)} MT!`);
+            
+            document.getElementById('novo-mat-nome').value = '';
+            document.getElementById('novo-mat-preco').value = '';
+            renderizarCatalogoMateriais();
+            atualizarCalculos();
+        }
 
         function atualizarCalculos() {
             let totalMateriais = 0;
-            for (let i = 1; i <= 5; i++) {
-                let campoMat = document.getElementById(`mat-${i}`);
+            const materiais = obterMateriaisDoSistema();
+
+            materiais.forEach(mat => {
+                let campoMat = document.getElementById(`mat-${mat.id}`);
                 let qtd = campoMat ? (parseInt(campoMat.value) || 0) : 0;
-                totalMateriais += qtd * precosMateriais[i];
-            }
+                totalMateriais += qtd * mat.preco;
+            });
 
             let maoObra = 1500;
             let selectCorrente = document.getElementById('cli-corrente');
@@ -510,44 +528,151 @@
             if(resTot) resTot.textContent = totalGeral.toLocaleString('pt-PT') + '.00 MT';
         }
 
+        window.onload = function() {
+            renderizarCatalogoMateriais();
+            atualizarCalculos();
+        };
+
+        // Geração de Fatura / Orçamento Detalhado com Histórico Completo, Materiais e Assinaturas
         function gerarFaturaPDF() {
             const cliente = document.getElementById('cli-nome')?.value || 'Cliente Geral';
+            const bairro = document.getElementById('cli-bairro')?.value || 'N/A';
             const contacto = document.getElementById('cli-contacto')?.value || 'N/A';
-            const total = document.getElementById('res-total')?.textContent || '0.00 MT';
+            const tipoImovel = document.getElementById('cli-tipo-imovel')?.value || 'Residência';
+            const tipoCorrente = document.getElementById('cli-corrente')?.value.toUpperCase() || 'MONOFÁSICO';
+            
+            const totalMateriaisStr = document.getElementById('res-materiais')?.textContent || '0.00 MT';
+            const maoObraStr = document.getElementById('res-mao-obra')?.textContent || '1,500.00 MT';
+            const taxaCorrenteStr = document.getElementById('res-taxa')?.textContent || '300.00 MT';
+            const totalGeral = document.getElementById('res-total')?.textContent || '0.00 MT';
+            
             const dataHora = (document.getElementById('current-date')?.textContent || '') + ' às ' + (document.getElementById('current-time')?.textContent || '');
+
+            // Recolher a lista detalhada de materiais selecionados pelo utilizador
+            const materiais = obterMateriaisDoSistema();
+            let itensHTML = '';
+            let temItens = false;
+
+            materiais.forEach(mat => {
+                let campoMat = document.getElementById(`mat-${mat.id}`);
+                let qtd = campoMat ? (parseInt(campoMat.value) || 0) : 0;
+                if (qtd > 0) {
+                    temItens = true;
+                    let subtotalItem = qtd * mat.preco;
+                    itensHTML += `
+                        <tr class="border-b text-xs">
+                            <td class="py-2 px-3">${mat.nome}</td>
+                            <td class="py-2 px-3 text-center">${qtd} un</td>
+                            <td class="py-2 px-3 text-right">${mat.preco.toFixed(2)} MT</td>
+                            <td class="py-2 px-3 text-right font-bold">${subtotalItem.toLocaleString('pt-PT')}.00 MT</td>
+                        </tr>
+                    `;
+                }
+            });
+
+            if (!temItens) {
+                itensHTML = `<tr><td colspan="4" class="py-3 text-center text-xs text-slate-500">Nenhum material selecionado neste orçamento.</td></tr>`;
+            }
 
             const janelaPDF = window.open('', '_blank');
             if(janelaPDF) {
                 janelaPDF.document.write(`
                     <html>
                     <head>
-                        <title>Fatura / Orçamento Oficial - ELECTRO HONÁRIO & SERVIÇOS</title>
+                        <title>Fatura / Orçamento Detalhado - ELECTRO HONÁRIO & SERVIÇOS</title>
                         <script src="https://cdn.tailwindcss.com"><\/script>
                     </head>
                     <body class="bg-white text-slate-900 p-8 font-sans">
-                        <div class="max-w-2xl mx-auto border p-8 rounded-xl shadow space-y-6">
-                            <div class="flex justify-between border-b pb-4">
-                                <div>
-                                    <h1 class="font-bold text-lg text-slate-900">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h1>
-                                    <p class="text-xs text-slate-600">NUIT: 402027037 | Maputo, Moçambique</p>
+                        <div class="max-w-3xl mx-auto border p-8 rounded-xl shadow-lg space-y-6 bg-white">
+                            <!-- Cabeçalho Oficial da Fatura -->
+                            <div class="flex justify-between items-start border-b pb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="bg-amber-500 p-2.5 rounded-xl text-slate-950 font-bold">
+                                        <i class="fa-solid fa-bolt-lightning text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h1 class="font-black text-base text-slate-900 uppercase">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h1>
+                                        <p class="text-xs text-slate-600">NUIT: 402027037 | Maputo, Moçambique</p>
+                                        <p class="text-xs text-slate-500">Instalações Elétricas & Equipamentos</p>
+                                    </div>
                                 </div>
                                 <div class="text-right">
-                                    <h2 class="font-bold text-amber-600 text-sm">FATURA / ORÇAMENTO OFICIAL</h2>
-                                    <p class="text-xs text-slate-500">${dataHora}</p>
+                                    <h2 class="font-bold text-amber-600 text-sm uppercase">FATURA / ORÇAMENTO OFICIAL</h2>
+                                    <p class="text-xs text-slate-500">Data: ${dataHora}</p>
                                 </div>
                             </div>
-                            <div class="space-y-2 text-xs">
-                                <p><strong>Cliente:</strong> ${cliente}</p>
-                                <p><strong>Contacto:</strong> ${contacto}</p>
-                                <p><strong>Descrição:</strong> Instalação e montagem elétrica profissional com materiais certificados.</p>
+
+                            <!-- Dados do Cliente e Obra -->
+                            <div class="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-lg border text-xs">
+                                <div class="space-y-1">
+                                    <p><strong>Cliente:</strong> ${cliente}</p>
+                                    <p><strong>Bairro / Morada:</strong> ${bairro}</p>
+                                    <p><strong>Contacto:</strong> ${contacto}</p>
+                                </div>
+                                <div class="space-y-1 text-right">
+                                    <p><strong>Tipo de Imóvel:</strong> ${tipoImovel}</p>
+                                    <p><strong>Tipo de Corrente:</strong> ${tipoCorrente}</p>
+                                </div>
                             </div>
-                            <div class="bg-slate-100 p-4 rounded flex justify-between items-center text-sm font-bold">
-                                <span>Total Geral (Meticais):</span>
-                                <span class="text-amber-600">${total}</span>
+
+                            <!-- Tabela Detalhada de Materiais -->
+                            <div class="space-y-2">
+                                <h3 class="font-bold text-xs uppercase text-slate-700">Histórico de Materiais & Equipamentos Aplicados</h3>
+                                <table class="w-full text-left border-collapse border border-slate-200">
+                                    <thead>
+                                        <tr class="bg-slate-100 text-[11px] text-slate-700 uppercase border-b">
+                                            <th class="py-2 px-3">Descrição do Material</th>
+                                            <th class="py-2 px-3 text-center">Qtd</th>
+                                            <th class="py-2 px-3 text-right">Preço Unit.</th>
+                                            <th class="py-2 px-3 text-right">Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${itensHTML}
+                                    </tbody>
+                                </table>
                             </div>
+
+                            <!-- Resumo de Custos e Totais -->
+                            <div class="bg-slate-50 p-4 rounded-lg border space-y-2 text-xs">
+                                <div class="flex justify-between text-slate-600">
+                                    <span>Subtotal Materiais:</span>
+                                    <span class="font-semibold">${totalMateriaisStr}</span>
+                                </div>
+                                <div class="flex justify-between text-slate-600">
+                                    <span>Mão de Obra & Taxa de Instalação:</span>
+                                    <span class="font-semibold">${maoObraStr}</span>
+                                </div>
+                                <div class="flex justify-between text-slate-600">
+                                    <span>Taxa de Sistema (${tipoCorrente}):</span>
+                                    <span class="font-semibold">${taxaCorrenteStr}</span>
+                                </div>
+                                <div class="border-t pt-2 flex justify-between items-center text-sm font-bold">
+                                    <span class="text-slate-900 uppercase">Total Geral a Pagar:</span>
+                                    <span class="text-amber-600 text-lg font-black">${totalGeral}</span>
+                                </div>
+                            </div>
+
+                            <!-- Secção de Assinaturas Oficiais (Diretor e Chefe) -->
+                            <div class="grid grid-cols-2 gap-12 pt-12 text-center text-xs">
+                                <div class="space-y-8">
+                                    <div class="border-b border-slate-400 pb-1"></div>
+                                    <p class="font-bold text-slate-700">O Diretor Geral / Administrador</p>
+                                    <p class="text-[10px] text-slate-500">Alberto Mugabe</p>
+                                </div>
+                                <div class="space-y-8">
+                                    <div class="border-b border-slate-400 pb-1"></div>
+                                    <p class="font-bold text-slate-700">O Técnico Responsável / Chefe de Obra</p>
+                                    <p class="text-[10px] text-slate-500">Assinatura e Validação</p>
+                                </div>
+                            </div>
+
+                            <!-- Rodapé do PDF com Botão de Impressão -->
                             <div class="pt-6 border-t text-center text-[10px] text-slate-500">
-                                <p>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - NUIT: 402027037</p>
-                                <button onclick="window.print()" class="mt-4 px-4 py-2 bg-slate-900 text-white rounded text-xs font-bold">Imprimir / Descarregar PDF</button>
+                                <p>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - NUIT: 402027037 | Maputo, Moçambique</p>
+                                <button onclick="window.print()" class="mt-4 px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold shadow transition">
+                                    <i class="fa-solid fa-print mr-1.5"></i> Imprimir / Descarregar Fatura PDF
+                                </button>
                             </div>
                         </div>
                     </body>
