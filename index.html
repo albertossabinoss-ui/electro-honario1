@@ -23,7 +23,8 @@
     <!-- CABEÇALHO GLOBAL -->
     <header class="bg-slate-900 border-b border-slate-800 py-3 px-6 shadow-md flex flex-wrap justify-between items-center gap-4">
         <div class="flex items-center space-x-3.5">
-            <div class="relative bg-gradient-to-br from-amber-400 to-amber-600 p-2.5 rounded-2xl text-slate-950 shadow-lg shadow-amber-500/30 flex items-center justify-center border border-amber-300">
+            <!-- Logótipo dinâmico configurável pelo Admin -->
+            <div id="header-logo-container" class="relative bg-gradient-to-br from-amber-400 to-amber-600 p-2.5 rounded-2xl text-slate-950 shadow-lg shadow-amber-500/30 flex items-center justify-center border border-amber-300">
                 <i class="fa-solid fa-lightbulb text-2xl animate-pulse text-slate-950"></i>
                 <div class="absolute -bottom-1 -right-1 bg-slate-950 text-amber-400 p-1 rounded-full text-[10px] border border-amber-500">
                     <i class="fa-solid fa-network-wired"></i>
@@ -34,7 +35,7 @@
                     ELECTRO HONÁRIO & SERVIÇOS 
                     <span class="text-amber-500 text-xs px-2 py-0.5 bg-amber-500/10 rounded-full border border-amber-500/30">NUIT: 402027037</span>
                 </h1>
-                <p class="text-xs text-slate-400">Instalações Elétricas, Orçamentos Profissionais & Balcão de Vendas</p>
+                <p class="text-xs text-slate-400" id="header-subtitle">Instalações Elétricas, Orçamentos Profissionais & Balcão de Vendas</p>
             </div>
         </div>
         
@@ -90,7 +91,7 @@
             <!-- Barra de Boas-vindas e Controlo -->
             <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex flex-wrap justify-between items-center gap-4">
                 <div class="flex items-center space-x-3">
-                    <div class="relative w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold">
+                    <div id="user-avatar-box" class="relative w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold overflow-hidden">
                         <i class="fa-solid fa-user-shield"></i>
                         <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-900 rounded-full animate-pulse" title="Online no Sistema"></span>
                     </div>
@@ -172,9 +173,7 @@
                                 <span class="text-xs text-slate-400 font-normal">Preços em Meticais (MT)</span>
                             </h4>
 
-                            <div id="catalogo-materiais-container" class="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">
-                                <!-- Preenchido dinamicamente -->
-                            </div>
+                            <div id="catalogo-materiais-container" class="space-y-2.5 max-h-[300px] overflow-y-auto pr-1"></div>
                         </div>
 
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 mt-4">
@@ -205,7 +204,7 @@
                 </div>
             </div>
 
-            <!-- ABA 2: BALCÃO DE VENDAS DIRETAS (Com Dados do Comprador e Talão Oficial) -->
+            <!-- ABA 2: BALCÃO DE VENDAS DIRETAS -->
             <div id="tab-vendas" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
                     <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex justify-between items-center">
@@ -216,9 +215,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
                             <h5 class="font-bold text-xs uppercase text-amber-400">Artigos Disponíveis no Balcão:</h5>
-                            <div id="balcao-materiais-container" class="space-y-2 max-h-[250px] overflow-y-auto pr-1">
-                                <!-- Preenchido dinamicamente -->
-                            </div>
+                            <div id="balcao-materiais-container" class="space-y-2 max-h-[250px] overflow-y-auto pr-1"></div>
                         </div>
 
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-4 flex flex-col justify-between">
@@ -245,30 +242,56 @@
                 </div>
             </div>
 
-            <!-- ABA 3: RELATÓRIOS & HISTÓRICO (Com Ficha Completa ao Clicar) -->
+            <!-- ABA 3: RELATÓRIOS & HISTÓRICO -->
             <div id="tab-relatorios" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
                     <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2">
                         <i class="fa-solid fa-chart-line mr-2"></i> Relatórios Gerais & Histórico de Operações
                     </h4>
-                    <p class="text-xs text-slate-400">Clique em qualquer registo abaixo para abrir a ficha completa da operação, materiais e operador responsável.</p>
-                    <div id="lista-logs" class="space-y-2 max-h-[350px] overflow-y-auto pr-2 text-xs">
-                        <!-- Preenchido via JS com links clicáveis -->
-                    </div>
+                    <p class="text-xs text-slate-400">Clique em qualquer registo abaixo para abrir a ficha completa da operação.</p>
+                    <div id="lista-logs" class="space-y-2 max-h-[350px] overflow-y-auto pr-2 text-xs"></div>
                 </div>
             </div>
 
-            <!-- ABA 4: PAINEL DO ADMINISTRADOR -->
+            <!-- ABA 4: PAINEL DO ADMINISTRADOR (Com Configurações Avançadas e Identidade Visual) -->
             <div id="tab-admin" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
                         <div>
                             <h4 class="font-bold text-base text-amber-400">
-                                <i class="fa-solid fa-sliders mr-2"></i> Painel de Controlo do Administrador (Master)
+                                <i class="fa-solid fa-sliders mr-2"></i> Painel de Controlo & Configurações do Administrador
                             </h4>
                             <p class="text-xs text-slate-400">ELECTRO HONÁRIO & SERVIÇOS SU, LDA. | NUIT: 402027037</p>
                         </div>
                         <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-bold">Dono / Administrador</span>
+                    </div>
+
+                    <!-- SECÇÃO DE CONFIGURAÇÕES EXCLUSIVAS DO ADMIN (Logótipo, Idioma, Segurança) -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
+                        <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
+                            <i class="fa-solid fa-gears"></i> Configurações Globais do Sistema & Identidade Visual
+                        </h5>
+                        <p class="text-slate-400">Personalize o logótipo da empresa, URL da imagem de perfil e preferências avançadas.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">URL do Logótipo / Ícone (URL da Imagem)</label>
+                                <input type="text" id="cfg-logo-url" placeholder="https://exemplo.com/logo.png" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Idioma do Sistema</label>
+                                <select id="cfg-idioma" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                    <option value="pt">Português (Moçambique)</option>
+                                    <option value="en">English</option>
+                                    <option value="es">Español</option>
+                                </select>
+                            </div>
+                            <div class="flex items-end">
+                                <button onclick="guardarConfiguracoesGlobais()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-lg transition">
+                                    <i class="fa-solid fa-floppy-disk mr-1"></i> Guardar Definições
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
@@ -357,22 +380,33 @@
         setInterval(atualizarRelogio, 1000);
         atualizarRelogio();
 
-        // Obter Sessão Ativa
+        // Limpeza inicial forçada se necessário e inicialização rigorosa
+        function inicializarSistemaRigoroso() {
+            let utilizadoresSalvos = localStorage.getItem('electro_honario_users');
+            if (!utilizadoresSalvos) {
+                // Apenas o Administrador por predefinição absoluta
+                const adminUnico = [
+                    { id: 1, user: 'alberto', pass: 'mugabe', nome: 'Alberto Mugabe (Administrador)', role: 'admin', online: false }
+                ];
+                localStorage.setItem('electro_honario_users', JSON.stringify(adminUnico));
+            }
+        }
+        inicializarSistemaRigoroso();
+
         function obterSessaoAtual() {
             let sessao = localStorage.getItem('electro_honario_sessao_atual');
-            return sessao ? JSON.parse(sessao) : { nome: 'Administrador (Sistema)', role: 'admin' };
+            return sessao ? JSON.parse(sessao) : { nome: 'Administrador', role: 'admin' };
         }
 
-        // Registo de Logs com Ficha Completa
         function registarLogDetalhado(tipo, cliente, itens, total, operador) {
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
             const dataHora = new Date().toLocaleString('pt-PT');
             
             logs.unshift({
                 id: Date.now(),
-                tipo: tipo, // 'Orçamento' ou 'Venda Balcão'
+                tipo: tipo,
                 cliente: cliente,
-                itens: itens, // Array de materiais com qtd e preço
+                itens: itens,
                 total: total,
                 operador: operador,
                 data: dataHora
@@ -382,17 +416,9 @@
             localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
         }
 
-        // Gestão de Utilizadores (Apenas Administrador por predefinição)
         function obterUtilizadoresDoSistema() {
             let utilizadoresSalvos = localStorage.getItem('electro_honario_users');
-            if (!utilizadoresSalvos) {
-                const usersIniciais = [
-                    { id: 1, user: 'alberto', pass: 'mugabe', nome: 'Alberto Mugabe (Administrador)', role: 'admin', online: false }
-                ];
-                localStorage.setItem('electro_honario_users', JSON.stringify(usersIniciais));
-                return usersIniciais;
-            }
-            return JSON.parse(utilizadoresSalvos);
+            return utilizadoresSalvos ? JSON.parse(utilizadoresSalvos) : [];
         }
 
         function fazerLogin(event) {
@@ -449,6 +475,7 @@
                 if(btnAdmin) btnAdmin.classList.add('hidden');
                 mudarAba('orcamentos');
             }
+            aplicarConfiguracoesVisuais();
             renderizarTabelasAdmin();
             renderizarBalcãoVendas();
         }
@@ -482,6 +509,30 @@
 
             if(aba === 'relatorios') renderizarRelatorios();
             if(aba === 'admin') renderizarTabelasAdmin();
+        }
+
+        // Gestão de Configurações Globais (Logótipo e Idioma)
+        function guardarConfiguracoesGlobais() {
+            const logoUrl = document.getElementById('cfg-logo-url')?.value.trim();
+            const idioma = document.getElementById('cfg-idioma')?.value;
+
+            let config = { logoUrl: logoUrl, idioma: idioma };
+            localStorage.setItem('electro_honario_config', JSON.stringify(config));
+            alert('✅ Configurações globais guardadas com sucesso!');
+            aplicarConfiguracoesVisuais();
+        }
+
+        function aplicarConfiguracoesVisuais() {
+            let configStr = localStorage.getItem('electro_honario_config');
+            if(configStr) {
+                let config = JSON.parse(configStr);
+                if(config.logoUrl) {
+                    const logoContainer = document.getElementById('header-logo-container');
+                    if(logoContainer) {
+                        logoContainer.innerHTML = `<img src="${config.logoUrl}" alt="Logo" class="w-8 h-8 object-cover rounded-xl">`;
+                    }
+                }
+            }
         }
 
         function criarNovoUtilizadorSistema() {
@@ -887,6 +938,7 @@
             renderizarCatalogoMateriais();
             renderizarBalcãoVendas();
             atualizarCalculos();
+            aplicarConfiguracoesVisuais();
         };
 
         function gerarFaturaPDF() {
