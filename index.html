@@ -61,7 +61,7 @@
                     <i class="fa-solid fa-shield-halved text-3xl"></i>
                 </div>
                 <h2 class="text-2xl font-bold tracking-tight text-white">Acesso Restrito ao Sistema</h2>
-                <p class="text-xs text-slate-400">Introduza as suas credenciais criadas pelo Administrador</p>
+                <p class="text-xs text-slate-400">Introduza as suas credenciais profissionais</p>
             </div>
 
             <form onsubmit="fazerLogin(event)" class="space-y-4">
@@ -92,7 +92,6 @@
                 <div class="flex items-center space-x-3">
                     <div class="relative w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold">
                         <i class="fa-solid fa-user-shield"></i>
-                        <!-- Ponto Verde Indicador Online -->
                         <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-900 rounded-full animate-pulse" title="Online no Sistema"></span>
                     </div>
                     <div>
@@ -206,7 +205,7 @@
                 </div>
             </div>
 
-            <!-- ABA 2: BALCÃO DE VENDAS DIRETAS (Com Catálogo de Equipamentos) -->
+            <!-- ABA 2: BALCÃO DE VENDAS DIRETAS (Com Dados do Comprador e Talão Oficial) -->
             <div id="tab-vendas" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
                     <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex justify-between items-center">
@@ -215,7 +214,6 @@
                     </h4>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Lista de produtos para venda no balcão -->
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
                             <h5 class="font-bold text-xs uppercase text-amber-400">Artigos Disponíveis no Balcão:</h5>
                             <div id="balcao-materiais-container" class="space-y-2 max-h-[250px] overflow-y-auto pr-1">
@@ -223,43 +221,44 @@
                             </div>
                         </div>
 
-                        <!-- Resumo do Talão de Caixa -->
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-4 flex flex-col justify-between">
-                            <div class="space-y-2">
-                                <h5 class="font-bold text-xs uppercase text-amber-400">Resumo da Venda Direta</h5>
+                            <div class="space-y-3 text-xs">
+                                <h5 class="font-bold uppercase text-amber-400">Dados do Comprador & Pagamento</h5>
                                 <div>
-                                    <label class="block text-xs font-semibold text-slate-400 mb-1">Nome do Comprador (Opcional)</label>
-                                    <input type="text" id="venda-cliente" placeholder="Ex: Cliente de Balcão" class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs">
+                                    <label class="block font-semibold text-slate-400 mb-1">Nome do Comprador</label>
+                                    <input type="text" id="venda-cliente-nome" placeholder="Ex: Sr. Mário Santos" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                                 </div>
-                                <div class="flex justify-between items-center text-sm font-bold pt-2 border-t border-slate-800">
+                                <div>
+                                    <label class="block font-semibold text-slate-400 mb-1">Contacto / NUIT do Comprador</label>
+                                    <input type="text" id="venda-cliente-contacto" placeholder="Ex: 820000000 / NUIT" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                </div>
+                                <div class="flex justify-between items-center text-sm font-bold pt-3 border-t border-slate-800">
                                     <span>Total a Pagar:</span>
                                     <span id="venda-total" class="text-amber-500 font-mono text-lg">0.00 MT</span>
                                 </div>
                             </div>
-                            <button onclick="emitirTalaoCaixa()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl text-xs shadow transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-receipt"></i> Emitir Talão de Caixa Oficial
+                            <button onclick="emitirTalaoCaixaPDF()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl text-xs shadow transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-receipt"></i> Emitir Talão de Caixa Oficial & Baixar PDF
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ABA 3: RELATÓRIOS & HISTÓRICO -->
+            <!-- ABA 3: RELATÓRIOS & HISTÓRICO (Com Ficha Completa ao Clicar) -->
             <div id="tab-relatorios" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
                     <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2">
                         <i class="fa-solid fa-chart-line mr-2"></i> Relatórios Gerais & Histórico de Operações
                     </h4>
-                    <div id="relatorios-conteudo" class="p-6 bg-slate-950 rounded-xl border border-slate-800 space-y-3 text-xs text-slate-300">
-                        <p class="font-bold text-white">Auditoria de Atividades Registadas:</p>
-                        <div id="lista-logs" class="space-y-1.5 text-slate-400 max-h-[250px] overflow-y-auto">
-                            <!-- Preenchido via JS -->
-                        </div>
+                    <p class="text-xs text-slate-400">Clique em qualquer registo abaixo para abrir a ficha completa da operação, materiais e operador responsável.</p>
+                    <div id="lista-logs" class="space-y-2 max-h-[350px] overflow-y-auto pr-2 text-xs">
+                        <!-- Preenchido via JS com links clicáveis -->
                     </div>
                 </div>
             </div>
 
-            <!-- ABA 4: PAINEL DO ADMINISTRADOR (Gestão Completa) -->
+            <!-- ABA 4: PAINEL DO ADMINISTRADOR -->
             <div id="tab-admin" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
@@ -274,7 +273,6 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
                         
-                        <!-- ADICIONAR NOVO MATERIAL -->
                         <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
                             <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2">
                                 <i class="fa-solid fa-box-open text-amber-500"></i> Adicionar / Editar Material no Catálogo
@@ -288,7 +286,6 @@
                             </div>
                         </div>
 
-                        <!-- CRIAR NOVO UTILIZADOR -->
                         <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
                             <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2">
                                 <i class="fa-solid fa-users-gear text-amber-500"></i> Registar Novo Utilizador com Categoria
@@ -313,26 +310,19 @@
 
                     </div>
 
-                    <!-- GESTÃO E REMOÇÃO DE MATERIAIS E UTILIZADORES (Tabelas de Controlo) -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-800 text-xs">
-                        <!-- Tabela de Materiais com Opção de Remover -->
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
                             <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-solid fa-boxes-stacked text-amber-500"></i> Gerir / Remover Materiais do Sistema
+                                <i class="fa-solid fa-boxes-stacked text-amber-500"></i> Gerir / Remover Materiais
                             </h5>
-                            <div id="tabela-gestao-materiais" class="space-y-2 max-h-[200px] overflow-y-auto pr-1">
-                                <!-- Preenchido via JS -->
-                            </div>
+                            <div id="tabela-gestao-materiais" class="space-y-2 max-h-[200px] overflow-y-auto pr-1"></div>
                         </div>
 
-                        <!-- Tabela de Utilizadores com Opção de Remover + Status Online (Ponto Verde) -->
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
                             <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2">
                                 <i class="fa-solid fa-users text-amber-500"></i> Quadro Geral de Utilizadores & Status Online
                             </h5>
-                            <div id="tabela-gestao-utilizadores" class="space-y-2 max-h-[200px] overflow-y-auto pr-1">
-                                <!-- Preenchido via JS -->
-                            </div>
+                            <div id="tabela-gestao-utilizadores" class="space-y-2 max-h-[200px] overflow-y-auto pr-1"></div>
                         </div>
                     </div>
 
@@ -347,7 +337,7 @@
         ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema Profissional
     </footer>
 
-    <!-- SCRIPT DE LÓGICA E GESTÃO DINÂMICA -->
+    <!-- SCRIPT DE LÓGICA E GESTÃO -->
     <script>
         function atualizarRelogio() {
             const agora = new Date();
@@ -367,23 +357,37 @@
         setInterval(atualizarRelogio, 1000);
         atualizarRelogio();
 
-        // Registo de Logs de Auditoria do Sistema
-        function registarLog(acao) {
+        // Obter Sessão Ativa
+        function obterSessaoAtual() {
+            let sessao = localStorage.getItem('electro_honario_sessao_atual');
+            return sessao ? JSON.parse(sessao) : { nome: 'Administrador (Sistema)', role: 'admin' };
+        }
+
+        // Registo de Logs com Ficha Completa
+        function registarLogDetalhado(tipo, cliente, itens, total, operador) {
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
             const dataHora = new Date().toLocaleString('pt-PT');
-            logs.unshift({ texto: acao, data: dataHora });
+            
+            logs.unshift({
+                id: Date.now(),
+                tipo: tipo, // 'Orçamento' ou 'Venda Balcão'
+                cliente: cliente,
+                itens: itens, // Array de materiais com qtd e preço
+                total: total,
+                operador: operador,
+                data: dataHora
+            });
+
             if(logs.length > 50) logs.pop();
             localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
         }
 
-        // Gestão de Utilizadores
+        // Gestão de Utilizadores (Apenas Administrador por predefinição)
         function obterUtilizadoresDoSistema() {
             let utilizadoresSalvos = localStorage.getItem('electro_honario_users');
             if (!utilizadoresSalvos) {
                 const usersIniciais = [
-                    { id: 1, user: 'alberto', pass: 'mugabe', nome: 'Alberto Mugabe (Dono / Master)', role: 'admin', online: false },
-                    { id: 2, user: 'chefe', pass: 'chefe123', nome: 'Arnaldo Alfredo (Chefe de Obra)', role: 'chefe', online: false },
-                    { id: 3, user: 'tecnico', pass: 'tec123', nome: 'António Silva (Eletricista)', role: 'tecnico', online: false }
+                    { id: 1, user: 'alberto', pass: 'mugabe', nome: 'Alberto Mugabe (Administrador)', role: 'admin', online: false }
                 ];
                 localStorage.setItem('electro_honario_users', JSON.stringify(usersIniciais));
                 return usersIniciais;
@@ -402,13 +406,9 @@
 
             if (utilizadorEncontrado) {
                 if(erroEl) erroEl.classList.add('hidden');
-                
-                // Marcar como online
                 utilizadorEncontrado.online = true;
                 localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
                 localStorage.setItem('electro_honario_sessao_atual', JSON.stringify(utilizadorEncontrado));
-
-                registarLog(`Utilizador "${utilizadorEncontrado.nome}" iniciou sessão.`);
                 ativarSessao(utilizadorEncontrado);
             } else {
                 if(erroEl) erroEl.classList.remove('hidden');
@@ -440,7 +440,7 @@
                 if(roleDesc) roleDesc.textContent = userObj.role === 'diretor' ? 'Diretor Geral' : 'Chefe de Obra / Supervisor';
                 if(btnVendas) btnVendas.classList.remove('hidden');
                 if(btnRelatorios) btnRelatorios.classList.remove('hidden');
-                if(btnAdmin) btnAdmin.classList.add('hidden'); // Oculto painel master
+                if(btnAdmin) btnAdmin.classList.add('hidden');
                 mudarAba('orcamentos');
             } else {
                 if(roleDesc) roleDesc.textContent = 'Técnico Operacional';
@@ -461,7 +461,6 @@
                 let u = listaUsers.find(x => x.user === sessao.user);
                 if(u) u.online = false;
                 localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
-                registarLog(`Utilizador "${sessao.nome}" terminou sessão.`);
             }
             localStorage.removeItem('electro_honario_sessao_atual');
             location.reload();
@@ -485,7 +484,6 @@
             if(aba === 'admin') renderizarTabelasAdmin();
         }
 
-        // Criar Novo Utilizador pelo Admin
         function criarNovoUtilizadorSistema() {
             const novoUser = document.getElementById('novo-user-login')?.value.trim().toLowerCase();
             const novoPass = document.getElementById('novo-user-pass')?.value;
@@ -493,7 +491,7 @@
             const novoCargo = document.getElementById('novo-user-cargo')?.value;
 
             if (!novoUser || !novoPass || !novoNome) {
-                alert('⚠️ Preencha todos os campos para criar o utilizador.');
+                alert('⚠️ Preencha todos os campos.');
                 return;
             }
 
@@ -504,18 +502,9 @@
             }
 
             const novoId = listaUsers.length > 0 ? Math.max(...listaUsers.map(u => u.id || 0)) + 1 : 1;
-            listaUsers.push({
-                id: novoId,
-                user: novoUser,
-                pass: novoPass,
-                nome: novoNome,
-                role: novoCargo,
-                online: false
-            });
-
+            listaUsers.push({ id: novoId, user: novoUser, pass: novoPass, nome: novoNome, role: novoCargo, online: false });
             localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
-            registarLog(`Administrador criou o utilizador "${novoNome}" (${novoCargo}).`);
-            alert(`✅ Utilizador "${novoNome}" criado com sucesso!`);
+            alert(`✅ Utilizador "${novoNome}" (${novoCargo.toUpperCase()}) criado com sucesso!`);
             
             document.getElementById('novo-user-login').value = '';
             document.getElementById('novo-user-pass').value = '';
@@ -526,16 +515,15 @@
         function removerUtilizador(id) {
             let listaUsers = obterUtilizadoresDoSistema();
             if (listaUsers.length <= 1) {
-                alert('⚠️ Não pode remover todos os utilizadores do sistema.');
+                alert('⚠️ Não pode remover o último Administrador.');
                 return;
             }
             listaUsers = listaUsers.filter(u => u.id !== id);
             localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
-            registarLog(`Administrador removeu um utilizador do sistema.`);
             renderizarTabelasAdmin();
         }
 
-        // Gestão de Materiais e Equipamentos
+        // Materiais
         function obterMateriaisDoSistema() {
             let matsSalvos = localStorage.getItem('electro_honario_materiais');
             if (!matsSalvos) {
@@ -555,10 +543,8 @@
         function renderizarCatalogoMateriais() {
             const container = document.getElementById('catalogo-materiais-container');
             if (!container) return;
-
             const materiais = obterMateriaisDoSistema();
             let html = '';
-
             materiais.forEach(mat => {
                 html += `
                     <div class="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs">
@@ -587,10 +573,8 @@
 
             let materiais = obterMateriaisDoSistema();
             const novoId = materiais.length > 0 ? Math.max(...materiais.map(m => m.id)) + 1 : 1;
-
             materiais.push({ id: novoId, nome: nomeMat, preco: precoMat });
             localStorage.setItem('electro_honario_materiais', JSON.stringify(materiais));
-            registarLog(`Material/Equipamento "${nomeMat}" adicionado ao catálogo.`);
             alert(`✅ Material adicionado com sucesso!`);
             
             document.getElementById('novo-mat-nome').value = '';
@@ -605,18 +589,16 @@
             let materiais = obterMateriaisDoSistema();
             materiais = materiais.filter(m => m.id !== id);
             localStorage.setItem('electro_honario_materiais', JSON.stringify(materiais));
-            registarLog(`Material removido do catálogo.`);
             renderizarCatalogoMateriais();
             renderizarBalcãoVendas();
             renderizarTabelasAdmin();
             atualizarCalculos();
         }
 
-        // Renderizar Balcão de Vendas Diretas
+        // Balcão de Vendas
         function renderizarBalcãoVendas() {
             const container = document.getElementById('balcao-materiais-container');
             if(!container) return;
-
             const materiais = obterMateriaisDoSistema();
             let html = '';
             materiais.forEach(mat => {
@@ -648,19 +630,195 @@
             if(elTotal) elTotal.textContent = total.toLocaleString('pt-PT') + '.00 MT';
         }
 
-        function emitirTalaoCaixa() {
-            const comprador = document.getElementById('venda-cliente')?.value || 'Cliente Geral';
-            const totalStr = document.getElementById('venda-total')?.textContent || '0.00 MT';
-            
-            registarLog(`Venda direta efetuada no balcão para "${comprador}" no valor de ${totalStr}.`);
-            alert(`✅ Venda registada com sucesso! Emitindo talão de caixa para ${comprador}...`);
-            renderizarBalcãoVendas();
-            calcularTotalVenda();
+        function emitirTalaoCaixaPDF() {
+            const comprador = document.getElementById('venda-cliente-nome')?.value.trim() || 'Cliente Balcão';
+            const contactoComprador = document.getElementById('venda-cliente-contacto')?.value.trim() || 'N/A';
+            const sessao = obterSessaoAtual();
+            const dataHora = new Date().toLocaleString('pt-PT');
+
+            const materiais = obterMateriaisDoSistema();
+            let itensVendidos = [];
+            let itensHTML = '';
+            let totalVenda = 0;
+
+            materiais.forEach(mat => {
+                let input = document.getElementById(`venda-mat-${mat.id}`);
+                let qtd = input ? (parseInt(input.value) || 0) : 0;
+                if(qtd > 0) {
+                    let sub = qtd * mat.preco;
+                    totalVenda += sub;
+                    itensVendidos.push({ nome: mat.nome, qtd: qtd, preco: mat.preco, subtotal: sub });
+                    itensHTML += `
+                        <tr class="border-b text-xs">
+                            <td class="py-2 px-3">${mat.nome}</td>
+                            <td class="py-2 px-3 text-center">${qtd} un</td>
+                            <td class="py-2 px-3 text-right">${mat.preco.toFixed(2)} MT</td>
+                            <td class="py-2 px-3 text-right font-bold">${sub.toLocaleString('pt-PT')}.00 MT</td>
+                        </tr>
+                    `;
+                }
+            });
+
+            if(itensVendidos.length === 0) {
+                alert('⚠️ Selecione pelo menos um material para emitir o talão.');
+                return;
+            }
+
+            const totalStr = totalVenda.toLocaleString('pt-PT') + '.00 MT';
+            registarLogDetalhado('Venda Balcão', comprador, itensVendidos, totalStr, sessao.nome);
+
+            const janelaPDF = window.open('', '_blank');
+            if(janelaPDF) {
+                janelaPDF.document.write(`
+                    <html>
+                    <head>
+                        <title>Talão de Caixa Oficial - ELECTRO HONÁRIO & SERVIÇOS</title>
+                        <script src="https://cdn.tailwindcss.com"><\/script>
+                    </head>
+                    <body class="bg-white text-slate-900 p-8 font-sans">
+                        <div class="max-w-xl mx-auto border p-8 rounded-xl shadow space-y-6 bg-white">
+                            <div class="flex justify-between items-start border-b pb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="bg-amber-500 p-2.5 rounded-xl text-slate-950 font-bold">
+                                        <i class="fa-solid fa-bolt-lightning text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h1 class="font-black text-sm uppercase text-slate-900">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h1>
+                                        <p class="text-[11px] text-slate-600">NUIT: 402027037 | Maputo, Moçambique</p>
+                                    </div>
+                                </div>
+                                <div class="text-right text-xs">
+                                    <h2 class="font-bold text-amber-600 uppercase">TALÃO DE CAIXA</h2>
+                                    <p class="text-slate-500">${dataHora}</p>
+                                </div>
+                            </div>
+                            <div class="bg-slate-50 p-3 rounded border text-xs space-y-1">
+                                <p><strong>Comprador:</strong> ${comprador}</p>
+                                <p><strong>Contacto / NUIT:</strong> ${contactoComprador}</p>
+                                <p><strong>Operador de Caixa:</strong> ${sessao.nome}</p>
+                            </div>
+                            <table class="w-full text-left border-collapse border border-slate-200 text-xs">
+                                <thead>
+                                    <tr class="bg-slate-100 uppercase border-b text-[10px]">
+                                        <th class="py-2 px-3">Artigo / Equipamento</th>
+                                        <th class="py-2 px-3 text-center">Qtd</th>
+                                        <th class="py-2 px-3 text-right">Preço Unit.</th>
+                                        <th class="py-2 px-3 text-right">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>${itensHTML}</tbody>
+                            </table>
+                            <div class="bg-slate-50 p-3 rounded border flex justify-between items-center text-sm font-bold">
+                                <span>Total Pago:</span>
+                                <span class="text-amber-600 text-base">${totalStr}</span>
+                            </div>
+                            <div class="pt-6 border-t text-center text-[10px] text-slate-500 space-y-2">
+                                <p>Obrigado pela preferência! Equipamentos testados e certificados.</p>
+                                <button onclick="window.print()" class="px-6 py-2 bg-slate-900 text-white rounded text-xs font-bold shadow">Imprimir / Baixar Talão PDF</button>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                `);
+            }
         }
 
-        // Renderizar Tabelas do Admin (Com Ponto Verde para utilizadores online)
+        // Relatórios com Ficha Completa Clicável
+        function renderizarRelatorios() {
+            const container = document.getElementById('lista-logs');
+            if(!container) return;
+            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
+            let html = '';
+
+            if(logs.length === 0) {
+                container.innerHTML = '<div class="text-slate-500 text-center py-4">Sem registos de operações efetuadas.</div>';
+                return;
+            }
+
+            logs.forEach(l => {
+                html += `
+                    <div onclick='abrirFichaDetalhada(${JSON.stringify(l)})' class="bg-slate-900 hover:bg-slate-800 p-3 rounded-lg border border-slate-800 cursor-pointer transition flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-amber-400">[${l.tipo}] Cliente: ${l.cliente}</span>
+                            <span class="block text-slate-400 text-[11px]">Operador: ${l.operador} • Data: ${l.data}</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-mono font-bold text-white">${l.total}</span>
+                            <span class="block text-[10px] text-amber-500 underline">Ver Ficha Completa</span>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function abrirFichaDetalhada(l) {
+            let itensHTML = '';
+            l.itens.forEach(i => {
+                itensHTML += `
+                    <tr class="border-b text-xs">
+                        <td class="py-2 px-3">${i.nome}</td>
+                        <td class="py-2 px-3 text-center">${i.qtd} un</td>
+                        <td class="py-2 px-3 text-right">${i.preco.toFixed(2)} MT</td>
+                        <td class="py-2 px-3 text-right font-bold">${i.subtotal.toLocaleString('pt-PT')}.00 MT</td>
+                    </tr>
+                `;
+            });
+
+            const janelaFicha = window.open('', '_blank');
+            if(janelaFicha) {
+                janelaFicha.document.write(`
+                    <html>
+                    <head>
+                        <title>Ficha Detalhada da Operação - ELECTRO HONÁRIO</title>
+                        <script src="https://cdn.tailwindcss.com"><\/script>
+                    </head>
+                    <body class="bg-white text-slate-900 p-8 font-sans">
+                        <div class="max-w-2xl mx-auto border p-8 rounded-xl shadow space-y-6">
+                            <div class="flex justify-between border-b pb-4">
+                                <div>
+                                    <h1 class="font-black text-sm uppercase">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h1>
+                                    <p class="text-xs text-slate-500">Ficha de Auditoria de Operação (${l.tipo})</p>
+                                </div>
+                                <div class="text-right text-xs">
+                                    <p><strong>Data:</strong> ${l.data}</p>
+                                    <p><strong>Operador Responsável:</strong> <span class="text-amber-600 font-bold">${l.operador}</span></p>
+                                </div>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded text-xs space-y-1">
+                                <p><strong>Cliente / Comprador:</strong> ${l.cliente}</p>
+                                <p><strong>Tipo de Transação:</strong> ${l.tipo}</p>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-xs uppercase text-slate-700 mb-2">Materiais e Equipamentos Movimentados</h3>
+                                <table class="w-full text-left border-collapse border text-xs">
+                                    <thead>
+                                        <tr class="bg-slate-100 uppercase border-b text-[10px]">
+                                            <th class="py-2 px-3">Artigo</th>
+                                            <th class="py-2 px-3 text-center">Qtd</th>
+                                            <th class="py-2 px-3 text-right">Preço Unit.</th>
+                                            <th class="py-2 px-3 text-right">Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>${itensHTML}</tbody>
+                                </table>
+                            </div>
+                            <div class="bg-slate-50 p-3 rounded flex justify-between items-center font-bold text-sm">
+                                <span>Valor Total da Transação:</span>
+                                <span class="text-amber-600 text-base">${l.total}</span>
+                            </div>
+                            <div class="pt-4 text-center">
+                                <button onclick="window.print()" class="px-6 py-2 bg-slate-900 text-white rounded text-xs font-bold">Imprimir Ficha</button>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                `);
+            }
+        }
+
+        // Administração e Tabelas
         function renderizarTabelasAdmin() {
-            // Tabela Materiais
             const containerMats = document.getElementById('tabela-gestao-materiais');
             if(containerMats) {
                 let materiais = obterMateriaisDoSistema();
@@ -669,14 +827,13 @@
                     html += `
                         <div class="flex justify-between items-center bg-slate-900 p-2 rounded-lg border border-slate-800">
                             <span>${m.nome} (${m.preco.toFixed(2)} MT)</span>
-                            <button onclick="removerMaterial(${m.id})" class="text-red-400 hover:text-red-300 p-1" title="Remover Material"><i class="fa-solid fa-trash"></i></button>
+                            <button onclick="removerMaterial(${m.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     `;
                 });
                 containerMats.innerHTML = html;
             }
 
-            // Tabela Utilizadores com Ponto Verde
             const containerUsers = document.getElementById('tabela-gestao-utilizadores');
             if(containerUsers) {
                 let users = obterUtilizadoresDoSistema();
@@ -692,7 +849,7 @@
                                 <span class="font-bold text-white block">${u.nome} (${u.role.toUpperCase()})</span>
                                 ${statusOnline}
                             </div>
-                            <button onclick="removerUtilizador(${u.id})" class="text-red-400 hover:text-red-300 p-1" title="Remover Utilizador"><i class="fa-solid fa-user-xmark"></i></button>
+                            <button onclick="removerUtilizador(${u.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fa-solid fa-user-xmark"></i></button>
                         </div>
                     `;
                 });
@@ -700,21 +857,9 @@
             }
         }
 
-        function renderizarRelatorios() {
-            const listaLogs = document.getElementById('lista-logs');
-            if(!listaLogs) return;
-            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            let html = '';
-            logs.forEach(l => {
-                html += `<div class="border-b border-slate-900 pb-1"><strong>[${l.data}]</strong> ${l.texto}</div>`;
-            });
-            listaLogs.innerHTML = html || '<div>Sem registos de atividade recentes.</div>';
-        }
-
         function atualizarCalculos() {
             let totalMateriais = 0;
             const materiais = obterMateriaisDoSistema();
-
             materiais.forEach(mat => {
                 let campoMat = document.getElementById(`mat-${mat.id}`);
                 let qtd = campoMat ? (parseInt(campoMat.value) || 0) : 0;
@@ -725,7 +870,6 @@
             let selectCorrente = document.getElementById('cli-corrente');
             let tipoCorrente = selectCorrente ? selectCorrente.value : 'monofasico';
             let taxaCorrente = tipoCorrente === 'trifasico' ? 1200 : 300;
-
             let totalGeral = totalMateriais + maoObra + taxaCorrente;
 
             const resMat = document.getElementById('res-materiais');
@@ -746,11 +890,12 @@
         };
 
         function gerarFaturaPDF() {
-            const cliente = document.getElementById('cli-nome')?.value || 'Cliente Geral';
-            const bairro = document.getElementById('cli-bairro')?.value || 'N/A';
-            const contacto = document.getElementById('cli-contacto')?.value || 'N/A';
+            const cliente = document.getElementById('cli-nome')?.value.trim() || 'Cliente Geral';
+            const bairro = document.getElementById('cli-bairro')?.value.trim() || 'N/A';
+            const contacto = document.getElementById('cli-contacto')?.value.trim() || 'N/A';
             const tipoImovel = document.getElementById('cli-tipo-imovel')?.value || 'Residência';
             const tipoCorrente = document.getElementById('cli-corrente')?.value.toUpperCase() || 'MONOFÁSICO';
+            const sessao = obterSessaoAtual();
             
             const totalMateriaisStr = document.getElementById('res-materiais')?.textContent || '0.00 MT';
             const maoObraStr = document.getElementById('res-mao-obra')?.textContent || '1,500.00 MT';
@@ -760,6 +905,7 @@
             const dataHora = (document.getElementById('current-date')?.textContent || '') + ' às ' + (document.getElementById('current-time')?.textContent || '');
 
             const materiais = obterMateriaisDoSistema();
+            let itensVendidos = [];
             let itensHTML = '';
             let temItens = false;
 
@@ -769,6 +915,7 @@
                 if (qtd > 0) {
                     temItens = true;
                     let subtotalItem = qtd * mat.preco;
+                    itensVendidos.push({ nome: mat.nome, qtd: qtd, preco: mat.preco, subtotal: subtotalItem });
                     itensHTML += `
                         <tr class="border-b text-xs">
                             <td class="py-2 px-3">${mat.nome}</td>
@@ -784,7 +931,7 @@
                 itensHTML = `<tr><td colspan="4" class="py-3 text-center text-xs text-slate-500">Nenhum material selecionado neste orçamento.</td></tr>`;
             }
 
-            registarLog(`Orçamento gerado para o cliente "${cliente}" no valor de ${totalGeral}.`);
+            registarLogDetalhado('Orçamento / Obra', cliente, itensVendidos, totalGeral, sessao.nome);
 
             const janelaPDF = window.open('', '_blank');
             if(janelaPDF) {
@@ -804,12 +951,12 @@
                                     <div>
                                         <h1 class="font-black text-base text-slate-900 uppercase">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h1>
                                         <p class="text-xs text-slate-600">NUIT: 402027037 | Maputo, Moçambique</p>
-                                        <p class="text-xs text-slate-500">Instalações Elétricas & Equipamentos</p>
                                     </div>
                                 </div>
-                                <div class="text-right">
+                                <div class="text-right text-xs">
                                     <h2 class="font-bold text-amber-600 text-sm uppercase">FATURA / ORÇAMENTO OFICIAL</h2>
-                                    <p class="text-xs text-slate-500">Data: ${dataHora}</p>
+                                    <p class="text-slate-500">Data: ${dataHora}</p>
+                                    <p class="text-slate-500">Técnico/Operador: <strong>${sessao.nome}</strong></p>
                                 </div>
                             </div>
 
@@ -836,9 +983,7 @@
                                             <th class="py-2 px-3 text-right">Subtotal</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        ${itensHTML}
-                                    </tbody>
+                                    <tbody>${itensHTML}</tbody>
                                 </table>
                             </div>
 
@@ -869,7 +1014,7 @@
                                 </div>
                                 <div class="space-y-8">
                                     <div class="border-b border-slate-400 pb-1"></div>
-                                    <p class="font-bold text-slate-700">O Técnico Responsável / Chefe de Obra</p>
+                                    <p class="font-bold text-slate-700">O Técnico Responsável (${sessao.nome})</p>
                                     <p class="text-[10px] text-slate-500">Assinatura e Validação</p>
                                 </div>
                             </div>
