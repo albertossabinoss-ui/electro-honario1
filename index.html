@@ -57,9 +57,9 @@
         <!-- TELA DE LOGIN -->
         <div id="login-screen" class="w-full max-w-md bg-slate-900/90 backdrop-blur-md border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
             <div class="text-center space-y-2">
-                <div class="inline-block p-3.5 rounded-full bg-amber-500/10 text-amber-500 mb-2 border border-amber-500/20 shadow-inner">
-                    <i class="fa-solid fa-shield-halved text-3xl"></i>
-                </div>
+                <div id="login-logo-container" class="inline-block rounded-full mb-2 border border-amber-500/20 shadow-inner overflow-hidden w-16 h-16 flex items-center justify-center mx-auto bg-slate-900">
+    <i class="fa-solid fa-shield-halved text-3xl text-amber-500"></i>
+</div>
                 <h2 class="text-2xl font-bold tracking-tight text-white">Acesso Restrito ao Sistema</h2>
                 <p class="text-xs text-slate-400">Entre com as suas credenciais de Administrador</p>
                 <div class="bg-amber-500/10 border border-amber-500/30 p-2 rounded text-[11px] text-amber-400 mt-2">
@@ -307,8 +307,8 @@
                         </h5>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label class="block font-semibold text-slate-400 mb-1">URL do Logótipo (Imagem)</label>
-                                <input type="text" id="cfg-logo-url" placeholder="https://exemplo.com/logo.png" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                <label class="block font-semibold text-slate-400 mb-1">Logótipo da Empresa (Carregar do PC)</label>
+                                <input type="file" id="cfg-logo-file" accept="image/*" class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-400">
                             </div>
                             <div>
                                 <label class="block font-semibold text-slate-400 mb-1">Idioma do Sistema</label>
