@@ -320,6 +320,30 @@
                                 </button>
                             </div>
                         </div>
+                        </div>
+                </div>
+
+                <!-- CARTÃO DE LIMPEZA E MANUTENÇÃO DE DADOS -->
+                <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
+                    <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-red-400">
+                        <i class="fa-solid fa-broom-ball"></i> Limpeza & Manutenção de Histórico (Entrega do Sistema)
+                    </h5>
+                    <p class="text-slate-400 text-[11px]">Utilize estes botões para apagar os registos de testes antes de entregar o sistema ao cliente final.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="limparApenasHistorico()" class="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-trash-arrow-up text-base"></i>
+                            <span>Limpar Apenas Histórico de Operações (Manter Utilizadores)</span>
+                        </button>
+
+                        <button onclick="resetarSistemaCompleto()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-xl transition shadow-lg shadow-red-600/20 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation text-base"></i>
+                            <span>Restaurar Sistema Total (Apagar Tudo do Zero)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
@@ -1074,6 +1098,38 @@
         `);
     }
 }
-    </script>
+        });
+    }
+}
+
+// 1. Eliminar um único registo do histórico
+function eliminarHistoricoUnico(id) {
+    if (confirm('Tem a certeza que deseja eliminar este registo específico?')) {
+        let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
+        logs = logs.filter(l => l.id !== id);
+        localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
+        renderizarRelatorios();
+    }
+}
+
+// 2. Limpar apenas o histórico de operações
+function limparApenasHistorico() {
+    if (confirm('⚠️ ATENÇÃO: Deseja apagar TODO o histórico de orçamentos e vendas?\n\nAs contas de utilizadores e definições SERÃO MANTIDAS.')) {
+        localStorage.removeItem('electro_honario_logs');
+        alert('🧹 Histórico de operações limpo com sucesso!');
+        renderizarRelatorios();
+    }
+}
+
+// 3. Restaurar todo o sistema do zero
+function resetarSistemaCompleto() {
+    if (confirm('🛑 ATENÇÃO TOTAL!\n\nIsto irá apagar TODOS os dados, incluindo histórico, definições e utilizadores criados, redefinindo o sistema para o estado original com o Admin predefinido.\n\nDeseja continuar?')) {
+        localStorage.clear();
+        alert('🔄 Sistema totalmente restaurado do zero!');
+        location.reload();
+    }
+}
+
+</script>
 </body>
 </html>
