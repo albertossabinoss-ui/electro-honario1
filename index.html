@@ -468,26 +468,48 @@
         function obterUtilizadoresDoSistema() {
             return JSON.parse(localStorage.getItem('electro_honario_users') || '[]');
         }
+function fazerLogin(event) {
+    if (event) event.preventDefault();
+    const inputUser = document.getElementById('login-user')?.value.trim().toLowerCase();
+    const inputPass = document.getElementById('login-pass')?.value.trim();
+    const erroEl = document.getElementById('login-error');
 
-        function fazerLogin(event) {
-            event.preventDefault();
-            const inputUser = document.getElementById('login-user').value.trim().toLowerCase();
-            const inputPass = document.getElementById('login-pass').value;
-            const erroEl = document.getElementById('login-error');
-
-            let listaUsers = obterUtilizadoresDoSistema();
-            let utilizadorEncontrado = listaUsers.find(u => u.user === inputUser && u.pass === inputPass);
-
-            if (utilizadorEncontrado) {
-                if(erroEl) erroEl.classList.add('hidden');
-                utilizadorEncontrado.online = true;
-                localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
-                localStorage.setItem('electro_honario_sessao_atual', JSON.stringify(utilizadorEncontrado));
-                ativarSessao(utilizadorEncontrado);
-            } else {
-                if(erroEl) erroEl.classList.remove('hidden');
-            }
+    // Acesso de Emergência / Padrão do Administrador Principal
+    if (inputUser === 'alberto' && inputPass === 'mugabe') {
+        const adminUser = {
+            nome: 'Alberto Mugabe',
+            username: 'alberto',
+            password: 'mugabe',
+            cargo: 'Administrador Geral (Acesso Total)'
+        };
+        localStorage.setItem('electro_honario_sessao_atual', JSON.stringify(adminUser));
+        if (erroEl) erroEl.classList.add('hidden');
+        if (typeof ativarSessao === 'function') {
+            ativarSessao(adminUser);
+        } else {
+            window.location.reload();
         }
+        return;
+    }
+
+    // Validação dos restantes utilizadores criados no sistema
+    let listaUsers = obterUtilizadoresDoSistema();
+    let utilizadorEncontrado = listaUsers.find(u => (u.username === inputUser || u.user === inputUser) && (u.password === inputPass || u.pass === inputPass));
+
+    if (utilizadorEncontrado) {
+        if (erroEl) erroEl.classList.add('hidden');
+        utilizadorEncontrado.online = true;
+        localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
+        localStorage.setItem('electro_honario_sessao_atual', JSON.stringify(utilizadorEncontrado));
+        if (typeof ativarSessao === 'function') {
+            ativarSessao(utilizadorEncontrado);
+        } else {
+            window.location.reload();
+        }
+    } else {
+        if (erroEl) erroEl.classList.remove('hidden');
+    }
+}
 
         function ativarSessao(userObj) {
             const loginScreen = document.getElementById('login-screen');
