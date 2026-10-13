@@ -522,14 +522,31 @@
         }
 
         function guardarConfiguracoesGlobais() {
-            const logoUrl = document.getElementById('cfg-logo-url')?.value.trim();
-            const idioma = document.getElementById('cfg-idioma')?.value;
+    const fileInput = document.getElementById('cfg-logo-file');
+    const idioma = document.getElementById('cfg-idioma')?.value;
 
-            let config = { logoUrl: logoUrl, idioma: idioma };
+    if (fileInput && fileInput.files && fileInput.files[0]) {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const logoBase64 = e.target.result;
+            let config = { logoUrl: logoBase64, idioma: idioma };
             localStorage.setItem('electro_honario_config', JSON.stringify(config));
-            alert('✅ Configurações globais guardadas!');
+            alert('✅ Logótipo carregado do computador e definições guardadas com sucesso!');
             aplicarConfiguracoesVisuais();
-        }
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        let configStr = localStorage.getItem('electro_honario_config');
+        let config = configStr ? JSON.parse(configStr) : {};
+        config.idioma = idioma;
+        localStorage.setItem('electro_honario_config', JSON.stringify(config));
+        alert('✅ Definições guardadas!');
+        aplicarConfiguracoesVisuais();
+    }
+}
 
         function aplicarConfiguracoesVisuais() {
             let configStr = localStorage.getItem('electro_honario_config');
