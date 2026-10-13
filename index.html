@@ -323,24 +323,40 @@
                         </div>
                 </div>
 
-                <!-- CARTÃO DE LIMPEZA E MANUTENÇÃO DE DADOS -->
-                <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-                    <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-red-400">
-                        <i class="fa-solid fa-broom-ball"></i> Limpeza & Manutenção de Histórico (Entrega do Sistema)
-                    </h5>
-                    <p class="text-slate-400 text-[11px]">Utilize estes botões para apagar os registos de testes antes de entregar o sistema ao cliente final.</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <button onclick="limparApenasHistorico()" class="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-trash-arrow-up text-base"></i>
-                            <span>Limpar Apenas Histórico de Operações (Manter Utilizadores)</span>
-                        </button>
+<!-- CARTÃO DE LIMPEZA E MANUTENÇÃO CIRÚRGICA DE DADOS -->
+<div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
+    <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-red-400">
+        <i class="fa-solid fa-broom-ball"></i> Gestão Cirúrgica de Históricos & Dados
+    </h5>
+    <p class="text-slate-400 text-[11px]">Escolha exatamente o que pretende limpar antes da entrega do sistema, sem afetar as contas de utilizador.</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <!-- Apagar apenas Orçamentos -->
+        <button onclick="limparApenasOrcamentos()" class="w-full bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 font-bold py-3 px-3 rounded-xl transition flex flex-col items-center justify-center gap-1.5 text-center">
+            <i class="fa-solid fa-file-invoice text-base"></i>
+            <span>Limpar Apenas Orçamentos</span>
+        </button>
 
-                        <button onclick="resetarSistemaCompleto()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-xl transition shadow-lg shadow-red-600/20 flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-triangle-exclamation text-base"></i>
-                            <span>Restaurar Sistema Total (Apagar Tudo do Zero)</span>
-                        </button>
-                    </div>
+        <!-- Apagar apenas Vendas de Balcão -->
+        <button onclick="limparApenasVendas()" class="w-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold py-3 px-3 rounded-xl transition flex flex-col items-center justify-center gap-1.5 text-center">
+            <i class="fa-solid fa-cash-register text-base"></i>
+            <span>Limpar Apenas Vendas de Balcão</span>
+        </button>
+
+        <!-- Apagar Todo o Histórico Geral -->
+        <button onclick="limparApenasHistorico()" class="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 font-bold py-3 px-3 rounded-xl transition flex flex-col items-center justify-center gap-1.5 text-center">
+            <i class="fa-solid fa-trash-arrow-up text-base"></i>
+            <span>Limpar Todo o Histórico (Orçamentos + Vendas)</span>
+        </button>
+    </div>
+
+    <div class="pt-2 border-t border-slate-900">
+        <button onclick="resetarSistemaCompleto()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl transition shadow-lg shadow-red-600/20 flex items-center justify-center gap-2 text-xs">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Restaurar Sistema Total do Zero (Apagar Tudo exceto Admin Padrão)</span>
+        </button>
+    </div>
+</div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
@@ -1129,7 +1145,24 @@ function resetarSistemaCompleto() {
         location.reload();
     }
 }
+// Garantir que o Administrador predefinido existe sempre no arranque do sistema
+function garantirAdminPredefinido() {
+    let utilizadores = JSON.parse(localStorage.getItem('electro_honario_users') || '[]');
+    const adminExiste = utilizadores.some(u => u.username === 'alberto');
+    
+    if (!adminExiste) {
+        utilizadores.unshift({
+            nome: 'Alberto Mugabe',
+            username: 'alberto',
+            password: 'mugabe',
+            cargo: 'Administrador Geral (Acesso Total)'
+        });
+        localStorage.setItem('electro_honario_users', JSON.stringify(utilizadores));
+    }
+}
 
+// Executa imediatamente ao carregar
+garantirAdminPredefinido();
 </script>
 </body>
 </html>
