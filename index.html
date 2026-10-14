@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - Enterprise ERP Cloud</title>
+    <title>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - Sistema Elétrico ERP Cloud</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -20,25 +20,25 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black">
 
-    <!-- CABEÇALHO CORPORATIVO -->
-    <header class="bg-slate-900 border-b border-slate-800 py-3 px-6 shadow-xl flex flex-wrap justify-between items-center gap-4">
+    <!-- CABEÇALHO GLOBAL -->
+    <header class="bg-slate-900 border-b border-slate-800 py-3 px-6 shadow-md flex flex-wrap justify-between items-center gap-4">
         <div class="flex items-center space-x-3.5">
-            <div id="header-logo-container" class="relative bg-gradient-to-br from-amber-400 to-amber-600 p-2.5 rounded-xl text-slate-950 shadow-lg shadow-amber-500/30 flex items-center justify-center border border-amber-300">
-                <i class="fa-solid fa-bolt text-xl text-slate-950"></i>
-                <div class="absolute -bottom-1 -right-1 bg-slate-950 text-emerald-400 p-0.5 rounded-full text-[9px] border border-emerald-500">
-                    <i class="fa-solid fa-circle"></i>
+            <div id="header-logo-container" class="relative bg-gradient-to-br from-amber-400 to-amber-600 p-2.5 rounded-2xl text-slate-950 shadow-lg shadow-amber-500/30 flex items-center justify-center border border-amber-300">
+                <i class="fa-solid fa-lightbulb text-2xl animate-pulse text-slate-950"></i>
+                <div class="absolute -bottom-1 -right-1 bg-slate-950 text-amber-400 p-1 rounded-full text-[10px] border border-amber-500">
+                    <i class="fa-solid fa-cloud text-emerald-400 animate-pulse" title="Nuvem Online"></i>
                 </div>
             </div>
             <div>
-                <h1 class="text-lg font-black tracking-wider uppercase text-white flex items-center gap-2">
+                <h1 class="text-xl font-black tracking-wider uppercase text-white flex items-center gap-2">
                     ELECTRO HONÁRIO & SERVIÇOS 
                     <span class="text-amber-500 text-xs px-2 py-0.5 bg-amber-500/10 rounded-full border border-amber-500/30">NUIT: 402027037</span>
                 </h1>
-                <p class="text-xs text-slate-400">Plataforma ERP & Gestão Operacional em Nuvem</p>
+                <p class="text-xs text-slate-400">Sistema ERP em Nuvem • M-Pesa, e-Mola & Controlo de Contas Empresariais</p>
             </div>
         </div>
         
-        <div class="flex items-center space-x-4 bg-slate-950 px-4 py-2 rounded-xl border border-slate-800 text-xs">
+        <div class="flex items-center space-x-4 bg-slate-950/80 px-4 py-2 rounded-xl border border-slate-800 text-sm">
             <div class="flex items-center space-x-2 text-slate-300">
                 <i class="fa-regular fa-calendar-days text-amber-500"></i>
                 <span id="current-date">--/--/----</span>
@@ -54,81 +54,82 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="flex-grow flex items-center justify-center p-4">
         
-        <!-- TELA DE LOGIN PROFISSIONAL -->
-        <div id="login-screen" class="w-full max-w-md bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
+        <!-- TELA DE LOGIN -->
+        <div id="login-screen" class="w-full max-w-md bg-slate-900/90 backdrop-blur-md border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
             <div class="text-center space-y-2">
-                <div class="inline-block rounded-2xl mb-2 bg-amber-500/10 border border-amber-500/30 p-4 text-amber-500">
-                    <i class="fa-solid fa-shield-halved text-3xl"></i>
+                <div id="login-logo-container" class="inline-block rounded-full mb-2 border border-amber-500/20 shadow-inner overflow-hidden w-16 h-16 flex items-center justify-center mx-auto bg-slate-900">
+                    <i class="fa-solid fa-shield-halved text-3xl text-amber-500"></i>
                 </div>
-                <h2 class="text-xl font-bold tracking-tight text-white">Autenticação Corporativa</h2>
-                <p class="text-xs text-slate-400">Insira as credenciais para aceder ao sistema</p>
+                <h2 class="text-2xl font-bold tracking-tight text-white">Acesso Restrito ao Sistema</h2>
+                <p class="text-xs text-slate-400">Entre com as suas credenciais autorizadas</p>
             </div>
 
-            <form onsubmit="fazerLogin(event)" class="space-y-4 text-xs">
+            <form onsubmit="fazerLogin(event)" class="space-y-4">
                 <div>
-                    <label class="block font-semibold uppercase tracking-wider text-slate-400 mb-1">Utilizador</label>
-                    <input type="text" id="login-user" required placeholder="Ex: alberto" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-amber-500 text-white">
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Utilizador</label>
+                    <input type="text" id="login-user" required placeholder="Insira o seu utilizador" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-amber-500 text-sm text-white transition">
                 </div>
                 <div>
-                    <label class="block font-semibold uppercase tracking-wider text-slate-400 mb-1">Palavra-passe</label>
-                    <input type="password" id="login-pass" required placeholder="••••••••" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-amber-500 text-white">
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Palavra-passe</label>
+                    <input type="password" id="login-pass" required placeholder="••••••••" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-amber-500 text-sm text-white transition">
                 </div>
-                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg shadow-amber-500/20 transition flex items-center justify-center gap-2 text-xs uppercase tracking-wider">
+                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg shadow-amber-500/20 transition flex items-center justify-center gap-2">
                     <span>Entrar no Sistema</span>
                     <i class="fa-solid fa-arrow-right-to-bracket"></i>
                 </button>
             </form>
             
             <div id="login-error" class="hidden text-center text-red-400 text-xs font-medium bg-red-500/10 border border-red-500/20 p-2.5 rounded-lg">
-                Utilizador ou palavra-passe incorretos.
+                Utilizador ou palavra-passe incorretos. Verifique as credenciais.
             </div>
         </div>
 
-        <!-- DASHBOARD CORPORATIVO PRINCIPAL -->
-        <div id="app-dashboard" class="hidden w-full max-w-7xl space-y-6">
+        <!-- PAINEL PRINCIPAL DO APLICATIVO -->
+        <div id="app-dashboard" class="hidden w-full max-w-6xl space-y-6">
             
-            <!-- BARRA DE NAVEGAÇÃO INTERNA & UTILIZADOR -->
+            <!-- Barra de Boas-vindas e Controlo Hierárquico -->
             <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex flex-wrap justify-between items-center gap-4">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold">
-                        <i class="fa-solid fa-user-tie"></i>
+                    <div class="relative w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold overflow-hidden">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-900 rounded-full animate-pulse" title="Online na Nuvem"></span>
                     </div>
                     <div>
-                        <h3 class="font-bold text-sm" id="welcome-msg">Bem-vindo</h3>
-                        <p class="text-[11px] text-amber-400" id="role-desc">Gestor Operacional</p>
+                        <h3 class="font-bold text-base" id="welcome-msg">Bem-vindo</h3>
+                        <p class="text-xs text-amber-400" id="role-desc">Painel Operacional Cloud</p>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-2 flex-wrap text-xs">
-                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-3.5 py-2 bg-amber-500 text-slate-950 font-bold rounded-xl transition shadow flex items-center gap-1.5">
-                        <i class="fa-solid fa-file-invoice-dollar"></i> Orçamentos & Obras
+                <div class="flex items-center gap-2 flex-wrap">
+                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow">
+                        <i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras
                     </button>
                     
-                    <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="hidden px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-cash-register"></i> Balcão POS
+                    <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="hidden px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition">
+                        <i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão de Vendas (POS)
                     </button>
 
-                    <button onclick="mudarAba('relatorios')" id="tab-btn-relatorios" class="hidden px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-chart-pie"></i> Relatórios & Estatísticas
+                    <button onclick="mudarAba('relatorios')" id="tab-btn-relatorios" class="hidden px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition">
+                        <i class="fa-solid fa-chart-line mr-1.5"></i> Relatórios & Lucros
                     </button>
 
-                    <button onclick="mudarAba('admin')" id="tab-btn-admin" class="hidden px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-amber-400 font-semibold rounded-xl transition border border-amber-500/30 flex items-center gap-1.5">
-                        <i class="fa-solid fa-building-columns"></i> Contas & Configurações
+                    <button onclick="mudarAba('admin')" id="tab-btn-admin" class="hidden px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-400 font-semibold text-xs rounded-xl transition border border-amber-500/30">
+                        <i class="fa-solid fa-sliders mr-1.5"></i> Contas & Configurações
                     </button>
 
-                    <button onclick="terminarSessao()" class="px-3 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-xl transition" title="Terminar Sessão">
+                    <button onclick="terminarSessao()" class="px-3 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs rounded-xl transition" title="Terminar Sessão">
                         <i class="fa-solid fa-power-off"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- ABA 1: ORÇAMENTOS E OBRAS -->
+            <!-- ABA 1: ORÇAMENTOS E INSTALAÇÕES -->
             <div id="tab-orcamentos" class="space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
                     <div class="lg:col-span-1 bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
-                        <h4 class="font-bold text-xs uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2">
-                            <i class="fa-solid fa-user-pen mr-2"></i> Dados do Cliente & Instalação
+                        <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2">
+                            <i class="fa-solid fa-house-chimney-user mr-2"></i> Dados do Cliente & Instalação
                         </h4>
 
                         <div class="space-y-3 text-xs">
@@ -141,8 +142,8 @@
                                 <input type="text" id="cli-bairro" placeholder="Ex: Bairro Central" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
                             </div>
                             <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Contacto / NUIT</label>
-                                <input type="text" id="cli-contacto" placeholder="Ex: 840000000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono">
+                                <label class="block font-semibold text-slate-400 mb-1">Contacto Telefónico / NUIT</label>
+                                <input type="text" id="cli-contacto" placeholder="Ex: +258 84 000 0000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
                             </div>
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
@@ -162,17 +163,18 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Estado da Obra</label>
+                                <label class="block font-semibold text-slate-400 mb-1">Estado da Obra / Orçamento</label>
                                 <select id="cli-estado-obra" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-amber-400 font-bold">
                                     <option value="Pendente">Pendente / Em Análise</option>
-                                    <option value="Aprovado">Aprovado</option>
+                                    <option value="Aprovado">Aprovado pelo Cliente</option>
+                                    <option value="Em Execução">Em Execução</option>
                                     <option value="Concluído">Concluído</option>
                                 </select>
                             </div>
 
                             <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
-                                <label class="block font-semibold text-amber-400">Sinal / Adiantamento (MT)</label>
-                                <input type="number" step="0.01" id="cli-sinal-pago" placeholder="0.00" oninput="atualizarCalculos()" class="w-full p-2 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono">
+                                <label class="block font-semibold text-amber-400">Controlo de Sinal / Adiantamento (MT)</label>
+                                <input type="number" step="0.01" id="cli-sinal-pago" placeholder="Ex: 5000.00" oninput="atualizarCalculos()" class="w-full p-2 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono">
                                 <div class="flex justify-between text-[11px] text-slate-400 pt-1">
                                     <span>Saldo Restante:</span>
                                     <span id="res-saldo-restante" class="text-amber-400 font-bold font-mono">0.00 MT</span>
@@ -188,8 +190,8 @@
                     <div class="lg:col-span-2 bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4 flex flex-col justify-between">
                         <div class="space-y-4">
                             <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-2 gap-2">
-                                <h4 class="font-bold text-xs uppercase tracking-wider text-amber-400">
-                                    <i class="fa-solid fa-boxes-stacked mr-2"></i> Catálogo de Materiais (SOCOAL)
+                                <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400">
+                                    <i class="fa-solid fa-boxes-stacked mr-2"></i> Catálogo de Materiais Categorizados (SOCOAL)
                                 </h4>
                                 <select id="filtro-categoria" onchange="renderizarCatalogoMateriais()" class="p-1.5 bg-slate-950 border border-slate-800 rounded-lg text-xs text-amber-400 font-semibold">
                                     <option value="todos">Todas as Categorias</option>
@@ -204,35 +206,37 @@
                             <div id="catalogo-materiais-container" class="space-y-3 max-h-[260px] overflow-y-auto pr-1"></div>
                         </div>
 
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 mt-2 text-xs">
-                            <div class="flex justify-between text-slate-400">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 mt-2">
+                            <div class="flex justify-between text-xs text-slate-400">
                                 <span>Subtotal Materiais:</span>
                                 <span id="res-materiais" class="text-white font-mono font-semibold">0.00 MT</span>
                             </div>
-                            <div class="flex justify-between text-slate-400">
-                                <span>Mão de Obra & Instalação:</span>
+                            <div class="flex justify-between text-xs text-slate-400">
+                                <span>Mão de Obra & Taxa de Instalação:</span>
                                 <span id="res-mao-obra" class="text-white font-mono font-semibold">1,500.00 MT</span>
                             </div>
-                            <div class="flex justify-between text-slate-400">
+                            <div class="flex justify-between text-xs text-slate-400">
                                 <span>Taxa de Sistema:</span>
                                 <span id="res-taxa" class="text-amber-400 font-mono font-semibold">300.00 MT</span>
                             </div>
-                            <div class="flex justify-between text-slate-400">
-                                <span>IVA (16%):</span>
+                            <div id="linha-iva-resumo" class="hidden flex justify-between text-xs text-slate-400">
+                                <span id="label-iva-resumo">IVA (16%):</span>
                                 <span id="res-iva" class="text-amber-400 font-mono font-semibold">0.00 MT</span>
                             </div>
                             <div class="border-t border-slate-800 pt-2 flex justify-between items-center">
                                 <span class="text-sm font-bold text-white uppercase">Total Geral:</span>
-                                <span id="res-total" class="text-lg font-black text-amber-500 font-mono">1,800.00 MT</span>
+                                <span id="res-total" class="text-xl font-black text-amber-500 font-mono">1,800.00 MT</span>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                            <button onclick="gerarFaturaPDF()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-file-arrow-down"></i> Gerar Orçamento Oficial A4
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <button onclick="gerarFaturaPDF()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-xs">
+                                <i class="fa-solid fa-file-arrow-down"></i>
+                                <span>Gerar Orçamento Oficial A4</span>
                             </button>
-                            <button onclick="gerarTalaoTermico()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-3 rounded-xl transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-receipt"></i> Imprimir Talão POS
+                            <button onclick="gerarTalaoTermico()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 text-xs">
+                                <i class="fa-solid fa-receipt"></i>
+                                <span>Imprimir Talão POS</span>
                             </button>
                         </div>
                     </div>
@@ -243,9 +247,9 @@
             <!-- ABA 2: BALCÃO DE VENDAS DIRETAS (POS COM M-PESA & E-MOLA CLOUD PUSH) -->
             <div id="tab-vendas" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
-                    <h4 class="font-bold text-xs uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex justify-between items-center">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex justify-between items-center">
                         <span><i class="fa-solid fa-cash-register mr-2"></i> Balcão de Vendas Diretas & POS Cloud</span>
-                        <span class="text-slate-400">M-Pesa, e-Mola & Contas da Empresa</span>
+                        <span class="text-xs text-slate-400">M-Pesa, e-Mola & Contas da Empresa</span>
                     </h4>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -254,12 +258,12 @@
                             <div id="balcao-materiais-container" class="space-y-2 max-h-[250px] overflow-y-auto pr-1"></div>
                         </div>
 
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-4 flex flex-col justify-between text-xs">
-                            <div class="space-y-3">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-4 flex flex-col justify-between">
+                            <div class="space-y-3 text-xs">
                                 <h5 class="font-bold uppercase text-amber-400">Dados do Comprador & Pagamento Cloud</h5>
                                 <div>
                                     <label class="block font-semibold text-slate-400 mb-1">Nome do Comprador</label>
-                                    <input type="text" id="venda-cliente-nome" placeholder="Ex: Mário Santos" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                    <input type="text" id="venda-cliente-nome" placeholder="Ex: Sr. Mário Santos" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
@@ -277,43 +281,46 @@
                                     </div>
                                 </div>
 
+                                <!-- INFO DE DESTINO DA CONTA DA EMPRESA -->
                                 <div id="info-conta-destino" class="bg-slate-900 p-2.5 rounded-lg border border-amber-500/30 text-[11px] text-slate-300">
-                                    <i class="fa-solid fa-circle-info text-amber-400 mr-1"></i> Destino: <strong id="lbl-destino-conta" class="text-amber-400">Conta Principal</strong>
+                                    <i class="fa-solid fa-circle-info text-amber-400 mr-1"></i> Destino: <strong id="lbl-destino-conta" class="text-amber-400">Conta M-Pesa Principal</strong>
                                 </div>
 
                                 <!-- BLOCO M-PESA CLOUD PUSH -->
                                 <div id="bloco-mpesa-info" class="hidden space-y-2 bg-slate-900 p-3 rounded-xl border border-red-500/30">
-                                    <label class="block font-bold text-red-400 flex items-center justify-between">
+                                    <label class="block text-xs font-bold text-red-400 flex items-center justify-between">
                                         <span>Cobrança Automática Cloud M-Pesa</span>
                                         <i class="fa-solid fa-cloud-arrow-down animate-bounce"></i>
                                     </label>
-                                    <button onclick="dispararCobrancaCloudAPI('M-Pesa')" type="button" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-lg transition flex items-center justify-center gap-2 shadow">
-                                        <i class="fa-solid fa-signal"></i> Disparar API Push ao Telemóvel
+                                    <button onclick="dispararCobrancaCloudAPI('M-Pesa')" type="button" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition flex items-center justify-center gap-2 shadow">
+                                        <i class="fa-solid fa-signal"></i>
+                                        <span>Disparar API Push ao Telemóvel</span>
                                     </button>
                                     <div>
-                                        <label class="block text-[10px] text-slate-400">ID Transação (Callback Nuvem)</label>
-                                        <input type="text" id="venda-mpesa-id" readonly placeholder="Aguardando webhook..." class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-amber-400 font-mono text-xs">
+                                        <label class="block text-[10px] text-slate-400">ID Transação Automático (Callback)</label>
+                                        <input type="text" id="venda-mpesa-id" readonly placeholder="Aguardando webhook nuvem..." class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-amber-400 font-mono text-xs">
                                     </div>
                                 </div>
 
                                 <!-- BLOCO E-MOLA CLOUD PUSH -->
                                 <div id="bloco-emola-info" class="hidden space-y-2 bg-slate-900 p-3 rounded-xl border border-emerald-500/30">
-                                    <label class="block font-bold text-emerald-400 flex items-center justify-between">
+                                    <label class="block text-xs font-bold text-emerald-400 flex items-center justify-between">
                                         <span>Cobrança Automática Cloud e-Mola</span>
                                         <i class="fa-solid fa-cloud-arrow-down animate-bounce"></i>
                                     </label>
-                                    <button onclick="dispararCobrancaCloudAPI('e-Mola')" type="button" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg transition flex items-center justify-center gap-2 shadow">
-                                        <i class="fa-solid fa-signal"></i> Disparar API Push ao Telemóvel
+                                    <button onclick="dispararCobrancaCloudAPI('e-Mola')" type="button" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition flex items-center justify-center gap-2 shadow">
+                                        <i class="fa-solid fa-signal"></i>
+                                        <span>Disparar API Push ao Telemóvel</span>
                                     </button>
                                     <div>
-                                        <label class="block text-[10px] text-slate-400">ID Transação (Callback Nuvem)</label>
-                                        <input type="text" id="venda-emola-id" readonly placeholder="Aguardando webhook..." class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-amber-400 font-mono text-xs">
+                                        <label class="block text-[10px] text-slate-400">ID Transação Automático (Callback)</label>
+                                        <input type="text" id="venda-emola-id" readonly placeholder="Aguardando webhook nuvem..." class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-amber-400 font-mono text-xs">
                                     </div>
                                 </div>
 
                                 <div id="bloco-tpa-info" class="hidden space-y-1 bg-slate-900 p-2.5 rounded-lg border border-slate-800">
-                                    <label class="block text-amber-400 font-semibold">Código Autorização TPA</label>
-                                    <input type="text" id="venda-tpa-auth" placeholder="Ex: AUTH-98214" class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-white font-mono">
+                                    <label class="block font-[11px] text-amber-400 font-semibold">Código Autorização TPA (AuthCode)</label>
+                                    <input type="text" id="venda-tpa-auth" placeholder="Ex: AUTH-98214" class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-white text-xs font-mono">
                                 </div>
 
                                 <div class="flex justify-between items-center text-sm font-bold pt-2 border-t border-slate-800">
@@ -321,11 +328,11 @@
                                     <span id="venda-total" class="text-amber-500 font-mono text-lg">0.00 MT</span>
                                 </div>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 pt-2">
-                                <button onclick="emitirTalaoCaixaPDF()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow transition flex items-center justify-center gap-1.5">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                <button onclick="emitirTalaoCaixaPDF()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl text-xs shadow transition flex items-center justify-center gap-1.5">
                                     <i class="fa-solid fa-receipt"></i> Fatura Talão A4
                                 </button>
-                                <button onclick="emitirTalaoTermicoBalcao()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-3 rounded-xl transition flex items-center justify-center gap-1.5">
+                                <button onclick="emitirTalaoTermicoBalcao()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-3 rounded-xl text-xs transition flex items-center justify-center gap-1.5">
                                     <i class="fa-solid fa-print"></i> Talão POS 80mm
                                 </button>
                             </div>
@@ -334,15 +341,15 @@
                 </div>
             </div>
 
-            <!-- ABA 3: RELATÓRIOS & ESTATÍSTICAS -->
+            <!-- ABA 3: RELATÓRIOS & LUCROS CONSOLIDADOS -->
             <div id="tab-relatorios" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
                         <div>
-                            <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400">
-                                <i class="fa-solid fa-chart-line mr-2"></i> Relatórios Financeiros & Faturamento Consolidado
+                            <h4 class="font-bold text-base text-amber-400">
+                                <i class="fa-solid fa-chart-pie mr-2"></i> Relatórios Financeiros, Faturamento & Sincronização Nuvem
                             </h4>
-                            <p class="text-xs text-slate-400">Análise de desempenho, faturamento e fluxo de caixa em nuvem</p>
+                            <p class="text-xs text-slate-400">Estatísticas, margens brutas e fluxo de caixa consolidado</p>
                         </div>
                         <button onclick="exportarRelatorioCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-xs transition flex items-center gap-2 shadow">
                             <i class="fa-solid fa-file-excel"></i> Exportar Relatório Executivo (CSV)
@@ -353,79 +360,124 @@
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
                             <span class="text-slate-400 uppercase font-semibold">Faturamento Total Nuvem</span>
                             <h3 id="stat-faturamento" class="text-2xl font-black text-white font-mono">0.00 MT</h3>
+                            <span class="text-[10px] text-slate-500">Soma de orçamentos e vendas</span>
                         </div>
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                            <span class="text-slate-400 uppercase font-semibold">Lucro Bruto Estimado</span>
+                            <span class="text-slate-400 uppercase font-semibold">Lucro Bruto Consolidado</span>
                             <h3 id="stat-lucro" class="text-2xl font-black text-emerald-400 font-mono">0.00 MT</h3>
+                            <span class="text-[10px] text-slate-500">Margem líquida de serviços e artigos</span>
                         </div>
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
                             <span class="text-slate-400 uppercase font-semibold">Total de Operações</span>
                             <h3 id="stat-total-ops" class="text-2xl font-black text-amber-400 font-mono">0</h3>
+                            <span class="text-[10px] text-slate-500">Transações registadas</span>
                         </div>
                     </div>
 
                     <div class="space-y-3">
-                        <h5 class="font-bold text-xs uppercase text-slate-300">Histórico de Transações Sincronizadas:</h5>
+                        <h5 class="font-bold text-xs uppercase text-slate-300">Histórico Financeiro Sincronizado:</h5>
                         <div id="lista-logs" class="space-y-2 max-h-[300px] overflow-y-auto pr-2 text-xs"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- ABA 4: CONTAS DA EMPRESA & CONFIGURAÇÕES -->
+            <!-- ABA 4: PAINEL DO ADMINISTRADOR (GESTÃO DE CONTAS DA EMPRESA) -->
             <div id="tab-admin" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
                         <div>
-                            <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400">
+                            <h4 class="font-bold text-base text-amber-400">
                                 <i class="fa-solid fa-wallet mr-2"></i> Gestão de Contas Bancárias & Carteiras Móveis da Empresa
                             </h4>
                             <p class="text-xs text-slate-400">ELECTRO HONÁRIO & SERVIÇOS SU, LDA. | NUIT: 402027037</p>
                         </div>
-                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-bold">Administração</span>
+                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-bold">Controlo Financeiro</span>
                     </div>
 
+                    <!-- GESTÃO DAS CONTAS DA EMPRESA -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-                        <h5 class="font-bold text-white uppercase tracking-wider text-amber-400">
-                            <i class="fa-solid fa-building-columns"></i> Contas de Destino para Pagamento Automático
+                        <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
+                            <i class="fa-solid fa-building-columns"></i> Configurar Contas de Destino para Pagamentos Automáticos
                         </h5>
+                        <p class="text-slate-400 text-[11px]">Estes dados definem para onde o dinheiro é enviado quando a API Push das operadoras ou transferências são efetuadas.</p>
+                        
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="space-y-2 bg-slate-900 p-3 rounded-xl border border-slate-800">
-                                <label class="block font-semibold text-red-400">Conta M-Pesa da Empresa</label>
-                                <input type="text" id="empresa-mpesa-num" placeholder="840000000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono">
-                                <input type="text" id="empresa-mpesa-titular" placeholder="Titular" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
+                                <label class="block font-semibold text-red-400">Conta M-Pesa da Empresa (Vodacom)</label>
+                                <input type="text" id="empresa-mpesa-num" placeholder="Ex: 840000000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono">
+                                <input type="text" id="empresa-mpesa-titular" placeholder="Titular (Ex: Electro Honório)" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
                             </div>
                             <div class="space-y-2 bg-slate-900 p-3 rounded-xl border border-slate-800">
-                                <label class="block font-semibold text-emerald-400">Conta e-Mola da Empresa</label>
-                                <input type="text" id="empresa-emola-num" placeholder="860000000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono">
-                                <input type="text" id="empresa-emola-titular" placeholder="Titular" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
+                                <label class="block font-semibold text-emerald-400">Conta e-Mola da Empresa (Movitel)</label>
+                                <input type="text" id="empresa-emola-num" placeholder="Ex: 860000000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono">
+                                <input type="text" id="empresa-emola-titular" placeholder="Titular (Ex: Electro Honório)" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
+                            </div>
+                            <div class="space-y-2 bg-slate-900 p-3 rounded-xl border border-slate-800 md:col-span-2">
+                                <label class="block font-semibold text-amber-400">Conta Bancária da Empresa (BIM / BCI / Standard Bank)</label>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                    <input type="text" id="empresa-banco-nome" placeholder="Nome do Banco (Ex: Millennium BIM)" class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
+                                    <input type="text" id="empresa-banco-nib" placeholder="NIB / Número de Conta" class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono">
+                                    <input type="text" id="empresa-banco-titular" placeholder="Titular da Conta" class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
+                                </div>
                             </div>
                         </div>
+
                         <button onclick="guardarContasEmpresa()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-lg transition shadow">
-                            Guardar Contas da Empresa
+                            <i class="fa-solid fa-floppy-disk mr-1.5"></i> Guardar e Sincronizar Contas da Empresa
                         </button>
                     </div>
 
+                    <!-- CONFIGURAÇÕES GLOBAIS, MÃO DE OBRA E IVA -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-                        <h5 class="font-bold text-white uppercase tracking-wider text-amber-400">
-                            <i class="fa-solid fa-cloud-arrow-up"></i> Cópia de Segurança & Backup Nuvem
+                        <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
+                            <i class="fa-solid fa-gears"></i> Identidade, Mão de Obra & IVA
+                        </h5>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Logótipo da Empresa (Carregar)</label>
+                                <input type="file" id="cfg-logo-file" accept="image/*" class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-400">
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Valor Padrão Mão de Obra (MT)</label>
+                                <input type="number" step="0.01" id="cfg-mao-obra-valor" value="1500" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-amber-400 font-bold">
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Taxa de IVA (%)</label>
+                                <input type="number" step="0.1" id="cfg-iva-percent" value="16" placeholder="Ex: 16" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-amber-400 font-bold">
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <button onclick="guardarConfiguracoesGlobais()" class="w-full bg-slate-800 text-amber-400 border border-amber-500/30 font-bold py-2.5 rounded-lg transition">
+                                Guardar Definições Globais
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- SEGURANÇA E BACKUP -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
+                        <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Sincronização & Cópia de Segurança Nuvem (Backup JSON)
                         </h5>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <button onclick="fazerBackupSistema()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-download"></i> Descarregar Backup Completo
+                                <i class="fa-solid fa-download"></i> Descarregar Backup Completo Nuvem
                             </button>
                             <div class="flex items-center gap-2">
                                 <input type="file" id="arquivo-backup-input" accept=".json" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded-lg text-[11px] text-white">
-                                <button onclick="restaurarBackupSistema()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition">Restaurar</button>
+                                <button onclick="restaurarBackupSistema()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition whitespace-nowrap">
+                                    Restaurar
+                                </button>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
         </div>
     </main>
 
-    <!-- MODAL WEBHOOK NUVEM -->
+    <!-- MODAL DE SIMULAÇÃO DE WEBHOOK / API PUSH NA NUVEM -->
     <div id="modal-cloud-push" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
         <div class="bg-slate-900 border-2 border-amber-500 p-6 rounded-2xl max-w-sm w-full space-y-4 text-center shadow-2xl">
             <div id="cloud-push-icon" class="w-16 h-16 bg-red-600/20 text-red-500 border border-red-500/40 rounded-full flex items-center justify-center mx-auto animate-pulse">
@@ -433,100 +485,192 @@
             </div>
             <div>
                 <h3 id="cloud-modal-title" class="font-black text-lg text-white uppercase">Aguardando Confirmação Nuvem</h3>
-                <p class="text-xs text-slate-400 mt-1">A comunicar com a API da operadora e telemóvel...</p>
+                <p class="text-xs text-slate-400 mt-1">A ligar à API da operadora e ao telemóvel do cliente...</p>
             </div>
             
             <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs text-left space-y-1 font-mono">
                 <div class="flex justify-between"><span class="text-slate-400">Serviço:</span><span id="cloud-push-servico" class="text-amber-400 font-bold">M-Pesa API</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">Destino:</span><span id="cloud-push-destino" class="text-emerald-400 font-bold">--</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">Destino Empresa:</span><span id="cloud-push-destino" class="text-emerald-400 font-bold">--</span></div>
                 <div class="flex justify-between"><span class="text-slate-400">Cliente:</span><span id="cloud-push-cliente" class="text-white font-bold">--</span></div>
                 <div class="flex justify-between"><span class="text-slate-400">Montante:</span><span id="cloud-push-valor" class="text-amber-400 font-bold">0.00 MT</span></div>
             </div>
 
-            <button onclick="confirmarWebhookCloudSucesso()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
-                Confirmar Webhook Recebido (Sucesso)
+            <div class="flex justify-center items-center space-x-2 text-slate-400 text-xs">
+                <i class="fa-solid fa-circle-notch animate-spin text-amber-500"></i>
+                <span>À espera do Callback Webhook (PIN confirmado)...</span>
+            </div>
+
+            <button onclick="confirmarWebhookCloudSucesso()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center gap-2 shadow">
+                <i class="fa-solid fa-check-double"></i> Confirmar Webhook Recebido (Sucesso)
             </button>
         </div>
     </div>
 
     <!-- RODAPÉ -->
     <footer class="bg-slate-900 border-t border-slate-800 py-3 text-center text-xs text-slate-500">
-        ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Enterprise ERP Cloud
+        ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema ERP Nuvem
     </footer>
 
-    <!-- SCRIPT DE CONTROLO -->
+    <!-- SCRIPT COM GESTÃO DE CONTAS E CLOUD PUSH -->
     <script>
         let operadoraCloudAtual = 'M-Pesa';
 
         function atualizarRelogio() {
             const agora = new Date();
-            document.getElementById('current-date').textContent = agora.toLocaleDateString('pt-PT');
-            document.getElementById('current-time').textContent = agora.toLocaleTimeString('pt-PT');
+            const dia = String(agora.getDate()).padStart(2, '0');
+            const mes = String(agora.getMonth() + 1).padStart(2, '0');
+            const ano = agora.getFullYear();
+            
+            const horas = String(agora.getHours()).padStart(2, '0');
+            const minutos = String(agora.getMinutes()).padStart(2, '0');
+            const segundos = String(agora.getSeconds()).padStart(2, '0');
+
+            const elDate = document.getElementById('current-date');
+            const elTime = document.getElementById('current-time');
+            if(elDate) elDate.textContent = `${dia}/${mes}/${ano}`;
+            if(elTime) elTime.textContent = `${horas}:${minutos}:${segundos}`;
         }
         setInterval(atualizarRelogio, 1000);
         atualizarRelogio();
 
         function obterContasEmpresa() {
-            let s = localStorage.getItem('electro_honario_contas_empresa');
-            return s ? JSON.parse(s) : { mpesaNum: '840000000', mpesaTitular: 'Electro Honório', emolaNum: '860000000', emolaTitular: 'Electro Honório' };
+            let contasStr = localStorage.getItem('electro_honario_contas_empresa');
+            if (!contasStr) {
+                const contasDef = {
+                    mpesaNum: '840000000',
+                    mpesaTitular: 'Electro Honório & Serviços SU, Lda',
+                    emolaNum: '860000000',
+                    emolaTitular: 'Electro Honório & Serviços SU, Lda',
+                    bancoNome: 'Millennium BIM',
+                    bancoNib: '000100001234567890123',
+                    bancoTitular: 'Electro Honório & Serviços'
+                };
+                localStorage.setItem('electro_honario_contas_empresa', JSON.stringify(contasDef));
+                return contasDef;
+            }
+            return JSON.parse(contasStr);
         }
 
         function guardarContasEmpresa() {
             const contas = {
-                mpesaNum: document.getElementById('empresa-mpesa-num').value,
-                mpesaTitular: document.getElementById('empresa-mpesa-titular').value,
-                emolaNum: document.getElementById('empresa-emola-num').value,
-                emolaTitular: document.getElementById('empresa-emola-titular').value
+                mpesaNum: document.getElementById('empresa-mpesa-num')?.value.trim() || '',
+                mpesaTitular: document.getElementById('empresa-mpesa-titular')?.value.trim() || '',
+                emolaNum: document.getElementById('empresa-emola-num')?.value.trim() || '',
+                emolaTitular: document.getElementById('empresa-emola-titular')?.value.trim() || '',
+                bancoNome: document.getElementById('empresa-banco-nome')?.value.trim() || '',
+                bancoNib: document.getElementById('empresa-banco-nib')?.value.trim() || '',
+                bancoTitular: document.getElementById('empresa-banco-titular')?.value.trim() || ''
             };
             localStorage.setItem('electro_honario_contas_empresa', JSON.stringify(contas));
-            alert('✅ Contas da empresa guardadas!');
+            alert('✅ Contas da empresa atualizadas e sincronizadas na nuvem com sucesso!');
             atualizarLabelDestinoConta();
         }
 
         function carregarContasNoAdmin() {
-            const c = obterContasEmpresa();
-            if(document.getElementById('empresa-mpesa-num')) document.getElementById('empresa-mpesa-num').value = c.mpesaNum;
-            if(document.getElementById('empresa-mpesa-titular')) document.getElementById('empresa-mpesa-titular').value = c.mpesaTitular;
-            if(document.getElementById('empresa-emola-num')) document.getElementById('empresa-emola-num').value = c.emolaNum;
-            if(document.getElementById('empresa-emola-titular')) document.getElementById('empresa-emola-titular').value = c.emolaTitular;
+            const contas = obterContasEmpresa();
+            if(document.getElementById('empresa-mpesa-num')) document.getElementById('empresa-mpesa-num').value = contas.mpesaNum;
+            if(document.getElementById('empresa-mpesa-titular')) document.getElementById('empresa-mpesa-titular').value = contas.mpesaTitular;
+            if(document.getElementById('empresa-emola-num')) document.getElementById('empresa-emola-num').value = contas.emolaNum;
+            if(document.getElementById('empresa-emola-titular')) document.getElementById('empresa-emola-titular').value = contas.emolaTitular;
+            if(document.getElementById('empresa-banco-nome')) document.getElementById('empresa-banco-nome').value = contas.bancoNome;
+            if(document.getElementById('empresa-banco-nib')) document.getElementById('empresa-banco-nib').value = contas.bancoNib;
+            if(document.getElementById('empresa-banco-titular')) document.getElementById('empresa-banco-titular').value = contas.bancoTitular;
         }
 
         function atualizarLabelDestinoConta() {
-            const m = document.getElementById('venda-metodo-pagamento')?.value;
-            const lbl = document.getElementById('lbl-destino-conta');
-            const c = obterContasEmpresa();
-            if(!lbl) return;
-            if(m === 'M-Pesa') lbl.textContent = `M-Pesa (${c.mpesaNum} - ${c.mpesaTitular})`;
-            else if(m === 'e-Mola') lbl.textContent = `e-Mola (${c.emolaNum} - ${c.emolaTitular})`;
-            else lbl.textContent = `Caixa / Tesouraria`;
-        }
+            const metodo = document.getElementById('venda-metodo-pagamento')?.value;
+            const lblDestino = document.getElementById('lbl-destino-conta');
+            const contas = obterContasEmpresa();
 
-        function fazerLogin(e) {
-            e.preventDefault();
-            const u = document.getElementById('login-user').value.trim().toLowerCase();
-            const p = document.getElementById('login-pass').value.trim();
-            if (u === 'alberto' && p === 'mugabe') {
-                const user = { nome: 'Alberto Mugabe (Administrador)', role: 'admin' };
-                localStorage.setItem('electro_honario_sessao_atual', JSON.stringify(user));
-                ativarSessao(user);
+            if(!lblDestino) return;
+            if(metodo === 'M-Pesa') {
+                lblDestino.textContent = `M-Pesa (${contas.mpesaNum} - ${contas.mpesaTitular})`;
+            } else if(metodo === 'e-Mola') {
+                lblDestino.textContent = `e-Mola (${contas.emolaNum} - ${contas.emolaTitular})`;
+            } else if(metodo === 'TPA Bancario') {
+                lblDestino.textContent = `Banco (${contas.bancoNome}: ${contas.bancoNib})`;
             } else {
-                document.getElementById('login-error').classList.remove('hidden');
+                lblDestino.textContent = `Caixa Físico / Tesouraria`;
             }
         }
 
-        function ativarSessao(user) {
-            document.getElementById('login-screen').classList.add('hidden');
-            document.getElementById('app-dashboard').classList.remove('hidden');
-            document.getElementById('welcome-msg').textContent = `Bem-vindo, ${user.nome}`;
+        function obterUtilizadoresDoSistema() {
+            let users = localStorage.getItem('electro_honario_users');
+            if (!users || JSON.parse(users).length === 0) {
+                const adminPredefinido = [
+                    { id: 1, user: 'alberto', pass: 'mugabe', nome: 'Alberto Mugabe (Administrador)', role: 'admin', online: false }
+                ];
+                localStorage.setItem('electro_honario_users', JSON.stringify(adminPredefinido));
+                return adminPredefinido;
+            }
+            return JSON.parse(users);
+        }
+
+        function fazerLogin(event) {
+            if (event) event.preventDefault();
+            const inputUser = document.getElementById('login-user')?.value.trim().toLowerCase();
+            const inputPass = document.getElementById('login-pass')?.value.trim();
+            const erroEl = document.getElementById('login-error');
+
+            if (inputUser === 'alberto' && inputPass === 'mugabe') {
+                const adminUser = { id: 1, user: 'alberto', pass: 'mugabe', nome: 'Alberto Mugabe (Administrador)', role: 'admin', online: true };
+                localStorage.setItem('electro_honario_sessao_atual', JSON.stringify(adminUser));
+                if (erroEl) erroEl.classList.add('hidden');
+                ativarSessao(adminUser);
+                return;
+            }
+
+            let listaUsers = obterUtilizadoresDoSistema();
+            let utilizadorEncontrado = listaUsers.find(u => (u.user === inputUser || u.username === inputUser) && (u.pass === inputPass || u.password === inputPass));
+
+            if (utilizadorEncontrado) {
+                if (erroEl) erroEl.classList.add('hidden');
+                utilizadorEncontrado.online = true;
+                localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
+                localStorage.setItem('electro_honario_sessao_atual', JSON.stringify(utilizadorEncontrado));
+                ativarSessao(utilizadorEncontrado);
+            } else {
+                if (erroEl) erroEl.classList.remove('hidden');
+            }
+        }
+
+        function obterSessaoAtual() {
+            let sessao = localStorage.getItem('electro_honario_sessao_atual');
+            return sessao ? JSON.parse(sessao) : null;
+        }
+
+        function ativarSessao(userObj) {
+            const loginScreen = document.getElementById('login-screen');
+            const appDashboard = document.getElementById('app-dashboard');
             
-            document.getElementById('tab-btn-vendas').classList.remove('hidden');
-            document.getElementById('tab-btn-relatorios').classList.remove('hidden');
-            document.getElementById('tab-btn-admin').classList.remove('hidden');
+            if(loginScreen) loginScreen.classList.add('hidden');
+            if(appDashboard) appDashboard.classList.remove('hidden');
+            
+            const welcomeMsg = document.getElementById('welcome-msg');
+            const roleDesc = document.getElementById('role-desc');
+            if(welcomeMsg) welcomeMsg.textContent = `Bem-vindo, ${userObj.nome || userObj.user}`;
+
+            const btnVendas = document.getElementById('tab-btn-vendas');
+            const btnRelatorios = document.getElementById('tab-btn-relatorios');
+            const btnAdmin = document.getElementById('tab-btn-admin');
+
+            const cargo = userObj.role;
+            if (cargo === 'admin') {
+                if(roleDesc) roleDesc.textContent = 'Administrador Geral (Acesso Total)';
+                if(btnVendas) btnVendas.classList.remove('hidden');
+                if(btnRelatorios) btnRelatorios.classList.remove('hidden');
+                if(btnAdmin) btnAdmin.classList.remove('hidden');
+            } else {
+                if(roleDesc) roleDesc.textContent = 'Operador Nuvem';
+                if(btnVendas) btnVendas.classList.remove('hidden');
+                if(btnRelatorios) btnRelatorios.classList.remove('hidden');
+                if(btnAdmin) btnAdmin.classList.add('hidden');
+            }
 
             mudarAba('orcamentos');
-            renderizarCatalogoMateriais();
-            renderizarBalcãoVendas();
+            aplicarConfiguracoesVisuais();
             carregarContasNoAdmin();
+            renderizarBalcãoVendas();
             atualizarLabelDestinoConta();
         }
 
@@ -536,41 +680,132 @@
         }
 
         function mudarAba(aba) {
-            ['orcamentos', 'vendas', 'relatorios', 'admin'].forEach(t => {
-                document.getElementById(`tab-${t}`).classList.add('hidden');
-                document.getElementById(`tab-btn-${t}`).className = 'px-3.5 py-2 bg-slate-800 text-slate-300 font-semibold rounded-xl transition flex items-center gap-1.5';
+            const tabs = ['orcamentos', 'vendas', 'relatorios', 'admin'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`tab-${t}`);
+                if(el) el.classList.add('hidden');
+                const btn = document.getElementById(`tab-btn-${t}`);
+                if(btn) btn.className = 'px-4 py-2 bg-slate-800 text-slate-300 font-semibold text-xs rounded-xl transition';
             });
-            document.getElementById(`tab-${aba}`).classList.remove('hidden');
-            document.getElementById(`tab-btn-${aba}`).className = 'px-3.5 py-2 bg-amber-500 text-slate-950 font-bold rounded-xl transition shadow flex items-center gap-1.5';
+
+            const abaAtiva = document.getElementById(`tab-${aba}`);
+            const btnAtivo = document.getElementById(`tab-btn-${aba}`);
+            if(abaAtiva) abaAtiva.classList.remove('hidden');
+            if(btnAtivo) btnAtivo.className = 'px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow';
 
             if(aba === 'relatorios') renderizarRelatorios();
             if(aba === 'admin') carregarContasNoAdmin();
         }
 
-        function obterMateriaisDoSistema() {
-            let m = localStorage.getItem('electro_honario_materiais');
-            if(!m) {
-                const def = [
-                    { id: 1, nome: 'Cabo de Potência XV 3x2.5mm² (Metro)', categoria: 'Cabos e Condutores', preco: 95.00 },
-                    { id: 2, nome: 'Cabo de Potência XV 3x4mm² (Metro)', categoria: 'Cabos e Condutores', preco: 145.00 },
-                    { id: 3, nome: 'Lâmpada LED Bulbo E27 9W', categoria: 'Lâmpadas e Iluminação', preco: 180.00 },
-                    { id: 4, nome: 'Disjuntor Termomagnético MCB 16A', categoria: 'Proteção Elétrica', preco: 350.00 },
-                    { id: 5, nome: 'Tomada Dupla Schuko Com Terra', categoria: 'Aparelhagem (Tomadas/Interruptores)', preco: 420.00 },
-                    { id: 6, nome: 'Varão de Terra / Elétrodo de Cobre', categoria: 'Fixação e Aterramento', preco: 1200.00 }
-                ];
-                localStorage.setItem('electro_honario_materiais', JSON.stringify(def));
-                return def;
+        function guardarConfiguracoesGlobais() {
+            const fileInput = document.getElementById('cfg-logo-file');
+            const valorMaoObra = parseFloat(document.getElementById('cfg-mao-obra-valor')?.value) || 1500;
+            const valorIva = parseFloat(document.getElementById('cfg-iva-percent')?.value) || 0;
+
+            let configStr = localStorage.getItem('electro_honario_config');
+            let config = configStr ? JSON.parse(configStr) : {};
+            config.maoObraPadrao = valorMaoObra;
+            config.ivaPercent = valorIva;
+
+            if (fileInput && fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    config.logoUrl = e.target.result;
+                    localStorage.setItem('electro_honario_config', JSON.stringify(config));
+                    alert('✅ Definições globais guardadas!');
+                    aplicarConfiguracoesVisuais();
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                localStorage.setItem('electro_honario_config', JSON.stringify(config));
+                alert('✅ Definições globais guardadas!');
             }
-            return JSON.parse(m);
+        }
+
+        function aplicarConfiguracoesVisuais() {
+            let configStr = localStorage.getItem('electro_honario_config');
+            if(configStr) {
+                let config = JSON.parse(configStr);
+                if(config.logoUrl) {
+                    const logoContainer = document.getElementById('header-logo-container');
+                    if(logoContainer) logoContainer.innerHTML = `<img src="${config.logoUrl}" alt="Logo" class="w-8 h-8 object-cover rounded-xl">`;
+                }
+            }
+        }
+
+        function fazerBackupSistema() {
+            const dadosBackup = {
+                users: localStorage.getItem('electro_honario_users'),
+                materiais: localStorage.getItem('electro_honario_materiais'),
+                logs: localStorage.getItem('electro_honario_logs'),
+                config: localStorage.getItem('electro_honario_config'),
+                contas: localStorage.getItem('electro_honario_contas_empresa')
+            };
+            const blob = new Blob([JSON.stringify(dadosBackup, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `backup_cloud_electro_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function restaurarBackupSistema() {
+            const fileInput = document.getElementById('arquivo-backup-input');
+            if (!fileInput || !fileInput.files || !fileInput.files[0]) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const dados = JSON.parse(e.target.result);
+                if (dados.users) localStorage.setItem('electro_honario_users', dados.users);
+                if (dados.materiais) localStorage.setItem('electro_honario_materiais', dados.materiais);
+                if (dados.logs) localStorage.setItem('electro_honario_logs', dados.logs);
+                if (dados.config) localStorage.setItem('electro_honario_config', dados.config);
+                if (dados.contas) localStorage.setItem('electro_honario_contas_empresa', dados.contas);
+                alert('✅ Sistema restaurado com sucesso!');
+                location.reload();
+            };
+            reader.readAsText(fileInput.files[0]);
+        }
+
+        function obterMateriaisDoSistema() {
+            let matsSalvos = localStorage.getItem('electro_honario_materiais');
+            if (!matsSalvos) {
+                const matsIniciais = [
+                    { id: 1, nome: 'Fio Condutor Flexível 1.5mm² (Rolo 100m)', categoria: 'Cabos e Condutores', preco: 2800.00 },
+                    { id: 2, nome: 'Fio Condutor Flexível 2.5mm² (Rolo 100m)', categoria: 'Cabos e Condutores', preco: 4600.00 },
+                    { id: 3, nome: 'Cabo de Potência XV 3x2.5mm² (Metro)', categoria: 'Cabos e Condutores', preco: 95.00 },
+                    { id: 4, nome: 'Cabo de Potência XV 3x4mm² (Metro)', categoria: 'Cabos e Condutores', preco: 145.00 },
+                    { id: 5, nome: 'Cabo UTP Cat6 para Redes (Metro)', categoria: 'Cabos e Condutores', preco: 35.00 },
+                    { id: 6, nome: 'Lâmpada LED Bulbo E27 9W-12W', categoria: 'Lâmpadas e Iluminação', preco: 180.00 },
+                    { id: 7, nome: 'Lâmpada LED Tubular T8 1.2m', categoria: 'Lâmpadas e Iluminação', preco: 350.00 },
+                    { id: 8, nome: 'Painel LED de Embutir Redondo 18W', categoria: 'Lâmpadas e Iluminação', preco: 450.00 },
+                    { id: 9, nome: 'Projetor LED Exterior 50W', categoria: 'Lâmpadas e Iluminação', preco: 1850.00 },
+                    { id: 10, nome: 'Disjuntor Termomagnético MCB 16A/20A', categoria: 'Proteção Elétrica', preco: 350.00 },
+                    { id: 11, nome: 'Disjuntor Tetrapolar 63A', categoria: 'Proteção Elétrica', preco: 2500.00 },
+                    { id: 12, nome: 'Disjuntor Diferencial RCCB 30mA', categoria: 'Proteção Elétrica', preco: 1250.00 },
+                    { id: 13, nome: 'Protetor de Tensão AC Guard (Ar Condicionado)', categoria: 'Proteção Elétrica', preco: 2400.00 },
+                    { id: 14, nome: 'Interruptor Simples EFAPEL Logus 90', categoria: 'Aparelhagem (Tomadas/Interruptores)', preco: 280.00 },
+                    { id: 15, nome: 'Tomada Dupla Schuko Com Terra', categoria: 'Aparelhagem (Tomadas/Interruptores)', preco: 420.00 },
+                    { id: 16, nome: 'Tomada de Rede RJ45 Cat6', categoria: 'Aparelhagem (Tomadas/Interruptores)', preco: 350.00 },
+                    { id: 17, nome: 'Varão de Terra / Elétrodo de Cobre', categoria: 'Fixação e Aterramento', preco: 1200.00 },
+                    { id: 18, nome: 'Ligadores Rápidos WAGO (Pack 10)', categoria: 'Fixação e Aterramento', preco: 250.00 },
+                    { id: 19, nome: 'Tubo Corrugado Cinzento 20mm (Rolo 100m)', categoria: 'Fixação e Aterramento', preco: 2018.40 }
+                ];
+                localStorage.setItem('electro_honario_materiais', JSON.stringify(matsIniciais));
+                return matsIniciais;
+            }
+            return JSON.parse(matsSalvos);
         }
 
         function renderizarCatalogoMateriais() {
             const container = document.getElementById('catalogo-materiais-container');
-            if(!container) return;
-            const filtro = document.getElementById('filtro-categoria').value;
-            const mats = obterMateriaisDoSistema();
+            if (!container) return;
+            const filtroCat = document.getElementById('filtro-categoria')?.value || 'todos';
+            const materiais = obterMateriaisDoSistema();
             let html = '';
-            mats.filter(m => filtro === 'todos' || m.categoria === filtro).forEach(mat => {
+            let materiaisFiltrados = filtroCat === 'todos' ? materiais : materiais.filter(m => m.categoria === filtroCat);
+
+            materiaisFiltrados.forEach(mat => {
                 html += `
                     <div class="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs">
                         <div>
@@ -589,18 +824,27 @@
         }
 
         function inserirKitResidencialPadrao() {
-            obterMateriaisDoSistema().forEach(m => {
-                let el = document.getElementById(`mat-${m.id}`);
-                if(el) el.value = m.id === 2 ? 1 : (m.id === 4 ? 4 : 2);
+            const materiais = obterMateriaisDoSistema();
+            materiais.forEach(mat => {
+                let input = document.getElementById(`mat-${mat.id}`);
+                if (input) {
+                    if (mat.id === 2) input.value = 1;
+                    else if (mat.id === 10) input.value = 4;
+                    else if (mat.id === 15) input.value = 6;
+                    else if (mat.id === 6) input.value = 5;
+                    else input.value = 0;
+                }
             });
             atualizarCalculos();
+            alert('✨ Kit Residencial Padrão inserido!');
         }
 
         function renderizarBalcãoVendas() {
             const container = document.getElementById('balcao-materiais-container');
             if(!container) return;
+            const materiais = obterMateriaisDoSistema();
             let html = '';
-            obterMateriaisDoSistema().forEach(mat => {
+            materiais.forEach(mat => {
                 html += `
                     <div class="flex items-center justify-between bg-slate-900 p-2.5 rounded-lg border border-slate-800 text-xs">
                         <div>
@@ -618,109 +862,198 @@
         }
 
         function calcularTotalVenda() {
+            const materiais = obterMateriaisDoSistema();
             let total = 0;
-            obterMateriaisDoSistema().forEach(mat => {
+            materiais.forEach(mat => {
                 let input = document.getElementById(`venda-mat-${mat.id}`);
-                total += (input ? parseInt(input.value) || 0 : 0) * mat.preco;
+                let qtd = input ? (parseInt(input.value) || 0) : 0;
+                total += qtd * mat.preco;
             });
-            document.getElementById('venda-total').textContent = total.toLocaleString('pt-PT') + '.00 MT';
+            const elTotal = document.getElementById('venda-total');
+            if(elTotal) elTotal.textContent = total.toLocaleString('pt-PT') + '.00 MT';
         }
 
         function alternarCamposPagamento() {
-            const metodo = document.getElementById('venda-metodo-pagamento').value;
-            document.getElementById('bloco-mpesa-info').classList.toggle('hidden', metodo !== 'M-Pesa');
-            document.getElementById('bloco-emola-info').classList.toggle('hidden', metodo !== 'e-Mola');
-            document.getElementById('bloco-tpa-info').classList.toggle('hidden', metodo !== 'TPA Bancario');
+            const metodo = document.getElementById('venda-metodo-pagamento')?.value;
+            const blocoMpesa = document.getElementById('bloco-mpesa-info');
+            const blocoEmola = document.getElementById('bloco-emola-info');
+            const blocoTpa = document.getElementById('bloco-tpa-info');
+            
+            if(blocoMpesa) blocoMpesa.classList.add('hidden');
+            if(blocoEmola) blocoEmola.classList.add('hidden');
+            if(blocoTpa) blocoTpa.classList.add('hidden');
+
+            if (metodo === 'M-Pesa' && blocoMpesa) blocoMpesa.classList.remove('hidden');
+            if (metodo === 'e-Mola' && blocoEmola) blocoEmola.classList.remove('hidden');
+            if (metodo === 'TPA Bancario' && blocoTpa) blocoTpa.classList.remove('hidden');
+            
             atualizarLabelDestinoConta();
         }
 
         function dispararCobrancaCloudAPI(operadora) {
             operadoraCloudAtual = operadora;
-            const num = document.getElementById('venda-cliente-contacto').value.trim();
-            const total = document.getElementById('venda-total').textContent;
-            const c = obterContasEmpresa();
+            const numCliente = document.getElementById('venda-cliente-contacto')?.value.trim();
+            const valorTotal = document.getElementById('venda-total')?.textContent;
+            const contas = obterContasEmpresa();
 
-            if(num.length < 8) {
-                alert(`⚠️ Insira um número de telemóvel ${operadora} válido.`);
+            if (!numCliente || numCliente.length < 8) {
+                alert(`⚠️ Insira o número de telemóvel ${operadora} do cliente.`);
                 return;
             }
 
+            const destino = operadora === 'e-Mola' ? `${contas.emolaNum} (${contas.emolaTitular})` : `${contas.mpesaNum} (${contas.mpesaTitular})`;
+
             document.getElementById('cloud-push-servico').textContent = `${operadora} Cloud API`;
-            document.getElementById('cloud-push-destino').textContent = operadora === 'e-Mola' ? c.emolaNum : c.mpesaNum;
-            document.getElementById('cloud-push-cliente').textContent = num;
-            document.getElementById('cloud-push-valor').textContent = total;
+            document.getElementById('cloud-push-destino').textContent = destino;
+            document.getElementById('cloud-push-cliente').textContent = numCliente;
+            document.getElementById('cloud-push-valor').textContent = valorTotal;
+            document.getElementById('cloud-modal-title').textContent = `Ligação API Nuvem ${operadora}`;
+            
+            const iconContainer = document.getElementById('cloud-push-icon');
+            if (operadora === 'e-Mola') {
+                iconContainer.className = 'w-16 h-16 bg-emerald-600/20 text-emerald-500 border border-emerald-500/40 rounded-full flex items-center justify-center mx-auto animate-pulse';
+            } else {
+                iconContainer.className = 'w-16 h-16 bg-red-600/20 text-red-500 border border-red-500/40 rounded-full flex items-center justify-center mx-auto animate-pulse';
+            }
+
             document.getElementById('modal-cloud-push').classList.remove('hidden');
         }
 
         function confirmarWebhookCloudSucesso() {
             document.getElementById('modal-cloud-push').classList.add('hidden');
-            const id = (operadoraCloudAtual === 'e-Mola' ? 'EMC' : 'MPC') + Math.floor(Math.random()*899999+100000);
-            if(operadoraCloudAtual === 'e-Mola') document.getElementById('venda-emola-id').value = id;
-            else document.getElementById('venda-mpesa-id').value = id;
-            alert(`✅ Transação confirmada pela nuvem! ID: ${id}`);
+            const prefixo = operadoraCloudAtual === 'e-Mola' ? 'EMC' : 'MPC';
+            const idGerado = prefixo + Math.floor(Math.random() * 899999 + 100000);
+            
+            if (operadoraCloudAtual === 'e-Mola') {
+                document.getElementById('venda-emola-id').value = idGerado;
+            } else {
+                document.getElementById('venda-mpesa-id').value = idGerado;
+            }
+
+            alert(`✅ Webhook recebido com sucesso da nuvem!\nID de Transação: ${idGerado} (Dinheiro depositado na conta da empresa).`);
         }
 
         function atualizarCalculos() {
-            let totMats = 0;
-            obterMateriaisDoSistema().forEach(m => {
-                let el = document.getElementById(`mat-${m.id}`);
-                totMats += (el ? parseInt(el.value) || 0 : 0) * m.preco;
+            let totalMateriais = 0;
+            const materiais = obterMateriaisDoSistema();
+            materiais.forEach(mat => {
+                let campoMat = document.getElementById(`mat-${mat.id}`);
+                let qtd = campoMat ? (parseInt(campoMat.value) || 0) : 0;
+                totalMateriais += qtd * mat.preco;
             });
-            let sub = totMats + 1500 + 300;
-            let iva = sub * 0.16;
-            let total = sub + iva;
-            let sinal = parseFloat(document.getElementById('cli-sinal-pago').value) || 0;
 
-            document.getElementById('res-materiais').textContent = totMats.toLocaleString('pt-PT') + '.00 MT';
-            document.getElementById('res-iva').textContent = iva.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
-            document.getElementById('res-total').textContent = total.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
-            document.getElementById('res-saldo-restante').textContent = (total - sinal).toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
+            let valorMaoObra = 1500.00;
+            let taxaSistema = 300.00;
+            let subtotalGeral = totalMateriais + valorMaoObra + taxaSistema;
+            let valorIva = subtotalGeral * 0.16;
+            let totalGeral = subtotalGeral + valorIva;
+            let sinalPago = parseFloat(document.getElementById('cli-sinal-pago')?.value) || 0;
+            let saldoRestante = totalGeral - sinalPago;
+
+            document.getElementById('res-materiais').textContent = totalMateriais.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
+            document.getElementById('res-total').textContent = totalGeral.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
+            document.getElementById('res-saldo-restante').textContent = saldoRestante.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
+            document.getElementById('res-iva').textContent = valorIva.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
         }
 
         function gerarTalaoTermico() {
-            alert('✅ Orçamento gerado com sucesso!');
+            const cliente = document.getElementById('cli-nome')?.value.trim() || 'Cliente Geral';
+            const totalGeral = document.getElementById('res-total')?.textContent || '0.00 MT';
+            const janela = window.open('', '_blank', 'width=400,height=600');
+            if(janela) {
+                janela.document.write(`
+                    <html><head><title>Talão</title></head>
+                    <body onload="window.print(); window.close();" style="font-family:monospace;font-size:12px;padding:10px">
+                        <h2 style="text-align:center">ELECTRO HONÁRIO</h2>
+                        <p style="text-align:center">NUIT: 402027037 | Maputo</p>
+                        <hr>
+                        <p>Cliente: ${cliente}</p>
+                        <p>Total: ${totalGeral}</p>
+                        <hr><p style="text-align:center">Obrigado!</p>
+                    </body></html>
+                `);
+            }
         }
 
         function emitirTalaoTermicoBalcao() {
-            const comprador = document.getElementById('venda-cliente-nome').value.trim() || 'Cliente';
-            const total = document.getElementById('venda-total').textContent;
+            const comprador = document.getElementById('venda-cliente-nome')?.value.trim() || 'Cliente Balcão';
+            const totalStr = document.getElementById('venda-total')?.textContent || '0.00 MT';
+            const metodoPagamento = document.getElementById('venda-metodo-pagamento')?.value || 'Numerário';
+            const mpesaId = document.getElementById('venda-mpesa-id')?.value.trim() || 'N/A';
+            const emolaId = document.getElementById('venda-emola-id')?.value.trim() || 'N/A';
+            const tpaAuth = document.getElementById('venda-tpa-auth')?.value.trim() || 'N/A';
+            
+            let refPag = metodoPagamento === 'M-Pesa' ? mpesaId : (metodoPagamento === 'e-Mola' ? emolaId : (metodoPagamento === 'TPA Bancario' ? tpaAuth : 'Numerário'));
+            
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            logs.unshift({ tipo: 'Venda POS', cliente: comprador, total: total, data: new Date().toLocaleString('pt-PT') });
+            logs.unshift({ id: Date.now(), tipo: 'Venda Balcão Cloud', cliente: comprador, pagamento: metodoPagamento, refPagamento: refPag, total: totalStr, faturamentoNumeric: parseFloat(totalStr), data: new Date().toLocaleString('pt-PT') });
             localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-            alert('✅ Venda registada no sistema em nuvem!');
+
+            const janela = window.open('', '_blank', 'width=400,height=600');
+            if(janela) {
+                janela.document.write(`
+                    <html><head><title>Talão POS</title></head>
+                    <body onload="window.print(); window.close();" style="font-family:monospace;font-size:12px;padding:10px">
+                        <h2 style="text-align:center">ELECTRO HONÁRIO</h2>
+                        <p style="text-align:center">POS CLOUD</p>
+                        <hr>
+                        <p>Comprador: ${comprador}</p>
+                        <p>Pagamento: ${metodoPagamento} (Ref: ${refPag})</p>
+                        <p>Total: ${totalStr}</p>
+                        <hr><p style="text-align:center">Volte Sempre!</p>
+                    </body></html>
+                `);
+            }
         }
 
-        function emitirTalaoCaixaPDF() { emitirTalaoTermicoBalcao(); }
+        function gerarFaturaPDF() {
+            gerarTalaoTermico();
+        }
 
-        function renderizarRelatorios() {
-            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            document.getElementById('stat-total-ops').textContent = logs.length;
-            let html = '';
-            logs.forEach(l => {
-                html += `<div class="bg-slate-900 p-3 rounded border border-slate-800 flex justify-between items-center text-xs">
-                    <div><strong class="text-amber-400">[${l.tipo}]</strong> ${l.cliente}</div>
-                    <div class="font-mono font-bold text-white">${l.total}</div>
-                </div>`;
-            });
-            document.getElementById('lista-logs').innerHTML = html || '<div class="text-slate-500 text-center">Sem transações.</div>';
+        function emitirTalaoCaixaPDF() {
+            emitirTalaoTermicoBalcao();
         }
 
         function exportarRelatorioCSV() {
-            alert('📊 Relatório exportado com sucesso.');
+            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
+            let csv = "Tipo,Cliente,Pagamento,Referencia,Total,Data\n";
+            logs.forEach(l => {
+                csv += `"${l.tipo}","${l.cliente}","${l.pagamento}","${l.refPagamento}","${l.total}","${l.data}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'relatorio_nuvem.csv';
+            a.click();
         }
 
-        function fazerBackupSistema() {
-            alert('💾 Cópia de segurança gerada.');
-        }
+        function renderizarRelatorios() {
+            const container = document.getElementById('lista-logs');
+            if(!container) return;
+            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
+            let totalFat = logs.reduce((acc, l) => acc + (l.faturamentoNumeric || 0), 0);
+            
+            document.getElementById('stat-faturamento').textContent = totalFat.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
+            document.getElementById('stat-lucro').textContent = (totalFat * 0.35).toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
+            document.getElementById('stat-total-ops').textContent = logs.length;
 
-        function restaurarBackupSistema() {
-            alert('🔄 Sistema restaurado.');
+            let html = '';
+            logs.forEach(l => {
+                html += `<div class="bg-slate-900 p-3 rounded border border-slate-800 flex justify-between items-center text-xs">
+                    <div><strong class="text-amber-400">[${l.tipo}]</strong> ${l.cliente} - <span class="text-slate-400">Pagto: ${l.pagamento} (${l.refPagamento})</span></div>
+                    <div class="text-right font-mono font-bold text-white">${l.total}</div>
+                </div>`;
+            });
+            container.innerHTML = html || '<div class="text-slate-500 text-center">Sem registos na nuvem.</div>';
         }
 
         window.onload = function() {
+            aplicarConfiguracoesVisuais();
             renderizarCatalogoMateriais();
             renderizarBalcãoVendas();
             atualizarCalculos();
+            carregarContasNoAdmin();
         };
     </script>
 </body>
