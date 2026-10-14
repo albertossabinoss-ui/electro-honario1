@@ -34,7 +34,7 @@
                     ELECTRO HONÁRIO & SERVIÇOS 
                     <span class="text-amber-500 text-xs px-2 py-0.5 bg-amber-500/10 rounded-full border border-amber-500/30">NUIT: 402027037</span>
                 </h1>
-                <p class="text-xs text-slate-400">Instalações Elétricas, Orçamentos Profissionais & Balcão de Vendas</p>
+                <p class="text-xs text-slate-400">Instalações Elétricas, Orçamentos Profissionais & Balcão de Vendas (ERP Integrado)</p>
             </div>
         </div>
         
@@ -106,7 +106,7 @@
                     </button>
                     
                     <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="hidden px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition">
-                        <i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão de Vendas
+                        <i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão de Vendas (POS)
                     </button>
 
                     <button onclick="mudarAba('relatorios')" id="tab-btn-relatorios" class="hidden px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition">
@@ -142,7 +142,7 @@
                                 <input type="text" id="cli-bairro" placeholder="Ex: Bairro Central" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
                             </div>
                             <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Contacto Telefónico</label>
+                                <label class="block font-semibold text-slate-400 mb-1">Contacto Telefónico / NUIT</label>
                                 <input type="text" id="cli-contacto" placeholder="Ex: +258 84 000 0000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
                             </div>
                             <div class="grid grid-cols-2 gap-2">
@@ -155,7 +155,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block font-semibold text-slate-400 mb-1">Tipo de Corrente</label>
+                                    <label class="block font-semibold text-slate-400 mb-1">Corrente</label>
                                     <select id="cli-corrente" onchange="atualizarCalculos()" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-amber-400 font-bold">
                                         <option value="monofasico">Monofásico</option>
                                         <option value="trifasico">Trifásico</option>
@@ -171,20 +171,43 @@
                                     <option value="Concluído">Concluído</option>
                                 </select>
                             </div>
+
+                            <!-- ADIANTAMENTO POR SINAL -->
+                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
+                                <label class="block font-semibold text-amber-400">Controlo de Sinal / Adiantamento (MT)</label>
+                                <input type="number" step="0.01" id="cli-sinal-pago" placeholder="Ex: 5000.00" oninput="atualizarCalculos()" class="w-full p-2 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono">
+                                <div class="flex justify-between text-[11px] text-slate-400 pt-1">
+                                    <span>Saldo Restante:</span>
+                                    <span id="res-saldo-restante" class="text-amber-400 font-bold font-mono">0.00 MT</span>
+                                </div>
+                            </div>
+
+                            <button onclick="inserirKitResidencialPadrao()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-2 rounded-lg transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Inserir Kit Elétrico Padrão
+                            </button>
                         </div>
                     </div>
 
                     <div class="lg:col-span-2 bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4 flex flex-col justify-between">
                         <div class="space-y-4">
-                            <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex justify-between items-center">
-                                <span><i class="fa-solid fa-boxes-stacked mr-2"></i> Catálogo de Materiais Elétricos</span>
-                                <span class="text-xs text-slate-400 font-normal">Preços em Meticais (MT)</span>
-                            </h4>
+                            <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-2 gap-2">
+                                <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400">
+                                    <i class="fa-solid fa-boxes-stacked mr-2"></i> Catálogo de Materiais Categorizados (SOCOAL)
+                                </h4>
+                                <select id="filtro-categoria" onchange="renderizarCatalogoMateriais()" class="p-1.5 bg-slate-950 border border-slate-800 rounded-lg text-xs text-amber-400 font-semibold">
+                                    <option value="todos">Todas as Categorias</option>
+                                    <option value="Cabos e Condutores">Cabos e Condutores</option>
+                                    <option value="Lâmpadas e Iluminação">Lâmpadas e Iluminação</option>
+                                    <option value="Proteção Elétrica">Proteção Elétrica</option>
+                                    <option value="Aparelhagem (Tomadas/Interruptores)">Aparelhagem</option>
+                                    <option value="Fixação e Aterramento">Fixação e Aterramento</option>
+                                </select>
+                            </div>
 
-                            <div id="catalogo-materiais-container" class="space-y-2.5 max-h-[300px] overflow-y-auto pr-1"></div>
+                            <div id="catalogo-materiais-container" class="space-y-3 max-h-[260px] overflow-y-auto pr-1"></div>
                         </div>
 
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 mt-4">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 mt-2">
                             <div class="flex justify-between text-xs text-slate-400">
                                 <span>Subtotal Materiais:</span>
                                 <span id="res-materiais" class="text-white font-mono font-semibold">0.00 MT</span>
@@ -210,11 +233,11 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <button onclick="gerarFaturaPDF()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-xs">
                                 <i class="fa-solid fa-file-arrow-down"></i>
-                                <span>Baixar Orçamento A4 / Carta</span>
+                                <span>Gerar Orçamento Oficial A4</span>
                             </button>
                             <button onclick="gerarTalaoTermico()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 text-xs">
                                 <i class="fa-solid fa-receipt"></i>
-                                <span>Imprimir Talão Térmico (POS)</span>
+                                <span>Imprimir Talão POS</span>
                             </button>
                         </div>
                     </div>
@@ -222,12 +245,12 @@
                 </div>
             </div>
 
-            <!-- ABA 2: BALCÃO DE VENDAS DIRETAS -->
+            <!-- ABA 2: BALCÃO DE VENDAS DIRETAS (POS COM M-PESA E TPA) -->
             <div id="tab-vendas" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
                     <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex justify-between items-center">
-                        <span><i class="fa-solid fa-cash-register mr-2"></i> Balcão de Vendas Diretas de Equipamentos</span>
-                        <span class="text-xs text-slate-400">Venda a clientes sem pedido de instalação</span>
+                        <span><i class="fa-solid fa-cash-register mr-2"></i> Balcão de Vendas Diretas & POS Multicanal</span>
+                        <span class="text-xs text-slate-400">Integração M-Pesa & TPA Bancário</span>
                     </h4>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -243,18 +266,39 @@
                                     <label class="block font-semibold text-slate-400 mb-1">Nome do Comprador</label>
                                     <input type="text" id="venda-cliente-nome" placeholder="Ex: Sr. Mário Santos" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                                 </div>
-                                <div>
-                                    <label class="block font-semibold text-slate-400 mb-1">Contacto / NUIT do Comprador</label>
-                                    <input type="text" id="venda-cliente-contacto" placeholder="Ex: 820000000 / NUIT" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="block font-semibold text-slate-400 mb-1">Contacto / NUIT</label>
+                                        <input type="text" id="venda-cliente-contacto" placeholder="840000000" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                    </div>
+                                    <div>
+                                        <label class="block font-semibold text-slate-400 mb-1">Método de Pagamento</label>
+                                        <select id="venda-metodo-pagamento" onchange="alternarCamposPagamento()" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-amber-400 font-bold">
+                                            <option value="Numerário">Numerário</option>
+                                            <option value="M-Pesa">M-Pesa (Vodacom)</option>
+                                            <option value="TPA Bancario">TPA Bancário</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="flex justify-between items-center text-sm font-bold pt-3 border-t border-slate-800">
+
+                                <!-- CAMPOS DINÂMICOS DE PAGAMENTO -->
+                                <div id="bloco-mpesa-info" class="hidden space-y-1 bg-slate-900 p-2.5 rounded-lg border border-slate-800">
+                                    <label class="block font-[11px] text-amber-400 font-semibold">ID Transação M-Pesa (Callback)</label>
+                                    <input type="text" id="venda-mpesa-id" placeholder="Ex: 8X91234567" class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-white text-xs">
+                                </div>
+                                <div id="bloco-tpa-info" class="hidden space-y-1 bg-slate-900 p-2.5 rounded-lg border border-slate-800">
+                                    <label class="block font-[11px] text-amber-400 font-semibold">Código Autorização TPA (AuthCode)</label>
+                                    <input type="text" id="venda-tpa-auth" placeholder="Ex: AUTH-98214" class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-white text-xs">
+                                </div>
+
+                                <div class="flex justify-between items-center text-sm font-bold pt-2 border-t border-slate-800">
                                     <span>Total a Pagar:</span>
                                     <span id="venda-total" class="text-amber-500 font-mono text-lg">0.00 MT</span>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                                 <button onclick="emitirTalaoCaixaPDF()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl text-xs shadow transition flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-receipt"></i> Talão A4
+                                    <i class="fa-solid fa-receipt"></i> Fatura Talão A4
                                 </button>
                                 <button onclick="emitirTalaoTermicoBalcao()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-3 rounded-xl text-xs transition flex items-center justify-center gap-1.5">
                                     <i class="fa-solid fa-print"></i> Talão POS 80mm
@@ -268,13 +312,16 @@
             <!-- ABA 3: RELATÓRIOS & LUCROS CONSOLIDADOS -->
             <div id="tab-relatorios" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
-                    <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
                         <div>
                             <h4 class="font-bold text-base text-amber-400">
                                 <i class="fa-solid fa-chart-pie mr-2"></i> Relatórios Financeiros, Faturamento & Lucros Consolidados
                             </h4>
-                            <p class="text-xs text-slate-400">Estatísticas e margens de lucro em tempo real</p>
+                            <p class="text-xs text-slate-400">Estatísticas, margens brutas e conversão de obras em tempo real</p>
                         </div>
+                        <button onclick="exportarRelatorioCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-xs transition flex items-center gap-2 shadow">
+                            <i class="fa-solid fa-file-excel"></i> Exportar Relatório Executivo (CSV)
+                        </button>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
@@ -296,7 +343,7 @@
                     </div>
 
                     <div class="space-y-3">
-                        <h5 class="font-bold text-xs uppercase text-slate-300">Histórico Financeiro Detalhado (Clique para Ver Ficha Completa):</h5>
+                        <h5 class="font-bold text-xs uppercase text-slate-300">Histórico Financeiro Detalhado (Clique na Operação para Detalhes ou Conversão):</h5>
                         <div id="lista-logs" class="space-y-2 max-h-[300px] overflow-y-auto pr-2 text-xs"></div>
                     </div>
                 </div>
@@ -341,7 +388,7 @@
                         </div>
                     </div>
 
-                    <!-- BACKUP E RESTARRO DE DADOS EM JSON -->
+                    <!-- BACKUP E RESTAURO DE DADOS EM JSON -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
                             <i class="fa-solid fa-database"></i> Segurança & Cópia de Segurança (Backup JSON)
@@ -398,7 +445,17 @@
                                 <i class="fa-solid fa-box-open text-amber-500"></i> Adicionar Material ao Catálogo
                             </h5>
                             <div class="space-y-2.5">
-                                <input type="text" id="novo-mat-nome" placeholder="Nome do Material" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                <input type="text" id="novo-mat-nome" placeholder="Nome do Material / Equipamento" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                <div>
+                                    <label class="block text-slate-400 mb-1 font-semibold">Categoria:</label>
+                                    <select id="novo-mat-categoria" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-amber-400 font-bold">
+                                        <option value="Cabos e Condutores">Cabos e Condutores</option>
+                                        <option value="Lâmpadas e Iluminação">Lâmpadas e Iluminação</option>
+                                        <option value="Proteção Elétrica">Proteção Elétrica</option>
+                                        <option value="Aparelhagem (Tomadas/Interruptores)">Aparelhagem</option>
+                                        <option value="Fixação e Aterramento">Fixação e Aterramento</option>
+                                    </select>
+                                </div>
                                 <input type="number" step="0.01" id="novo-mat-preco" placeholder="Preço em MT" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                                 <button onclick="adicionarNovoMaterialSistema()" class="w-full mt-2 bg-amber-500 text-slate-950 font-bold py-2.5 rounded-lg hover:bg-amber-400 transition flex items-center justify-center gap-2">
                                     <i class="fa-solid fa-plus"></i> Guardar Material
@@ -454,10 +511,10 @@
 
     <!-- RODAPÉ -->
     <footer class="bg-slate-900 border-t border-slate-800 py-3 text-center text-xs text-slate-500">
-        ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema Profissional
+        ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema ERP Integrado
     </footer>
 
-    <!-- SCRIPT COM LUCROS CONSOLIDADOS E HIERARQUIA -->
+    <!-- SCRIPT COM ESTILO DE FATURAÇÃO CORPORATIVO (PADRÃO MOÇAMBICANO) -->
     <script>
         function atualizarRelogio() {
             const agora = new Date();
@@ -748,15 +805,30 @@
             renderizarTabelasAdmin();
         }
 
+        // CATÁLOGO DE MATERIAIS SOCOAL / MERCADO
         function obterMateriaisDoSistema() {
             let matsSalvos = localStorage.getItem('electro_honario_materiais');
             if (!matsSalvos) {
                 const matsIniciais = [
-                    { id: 1, nome: 'Cabo Flexível 2.5mm² (Metro)', preco: 45.00 },
-                    { id: 2, nome: 'Disjuntor Termomagnético 16A', preco: 350.00 },
-                    { id: 3, nome: 'Disjuntor Tetrapolar 63A', preco: 2500.00 },
-                    { id: 4, nome: 'Tomada Dupla Com Terra', preco: 180.00 },
-                    { id: 5, nome: 'Painel LED de Embutir 18W', preco: 450.00 }
+                    { id: 1, nome: 'Fio Condutor Flexível 1.5mm² (Rolo 100m)', categoria: 'Cabos e Condutores', preco: 2800.00 },
+                    { id: 2, nome: 'Fio Condutor Flexível 2.5mm² (Rolo 100m)', categoria: 'Cabos e Condutores', preco: 4600.00 },
+                    { id: 3, nome: 'Cabo de Potência XV 3x2.5mm² (Metro)', categoria: 'Cabos e Condutores', preco: 95.00 },
+                    { id: 4, nome: 'Cabo de Potência XV 3x4mm² (Metro)', categoria: 'Cabos e Condutores', preco: 145.00 },
+                    { id: 5, nome: 'Cabo UTP Cat6 para Redes (Metro)', categoria: 'Cabos e Condutores', preco: 35.00 },
+                    { id: 6, nome: 'Lâmpada LED Bulbo E27 9W-12W', categoria: 'Lâmpadas e Iluminação', preco: 180.00 },
+                    { id: 7, nome: 'Lâmpada LED Tubular T8 1.2m', categoria: 'Lâmpadas e Iluminação', preco: 350.00 },
+                    { id: 8, nome: 'Painel LED de Embutir Redondo 18W', categoria: 'Lâmpadas e Iluminação', preco: 450.00 },
+                    { id: 9, nome: 'Projetor LED Exterior 50W', categoria: 'Lâmpadas e Iluminação', preco: 1850.00 },
+                    { id: 10, nome: 'Disjuntor Termomagnético MCB 16A/20A', categoria: 'Proteção Elétrica', preco: 350.00 },
+                    { id: 11, nome: 'Disjuntor Tetrapolar 63A', categoria: 'Proteção Elétrica', preco: 2500.00 },
+                    { id: 12, nome: 'Disjuntor Diferencial RCCB 30mA', categoria: 'Proteção Elétrica', preco: 1250.00 },
+                    { id: 13, nome: 'Protetor de Tensão AC Guard (Ar Condicionado)', categoria: 'Proteção Elétrica', preco: 2400.00 },
+                    { id: 14, nome: 'Interruptor Simples EFAPEL Logus 90', categoria: 'Aparelhagem (Tomadas/Interruptores)', preco: 280.00 },
+                    { id: 15, nome: 'Tomada Dupla Schuko Com Terra', categoria: 'Aparelhagem (Tomadas/Interruptores)', preco: 420.00 },
+                    { id: 16, nome: 'Tomada de Rede RJ45 Cat6', categoria: 'Aparelhagem (Tomadas/Interruptores)', preco: 350.00 },
+                    { id: 17, nome: 'Varão de Terra / Elétrodo de Cobre', categoria: 'Fixação e Aterramento', preco: 1200.00 },
+                    { id: 18, nome: 'Ligadores Rápidos WAGO (Pack 10)', categoria: 'Fixação e Aterramento', preco: 250.00 },
+                    { id: 19, nome: 'Tubo Corrugado Cinzento 20mm (Rolo 100m)', categoria: 'Fixação e Aterramento', preco: 2018.40 }
                 ];
                 localStorage.setItem('electro_honario_materiais', JSON.stringify(matsIniciais));
                 return matsIniciais;
@@ -767,14 +839,24 @@
         function renderizarCatalogoMateriais() {
             const container = document.getElementById('catalogo-materiais-container');
             if (!container) return;
+            const filtroCat = document.getElementById('filtro-categoria')?.value || 'todos';
             const materiais = obterMateriaisDoSistema();
+            
             let html = '';
-            materiais.forEach(mat => {
+            let materiaisFiltrados = filtroCat === 'todos' ? materiais : materiais.filter(m => m.categoria === filtroCat);
+
+            if (materiaisFiltrados.length === 0) {
+                container.innerHTML = '<div class="text-slate-500 text-center py-4">Nenhum material encontrado nesta categoria.</div>';
+                return;
+            }
+
+            materiaisFiltrados.forEach(mat => {
                 html += `
                     <div class="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs">
                         <div>
                             <span class="font-bold text-white block">${mat.nome}</span>
-                            <span class="text-amber-500 font-semibold">${mat.preco.toFixed(2)} MT</span>
+                            <span class="text-[10px] text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">${mat.categoria}</span>
+                            <span class="text-amber-500 font-semibold block mt-1">${mat.preco.toFixed(2)} MT</span>
                         </div>
                         <div class="flex items-center space-x-2">
                             <input type="number" min="0" value="0" id="mat-${mat.id}" onchange="atualizarCalculos()" class="w-16 p-1.5 bg-slate-900 border border-slate-700 rounded text-center text-white font-bold">
@@ -786,8 +868,25 @@
             container.innerHTML = html;
         }
 
+        function inserirKitResidencialPadrao() {
+            const materiais = obterMateriaisDoSistema();
+            materiais.forEach(mat => {
+                let input = document.getElementById(`mat-${mat.id}`);
+                if (input) {
+                    if (mat.id === 2) input.value = 1;
+                    else if (mat.id === 10) input.value = 4;
+                    else if (mat.id === 15) input.value = 6;
+                    else if (mat.id === 6) input.value = 5;
+                    else input.value = 0;
+                }
+            });
+            atualizarCalculos();
+            alert('✨ Kit Residencial Padrão inserido com sucesso!');
+        }
+
         function adicionarNovoMaterialSistema() {
             const nomeMat = document.getElementById('novo-mat-nome')?.value.trim();
+            const catMat = document.getElementById('novo-mat-categoria')?.value;
             const precoMat = parseFloat(document.getElementById('novo-mat-preco')?.value);
 
             if (!nomeMat || isNaN(precoMat) || precoMat <= 0) {
@@ -797,9 +896,9 @@
 
             let materiais = obterMateriaisDoSistema();
             const novoId = materiais.length > 0 ? Math.max(...materiais.map(m => m.id)) + 1 : 1;
-            materiais.push({ id: novoId, nome: nomeMat, preco: precoMat });
+            materiais.push({ id: novoId, nome: nomeMat, categoria: catMat, preco: precoMat });
             localStorage.setItem('electro_honario_materiais', JSON.stringify(materiais));
-            alert(`✅ Material adicionado!`);
+            alert(`✅ Material adicionado ao catálogo!`);
             
             document.getElementById('novo-mat-nome').value = '';
             document.getElementById('novo-mat-preco').value = '';
@@ -853,6 +952,18 @@
             if(elTotal) elTotal.textContent = total.toLocaleString('pt-PT') + '.00 MT';
         }
 
+        function alternarCamposPagamento() {
+            const metodo = document.getElementById('venda-metodo-pagamento')?.value;
+            const blocoMpesa = document.getElementById('bloco-mpesa-info');
+            const blocoTpa = document.getElementById('bloco-tpa-info');
+            
+            if(blocoMpesa) blocoMpesa.classList.add('hidden');
+            if(blocoTpa) blocoTpa.classList.add('hidden');
+
+            if (metodo === 'M-Pesa' && blocoMpesa) blocoMpesa.classList.remove('hidden');
+            if (metodo === 'TPA Bancario' && blocoTpa) blocoTpa.classList.remove('hidden');
+        }
+
         function atualizarCalculos() {
             let totalMateriais = 0;
             const materiais = obterMateriaisDoSistema();
@@ -883,6 +994,8 @@
             }
 
             let totalGeral = subtotalGeral + valorIva;
+            let sinalPago = parseFloat(document.getElementById('cli-sinal-pago')?.value) || 0;
+            let saldoRestante = totalGeral - sinalPago;
 
             const elMaoObra = document.getElementById('res-mao-obra');
             if(elMaoObra) elMaoObra.textContent = valorMaoObra.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MT';
@@ -892,6 +1005,9 @@
 
             const elTotal = document.getElementById('res-total');
             if(elTotal) elTotal.textContent = totalGeral.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MT';
+
+            const elSaldo = document.getElementById('res-saldo-restante');
+            if(elSaldo) elSaldo.textContent = saldoRestante.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MT';
         }
 
         function gerarTalaoTermico() {
@@ -956,6 +1072,9 @@
         function emitirTalaoTermicoBalcao() {
             const comprador = document.getElementById('venda-cliente-nome')?.value.trim() || 'Cliente Balcão';
             const totalStr = document.getElementById('venda-total')?.textContent || '0.00 MT';
+            const metodoPagamento = document.getElementById('venda-metodo-pagamento')?.value || 'Numerário';
+            const mpesaId = document.getElementById('venda-mpesa-id')?.value.trim() || 'N/A';
+            const tpaAuth = document.getElementById('venda-tpa-auth')?.value.trim() || 'N/A';
             const dataHora = new Date().toLocaleString('pt-PT');
 
             const materiais = obterMateriaisDoSistema();
@@ -972,7 +1091,7 @@
                     temItens = true;
                     let sub = qtd * mat.preco;
                     valorTotalVenda += sub;
-                    custoTotalVenda += qtd * (mat.preco * 0.7); // Estimativa de custo base a 70% ou valor configurado
+                    custoTotalVenda += qtd * (mat.preco * 0.7);
                     itensVendidos.push({ nome: mat.nome, qtd: qtd, preco: mat.preco, subtotal: sub });
                     itensHTML += `<tr><td>${mat.nome}</td><td style="text-align:center">${qtd}</td><td style="text-align:right">${sub.toFixed(2)}</td></tr>`;
                 }
@@ -990,6 +1109,8 @@
                 id: Date.now(), 
                 tipo: 'Venda Balcão', 
                 cliente: comprador, 
+                pagamento: metodoPagamento,
+                refPagamento: metodoPagamento === 'M-Pesa' ? mpesaId : (metodoPagamento === 'TPA Bancario' ? tpaAuth : 'Numerário'),
                 itens: itensVendidos, 
                 faturamentoNumeric: valorTotalVenda,
                 lucroNumeric: lucroVenda,
@@ -1014,10 +1135,11 @@
                     </head>
                     <body onload="window.print(); window.close();">
                         <h2>ELECTRO HONÁRIO & SERVIÇOS</h2>
-                        <p>TALÃO DE CAIXA</p>
+                        <p>BALCÃO DE VENDAS POS</p>
                         <hr style="border-style: dashed;">
                         <p><strong>Data:</strong> ${dataHora}</p>
                         <p><strong>Comprador:</strong> ${comprador}</p>
+                        <p><strong>Pagamento:</strong> ${metodoPagamento} (${metodoPagamento === 'M-Pesa' ? mpesaId : (metodoPagamento === 'TPA Bancario' ? tpaAuth : 'Dinheiro')})</p>
                         <table>
                             <thead><tr><th>Artigo</th><th style="text-align:center">Qtd</th><th style="text-align:right">Sub</th></tr></thead>
                             <tbody>${itensHTML}</tbody>
@@ -1031,7 +1153,6 @@
             }
         }
 
-        // ORÇAMENTO COM CÁLCULO DE LUCRO CONSOLIDADO
         function gerarFaturaPDF() {
             const cliente = document.getElementById('cli-nome')?.value.trim() || 'Cliente Geral';
             const bairro = document.getElementById('cli-bairro')?.value.trim() || 'N/A';
@@ -1039,12 +1160,14 @@
             const tipoImovel = document.getElementById('cli-tipo-imovel')?.value || 'Residência';
             const tipoCorrente = document.getElementById('cli-corrente')?.value.toUpperCase() || 'MONOFÁSICO';
             const estadoObra = document.getElementById('cli-estado-obra')?.value || 'Pendente';
+            const sinalPago = parseFloat(document.getElementById('cli-sinal-pago')?.value) || 0;
             const sessao = obterSessaoAtual() || { nome: 'Operador' };
             
             const totalMateriaisStr = document.getElementById('res-materiais')?.textContent || '0.00 MT';
             const maoObraStr = document.getElementById('res-mao-obra')?.textContent || '1,500.00 MT';
             const taxaCorrenteStr = document.getElementById('res-taxa')?.textContent || '300.00 MT';
             const totalGeral = document.getElementById('res-total')?.textContent || '0.00 MT';
+            const saldoRestanteStr = document.getElementById('res-saldo-restante')?.textContent || '0.00 MT';
             
             const dataHora = (document.getElementById('current-date')?.textContent || new Date().toLocaleDateString('pt-PT')) + ' às ' + (document.getElementById('current-time')?.textContent || new Date().toLocaleTimeString('pt-PT'));
 
@@ -1062,8 +1185,8 @@
                     temItens = true;
                     let subtotalItem = qtd * mat.preco;
                     valorTotalMateriais += subtotalItem;
-                    custoTotalMateriais += qtd * (mat.preco * 0.7); // Custo base estimado
-                    itensVendidos.push({ nome: mat.nome, qtd: qtd, preco: mat.preco, subtotal: subtotalItem });
+                    custoTotalMateriais += qtd * (mat.preco * 0.7);
+                    itensVendidos.push({ id: mat.id, nome: mat.nome, qtd: qtd, preco: mat.preco, subtotal: subtotalItem });
                     itensHTML += `
                         <tr class="border-b text-xs">
                             <td class="py-2 px-3">${mat.nome}</td>
@@ -1076,13 +1199,13 @@
             });
 
             if (!temItens) {
-                itensHTML = `<tr><td colspan="4" class="py-3 text-center text-xs text-slate-500">Nenhum material selecionado.</td></tr>`;
+                alert('⚠️ Selecione pelo menos um material para gerar o orçamento.');
+                return;
             }
 
-            // Cálculo numérico para relatórios financeiros
             let numTotalGeral = parseFloat(totalGeral.replace(/[^0-9,]/g, '').replace(',', '.')) || (valorTotalMateriais + 1500 + 300);
             let maoObraNum = parseFloat(maoObraStr.replace(/[^0-9,]/g, '').replace(',', '.')) || 1500;
-            let lucroCalculado = (valorTotalMateriais - custoTotalMateriais) + maoObraNum; // Lucro bruto de materiais + mão de obra
+            let lucroCalculado = (valorTotalMateriais - custoTotalMateriais) + maoObraNum;
 
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
             logs.unshift({ 
@@ -1093,65 +1216,71 @@
                 itens: itensVendidos, 
                 faturamentoNumeric: numTotalGeral,
                 lucroNumeric: lucroCalculado,
+                sinalPago: sinalPago,
                 total: totalGeral, 
                 operador: sessao.nome, 
                 data: dataHora 
             });
             localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
 
-            let configStr = localStorage.getItem('electro_honario_config');
-            let logoImgTag = '<i class="fa-solid fa-bolt-lightning text-xl text-amber-500"></i>';
-            if (configStr) {
-                let config = JSON.parse(configStr);
-                if (config.logoUrl) {
-                    logoImgTag = `<img src="${config.logoUrl}" class="w-12 h-12 object-cover rounded-lg">`;
-                }
-            }
-
             const janelaPDF = window.open('', '_blank');
             if (janelaPDF) {
                 janelaPDF.document.write(`
                     <html>
                     <head>
-                        <title>Orçamento Oficial</title>
+                        <title>Recibo e Fatura Oficial - Electro Honório</title>
                         <script src="https://cdn.tailwindcss.com"><\/script>
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                        <style>
+                            .watermark-bg {
+                                background-image: repeating-linear-gradient(45deg, rgba(245, 158, 11, 0.04) 0, rgba(245, 158, 11, 0.04) 40px, transparent 0, transparent 80px);
+                            }
+                        </style>
                     </head>
-                    <body class="bg-white text-slate-900 p-8 font-sans">
-                        <div class="max-w-3xl mx-auto border p-8 rounded-xl shadow-lg space-y-6 bg-white">
-                            <div class="flex justify-between items-start border-b pb-4">
+                    <body class="bg-slate-100 text-slate-900 p-6 font-sans watermark-bg min-h-screen flex items-center justify-center">
+                        <div class="max-w-3xl w-full mx-auto border-2 border-amber-500/30 p-8 rounded-2xl shadow-2xl space-y-6 bg-white relative overflow-hidden">
+                            
+                            <!-- CABEÇALHO OFICIAL ESTILO EDM/SOCOAL -->
+                            <div class="flex justify-between items-start border-b-2 border-amber-500 pb-4">
                                 <div class="flex items-center space-x-3">
-                                    <div class="p-1 rounded-xl">${logoImgTag}</div>
+                                    <div class="bg-amber-500 text-slate-950 p-3 rounded-2xl shadow">
+                                        <i class="fa-solid fa-bolt-lightning text-2xl"></i>
+                                    </div>
                                     <div>
-                                        <h1 class="font-black text-base text-slate-900 uppercase">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h1>
-                                        <p class="text-xs text-slate-600">NUIT: 402027037 | Maputo, Moçambique</p>
+                                        <h1 class="font-black text-base text-slate-900 uppercase tracking-wide">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h1>
+                                        <p class="text-[11px] text-slate-600">Av. 25 de Setembro, Maputo | NUIT: 402027037 | Licença nº 012/MF</p>
+                                        <p class="text-[11px] text-amber-600 font-semibold">Instalações Elétricas & Equipamentos</p>
                                     </div>
                                 </div>
                                 <div class="text-right text-xs">
-                                    <h2 class="font-bold text-amber-600 text-sm uppercase">ORÇAMENTO OFICIAL</h2>
+                                    <h2 class="font-extrabold text-amber-600 text-sm uppercase">RECIBO DE PAGAMENTO & ORÇAMENTO</h2>
+                                    <p class="text-slate-500">Recibo Nº: <strong class="text-slate-800">EH-${Math.floor(Math.random()*900000+100000)}</strong></p>
                                     <p class="text-slate-500">Data: ${dataHora}</p>
-                                    <p class="text-slate-500">Estado: <strong class="text-slate-800">${estadoObra}</strong></p>
+                                    <p class="text-slate-500">Estado: <strong class="text-amber-600">${estadoObra}</strong></p>
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-lg border text-xs">
+                            <!-- BLOCO DE DADOS DO CLIENTE E CAIXA -->
+                            <div class="grid grid-cols-2 gap-4 bg-amber-50/50 p-4 rounded-xl border border-amber-500/20 text-xs">
                                 <div class="space-y-1">
-                                    <p><strong>Cliente:</strong> ${cliente}</p>
-                                    <p><strong>Morada:</strong> ${bairro}</p>
-                                    <p><strong>Contacto:</strong> ${contacto}</p>
+                                    <p><strong>Nome do Cliente / Consumidor:</strong> <span class="text-slate-800">${cliente}</span></p>
+                                    <p><strong>Morada / Bairro:</strong> ${bairro}</p>
+                                    <p><strong>Contacto / NUIT:</strong> ${contacto}</p>
                                 </div>
                                 <div class="space-y-1 text-right">
                                     <p><strong>Tipo de Imóvel:</strong> ${tipoImovel}</p>
                                     <p><strong>Corrente:</strong> ${tipoCorrente}</p>
+                                    <p><strong>Operador Responsável:</strong> ${sessao.nome}</p>
                                 </div>
                             </div>
 
+                            <!-- TABELA DE ITENS -->
                             <div class="space-y-2">
-                                <h3 class="font-bold text-xs uppercase text-slate-700">Materiais & Equipamentos</h3>
+                                <h3 class="font-bold text-xs uppercase text-slate-700 border-l-4 border-amber-500 pl-2">Materiais & Equipamentos Aplicados</h3>
                                 <table class="w-full text-left border-collapse border border-slate-200">
                                     <thead>
-                                        <tr class="bg-slate-100 text-[11px] text-slate-700 uppercase border-b">
-                                            <th class="py-2 px-3">Descrição</th>
+                                        <tr class="bg-amber-500 text-slate-950 text-[11px] uppercase font-bold border-b">
+                                            <th class="py-2 px-3">Descrição do Artigo</th>
                                             <th class="py-2 px-3 text-center">Qtd</th>
                                             <th class="py-2 px-3 text-right">Preço Unit.</th>
                                             <th class="py-2 px-3 text-right">Subtotal</th>
@@ -1161,7 +1290,8 @@
                                 </table>
                             </div>
 
-                            <div class="bg-slate-50 p-4 rounded-lg border space-y-2 text-xs">
+                            <!-- RESUMO FINANCEIRO E TOTAIS -->
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs">
                                 <div class="flex justify-between text-slate-600">
                                     <span>Subtotal Materiais:</span>
                                     <span class="font-semibold">${totalMateriaisStr}</span>
@@ -1174,29 +1304,42 @@
                                     <span>Taxa de Sistema:</span>
                                     <span class="font-semibold">${taxaCorrenteStr}</span>
                                 </div>
-                                <div class="border-t pt-2 flex justify-between items-center text-sm font-bold">
-                                    <span class="text-slate-900 uppercase">Total Geral a Pagar:</span>
+                                <div class="flex justify-between text-slate-600">
+                                    <span>Sinal / Adiantamento Pago:</span>
+                                    <span class="font-semibold text-emerald-600">${sinalPago.toLocaleString('pt-PT', {minimumFractionDigits: 2})} MT</span>
+                                </div>
+                                <div class="flex justify-between text-slate-600">
+                                    <span>Saldo Restante a Pagar:</span>
+                                    <span class="font-semibold text-amber-600">${saldoRestanteStr}</span>
+                                </div>
+                                <div class="border-t border-slate-300 pt-2 flex justify-between items-center text-sm font-bold">
+                                    <span class="text-slate-900 uppercase">Valor Total a Pagar:</span>
                                     <span class="text-amber-600 text-lg font-black">${totalGeral}</span>
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-12 pt-12 text-center text-xs">
-                                <div class="space-y-8">
+                            <!-- ASSINATURAS E RODAPÉ INSTITUCIONAL (COM INSPIRAÇÃO DO SELO DE QUALIDADE) -->
+                            <div class="flex justify-between items-end pt-6">
+                                <div class="space-y-6 text-center text-xs w-1/3">
                                     <div class="border-b border-slate-400 pb-1"></div>
-                                    <p class="font-bold text-slate-700">O Diretor Geral / Administrador</p>
-                                    <p class="text-[10px] text-slate-500">Assinatura e Carimbo</p>
+                                    <p class="font-bold text-slate-700">O Administrador / Diretor</p>
                                 </div>
-                                <div class="space-y-8">
+                                <div class="text-center">
+                                    <div class="inline-block border-2 border-amber-500 rounded-full p-2 text-amber-600 text-[10px] font-bold uppercase tracking-widest shadow-inner">
+                                        ★ Qualidade Certificada ★
+                                    </div>
+                                </div>
+                                <div class="space-y-6 text-center text-xs w-1/3">
                                     <div class="border-b border-slate-400 pb-1"></div>
-                                    <p class="font-bold text-slate-700">O Cliente / Dono da Obra</p>
-                                    <p class="text-[10px] text-slate-500">Assinatura de Conformidade</p>
+                                    <p class="font-bold text-slate-700">O Cliente / Consumidor</p>
                                 </div>
                             </div>
 
-                            <div class="pt-6 border-t text-center text-[10px] text-slate-500">
+                            <div class="pt-4 border-t border-slate-200 text-center text-[10px] text-slate-500 space-y-1">
+                                <p class="font-semibold text-amber-700">Iluminando a Transformação de Moçambique</p>
                                 <p>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - NUIT: 402027037 | Maputo</p>
-                                <button onclick="window.print()" class="mt-4 px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold shadow">
-                                    Imprimir / Descarregar PDF
+                                <button onclick="window.print()" class="mt-3 px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-xl text-xs font-bold shadow transition">
+                                    Imprimir / Descarregar PDF Oficial
                                 </button>
                             </div>
                         </div>
@@ -1208,6 +1351,9 @@
 
         function emitirTalaoCaixaPDF() {
             const comprador = document.getElementById('venda-cliente-nome')?.value.trim() || 'Cliente Balcão';
+            const metodoPagamento = document.getElementById('venda-metodo-pagamento')?.value || 'Numerário';
+            const mpesaId = document.getElementById('venda-mpesa-id')?.value.trim() || 'N/A';
+            const tpaAuth = document.getElementById('venda-tpa-auth')?.value.trim() || 'N/A';
             const sessao = obterSessaoAtual() || { nome: 'Operador' };
             const dataHora = new Date().toLocaleString('pt-PT');
 
@@ -1249,6 +1395,8 @@
                 id: Date.now(), 
                 tipo: 'Venda Balcão', 
                 cliente: comprador, 
+                pagamento: metodoPagamento,
+                refPagamento: metodoPagamento === 'M-Pesa' ? mpesaId : (metodoPagamento === 'TPA Bancario' ? tpaAuth : 'Dinheiro'),
                 itens: itensVendidos, 
                 faturamentoNumeric: totalVenda,
                 lucroNumeric: lucroVenda,
@@ -1264,15 +1412,16 @@
                     <html>
                     <head><title>Talão de Caixa</title><script src="https://cdn.tailwindcss.com"><\/script></head>
                     <body class="bg-white text-slate-900 p-8 font-sans">
-                        <div class="max-w-xl mx-auto border p-8 rounded-xl shadow space-y-6 bg-white">
+                        <div class="max-w-xl mx-auto border-2 border-amber-500/30 p-8 rounded-xl shadow space-y-6 bg-white">
                             <h1 class="font-black text-sm uppercase text-slate-900">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h1>
-                            <p class="text-xs">Comprador: ${comprador} | Operador: ${sessao.nome}</p>
+                            <p class="text-xs">Comprador: <strong>${comprador}</strong> | Operador: ${sessao.nome}</p>
+                            <p class="text-xs">Método de Pagamento: <strong>${metodoPagamento}</strong> (${metodoPagamento === 'M-Pesa' ? 'ID: ' + mpesaId : (metodoPagamento === 'TPA Bancario' ? 'Auth: ' + tpaAuth : 'Numerário')})</p>
                             <table class="w-full text-left border-collapse border text-xs">
-                                <thead><tr class="bg-slate-100 uppercase border-b text-[10px]"><th class="py-2 px-3">Artigo</th><th class="py-2 px-3 text-center">Qtd</th><th class="py-2 px-3 text-right">Subtotal</th></tr></thead>
+                                <thead><tr class="bg-amber-500 text-slate-950 uppercase border-b text-[10px]"><th class="py-2 px-3">Artigo</th><th class="py-2 px-3 text-center">Qtd</th><th class="py-2 px-3 text-right">Subtotal</th></tr></thead>
                                 <tbody>${itensHTML}</tbody>
                             </table>
-                            <p class="font-bold text-sm">Total: ${totalStr}</p>
-                            <button onclick="window.print()" class="px-4 py-2 bg-slate-900 text-white rounded text-xs">Imprimir Talão</button>
+                            <p class="font-bold text-sm text-amber-600">Total Pago: ${totalStr}</p>
+                            <button onclick="window.print()" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded text-xs">Imprimir Talão</button>
                         </div>
                     </body>
                     </html>
@@ -1280,7 +1429,29 @@
             }
         }
 
-        // RENDERIZAR RELATÓRIOS COM LUCROS CONSOLIDADOS
+        function exportarRelatorioCSV() {
+            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
+            if (logs.length === 0) {
+                alert('⚠️ Não há dados de relatórios para exportar.');
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,Tipo,Cliente,Estado/Pagamento,Operador,Data,Total Faturado,Lucro Estimado\n";
+            logs.forEach(l => {
+                let det = l.estado || l.pagamento || 'N/A';
+                let row = `"${l.tipo}","${l.cliente}","${det}","${l.operador}","${l.data}","${l.total}","${l.lucroNumeric || 0}"`;
+                csvContent += row + "\r\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `relatorio_financeiro_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
         function renderizarRelatorios() {
             const container = document.getElementById('lista-logs');
             if(!container) return;
@@ -1305,22 +1476,44 @@
                 return;
             }
 
-            logs.forEach(l => {
+            logs.forEach((l, index) => {
                 let lucroItem = l.lucroNumeric ? l.lucroNumeric.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MT' : 'N/D';
+                let tagExtra = l.estado ? `(Estado: <strong>${l.estado}</strong>)` : `(Pagto: <strong>${l.pagamento || 'Dinheiro'}</strong>)`;
+                
                 html += `
-                    <div onclick='abrirFichaDetalhada(${JSON.stringify(l)})' class="bg-slate-900 hover:bg-slate-800 p-3 rounded-lg border border-slate-800 cursor-pointer transition flex justify-between items-center text-xs">
-                        <div>
-                            <strong class="text-amber-400">[${l.tipo}]</strong> Cliente: ${l.cliente} ${l.estado ? `(Estado: ${l.estado})` : ''}
+                    <div class="bg-slate-900 hover:bg-slate-800 p-3 rounded-lg border border-slate-800 transition flex flex-wrap justify-between items-center gap-2 text-xs">
+                        <div onclick='abrirFichaDetalhada(${JSON.stringify(l)})' class="cursor-pointer flex-grow">
+                            <strong class="text-amber-400">[${l.tipo}]</strong> Cliente: ${l.cliente} ${tagExtra}
                             <span class="block text-slate-400 text-[11px]">Operador: ${l.operador} • ${l.data}</span>
                         </div>
-                        <div class="text-right">
-                            <span class="font-bold text-white font-mono">Faturado: ${l.total}</span>
-                            <span class="block text-emerald-400 font-bold font-mono">Lucro: ${lucroItem}</span>
+                        <div class="flex items-center gap-3">
+                            <div class="text-right" onclick='abrirFichaDetalhada(${JSON.stringify(l)})' class="cursor-pointer">
+                                <span class="font-bold text-white font-mono block">Faturado: ${l.total}</span>
+                                <span class="block text-emerald-400 font-bold font-mono">Lucro: ${lucroItem}</span>
+                            </div>
+                            ${l.tipo === 'Orçamento' ? `
+                                <button onclick="converterOrcamentoEmVenda(${index})" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-2 rounded-lg transition" title="Converter em Venda / Aprovar Obra">
+                                    <i class="fa-solid fa-check-double"></i> Aprovar / Vender
+                                </button>
+                            ` : ''}
                         </div>
                     </div>
                 `;
             });
             container.innerHTML = html;
+        }
+
+        function converterOrcamentoEmVenda(index) {
+            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
+            let logObj = logs[index];
+            if (!logObj) return;
+
+            if (confirm(`Deseja aprovar e converter o orçamento do cliente "${logObj.cliente}" em Obra Executada / Venda?`)) {
+                logObj.estado = 'Concluído & Aprovado';
+                localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
+                alert('✅ Orçamento convertido e registado como Obra Concluída com sucesso!');
+                renderizarRelatorios();
+            }
         }
 
         function abrirFichaDetalhada(l) {
@@ -1348,18 +1541,18 @@
                     <html>
                     <head><title>Auditoria Financeira</title><script src="https://cdn.tailwindcss.com"><\/script></head>
                     <body class="bg-white text-slate-900 p-8 font-sans">
-                        <div class="max-w-2xl mx-auto border p-8 rounded-xl shadow space-y-6">
+                        <div class="max-w-2xl mx-auto border-2 border-amber-500/30 p-8 rounded-xl shadow space-y-6">
                             <h1 class="font-black text-sm uppercase">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h1>
-                            <p class="text-xs">Cliente: ${l.cliente} | Tipo: ${l.tipo} ${l.estado ? `| Estado: ${l.estado}` : ''}</p>
+                            <p class="text-xs">Cliente: <strong>${l.cliente}</strong> | Tipo: <strong>${l.tipo}</strong> ${l.estado ? `| Estado: ${l.estado}` : ''}</p>
                             <table class="w-full text-left border-collapse border text-xs">
-                                <thead><tr class="bg-slate-100 uppercase border-b text-[10px]"><th class="py-2 px-3">Artigo</th><th class="py-2 px-3 text-center">Qtd</th><th class="py-2 px-3 text-right">Subtotal</th></tr></thead>
+                                <thead><tr class="bg-amber-500 text-slate-950 uppercase border-b text-[10px]"><th class="py-2 px-3">Artigo</th><th class="py-2 px-3 text-center">Qtd</th><th class="py-2 px-3 text-right">Subtotal</th></tr></thead>
                                 <tbody>${itensHTML}</tbody>
                             </table>
                             <div class="bg-slate-50 p-3 rounded space-y-1 text-xs">
                                 <p><strong>Faturamento Total:</strong> ${l.total}</p>
                                 <p class="text-emerald-600 font-bold"><strong>Lucro Bruto Estimado:</strong> ${lucroStr}</p>
                             </div>
-                            <button onclick="window.print()" class="px-4 py-2 bg-slate-900 text-white rounded text-xs">Imprimir Ficha</button>
+                            <button onclick="window.print()" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded text-xs">Imprimir Ficha</button>
                         </div>
                     </body>
                     </html>
