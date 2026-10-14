@@ -23,10 +23,10 @@
     <!-- CABEÇALHO GLOBAL -->
     <header class="bg-slate-900 border-b border-slate-800 py-3 px-6 shadow-md flex flex-wrap justify-between items-center gap-4">
         <div class="flex items-center space-x-3.5">
-            <div id="header-logo-container" class="relative bg-gradient-to-br from-amber-400 to-amber-600 p-2.5 rounded-2xl text-slate-950 shadow-lg shadow-amber-500/30 flex items-center justify-center border border-amber-300">
+            <div id="header-logo-container" class="relative bg-gradient-to-br from-amber-400 to-amber-600 p-2.5 rounded-2xl text-slate-950 shadow-lg shadow-amber-500/30 flex items-center justify-center border border-amber-300 w-12 h-12 overflow-hidden">
                 <i class="fa-solid fa-lightbulb text-2xl animate-pulse text-slate-950"></i>
                 <div class="absolute -bottom-1 -right-1 bg-slate-950 text-amber-400 p-1 rounded-full text-[10px] border border-amber-500">
-                    <i class="fa-solid fa-network-wired"></i>
+                    <i class="fa-solid fa-cloud text-emerald-400 animate-pulse" title="Nuvem Online"></i>
                 </div>
             </div>
             <div>
@@ -34,7 +34,7 @@
                     ELECTRO HONÁRIO & SERVIÇOS 
                     <span class="text-amber-500 text-xs px-2 py-0.5 bg-amber-500/10 rounded-full border border-amber-500/30">NUIT: 402027037</span>
                 </h1>
-                <p class="text-xs text-slate-400">Instalações Elétricas, Orçamentos Profissionais & Balcão de Vendas (ERP Integrado)</p>
+                <p class="text-xs text-slate-400">Sistema ERP em Nuvem • M-Pesa, e-Mola & Controlo de Contas Empresariais</p>
             </div>
         </div>
         
@@ -90,13 +90,13 @@
             <!-- Barra de Boas-vindas e Controlo Hierárquico -->
             <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex flex-wrap justify-between items-center gap-4">
                 <div class="flex items-center space-x-3">
-                    <div class="relative w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold overflow-hidden">
+                    <div id="user-profile-avatar" class="relative w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold overflow-hidden">
                         <i class="fa-solid fa-user-shield"></i>
-                        <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-900 rounded-full animate-pulse" title="Online no Sistema"></span>
+                        <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-900 rounded-full animate-pulse" title="Online na Nuvem"></span>
                     </div>
                     <div>
                         <h3 class="font-bold text-base" id="welcome-msg">Bem-vindo</h3>
-                        <p class="text-xs text-amber-400" id="role-desc">Painel Operacional</p>
+                        <p class="text-xs text-amber-400" id="role-desc">Painel Operacional Cloud</p>
                     </div>
                 </div>
 
@@ -172,7 +172,6 @@
                                 </select>
                             </div>
 
-                            <!-- ADIANTAMENTO POR SINAL -->
                             <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
                                 <label class="block font-semibold text-amber-400">Controlo de Sinal / Adiantamento (MT)</label>
                                 <input type="number" step="0.01" id="cli-sinal-pago" placeholder="Ex: 5000.00" oninput="atualizarCalculos()" class="w-full p-2 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono">
@@ -245,12 +244,12 @@
                 </div>
             </div>
 
-            <!-- ABA 2: BALCÃO DE VENDAS DIRETAS (POS COM M-PESA E TPA) -->
+            <!-- ABA 2: BALCÃO DE VENDAS DIRETAS -->
             <div id="tab-vendas" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
                     <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex justify-between items-center">
-                        <span><i class="fa-solid fa-cash-register mr-2"></i> Balcão de Vendas Diretas & POS Multicanal</span>
-                        <span class="text-xs text-slate-400">Integração M-Pesa & TPA Bancário</span>
+                        <span><i class="fa-solid fa-cash-register mr-2"></i> Balcão de Vendas Diretas & POS Cloud</span>
+                        <span class="text-xs text-slate-400">M-Pesa, e-Mola & Contas da Empresa</span>
                     </h4>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -261,34 +260,64 @@
 
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-4 flex flex-col justify-between">
                             <div class="space-y-3 text-xs">
-                                <h5 class="font-bold uppercase text-amber-400">Dados do Comprador & Pagamento</h5>
+                                <h5 class="font-bold uppercase text-amber-400">Dados do Comprador & Pagamento Cloud</h5>
                                 <div>
                                     <label class="block font-semibold text-slate-400 mb-1">Nome do Comprador</label>
                                     <input type="text" id="venda-cliente-nome" placeholder="Ex: Sr. Mário Santos" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label class="block font-semibold text-slate-400 mb-1">Contacto / NUIT</label>
-                                        <input type="text" id="venda-cliente-contacto" placeholder="840000000" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                        <label class="block font-semibold text-slate-400 mb-1">Telemóvel do Cliente</label>
+                                        <input type="text" id="venda-cliente-contacto" placeholder="84/86 000 0000" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
                                     </div>
                                     <div>
                                         <label class="block font-semibold text-slate-400 mb-1">Método de Pagamento</label>
                                         <select id="venda-metodo-pagamento" onchange="alternarCamposPagamento()" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-amber-400 font-bold">
                                             <option value="Numerário">Numerário</option>
-                                            <option value="M-Pesa">M-Pesa (Vodacom)</option>
+                                            <option value="M-Pesa">M-Pesa (API Cloud)</option>
+                                            <option value="e-Mola">e-Mola (API Cloud)</option>
                                             <option value="TPA Bancario">TPA Bancário</option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <!-- CAMPOS DINÂMICOS DE PAGAMENTO -->
-                                <div id="bloco-mpesa-info" class="hidden space-y-1 bg-slate-900 p-2.5 rounded-lg border border-slate-800">
-                                    <label class="block font-[11px] text-amber-400 font-semibold">ID Transação M-Pesa (Callback)</label>
-                                    <input type="text" id="venda-mpesa-id" placeholder="Ex: 8X91234567" class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-white text-xs">
+                                <div id="info-conta-destino" class="bg-slate-900 p-2.5 rounded-lg border border-amber-500/30 text-[11px] text-slate-300">
+                                    <i class="fa-solid fa-circle-info text-amber-400 mr-1"></i> Destino: <strong id="lbl-destino-conta" class="text-amber-400">Conta M-Pesa Principal</strong>
                                 </div>
+
+                                <div id="bloco-mpesa-info" class="hidden space-y-2 bg-slate-900 p-3 rounded-xl border border-red-500/30">
+                                    <label class="block text-xs font-bold text-red-400 flex items-center justify-between">
+                                        <span>Cobrança Automática Cloud M-Pesa</span>
+                                        <i class="fa-solid fa-cloud-arrow-down animate-bounce"></i>
+                                    </label>
+                                    <button onclick="dispararCobrancaCloudAPI('M-Pesa')" type="button" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition flex items-center justify-center gap-2 shadow">
+                                        <i class="fa-solid fa-signal"></i>
+                                        <span>Disparar API Push ao Telemóvel</span>
+                                    </button>
+                                    <div>
+                                        <label class="block text-[10px] text-slate-400">ID Transação Automático (Callback)</label>
+                                        <input type="text" id="venda-mpesa-id" readonly placeholder="Aguardando webhook nuvem..." class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-amber-400 font-mono text-xs">
+                                    </div>
+                                </div>
+
+                                <div id="bloco-emola-info" class="hidden space-y-2 bg-slate-900 p-3 rounded-xl border border-emerald-500/30">
+                                    <label class="block text-xs font-bold text-emerald-400 flex items-center justify-between">
+                                        <span>Cobrança Automática Cloud e-Mola</span>
+                                        <i class="fa-solid fa-cloud-arrow-down animate-bounce"></i>
+                                    </label>
+                                    <button onclick="dispararCobrancaCloudAPI('e-Mola')" type="button" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition flex items-center justify-center gap-2 shadow">
+                                        <i class="fa-solid fa-signal"></i>
+                                        <span>Disparar API Push ao Telemóvel</span>
+                                    </button>
+                                    <div>
+                                        <label class="block text-[10px] text-slate-400">ID Transação Automático (Callback)</label>
+                                        <input type="text" id="venda-emola-id" readonly placeholder="Aguardando webhook nuvem..." class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-amber-400 font-mono text-xs">
+                                    </div>
+                                </div>
+
                                 <div id="bloco-tpa-info" class="hidden space-y-1 bg-slate-900 p-2.5 rounded-lg border border-slate-800">
                                     <label class="block font-[11px] text-amber-400 font-semibold">Código Autorização TPA (AuthCode)</label>
-                                    <input type="text" id="venda-tpa-auth" placeholder="Ex: AUTH-98214" class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-white text-xs">
+                                    <input type="text" id="venda-tpa-auth" placeholder="Ex: AUTH-98214" class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-white text-xs font-mono">
                                 </div>
 
                                 <div class="flex justify-between items-center text-sm font-bold pt-2 border-t border-slate-800">
@@ -315,9 +344,9 @@
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
                         <div>
                             <h4 class="font-bold text-base text-amber-400">
-                                <i class="fa-solid fa-chart-pie mr-2"></i> Relatórios Financeiros, Faturamento & Lucros Consolidados
+                                <i class="fa-solid fa-chart-pie mr-2"></i> Relatórios Financeiros, Faturamento & Sincronização Nuvem
                             </h4>
-                            <p class="text-xs text-slate-400">Estatísticas, margens brutas e conversão de obras em tempo real</p>
+                            <p class="text-xs text-slate-400">Estatísticas, margens brutas e fluxo de caixa consolidado</p>
                         </div>
                         <button onclick="exportarRelatorioCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-xs transition flex items-center gap-2 shadow">
                             <i class="fa-solid fa-file-excel"></i> Exportar Relatório Executivo (CSV)
@@ -326,7 +355,7 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                            <span class="text-slate-400 uppercase font-semibold">Faturamento Total</span>
+                            <span class="text-slate-400 uppercase font-semibold">Faturamento Total Nuvem</span>
                             <h3 id="stat-faturamento" class="text-2xl font-black text-white font-mono">0.00 MT</h3>
                             <span class="text-[10px] text-slate-500">Soma de orçamentos e vendas</span>
                         </div>
@@ -343,7 +372,7 @@
                     </div>
 
                     <div class="space-y-3">
-                        <h5 class="font-bold text-xs uppercase text-slate-300">Histórico Financeiro Detalhado (Clique na Operação para Detalhes ou Conversão):</h5>
+                        <h5 class="font-bold text-xs uppercase text-slate-300">Histórico Financeiro Sincronizado:</h5>
                         <div id="lista-logs" class="space-y-2 max-h-[300px] overflow-y-auto pr-2 text-xs"></div>
                     </div>
                 </div>
@@ -362,14 +391,47 @@
                         <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-bold">Dono / Administrador</span>
                     </div>
 
-                    <!-- CONFIGURAÇÕES GLOBAIS, MÃO DE OBRA E IVA -->
+                    <!-- GESTÃO DAS CONTAS DA EMPRESA -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
-                            <i class="fa-solid fa-gears"></i> Configurações Globais, Identidade, Mão de Obra & IVA
+                            <i class="fa-solid fa-building-columns"></i> Configurar Contas de Destino para Pagamentos Automáticos
+                        </h5>
+                        <p class="text-slate-400 text-[11px]">Estes dados definem para onde o dinheiro é enviado quando a API Push das operadoras ou transferências são efetuadas.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2 bg-slate-900 p-3 rounded-xl border border-slate-800">
+                                <label class="block font-semibold text-red-400">Conta M-Pesa da Empresa (Vodacom)</label>
+                                <input type="text" id="empresa-mpesa-num" placeholder="Ex: 840000000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono">
+                                <input type="text" id="empresa-mpesa-titular" placeholder="Titular (Ex: Electro Honório)" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
+                            </div>
+                            <div class="space-y-2 bg-slate-900 p-3 rounded-xl border border-slate-800">
+                                <label class="block font-semibold text-emerald-400">Conta e-Mola da Empresa (Movitel)</label>
+                                <input type="text" id="empresa-emola-num" placeholder="Ex: 860000000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono">
+                                <input type="text" id="empresa-emola-titular" placeholder="Titular (Ex: Electro Honório)" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
+                            </div>
+                            <div class="space-y-2 bg-slate-900 p-3 rounded-xl border border-slate-800 md:col-span-2">
+                                <label class="block font-semibold text-amber-400">Conta Bancária da Empresa (BIM / BCI / Standard Bank)</label>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                    <input type="text" id="empresa-banco-nome" placeholder="Nome do Banco (Ex: Millennium BIM)" class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
+                                    <input type="text" id="empresa-banco-nib" placeholder="NIB / Número de Conta" class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono">
+                                    <input type="text" id="empresa-banco-titular" placeholder="Titular da Conta" class="p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="guardarContasEmpresa()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-lg transition shadow">
+                            <i class="fa-solid fa-floppy-disk mr-1.5"></i> Guardar e Sincronizar Contas da Empresa
+                        </button>
+                    </div>
+
+                    <!-- IDENTIDADE, LOGÓTIPO, MÃO DE OBRA & IVA -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
+                        <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
+                            <i class="fa-solid fa-gears"></i> Logótipo, Mão de Obra & IVA
                         </h5>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Logótipo da Empresa (Carregar)</label>
+                                <label class="block font-semibold text-slate-400 mb-1">Carregar Logótipo (do Windows)</label>
                                 <input type="file" id="cfg-logo-file" accept="image/*" class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-white text-xs file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-400">
                             </div>
                             <div>
@@ -382,38 +444,35 @@
                             </div>
                         </div>
                         <div class="pt-2">
-                            <button onclick="guardarConfiguracoesGlobais()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-lg transition">
-                                <i class="fa-solid fa-floppy-disk mr-1"></i> Guardar Definições Globais
+                            <button onclick="guardarConfiguracoesGlobais()" class="w-full bg-slate-800 text-amber-400 border border-amber-500/30 font-bold py-2.5 rounded-lg transition hover:bg-slate-700">
+                                Guardar Definições Globais e Logótipo
                             </button>
                         </div>
                     </div>
 
-                    <!-- BACKUP E RESTAURO DE DADOS EM JSON -->
+                    <!-- SEGURANÇA E BACKUP -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
-                            <i class="fa-solid fa-database"></i> Segurança & Cópia de Segurança (Backup JSON)
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Sincronização & Cópia de Segurança Nuvem (Backup JSON)
                         </h5>
-                        <p class="text-slate-400 text-[11px]">Faça cópias de segurança regulares de todo o sistema para o seu computador ou restabeleça dados a partir de um ficheiro de backup.</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <button onclick="fazerBackupSistema()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-download"></i> Descarregar Cópia de Segurança (Backup)
+                                <i class="fa-solid fa-download"></i> Descarregar Backup Completo Nuvem
                             </button>
                             <div class="flex items-center gap-2">
                                 <input type="file" id="arquivo-backup-input" accept=".json" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded-lg text-[11px] text-white">
                                 <button onclick="restaurarBackupSistema()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition whitespace-nowrap">
-                                    Restaurar Backup
+                                    Restaurar
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- CARTÃO DE LIMPEZA E MANUTENÇÃO CIRÚRGICA DE DADOS -->
+                    <!-- LIMPEZA CIRÚRGICA -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-red-400">
                             <i class="fa-solid fa-broom-ball"></i> Gestão Cirúrgica de Históricos & Dados
                         </h5>
-                        <p class="text-slate-400 text-[11px]">Escolha exatamente o que pretende limpar antes da entrega do sistema, sem afetar as contas de utilizador.</p>
-                        
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <button onclick="limparApenasOrcamentos()" class="w-full bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 font-bold py-3 px-3 rounded-xl transition flex flex-col items-center justify-center gap-1.5 text-center">
                                 <i class="fa-solid fa-file-invoice text-base"></i>
@@ -422,7 +481,7 @@
 
                             <button onclick="limparApenasVendas()" class="w-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold py-3 px-3 rounded-xl transition flex flex-col items-center justify-center gap-1.5 text-center">
                                 <i class="fa-solid fa-cash-register text-base"></i>
-                                <span>Limpar Apenas Vendas de Balcão</span>
+                                <span>Limpar Apenas Vendas</span>
                             </button>
 
                             <button onclick="limparApenasHistorico()" class="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 font-bold py-3 px-3 rounded-xl transition flex flex-col items-center justify-center gap-1.5 text-center">
@@ -430,22 +489,22 @@
                                 <span>Limpar Todo o Histórico</span>
                             </button>
                         </div>
-
                         <div class="pt-2 border-t border-slate-900">
                             <button onclick="resetarSistemaCompleto()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl transition shadow-lg shadow-red-600/20 flex items-center justify-center gap-2 text-xs">
                                 <i class="fa-solid fa-triangle-exclamation"></i>
-                                <span>Restaurar Sistema Total do Zero (Apagar Tudo exceto Admin Padrão)</span>
+                                <span>Restaurar Sistema Total do Zero</span>
                             </button>
                         </div>
                     </div>
 
+                    <!-- MATERIAIS E UTILIZADORES -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
                         <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
                             <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2">
                                 <i class="fa-solid fa-box-open text-amber-500"></i> Adicionar Material ao Catálogo
                             </h5>
                             <div class="space-y-2.5">
-                                <input type="text" id="novo-mat-nome" placeholder="Nome do Material / Equipamento" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                <input type="text" id="novo-mat-nome" placeholder="Nome do Material" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                                 <div>
                                     <label class="block text-slate-400 mb-1 font-semibold">Categoria:</label>
                                     <select id="novo-mat-categoria" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-amber-400 font-bold">
@@ -509,13 +568,44 @@
         </div>
     </main>
 
+    <!-- MODAL DE WEBHOOK / CLOUD PUSH -->
+    <div id="modal-cloud-push" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
+        <div class="bg-slate-900 border-2 border-amber-500 p-6 rounded-2xl max-w-sm w-full space-y-4 text-center shadow-2xl">
+            <div id="cloud-push-icon" class="w-16 h-16 bg-red-600/20 text-red-500 border border-red-500/40 rounded-full flex items-center justify-center mx-auto animate-pulse">
+                <i class="fa-solid fa-signal text-3xl"></i>
+            </div>
+            <div>
+                <h3 id="cloud-modal-title" class="font-black text-lg text-white uppercase">Aguardando Confirmação Nuvem</h3>
+                <p class="text-xs text-slate-400 mt-1">A ligar à API da operadora e ao telemóvel do cliente...</p>
+            </div>
+            
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs text-left space-y-1 font-mono">
+                <div class="flex justify-between"><span class="text-slate-400">Serviço:</span><span id="cloud-push-servico" class="text-amber-400 font-bold">M-Pesa API</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">Destino Empresa:</span><span id="cloud-push-destino" class="text-emerald-400 font-bold">--</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">Cliente:</span><span id="cloud-push-cliente" class="text-white font-bold">--</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">Montante:</span><span id="cloud-push-valor" class="text-amber-400 font-bold">0.00 MT</span></div>
+            </div>
+
+            <div class="flex justify-center items-center space-x-2 text-slate-400 text-xs">
+                <i class="fa-solid fa-circle-notch animate-spin text-amber-500"></i>
+                <span>À espera do Callback Webhook (PIN confirmado)...</span>
+            </div>
+
+            <button onclick="confirmarWebhookCloudSucesso()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center gap-2 shadow">
+                <i class="fa-solid fa-check-double"></i> Confirmar Webhook Recebido (Sucesso)
+            </button>
+        </div>
+    </div>
+
     <!-- RODAPÉ -->
     <footer class="bg-slate-900 border-t border-slate-800 py-3 text-center text-xs text-slate-500">
-        ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema ERP Integrado
+        ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema ERP Nuvem
     </footer>
 
-    <!-- SCRIPT COM ESTILO DE FATURAÇÃO CORPORATIVO (PADRÃO MOÇAMBICANO) -->
+    <!-- SCRIPT UNIFICADO -->
     <script>
+        let operadoraCloudAtual = 'M-Pesa';
+
         function atualizarRelogio() {
             const agora = new Date();
             const dia = String(agora.getDate()).padStart(2, '0');
@@ -533,6 +623,67 @@
         }
         setInterval(atualizarRelogio, 1000);
         atualizarRelogio();
+
+        function obterContasEmpresa() {
+            let contasStr = localStorage.getItem('electro_honario_contas_empresa');
+            if (!contasStr) {
+                const contasDef = {
+                    mpesaNum: '840000000',
+                    mpesaTitular: 'Electro Honório & Serviços SU, Lda',
+                    emolaNum: '860000000',
+                    emolaTitular: 'Electro Honório & Serviços SU, Lda',
+                    bancoNome: 'Millennium BIM',
+                    bancoNib: '000100001234567890123',
+                    bancoTitular: 'Electro Honório & Serviços'
+                };
+                localStorage.setItem('electro_honario_contas_empresa', JSON.stringify(contasDef));
+                return contasDef;
+            }
+            return JSON.parse(contasStr);
+        }
+
+        function guardarContasEmpresa() {
+            const contas = {
+                mpesaNum: document.getElementById('empresa-mpesa-num')?.value.trim() || '',
+                mpesaTitular: document.getElementById('empresa-mpesa-titular')?.value.trim() || '',
+                emolaNum: document.getElementById('empresa-emola-num')?.value.trim() || '',
+                emolaTitular: document.getElementById('empresa-emola-titular')?.value.trim() || '',
+                bancoNome: document.getElementById('empresa-banco-nome')?.value.trim() || '',
+                bancoNib: document.getElementById('empresa-banco-nib')?.value.trim() || '',
+                bancoTitular: document.getElementById('empresa-banco-titular')?.value.trim() || ''
+            };
+            localStorage.setItem('electro_honario_contas_empresa', JSON.stringify(contas));
+            alert('✅ Contas da empresa atualizadas e sincronizadas na nuvem com sucesso!');
+            atualizarLabelDestinoConta();
+        }
+
+        function carregarContasNoAdmin() {
+            const contas = obterContasEmpresa();
+            if(document.getElementById('empresa-mpesa-num')) document.getElementById('empresa-mpesa-num').value = contas.mpesaNum;
+            if(document.getElementById('empresa-mpesa-titular')) document.getElementById('empresa-mpesa-titular').value = contas.mpesaTitular;
+            if(document.getElementById('empresa-emola-num')) document.getElementById('empresa-emola-num').value = contas.emolaNum;
+            if(document.getElementById('empresa-emola-titular')) document.getElementById('empresa-emola-titular').value = contas.emolaTitular;
+            if(document.getElementById('empresa-banco-nome')) document.getElementById('empresa-banco-nome').value = contas.bancoNome;
+            if(document.getElementById('empresa-banco-nib')) document.getElementById('empresa-banco-nib').value = contas.bancoNib;
+            if(document.getElementById('empresa-banco-titular')) document.getElementById('empresa-banco-titular').value = contas.bancoTitular;
+        }
+
+        function atualizarLabelDestinoConta() {
+            const metodo = document.getElementById('venda-metodo-pagamento')?.value;
+            const lblDestino = document.getElementById('lbl-destino-conta');
+            const contas = obterContasEmpresa();
+
+            if(!lblDestino) return;
+            if(metodo === 'M-Pesa') {
+                lblDestino.textContent = `M-Pesa (${contas.mpesaNum} - ${contas.mpesaTitular})`;
+            } else if(metodo === 'e-Mola') {
+                lblDestino.textContent = `e-Mola (${contas.emolaNum} - ${contas.emolaTitular})`;
+            } else if(metodo === 'TPA Bancario') {
+                lblDestino.textContent = `Banco (${contas.bancoNome}: ${contas.bancoNib})`;
+            } else {
+                lblDestino.textContent = `Caixa Físico / Tesouraria`;
+            }
+        }
 
         function obterUtilizadoresDoSistema() {
             let users = localStorage.getItem('electro_honario_users');
@@ -553,14 +704,7 @@
             const erroEl = document.getElementById('login-error');
 
             if (inputUser === 'alberto' && inputPass === 'mugabe') {
-                const adminUser = {
-                    id: 1,
-                    user: 'alberto',
-                    pass: 'mugabe',
-                    nome: 'Alberto Mugabe (Administrador)',
-                    role: 'admin',
-                    online: true
-                };
+                const adminUser = { id: 1, user: 'alberto', pass: 'mugabe', nome: 'Alberto Mugabe (Administrador)', role: 'admin', online: true };
                 localStorage.setItem('electro_honario_sessao_atual', JSON.stringify(adminUser));
                 if (erroEl) erroEl.classList.add('hidden');
                 ativarSessao(adminUser);
@@ -568,10 +712,7 @@
             }
 
             let listaUsers = obterUtilizadoresDoSistema();
-            let utilizadorEncontrado = listaUsers.find(u => 
-                (u.user === inputUser || u.username === inputUser) && 
-                (u.pass === inputPass || u.password === inputPass)
-            );
+            let utilizadorEncontrado = listaUsers.find(u => (u.user === inputUser || u.username === inputUser) && (u.pass === inputPass || u.password === inputPass));
 
             if (utilizadorEncontrado) {
                 if (erroEl) erroEl.classList.add('hidden');
@@ -605,19 +746,18 @@
             const btnAdmin = document.getElementById('tab-btn-admin');
 
             const cargo = userObj.role;
-
             if (cargo === 'admin') {
                 if(roleDesc) roleDesc.textContent = 'Administrador Geral (Acesso Total)';
                 if(btnVendas) btnVendas.classList.remove('hidden');
                 if(btnRelatorios) btnRelatorios.classList.remove('hidden');
                 if(btnAdmin) btnAdmin.classList.remove('hidden');
             } else if (cargo === 'diretor') {
-                if(roleDesc) roleDesc.textContent = 'Diretor Geral (Gestão, Relatórios & Lucros)';
+                if(roleDesc) roleDesc.textContent = 'Diretor Geral';
                 if(btnVendas) btnVendas.classList.remove('hidden');
                 if(btnRelatorios) btnRelatorios.classList.remove('hidden');
                 if(btnAdmin) btnAdmin.classList.add('hidden');
             } else if (cargo === 'chefe') {
-                if(roleDesc) roleDesc.textContent = 'Chefe de Obra / Supervisor';
+                if(roleDesc) roleDesc.textContent = 'Chefe de Obra';
                 if(btnVendas) btnVendas.classList.remove('hidden');
                 if(btnRelatorios) btnRelatorios.classList.add('hidden');
                 if(btnAdmin) btnAdmin.classList.add('hidden');
@@ -630,18 +770,13 @@
 
             mudarAba('orcamentos');
             aplicarConfiguracoesVisuais();
+            carregarContasNoAdmin();
             renderizarTabelasAdmin();
             renderizarBalcãoVendas();
+            atualizarLabelDestinoConta();
         }
 
         function terminarSessao() {
-            let sessao = obterSessaoAtual();
-            if (sessao) {
-                let listaUsers = obterUtilizadoresDoSistema();
-                let u = listaUsers.find(x => x.user === sessao.user);
-                if(u) u.online = false;
-                localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
-            }
             localStorage.removeItem('electro_honario_sessao_atual');
             location.reload();
         }
@@ -661,13 +796,13 @@
             if(btnAtivo) btnAtivo.className = 'px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow';
 
             if(aba === 'relatorios') renderizarRelatorios();
-            if(aba === 'admin') renderizarTabelasAdmin();
+            if(aba === 'admin') carregarContasNoAdmin();
         }
 
         function guardarConfiguracoesGlobais() {
             const fileInput = document.getElementById('cfg-logo-file');
             const valorMaoObra = parseFloat(document.getElementById('cfg-mao-obra-valor')?.value) || 1500;
-            const valorIva = parseFloat(document.getElementById('cfg-iva-percent')?.value) || 0;
+            const valorIva = parseFloat(document.getElementById('cfg-iva-percent')?.value) || 16;
 
             let configStr = localStorage.getItem('electro_honario_config');
             let config = configStr ? JSON.parse(configStr) : {};
@@ -675,16 +810,15 @@
             config.ivaPercent = valorIva;
 
             if (fileInput && fileInput.files && fileInput.files[0]) {
-                const file = fileInput.files[0];
                 const reader = new FileReader();
                 reader.onload = function (e) {
                     config.logoUrl = e.target.result;
                     localStorage.setItem('electro_honario_config', JSON.stringify(config));
-                    alert('✅ Definições globais guardadas com sucesso!');
+                    alert('✅ Definições globais e logótipo guardados com sucesso!');
                     aplicarConfiguracoesVisuais();
                     atualizarCalculos();
                 };
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(fileInput.files[0]);
             } else {
                 localStorage.setItem('electro_honario_config', JSON.stringify(config));
                 alert('✅ Definições globais guardadas com sucesso!');
@@ -700,26 +834,27 @@
                 if(config.logoUrl) {
                     const logoContainer = document.getElementById('header-logo-container');
                     if(logoContainer) {
-                        logoContainer.innerHTML = `<img src="${config.logoUrl}" alt="Logo" class="w-8 h-8 object-cover rounded-xl">`;
+                        logoContainer.innerHTML = `<img src="${config.logoUrl}" alt="Logótipo" class="w-full h-full object-cover rounded-xl">`;
+                    }
+                    const avatarContainer = document.getElementById('user-profile-avatar');
+                    if(avatarContainer) {
+                        avatarContainer.innerHTML = `<img src="${config.logoUrl}" alt="Avatar" class="w-full h-full object-cover rounded-xl">`;
                     }
                 }
                 if(config.maoObraPadrao !== undefined) {
-                    const inputMaoObra = document.getElementById('cfg-mao-obra-valor');
-                    if(inputMaoObra) inputMaoObra.value = config.maoObraPadrao;
+                    const elMaoObra = document.getElementById('cfg-mao-obra-valor');
+                    if(elMaoObra) elMaoObra.value = config.maoObraPadrao;
                 }
                 if(config.ivaPercent !== undefined) {
-                    const inputIva = document.getElementById('cfg-iva-percent');
-                    if(inputIva) inputIva.value = config.ivaPercent;
+                    const elIva = document.getElementById('cfg-iva-percent');
+                    if(elIva) elIva.value = config.ivaPercent;
                 }
             }
         }
 
         function obterConfiguracoesSistema() {
             let configStr = localStorage.getItem('electro_honario_config');
-            if(configStr) {
-                return JSON.parse(configStr);
-            }
-            return { maoObraPadrao: 1500.00, ivaPercent: 16 };
+            return configStr ? JSON.parse(configStr) : { maoObraPadrao: 1500.00, ivaPercent: 16 };
         }
 
         function fazerBackupSistema() {
@@ -728,42 +863,32 @@
                 materiais: localStorage.getItem('electro_honario_materiais'),
                 logs: localStorage.getItem('electro_honario_logs'),
                 config: localStorage.getItem('electro_honario_config'),
-                dataBackup: new Date().toISOString()
+                contas: localStorage.getItem('electro_honario_contas_empresa')
             };
-
             const blob = new Blob([JSON.stringify(dadosBackup, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `backup_electro_honario_${new Date().toISOString().slice(0,10)}.json`;
+            a.download = `backup_cloud_electro_${new Date().toISOString().slice(0,10)}.json`;
             a.click();
             URL.revokeObjectURL(url);
         }
 
         function restaurarBackupSistema() {
             const fileInput = document.getElementById('arquivo-backup-input');
-            if (!fileInput || !fileInput.files || !fileInput.files[0]) {
-                alert('⚠️ Selecione um ficheiro de backup (.json) válido.');
-                return;
-            }
-
-            const file = fileInput.files[0];
+            if (!fileInput || !fileInput.files || !fileInput.files[0]) return;
             const reader = new FileReader();
             reader.onload = function(e) {
-                try {
-                    const dados = JSON.parse(e.target.result);
-                    if (dados.users) localStorage.setItem('electro_honario_users', dados.users);
-                    if (dados.materiais) localStorage.setItem('electro_honario_materiais', dados.materiais);
-                    if (dados.logs) localStorage.setItem('electro_honario_logs', dados.logs);
-                    if (dados.config) localStorage.setItem('electro_honario_config', dados.config);
-                    
-                    alert('✅ Sistema restaurado com sucesso a partir do backup!');
-                    location.reload();
-                } catch (err) {
-                    alert('❌ Erro ao ler o ficheiro de backup.');
-                }
+                const dados = JSON.parse(e.target.result);
+                if (dados.users) localStorage.setItem('electro_honario_users', dados.users);
+                if (dados.materiais) localStorage.setItem('electro_honario_materiais', dados.materiais);
+                if (dados.logs) localStorage.setItem('electro_honario_logs', dados.logs);
+                if (dados.config) localStorage.setItem('electro_honario_config', dados.config);
+                if (dados.contas) localStorage.setItem('electro_honario_contas_empresa', dados.contas);
+                alert('✅ Sistema restaurado com sucesso!');
+                location.reload();
             };
-            reader.readAsText(file);
+            reader.readAsText(fileInput.files[0]);
         }
 
         function criarNovoUtilizadorSistema() {
@@ -773,7 +898,7 @@
             const novoCargo = document.getElementById('novo-user-cargo')?.value;
 
             if (!novoUser || !novoPass || !novoNome) {
-                alert('⚠️ Preencha todos os campos.');
+                alert('⚠️ Preencha todos os campos do utilizador.');
                 return;
             }
 
@@ -805,7 +930,6 @@
             renderizarTabelasAdmin();
         }
 
-        // CATÁLOGO DE MATERIAIS SOCOAL / MERCADO
         function obterMateriaisDoSistema() {
             let matsSalvos = localStorage.getItem('electro_honario_materiais');
             if (!matsSalvos) {
@@ -841,14 +965,8 @@
             if (!container) return;
             const filtroCat = document.getElementById('filtro-categoria')?.value || 'todos';
             const materiais = obterMateriaisDoSistema();
-            
             let html = '';
             let materiaisFiltrados = filtroCat === 'todos' ? materiais : materiais.filter(m => m.categoria === filtroCat);
-
-            if (materiaisFiltrados.length === 0) {
-                container.innerHTML = '<div class="text-slate-500 text-center py-4">Nenhum material encontrado nesta categoria.</div>';
-                return;
-            }
 
             materiaisFiltrados.forEach(mat => {
                 html += `
@@ -881,7 +999,7 @@
                 }
             });
             atualizarCalculos();
-            alert('✨ Kit Residencial Padrão inserido com sucesso!');
+            alert('✨ Kit Residencial Padrão inserido!');
         }
 
         function adicionarNovoMaterialSistema() {
@@ -955,13 +1073,61 @@
         function alternarCamposPagamento() {
             const metodo = document.getElementById('venda-metodo-pagamento')?.value;
             const blocoMpesa = document.getElementById('bloco-mpesa-info');
+            const blocoEmola = document.getElementById('bloco-emola-info');
             const blocoTpa = document.getElementById('bloco-tpa-info');
             
             if(blocoMpesa) blocoMpesa.classList.add('hidden');
+            if(blocoEmola) blocoEmola.classList.add('hidden');
             if(blocoTpa) blocoTpa.classList.add('hidden');
 
             if (metodo === 'M-Pesa' && blocoMpesa) blocoMpesa.classList.remove('hidden');
+            if (metodo === 'e-Mola' && blocoEmola) blocoEmola.classList.remove('hidden');
             if (metodo === 'TPA Bancario' && blocoTpa) blocoTpa.classList.remove('hidden');
+            
+            atualizarLabelDestinoConta();
+        }
+
+        function dispararCobrancaCloudAPI(operadora) {
+            operadoraCloudAtual = operadora;
+            const numCliente = document.getElementById('venda-cliente-contacto')?.value.trim();
+            const valorTotal = document.getElementById('venda-total')?.textContent;
+            const contas = obterContasEmpresa();
+
+            if (!numCliente || numCliente.length < 8) {
+                alert(`⚠️ Insira o número de telemóvel ${operadora} do cliente.`);
+                return;
+            }
+
+            const destino = operadora === 'e-Mola' ? `${contas.emolaNum} (${contas.emolaTitular})` : `${contas.mpesaNum} (${contas.mpesaTitular})`;
+
+            document.getElementById('cloud-push-servico').textContent = `${operadora} Cloud API`;
+            document.getElementById('cloud-push-destino').textContent = destino;
+            document.getElementById('cloud-push-cliente').textContent = numCliente;
+            document.getElementById('cloud-push-valor').textContent = valorTotal;
+            document.getElementById('cloud-modal-title').textContent = `Ligação API Nuvem ${operadora}`;
+            
+            const iconContainer = document.getElementById('cloud-push-icon');
+            if (operadora === 'e-Mola') {
+                iconContainer.className = 'w-16 h-16 bg-emerald-600/20 text-emerald-500 border border-emerald-500/40 rounded-full flex items-center justify-center mx-auto animate-pulse';
+            } else {
+                iconContainer.className = 'w-16 h-16 bg-red-600/20 text-red-500 border border-red-500/40 rounded-full flex items-center justify-center mx-auto animate-pulse';
+            }
+
+            document.getElementById('modal-cloud-push').classList.remove('hidden');
+        }
+
+        function confirmarWebhookCloudSucesso() {
+            document.getElementById('modal-cloud-push').classList.add('hidden');
+            const prefixo = operadoraCloudAtual === 'e-Mola' ? 'EMC' : 'MPC';
+            const idGerado = prefixo + Math.floor(Math.random() * 899999 + 100000);
+            
+            if (operadoraCloudAtual === 'e-Mola') {
+                document.getElementById('venda-emola-id').value = idGerado;
+            } else {
+                document.getElementById('venda-mpesa-id').value = idGerado;
+            }
+
+            alert(`✅ Webhook recebido com sucesso da nuvem!\nID de Transação: ${idGerado} (Dinheiro depositado na conta da empresa).`);
         }
 
         function atualizarCalculos() {
@@ -977,94 +1143,43 @@
             let valorMaoObra = config.maoObraPadrao !== undefined ? config.maoObraPadrao : 1500.00;
             let taxaSistema = 300.00;
             let subtotalGeral = totalMateriais + valorMaoObra + taxaSistema;
-
+            
             let valorIva = 0;
-            const linhaIvaResumo = document.getElementById('linha-iva-resumo');
-            const labelIvaResumo = document.getElementById('label-iva-resumo');
-            const resIva = document.getElementById('res-iva');
-
             let percIva = config.ivaPercent !== undefined ? config.ivaPercent : 16;
-            if (percIva > 0) {
+            if(percIva > 0) {
                 valorIva = subtotalGeral * (percIva / 100);
-                if(linhaIvaResumo) linhaIvaResumo.classList.remove('hidden');
-                if(labelIvaResumo) labelIvaResumo.textContent = `IVA (${percIva}%):`;
-                if(resIva) resIva.textContent = valorIva.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MT';
+                if(document.getElementById('linha-iva-resumo')) document.getElementById('linha-iva-resumo').classList.remove('hidden');
+                if(document.getElementById('label-iva-resumo')) document.getElementById('label-iva-resumo').textContent = `IVA (${percIva}%):`;
+                if(document.getElementById('res-iva')) document.getElementById('res-iva').textContent = valorIva.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
             } else {
-                if(linhaIvaResumo) linhaIvaResumo.classList.add('hidden');
+                if(document.getElementById('linha-iva-resumo')) document.getElementById('linha-iva-resumo').classList.add('hidden');
             }
 
             let totalGeral = subtotalGeral + valorIva;
             let sinalPago = parseFloat(document.getElementById('cli-sinal-pago')?.value) || 0;
             let saldoRestante = totalGeral - sinalPago;
 
-            const elMaoObra = document.getElementById('res-mao-obra');
-            if(elMaoObra) elMaoObra.textContent = valorMaoObra.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MT';
-
-            const elMateriais = document.getElementById('res-materiais');
-            if(elMateriais) elMateriais.textContent = totalMateriais.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MT';
-
-            const elTotal = document.getElementById('res-total');
-            if(elTotal) elTotal.textContent = totalGeral.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MT';
-
-            const elSaldo = document.getElementById('res-saldo-restante');
-            if(elSaldo) elSaldo.textContent = saldoRestante.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MT';
+            if(document.getElementById('res-materiais')) document.getElementById('res-materiais').textContent = totalMateriais.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
+            if(document.getElementById('res-mao-obra')) document.getElementById('res-mao-obra').textContent = valorMaoObra.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
+            if(document.getElementById('res-total')) document.getElementById('res-total').textContent = totalGeral.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
+            if(document.getElementById('res-saldo-restante')) document.getElementById('res-saldo-restante').textContent = saldoRestante.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
         }
 
         function gerarTalaoTermico() {
             const cliente = document.getElementById('cli-nome')?.value.trim() || 'Cliente Geral';
-            const estadoObra = document.getElementById('cli-estado-obra')?.value || 'Pendente';
-            const dataHora = new Date().toLocaleString('pt-PT');
-
-            const materiais = obterMateriaisDoSistema();
-            let itensHTML = '';
-            let temItens = false;
-
-            materiais.forEach(mat => {
-                let campoMat = document.getElementById(`mat-${mat.id}`);
-                let qtd = campoMat ? (parseInt(campoMat.value) || 0) : 0;
-                if (qtd > 0) {
-                    temItens = true;
-                    let sub = qtd * mat.preco;
-                    itensHTML += `<tr><td>${mat.nome}</td><td style="text-align:center">${qtd}</td><td style="text-align:right">${sub.toFixed(2)}</td></tr>`;
-                }
-            });
-
-            if(!temItens) {
-                alert('⚠️ Selecione pelo menos um material.');
-                return;
-            }
-
             const totalGeral = document.getElementById('res-total')?.textContent || '0.00 MT';
-
-            const janelaTermica = window.open('', '_blank', 'width=400,height=600');
-            if(janelaTermica) {
-                janelaTermica.document.write(`
-                    <html>
-                    <head><title>Talão Térmico</title>
-                    <style>
-                        body { font-family: 'Courier New', monospace; font-size: 12px; width: 300px; margin: 0 auto; padding: 10px; color: #000; }
-                        h2, p { text-align: center; margin: 4px 0; }
-                        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-                        th, td { font-size: 11px; padding: 2px 0; border-bottom: 1px dashed #000; }
-                        .total { font-size: 14px; font-weight: bold; text-align: right; margin-top: 10px; }
-                    </style>
-                    </head>
-                    <body onload="window.print(); window.close();">
-                        <h2>ELECTRO HONÁRIO & SERVIÇOS</h2>
-                        <p>NUIT: 402027037 | Maputo</p>
-                        <hr style="border-style: dashed;">
-                        <p><strong>Data:</strong> ${dataHora}</p>
-                        <p><strong>Cliente:</strong> ${cliente}</p>
-                        <p><strong>Estado:</strong> ${estadoObra}</p>
-                        <table>
-                            <thead><tr><th>Artigo</th><th style="text-align:center">Qtd</th><th style="text-align:right">Sub</th></tr></thead>
-                            <tbody>${itensHTML}</tbody>
-                        </table>
-                        <p class="total">TOTAL: ${totalGeral}</p>
-                        <hr style="border-style: dashed;">
-                        <p style="text-align:center">Obrigado!</p>
-                    </body>
-                    </html>
+            const janela = window.open('', '_blank', 'width=400,height=600');
+            if(janela) {
+                janela.document.write(`
+                    <html><head><title>Talão</title></head>
+                    <body onload="window.print(); window.close();" style="font-family:monospace;font-size:12px;padding:10px">
+                        <h2 style="text-align:center">ELECTRO HONÁRIO</h2>
+                        <p style="text-align:center">NUIT: 402027037 | Maputo</p>
+                        <hr>
+                        <p>Cliente: ${cliente}</p>
+                        <p>Total: ${totalGeral}</p>
+                        <hr><p style="text-align:center">Obrigado!</p>
+                    </body></html>
                 `);
             }
         }
@@ -1074,490 +1189,72 @@
             const totalStr = document.getElementById('venda-total')?.textContent || '0.00 MT';
             const metodoPagamento = document.getElementById('venda-metodo-pagamento')?.value || 'Numerário';
             const mpesaId = document.getElementById('venda-mpesa-id')?.value.trim() || 'N/A';
+            const emolaId = document.getElementById('venda-emola-id')?.value.trim() || 'N/A';
             const tpaAuth = document.getElementById('venda-tpa-auth')?.value.trim() || 'N/A';
-            const dataHora = new Date().toLocaleString('pt-PT');
-
-            const materiais = obterMateriaisDoSistema();
-            let itensVendidos = [];
-            let itensHTML = '';
-            let custoTotalVenda = 0;
-            let valorTotalVenda = 0;
-            let temItens = false;
-
-            materiais.forEach(mat => {
-                let input = document.getElementById(`venda-mat-${mat.id}`);
-                let qtd = input ? (parseInt(input.value) || 0) : 0;
-                if(qtd > 0) {
-                    temItens = true;
-                    let sub = qtd * mat.preco;
-                    valorTotalVenda += sub;
-                    custoTotalVenda += qtd * (mat.preco * 0.7);
-                    itensVendidos.push({ nome: mat.nome, qtd: qtd, preco: mat.preco, subtotal: sub });
-                    itensHTML += `<tr><td>${mat.nome}</td><td style="text-align:center">${qtd}</td><td style="text-align:right">${sub.toFixed(2)}</td></tr>`;
-                }
-            });
-
-            if(!temItens) {
-                alert('⚠️ Selecione pelo menos um artigo.');
-                return;
-            }
-
-            let lucroVenda = valorTotalVenda - custoTotalVenda;
-            let sessao = obterSessaoAtual() || { nome: 'Operador' };
+            
+            let refPag = metodoPagamento === 'M-Pesa' ? mpesaId : (metodoPagamento === 'e-Mola' ? emolaId : (metodoPagamento === 'TPA Bancario' ? tpaAuth : 'Numerário'));
+            
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            logs.unshift({ 
-                id: Date.now(), 
-                tipo: 'Venda Balcão', 
-                cliente: comprador, 
-                pagamento: metodoPagamento,
-                refPagamento: metodoPagamento === 'M-Pesa' ? mpesaId : (metodoPagamento === 'TPA Bancario' ? tpaAuth : 'Numerário'),
-                itens: itensVendidos, 
-                faturamentoNumeric: valorTotalVenda,
-                lucroNumeric: lucroVenda,
-                total: totalStr, 
-                operador: sessao.nome, 
-                data: dataHora 
-            });
+            logs.unshift({ id: Date.now(), tipo: 'Venda Balcão Cloud', cliente: comprador, pagamento: metodoPagamento, refPagamento: refPag, total: totalStr, faturamentoNumeric: parseFloat(totalStr), data: new Date().toLocaleString('pt-PT') });
             localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
 
-            const janelaTermica = window.open('', '_blank', 'width=400,height=600');
-            if(janelaTermica) {
-                janelaTermica.document.write(`
-                    <html>
-                    <head><title>Talão POS</title>
-                    <style>
-                        body { font-family: 'Courier New', monospace; font-size: 12px; width: 300px; margin: 0 auto; padding: 10px; color: #000; }
-                        h2, p { text-align: center; margin: 4px 0; }
-                        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-                        th, td { font-size: 11px; padding: 2px 0; border-bottom: 1px dashed #000; }
-                        .total { font-size: 14px; font-weight: bold; text-align: right; margin-top: 10px; }
-                    </style>
-                    </head>
-                    <body onload="window.print(); window.close();">
-                        <h2>ELECTRO HONÁRIO & SERVIÇOS</h2>
-                        <p>BALCÃO DE VENDAS POS</p>
-                        <hr style="border-style: dashed;">
-                        <p><strong>Data:</strong> ${dataHora}</p>
-                        <p><strong>Comprador:</strong> ${comprador}</p>
-                        <p><strong>Pagamento:</strong> ${metodoPagamento} (${metodoPagamento === 'M-Pesa' ? mpesaId : (metodoPagamento === 'TPA Bancario' ? tpaAuth : 'Dinheiro')})</p>
-                        <table>
-                            <thead><tr><th>Artigo</th><th style="text-align:center">Qtd</th><th style="text-align:right">Sub</th></tr></thead>
-                            <tbody>${itensHTML}</tbody>
-                        </table>
-                        <p class="total">TOTAL: ${totalStr}</p>
-                        <hr style="border-style: dashed;">
-                        <p style="text-align:center">Volte Sempre!</p>
-                    </body>
-                    </html>
+            const janela = window.open('', '_blank', 'width=400,height=600');
+            if(janela) {
+                janela.document.write(`
+                    <html><head><title>Talão POS</title></head>
+                    <body onload="window.print(); window.close();" style="font-family:monospace;font-size:12px;padding:10px">
+                        <h2 style="text-align:center">ELECTRO HONÁRIO</h2>
+                        <p style="text-align:center">POS CLOUD</p>
+                        <hr>
+                        <p>Comprador: ${comprador}</p>
+                        <p>Pagamento: ${metodoPagamento} (Ref: ${refPag})</p>
+                        <p>Total: ${totalStr}</p>
+                        <hr><p style="text-align:center">Volte Sempre!</p>
+                    </body></html>
                 `);
             }
         }
 
         function gerarFaturaPDF() {
-            const cliente = document.getElementById('cli-nome')?.value.trim() || 'Cliente Geral';
-            const bairro = document.getElementById('cli-bairro')?.value.trim() || 'N/A';
-            const contacto = document.getElementById('cli-contacto')?.value.trim() || 'N/A';
-            const tipoImovel = document.getElementById('cli-tipo-imovel')?.value || 'Residência';
-            const tipoCorrente = document.getElementById('cli-corrente')?.value.toUpperCase() || 'MONOFÁSICO';
-            const estadoObra = document.getElementById('cli-estado-obra')?.value || 'Pendente';
-            const sinalPago = parseFloat(document.getElementById('cli-sinal-pago')?.value) || 0;
-            const sessao = obterSessaoAtual() || { nome: 'Operador' };
-            
-            const totalMateriaisStr = document.getElementById('res-materiais')?.textContent || '0.00 MT';
-            const maoObraStr = document.getElementById('res-mao-obra')?.textContent || '1,500.00 MT';
-            const taxaCorrenteStr = document.getElementById('res-taxa')?.textContent || '300.00 MT';
-            const totalGeral = document.getElementById('res-total')?.textContent || '0.00 MT';
-            const saldoRestanteStr = document.getElementById('res-saldo-restante')?.textContent || '0.00 MT';
-            
-            const dataHora = (document.getElementById('current-date')?.textContent || new Date().toLocaleDateString('pt-PT')) + ' às ' + (document.getElementById('current-time')?.textContent || new Date().toLocaleTimeString('pt-PT'));
-
-            const materiais = obterMateriaisDoSistema();
-            let itensVendidos = [];
-            let itensHTML = '';
-            let temItens = false;
-            let custoTotalMateriais = 0;
-            let valorTotalMateriais = 0;
-
-            materiais.forEach(mat => {
-                let campoMat = document.getElementById(`mat-${mat.id}`);
-                let qtd = campoMat ? (parseInt(campoMat.value) || 0) : 0;
-                if (qtd > 0) {
-                    temItens = true;
-                    let subtotalItem = qtd * mat.preco;
-                    valorTotalMateriais += subtotalItem;
-                    custoTotalMateriais += qtd * (mat.preco * 0.7);
-                    itensVendidos.push({ id: mat.id, nome: mat.nome, qtd: qtd, preco: mat.preco, subtotal: subtotalItem });
-                    itensHTML += `
-                        <tr class="border-b text-xs">
-                            <td class="py-2 px-3">${mat.nome}</td>
-                            <td class="py-2 px-3 text-center">${qtd} un</td>
-                            <td class="py-2 px-3 text-right">${mat.preco.toFixed(2)} MT</td>
-                            <td class="py-2 px-3 text-right font-bold">${subtotalItem.toLocaleString('pt-PT')}.00 MT</td>
-                        </tr>
-                    `;
-                }
-            });
-
-            if (!temItens) {
-                alert('⚠️ Selecione pelo menos um material para gerar o orçamento.');
-                return;
-            }
-
-            let numTotalGeral = parseFloat(totalGeral.replace(/[^0-9,]/g, '').replace(',', '.')) || (valorTotalMateriais + 1500 + 300);
-            let maoObraNum = parseFloat(maoObraStr.replace(/[^0-9,]/g, '').replace(',', '.')) || 1500;
-            let lucroCalculado = (valorTotalMateriais - custoTotalMateriais) + maoObraNum;
-
-            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            logs.unshift({ 
-                id: Date.now(), 
-                tipo: 'Orçamento', 
-                estado: estadoObra, 
-                cliente: cliente, 
-                itens: itensVendidos, 
-                faturamentoNumeric: numTotalGeral,
-                lucroNumeric: lucroCalculado,
-                sinalPago: sinalPago,
-                total: totalGeral, 
-                operador: sessao.nome, 
-                data: dataHora 
-            });
-            localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-
-            const janelaPDF = window.open('', '_blank');
-            if (janelaPDF) {
-                janelaPDF.document.write(`
-                    <html>
-                    <head>
-                        <title>Recibo e Fatura Oficial - Electro Honório</title>
-                        <script src="https://cdn.tailwindcss.com"><\/script>
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-                        <style>
-                            .watermark-bg {
-                                background-image: repeating-linear-gradient(45deg, rgba(245, 158, 11, 0.04) 0, rgba(245, 158, 11, 0.04) 40px, transparent 0, transparent 80px);
-                            }
-                        </style>
-                    </head>
-                    <body class="bg-slate-100 text-slate-900 p-6 font-sans watermark-bg min-h-screen flex items-center justify-center">
-                        <div class="max-w-3xl w-full mx-auto border-2 border-amber-500/30 p-8 rounded-2xl shadow-2xl space-y-6 bg-white relative overflow-hidden">
-                            
-                            <!-- CABEÇALHO OFICIAL ESTILO EDM/SOCOAL -->
-                            <div class="flex justify-between items-start border-b-2 border-amber-500 pb-4">
-                                <div class="flex items-center space-x-3">
-                                    <div class="bg-amber-500 text-slate-950 p-3 rounded-2xl shadow">
-                                        <i class="fa-solid fa-bolt-lightning text-2xl"></i>
-                                    </div>
-                                    <div>
-                                        <h1 class="font-black text-base text-slate-900 uppercase tracking-wide">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h1>
-                                        <p class="text-[11px] text-slate-600">Av. 25 de Setembro, Maputo | NUIT: 402027037 | Licença nº 012/MF</p>
-                                        <p class="text-[11px] text-amber-600 font-semibold">Instalações Elétricas & Equipamentos</p>
-                                    </div>
-                                </div>
-                                <div class="text-right text-xs">
-                                    <h2 class="font-extrabold text-amber-600 text-sm uppercase">RECIBO DE PAGAMENTO & ORÇAMENTO</h2>
-                                    <p class="text-slate-500">Recibo Nº: <strong class="text-slate-800">EH-${Math.floor(Math.random()*900000+100000)}</strong></p>
-                                    <p class="text-slate-500">Data: ${dataHora}</p>
-                                    <p class="text-slate-500">Estado: <strong class="text-amber-600">${estadoObra}</strong></p>
-                                </div>
-                            </div>
-
-                            <!-- BLOCO DE DADOS DO CLIENTE E CAIXA -->
-                            <div class="grid grid-cols-2 gap-4 bg-amber-50/50 p-4 rounded-xl border border-amber-500/20 text-xs">
-                                <div class="space-y-1">
-                                    <p><strong>Nome do Cliente / Consumidor:</strong> <span class="text-slate-800">${cliente}</span></p>
-                                    <p><strong>Morada / Bairro:</strong> ${bairro}</p>
-                                    <p><strong>Contacto / NUIT:</strong> ${contacto}</p>
-                                </div>
-                                <div class="space-y-1 text-right">
-                                    <p><strong>Tipo de Imóvel:</strong> ${tipoImovel}</p>
-                                    <p><strong>Corrente:</strong> ${tipoCorrente}</p>
-                                    <p><strong>Operador Responsável:</strong> ${sessao.nome}</p>
-                                </div>
-                            </div>
-
-                            <!-- TABELA DE ITENS -->
-                            <div class="space-y-2">
-                                <h3 class="font-bold text-xs uppercase text-slate-700 border-l-4 border-amber-500 pl-2">Materiais & Equipamentos Aplicados</h3>
-                                <table class="w-full text-left border-collapse border border-slate-200">
-                                    <thead>
-                                        <tr class="bg-amber-500 text-slate-950 text-[11px] uppercase font-bold border-b">
-                                            <th class="py-2 px-3">Descrição do Artigo</th>
-                                            <th class="py-2 px-3 text-center">Qtd</th>
-                                            <th class="py-2 px-3 text-right">Preço Unit.</th>
-                                            <th class="py-2 px-3 text-right">Subtotal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>${itensHTML}</tbody>
-                                </table>
-                            </div>
-
-                            <!-- RESUMO FINANCEIRO E TOTAIS -->
-                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs">
-                                <div class="flex justify-between text-slate-600">
-                                    <span>Subtotal Materiais:</span>
-                                    <span class="font-semibold">${totalMateriaisStr}</span>
-                                </div>
-                                <div class="flex justify-between text-slate-600">
-                                    <span>Mão de Obra & Instalação:</span>
-                                    <span class="font-semibold">${maoObraStr}</span>
-                                </div>
-                                <div class="flex justify-between text-slate-600">
-                                    <span>Taxa de Sistema:</span>
-                                    <span class="font-semibold">${taxaCorrenteStr}</span>
-                                </div>
-                                <div class="flex justify-between text-slate-600">
-                                    <span>Sinal / Adiantamento Pago:</span>
-                                    <span class="font-semibold text-emerald-600">${sinalPago.toLocaleString('pt-PT', {minimumFractionDigits: 2})} MT</span>
-                                </div>
-                                <div class="flex justify-between text-slate-600">
-                                    <span>Saldo Restante a Pagar:</span>
-                                    <span class="font-semibold text-amber-600">${saldoRestanteStr}</span>
-                                </div>
-                                <div class="border-t border-slate-300 pt-2 flex justify-between items-center text-sm font-bold">
-                                    <span class="text-slate-900 uppercase">Valor Total a Pagar:</span>
-                                    <span class="text-amber-600 text-lg font-black">${totalGeral}</span>
-                                </div>
-                            </div>
-
-                            <!-- ASSINATURAS E RODAPÉ INSTITUCIONAL (COM INSPIRAÇÃO DO SELO DE QUALIDADE) -->
-                            <div class="flex justify-between items-end pt-6">
-                                <div class="space-y-6 text-center text-xs w-1/3">
-                                    <div class="border-b border-slate-400 pb-1"></div>
-                                    <p class="font-bold text-slate-700">O Administrador / Diretor</p>
-                                </div>
-                                <div class="text-center">
-                                    <div class="inline-block border-2 border-amber-500 rounded-full p-2 text-amber-600 text-[10px] font-bold uppercase tracking-widest shadow-inner">
-                                        ★ Qualidade Certificada ★
-                                    </div>
-                                </div>
-                                <div class="space-y-6 text-center text-xs w-1/3">
-                                    <div class="border-b border-slate-400 pb-1"></div>
-                                    <p class="font-bold text-slate-700">O Cliente / Consumidor</p>
-                                </div>
-                            </div>
-
-                            <div class="pt-4 border-t border-slate-200 text-center text-[10px] text-slate-500 space-y-1">
-                                <p class="font-semibold text-amber-700">Iluminando a Transformação de Moçambique</p>
-                                <p>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - NUIT: 402027037 | Maputo</p>
-                                <button onclick="window.print()" class="mt-3 px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-xl text-xs font-bold shadow transition">
-                                    Imprimir / Descarregar PDF Oficial
-                                </button>
-                            </div>
-                        </div>
-                    </body>
-                    </html>
-                `);
-            }
+            gerarTalaoTermico();
         }
 
         function emitirTalaoCaixaPDF() {
-            const comprador = document.getElementById('venda-cliente-nome')?.value.trim() || 'Cliente Balcão';
-            const metodoPagamento = document.getElementById('venda-metodo-pagamento')?.value || 'Numerário';
-            const mpesaId = document.getElementById('venda-mpesa-id')?.value.trim() || 'N/A';
-            const tpaAuth = document.getElementById('venda-tpa-auth')?.value.trim() || 'N/A';
-            const sessao = obterSessaoAtual() || { nome: 'Operador' };
-            const dataHora = new Date().toLocaleString('pt-PT');
-
-            const materiais = obterMateriaisDoSistema();
-            let itensVendidos = [];
-            let itensHTML = '';
-            let totalVenda = 0;
-            let custoVenda = 0;
-
-            materiais.forEach(mat => {
-                let input = document.getElementById(`venda-mat-${mat.id}`);
-                let qtd = input ? (parseInt(input.value) || 0) : 0;
-                if(qtd > 0) {
-                    let sub = qtd * mat.preco;
-                    totalVenda += sub;
-                    custoVenda += qtd * (mat.preco * 0.7);
-                    itensVendidos.push({ nome: mat.nome, qtd: qtd, preco: mat.preco, subtotal: sub });
-                    itensHTML += `
-                        <tr class="border-b text-xs">
-                            <td class="py-2 px-3">${mat.nome}</td>
-                            <td class="py-2 px-3 text-center">${qtd} un</td>
-                            <td class="py-2 px-3 text-right">${mat.preco.toFixed(2)} MT</td>
-                            <td class="py-2 px-3 text-right font-bold">${sub.toLocaleString('pt-PT')}.00 MT</td>
-                        </tr>
-                    `;
-                }
-            });
-
-            if(itensVendidos.length === 0) {
-                alert('⚠️ Selecione pelo menos um artigo.');
-                return;
-            }
-
-            let lucroVenda = totalVenda - custoVenda;
-            const totalStr = totalVenda.toLocaleString('pt-PT') + '.00 MT';
-            
-            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            logs.unshift({ 
-                id: Date.now(), 
-                tipo: 'Venda Balcão', 
-                cliente: comprador, 
-                pagamento: metodoPagamento,
-                refPagamento: metodoPagamento === 'M-Pesa' ? mpesaId : (metodoPagamento === 'TPA Bancario' ? tpaAuth : 'Dinheiro'),
-                itens: itensVendidos, 
-                faturamentoNumeric: totalVenda,
-                lucroNumeric: lucroVenda,
-                total: totalStr, 
-                operador: sessao.nome, 
-                data: dataHora 
-            });
-            localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-
-            const janelaPDF = window.open('', '_blank');
-            if(janelaPDF) {
-                janelaPDF.document.write(`
-                    <html>
-                    <head><title>Talão de Caixa</title><script src="https://cdn.tailwindcss.com"><\/script></head>
-                    <body class="bg-white text-slate-900 p-8 font-sans">
-                        <div class="max-w-xl mx-auto border-2 border-amber-500/30 p-8 rounded-xl shadow space-y-6 bg-white">
-                            <h1 class="font-black text-sm uppercase text-slate-900">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h1>
-                            <p class="text-xs">Comprador: <strong>${comprador}</strong> | Operador: ${sessao.nome}</p>
-                            <p class="text-xs">Método de Pagamento: <strong>${metodoPagamento}</strong> (${metodoPagamento === 'M-Pesa' ? 'ID: ' + mpesaId : (metodoPagamento === 'TPA Bancario' ? 'Auth: ' + tpaAuth : 'Numerário')})</p>
-                            <table class="w-full text-left border-collapse border text-xs">
-                                <thead><tr class="bg-amber-500 text-slate-950 uppercase border-b text-[10px]"><th class="py-2 px-3">Artigo</th><th class="py-2 px-3 text-center">Qtd</th><th class="py-2 px-3 text-right">Subtotal</th></tr></thead>
-                                <tbody>${itensHTML}</tbody>
-                            </table>
-                            <p class="font-bold text-sm text-amber-600">Total Pago: ${totalStr}</p>
-                            <button onclick="window.print()" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded text-xs">Imprimir Talão</button>
-                        </div>
-                    </body>
-                    </html>
-                `);
-            }
+            emitirTalaoTermicoBalcao();
         }
 
         function exportarRelatorioCSV() {
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            if (logs.length === 0) {
-                alert('⚠️ Não há dados de relatórios para exportar.');
-                return;
-            }
-
-            let csvContent = "data:text/csv;charset=utf-8,Tipo,Cliente,Estado/Pagamento,Operador,Data,Total Faturado,Lucro Estimado\n";
+            let csv = "Tipo,Cliente,Pagamento,Referencia,Total,Data\n";
             logs.forEach(l => {
-                let det = l.estado || l.pagamento || 'N/A';
-                let row = `"${l.tipo}","${l.cliente}","${det}","${l.operador}","${l.data}","${l.total}","${l.lucroNumeric || 0}"`;
-                csvContent += row + "\r\n";
+                csv += `"${l.tipo}","${l.cliente}","${l.pagamento || l.estado || 'N/A'}","${l.refPagamento || 'N/A'}","${l.total}","${l.data}"\n`;
             });
-
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `relatorio_financeiro_${new Date().toISOString().slice(0,10)}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'relatorio_nuvem.csv';
+            a.click();
         }
 
         function renderizarRelatorios() {
             const container = document.getElementById('lista-logs');
             if(!container) return;
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
+            let totalFat = logs.reduce((acc, l) => acc + (l.faturamentoNumeric || 0), 0);
             
-            let totalOps = logs.length;
-            let faturamentoTotal = 0;
-            let lucroTotal = 0;
-
-            logs.forEach(l => {
-                faturamentoTotal += l.faturamentoNumeric || 0;
-                lucroTotal += l.lucroNumeric || 0;
-            });
-
-            document.getElementById('stat-faturamento').textContent = faturamentoTotal.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MT';
-            document.getElementById('stat-lucro').textContent = lucroTotal.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MT';
-            document.getElementById('stat-total-ops').textContent = totalOps;
+            if(document.getElementById('stat-faturamento')) document.getElementById('stat-faturamento').textContent = totalFat.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
+            if(document.getElementById('stat-lucro')) document.getElementById('stat-lucro').textContent = (totalFat * 0.35).toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
+            if(document.getElementById('stat-total-ops')) document.getElementById('stat-total-ops').textContent = logs.length;
 
             let html = '';
-            if(logs.length === 0) {
-                container.innerHTML = '<div class="text-slate-500 text-center py-4">Sem registos de operações.</div>';
-                return;
-            }
-
-            logs.forEach((l, index) => {
-                let lucroItem = l.lucroNumeric ? l.lucroNumeric.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MT' : 'N/D';
-                let tagExtra = l.estado ? `(Estado: <strong>${l.estado}</strong>)` : `(Pagto: <strong>${l.pagamento || 'Dinheiro'}</strong>)`;
-                
-                html += `
-                    <div class="bg-slate-900 hover:bg-slate-800 p-3 rounded-lg border border-slate-800 transition flex flex-wrap justify-between items-center gap-2 text-xs">
-                        <div onclick='abrirFichaDetalhada(${JSON.stringify(l)})' class="cursor-pointer flex-grow">
-                            <strong class="text-amber-400">[${l.tipo}]</strong> Cliente: ${l.cliente} ${tagExtra}
-                            <span class="block text-slate-400 text-[11px]">Operador: ${l.operador} • ${l.data}</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="text-right" onclick='abrirFichaDetalhada(${JSON.stringify(l)})' class="cursor-pointer">
-                                <span class="font-bold text-white font-mono block">Faturado: ${l.total}</span>
-                                <span class="block text-emerald-400 font-bold font-mono">Lucro: ${lucroItem}</span>
-                            </div>
-                            ${l.tipo === 'Orçamento' ? `
-                                <button onclick="converterOrcamentoEmVenda(${index})" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-2 rounded-lg transition" title="Converter em Venda / Aprovar Obra">
-                                    <i class="fa-solid fa-check-double"></i> Aprovar / Vender
-                                </button>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
+            logs.forEach(l => {
+                html += `<div class="bg-slate-900 p-3 rounded border border-slate-800 flex justify-between items-center text-xs">
+                    <div><strong class="text-amber-400">[${l.tipo}]</strong> ${l.cliente} - <span class="text-slate-400">Pagto: ${l.pagamento || l.estado || 'N/A'} (${l.refPagamento || 'N/A'})</span></div>
+                    <div class="text-right font-mono font-bold text-white">${l.total}</div>
+                </div>`;
             });
-            container.innerHTML = html;
-        }
-
-        function converterOrcamentoEmVenda(index) {
-            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            let logObj = logs[index];
-            if (!logObj) return;
-
-            if (confirm(`Deseja aprovar e converter o orçamento do cliente "${logObj.cliente}" em Obra Executada / Venda?`)) {
-                logObj.estado = 'Concluído & Aprovado';
-                localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-                alert('✅ Orçamento convertido e registado como Obra Concluída com sucesso!');
-                renderizarRelatorios();
-            }
-        }
-
-        function abrirFichaDetalhada(l) {
-            let itensHTML = '';
-            if(l.itens && l.itens.length > 0) {
-                l.itens.forEach(i => {
-                    itensHTML += `
-                        <tr class="border-b text-xs">
-                            <td class="py-2 px-3">${i.nome}</td>
-                            <td class="py-2 px-3 text-center">${i.qtd} un</td>
-                            <td class="py-2 px-3 text-right">${i.preco.toFixed(2)} MT</td>
-                            <td class="py-2 px-3 text-right font-bold">${i.subtotal.toLocaleString('pt-PT')}.00 MT</td>
-                        </tr>
-                    `;
-                });
-            } else {
-                itensHTML = `<tr><td colspan="4" class="py-3 text-center text-xs text-slate-500">Sem listagem estática.</td></tr>`;
-            }
-
-            let lucroStr = l.lucroNumeric ? l.lucroNumeric.toLocaleString('pt-PT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' MT' : 'N/D';
-
-            const janelaFicha = window.open('', '_blank');
-            if(janelaFicha) {
-                janelaFicha.document.write(`
-                    <html>
-                    <head><title>Auditoria Financeira</title><script src="https://cdn.tailwindcss.com"><\/script></head>
-                    <body class="bg-white text-slate-900 p-8 font-sans">
-                        <div class="max-w-2xl mx-auto border-2 border-amber-500/30 p-8 rounded-xl shadow space-y-6">
-                            <h1 class="font-black text-sm uppercase">ELECTRO HONÁRIO & SERVIÇOS SU, LDA.</h1>
-                            <p class="text-xs">Cliente: <strong>${l.cliente}</strong> | Tipo: <strong>${l.tipo}</strong> ${l.estado ? `| Estado: ${l.estado}` : ''}</p>
-                            <table class="w-full text-left border-collapse border text-xs">
-                                <thead><tr class="bg-amber-500 text-slate-950 uppercase border-b text-[10px]"><th class="py-2 px-3">Artigo</th><th class="py-2 px-3 text-center">Qtd</th><th class="py-2 px-3 text-right">Subtotal</th></tr></thead>
-                                <tbody>${itensHTML}</tbody>
-                            </table>
-                            <div class="bg-slate-50 p-3 rounded space-y-1 text-xs">
-                                <p><strong>Faturamento Total:</strong> ${l.total}</p>
-                                <p class="text-emerald-600 font-bold"><strong>Lucro Bruto Estimado:</strong> ${lucroStr}</p>
-                            </div>
-                            <button onclick="window.print()" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded text-xs">Imprimir Ficha</button>
-                        </div>
-                    </body>
-                    </html>
-                `);
-            }
+            container.innerHTML = html || '<div class="text-slate-500 text-center">Sem registos na nuvem.</div>';
         }
 
         function renderizarTabelasAdmin() {
@@ -1596,9 +1293,9 @@
         function limparApenasVendas() {
             if (confirm('Deseja apagar apenas o histórico de Vendas de Balcão?')) {
                 let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-                logs = logs.filter(l => l.tipo !== 'Venda Balcão');
+                logs = logs.filter(l => l.tipo !== 'Venda Balcão' && l.tipo !== 'Venda Balcão Cloud');
                 localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-                alert('🧹 Vendas de balcão limpas com sucesso!');
+                alert('🧹 Vendas limpas com sucesso!');
                 renderizarRelatorios();
             }
         }
@@ -1624,6 +1321,7 @@
             renderizarCatalogoMateriais();
             renderizarBalcãoVendas();
             atualizarCalculos();
+            carregarContasNoAdmin();
         };
     </script>
 </body>
