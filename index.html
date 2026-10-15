@@ -54,7 +54,7 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="flex-grow flex items-center justify-center p-4">
         
-        <!-- TELA DE LOGIN -->
+        <!-- TELA DE LOGIN SEGURA (SEM CREDENCIAIS EXPOSTAS) -->
         <div id="login-screen" class="w-full max-w-md bg-slate-900/90 backdrop-blur-md border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
             <div class="text-center space-y-2">
                 <div id="login-logo-container" class="inline-block rounded-full mb-2 border border-amber-500/20 shadow-inner overflow-hidden w-16 h-16 flex items-center justify-center mx-auto bg-slate-900">
@@ -82,9 +82,6 @@
             <div id="login-error" class="hidden text-center text-red-400 text-xs font-medium bg-red-500/10 border border-red-500/20 p-2.5 rounded-lg">
                 Utilizador ou palavra-passe incorretos. Verifique as credenciais.
             </div>
-            <div class="text-center pt-2">
-                <span class="text-[11px] text-slate-500">Admin Predefinido: utilizador <strong class="text-slate-300">alberto</strong> / palavra-passe <strong class="text-slate-300">mugabe</strong></span>
-            </div>
         </div>
 
         <!-- PAINEL PRINCIPAL DO APLICATIVO -->
@@ -103,7 +100,6 @@
                     </div>
                 </div>
 
-                <!-- MENU DE ABAS DINÂMICO CONFORME A CATEGORIA -->
                 <div id="menu-abas-container" class="flex items-center gap-2 flex-wrap"></div>
 
                 <button onclick="terminarSessao()" class="px-3 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs rounded-xl transition" title="Terminar Sessão">
@@ -127,7 +123,6 @@
                         </div>
                     </div>
 
-                    <!-- PASSOS DE REGISTO EM CAMPO -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
                         <div id="step-indicator-1" class="p-3 rounded-xl bg-amber-500 text-slate-950 font-bold flex items-center gap-2 transition shadow">
                             <span class="w-6 h-6 rounded-full bg-slate-950 text-amber-400 flex items-center justify-center text-xs">1</span>
@@ -143,7 +138,6 @@
                         </div>
                     </div>
 
-                    <!-- FORMULÁRIO PASSO 1 -->
                     <div id="wizard-step-1" class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
                             <i class="fa-solid fa-user-tag"></i> Passo 1: Informações do Cliente & Captura GPS Automática
@@ -175,7 +169,6 @@
                         </div>
                     </div>
 
-                    <!-- FORMULÁRIO PASSO 2 -->
                     <div id="wizard-step-2" class="hidden bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
                             <i class="fa-solid fa-screwdriver-wrench"></i> Passo 2: Tipo de Imóvel, Atividade & Materiais Necessários
@@ -216,7 +209,6 @@
                         </div>
                     </div>
 
-                    <!-- FORMULÁRIO PASSO 3 (CÂMARA EM TEMPO REAL & NOTAS OPCIONAIS) -->
                     <div id="wizard-step-3" class="hidden bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
                             <i class="fa-solid fa-camera"></i> Passo 3: Zona, Câmara em Tempo Real (Até 10 Fotos Opcionais) & Notas de Informação
@@ -231,7 +223,6 @@
                                 <input type="text" id="campo-bairro" required placeholder="Ex: Bairro Polana Cimento" class="w-full p-3 bg-slate-900 border border-slate-800 rounded-xl text-white">
                             </div>
                             
-                            <!-- PROTOCOLO DE CÂMARA EM TEMPO REAL -->
                             <div class="md:col-span-2 bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
                                 <div class="flex flex-wrap justify-between items-center gap-2">
                                     <div>
@@ -249,7 +240,6 @@
                                 </div>
                             </div>
 
-                            <!-- CAMPO DE NOTAS PARA OS DIRETORES -->
                             <div class="md:col-span-2">
                                 <label class="block font-semibold text-slate-400 mb-1">Notas Informativas / Observações para os Directores ou Chefes:</label>
                                 <textarea id="campo-notas-informacao" rows="3" placeholder="Insira detalhes adicionais sobre o andamento do trabalho, pendências ou avisos..." class="w-full p-3 bg-slate-900 border border-slate-800 rounded-xl text-white"></textarea>
@@ -269,7 +259,7 @@
                 </div>
             </div>
 
-            <!-- ABA 0.1: MONITORIZAÇÃO GPS & CONCLUSÃO DE TRABALHO ACABADO -->
+            <!-- ABA 0.1: MONITORIZAÇÃO GPS & CONCLUSÃO -->
             <div id="tab-monitor" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
@@ -321,7 +311,7 @@
                 </div>
             </div>
 
-            <!-- ABA 1: ORÇAMENTOS E INSTALAÇÕES (FATURA A4) -->
+            <!-- ABA 1: ORÇAMENTOS E INSTALAÇÕES -->
             <div id="tab-orcamentos" class="hidden space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-1 bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
@@ -436,7 +426,7 @@
                 </div>
             </div>
 
-            <!-- ABA 2: BALCÃO DE VENDAS DIRETAS (POS) -->
+            <!-- ABA 2: BALCÃO DE VENDAS DIRETAS -->
             <div id="tab-vendas" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
                     <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex justify-between items-center">
@@ -524,7 +514,7 @@
                 </div>
             </div>
 
-            <!-- ABA: RECURSOS HUMANOS (RH) & FOTO AMPLIADA -->
+            <!-- ABA: RECURSOS HUMANOS (RH) -->
             <div id="tab-rh" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
@@ -645,7 +635,7 @@
                 </div>
             </div>
 
-            <!-- ABA 3: RELATÓRIOS & DETALHES AO CLICAR -->
+            <!-- ABA 3: RELATÓRIOS -->
             <div id="tab-relatorios" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
@@ -699,7 +689,7 @@
                 </div>
             </div>
 
-            <!-- ABA 4: PAINEL DO ADMINISTRADOR (DEFINIÇÕES GLOBAIS DE TEXTOS E LOGOTIPO) -->
+            <!-- ABA 4: PAINEL DO ADMINISTRADOR -->
             <div id="tab-admin" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
@@ -712,7 +702,6 @@
                         <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-bold">Dono / Administrador</span>
                     </div>
 
-                    <!-- DEFINIÇÕES GLOBAIS DE TEXTOS E LOGOTIPO -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
                             <i class="fa-solid fa-gears"></i> Definições Globais: Logotipo & Transcrição de Textos do Sistema
@@ -736,7 +725,6 @@
                         </button>
                     </div>
 
-                    <!-- CRIAR NOVO UTILIZADOR COM HIERARQUIA -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
                             <i class="fa-solid fa-user-plus"></i> Criar Novo Utilizador / Função no Sistema
@@ -772,7 +760,6 @@
                         </form>
                     </div>
 
-                    <!-- QUADRO DE UTILIZADORES -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2">
                             <i class="fa-solid fa-users text-amber-500"></i> Quadro Geral de Utilizadores & Status Online
@@ -780,7 +767,6 @@
                         <div id="tabela-gestao-utilizadores" class="space-y-2 max-h-[220px] overflow-y-auto pr-1"></div>
                     </div>
 
-                    <!-- CONTAS DA EMPRESA -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
                             <i class="fa-solid fa-building-columns"></i> Configurar Contas de Destino para Pagamentos Automáticos
@@ -802,7 +788,6 @@
                         </button>
                     </div>
 
-                    <!-- ADICIONAR MATERIAIS -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
                             <i class="fa-solid fa-box-open"></i> Adicionar Novo Material ao Inventário SOCOAL
@@ -835,7 +820,6 @@
                         </form>
                     </div>
 
-                    <!-- BACKUP & RESTAURO -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
                             <i class="fa-solid fa-cloud-arrow-up"></i> Sincronização & Cópia de Segurança Nuvem (Backup JSON)
@@ -853,7 +837,7 @@
                         </div>
                     </div>
 
-                    <!-- LIMPEZA CIRÚRGICA -->
+                    <!-- GESTÃO CIRÚRGICA DE HISTÓRICOS & DADOS (TOTALMENTE CORRIGIDA) -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-red-400">
                             <i class="fa-solid fa-broom-ball"></i> Gestão Cirúrgica de Históricos & Dados
@@ -906,7 +890,7 @@
         <span id="footer-empresa-txt">ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema ERP Cloud, RH & App Campo</span>
     </footer>
 
-    <!-- SCRIPT GERAL UNIFICADO -->
+    <!-- SCRIPT GERAL UNIFICADO COM CORREÇÕES -->
     <script>
         let operadoraCloudAtual = 'M-Pesa';
         let coordenadasGPSAtuais = { lat: -25.9692, lng: 32.5732, precisao: 'Maputo (GPS Padrão)' };
@@ -1128,8 +1112,8 @@
                 zona: zona,
                 bairro: bairro,
                 gps: coordenadasGPSAtuais,
-                fotosAntes: fotosCameraCampoTemp, // Fotos de início (opcionais, até 10)
-                fotosAcabadas: [], // Fase 2 posterior
+                fotosAntes: fotosCameraCampoTemp,
+                fotosAcabadas: [],
                 notasOperario: notasInfo,
                 estadoObra: 'Em Execução',
                 data: new Date().toLocaleString('pt-PT'),
@@ -1169,7 +1153,7 @@
                         logs[idx].notasOperario += (logs[idx].notasOperario ? ' | ' : '') + 'Conclusão: ' + notasFinais;
                         logs[idx].estadoObra = 'Concluído';
                         localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-                        alert('✅ Obra finalizada com fotos de trabalho acabado e notas salvas para a auditoria dos directores!');
+                        alert('✅ Obra finalizada com fotos de trabalho acabado e notas salvas!');
                         fecharModalConcluirObra();
                         renderizarMonitorizacaoCampo();
                     });
@@ -1480,7 +1464,6 @@
             if(aba === 'admin') renderizarTabelasAdmin();
         }
 
-        // --- MÓDULO DE RH & FOTO AMPLIADA ---
         function renderizarListaRH() {
             const container = document.getElementById('rh-lista-funcionarios');
             if(!container) return;
@@ -1598,7 +1581,6 @@
             }
         }
 
-        // --- GESTÃO DE MATERIAIS SOCOAL ---
         function obterMateriaisDoSistema() {
             let matsSalvos = localStorage.getItem('electro_honario_materiais');
             if (!matsSalvos) {
@@ -1766,7 +1748,6 @@
             alert('✨ Kit Residencial Padrão inserido com sucesso!');
         }
 
-        // --- DIFERENCIAÇÃO ENTRE TALÃO DE PAGAMENTO E FATURA OFICIAL A4 ---
         function gerarTalaoTermico() {
             const cliente = document.getElementById('cli-nome')?.value.trim() || 'Cliente Geral';
             const totalGeral = document.getElementById('res-total')?.textContent || '0.00 MT';
@@ -1810,7 +1791,6 @@
 
         function emitirFaturaVendaA4() { gerarFaturaOficialA4(); }
 
-        // --- RELATÓRIOS COM DETALHES AO CLICAR ---
         function exportarRelatorioCSV() {
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
             let csv = "Tipo,Operario,Cliente,Zona,Data\n";
@@ -1876,6 +1856,37 @@
             document.getElementById('modal-detalhes-relatorio').classList.add('hidden');
         }
 
+        // --- FUNÇÕES DE LIMPEZA CIRÚRGICA CORRIGIDAS (APAGAM REALMENTE) ---
+        function limparApenasOrcamentos() {
+            if(confirm("Tem certeza que deseja limpar apenas os orçamentos e obras?")) {
+                let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
+                logs = logs.filter(l => l.tipo !== 'Atividade de Campo GPS');
+                localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
+                alert('🧹 Orçamentos e obras limpos com sucesso!');
+                renderizarRelatorios();
+                renderizarMonitorizacaoCampo();
+            }
+        }
+
+        function limparApenasVendas() {
+            if(confirm("Tem certeza que deseja limpar apenas as vendas?")) {
+                let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
+                logs = logs.filter(l => l.tipo !== 'Venda Balcão POS');
+                localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
+                alert('🧹 Vendas limpas com sucesso!');
+                renderizarRelatorios();
+            }
+        }
+
+        function limparApenasHistorico() {
+            if(confirm("ATENÇÃO: Deseja limpar todo o histórico de operações do sistema?")) {
+                localStorage.removeItem('electro_honario_logs');
+                alert('🧹 Todo o histórico foi limpo com sucesso!');
+                renderizarRelatorios();
+                renderizarMonitorizacaoCampo();
+            }
+        }
+
         function renderizarTabelasAdmin() {
             const containerUsers = document.getElementById('tabela-gestao-utilizadores');
             if(containerUsers) {
@@ -1903,9 +1914,6 @@
         function guardarContasEmpresa() { alert('✅ Contas da empresa guardadas com sucesso!'); }
         function fazerBackupSistema() { alert('✅ Backup completo descarregado!'); }
         function restaurarBackupSistema() { alert('✅ Sistema restaurado com sucesso!'); }
-        function limparApenasOrcamentos() { alert('🧹 Orçamentos limpos com sucesso!'); }
-        function limparApenasVendas() { alert('🧹 Vendas limpas com sucesso!'); }
-        function limparApenasHistorico() { alert('🧹 Todo o histórico foi limpo!'); }
 
         window.onload = function() {
             carregarDefinicoesGlobaisNaUI();
