@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - ERP, RH & Monitorização GPS</title>
+    <title id="sys-meta-title">ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - ERP, RH & Monitorização GPS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -20,7 +20,7 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black">
 
-    <!-- CABEÇALHO GLOBAL -->
+    <!-- CABEÇALHO GLOBAL DINÂMICO -->
     <header class="bg-slate-900 border-b border-slate-800 py-3 px-6 shadow-md flex flex-wrap justify-between items-center gap-4">
         <div class="flex items-center space-x-3.5">
             <div id="header-logo-container" class="relative bg-gradient-to-br from-amber-400 to-amber-600 p-2.5 rounded-2xl text-slate-950 shadow-lg shadow-amber-500/30 flex items-center justify-center border border-amber-300 w-12 h-12 overflow-hidden">
@@ -30,11 +30,11 @@
                 </div>
             </div>
             <div>
-                <h1 class="text-xl font-black tracking-wider uppercase text-white flex items-center gap-2">
+                <h1 id="sys-company-title" class="text-xl font-black tracking-wider uppercase text-white flex items-center gap-2">
                     ELECTRO HONÁRIO & SERVIÇOS 
                     <span class="text-amber-500 text-xs px-2 py-0.5 bg-amber-500/10 rounded-full border border-amber-500/30">NUIT: 402027037</span>
                 </h1>
-                <p class="text-xs text-slate-400">Sistema ERP, Rastreamento GPS, Gestão de RH & Operações M-Pesa / e-Mola</p>
+                <p id="sys-company-subtitle" class="text-xs text-slate-400">Sistema ERP, Rastreamento GPS, Gestão de RH & Operações M-Pesa / e-Mola</p>
             </div>
         </div>
         
@@ -61,7 +61,7 @@
                     <i class="fa-solid fa-shield-halved text-3xl text-amber-500"></i>
                 </div>
                 <h2 class="text-2xl font-bold tracking-tight text-white">Acesso Restrito ao Sistema</h2>
-                <p class="text-xs text-slate-400">Identifique-se para aceder ao ERP e App de Campo</p>
+                <p class="text-xs text-slate-400">Identifique-se para aceder ao ERP de acordo com a sua categoria</p>
             </div>
 
             <form onsubmit="fazerLogin(event)" class="space-y-4">
@@ -103,51 +103,23 @@
                     </div>
                 </div>
 
-                <!-- MENU DE ABAS COM RESTRIÇÃO DE PRIVACIDADE -->
-                <div class="flex items-center gap-2 flex-wrap">
-                    <button onclick="mudarAba('campo')" id="tab-btn-campo" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5">
-                        <i class="fa-solid fa-location-crosshairs"></i> App Campo (GPS)
-                    </button>
+                <!-- MENU DE ABAS DINÂMICO CONFORME A CATEGORIA -->
+                <div id="menu-abas-container" class="flex items-center gap-2 flex-wrap"></div>
 
-                    <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-satellite-dish"></i> Monitor GPS
-                    </button>
-
-                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition">
-                        <i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras
-                    </button>
-                    
-                    <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="hidden px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition">
-                        <i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão (POS)
-                    </button>
-
-                    <button onclick="mudarAba('rh')" id="tab-btn-rh" class="hidden px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-semibold text-xs rounded-xl transition border border-indigo-500/30">
-                        <i class="fa-solid fa-id-card mr-1.5"></i> Gestão de RH (Funcionários)
-                    </button>
-
-                    <button onclick="mudarAba('relatorios')" id="tab-btn-relatorios" class="hidden px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition">
-                        <i class="fa-solid fa-chart-line mr-1.5"></i> Relatórios
-                    </button>
-
-                    <button onclick="mudarAba('admin')" id="tab-btn-admin" class="hidden px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-400 font-semibold text-xs rounded-xl transition border border-amber-500/30">
-                        <i class="fa-solid fa-sliders mr-1.5"></i> Administrador
-                    </button>
-
-                    <button onclick="terminarSessao()" class="px-3 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs rounded-xl transition" title="Terminar Sessão">
-                        <i class="fa-solid fa-power-off"></i>
-                    </button>
-                </div>
+                <button onclick="terminarSessao()" class="px-3 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs rounded-xl transition" title="Terminar Sessão">
+                    <i class="fa-solid fa-power-off"></i>
+                </button>
             </div>
 
-            <!-- ABA 0: APP DE CAMPO COM GPS & PASSOS OBRIGATÓRIOS -->
-            <div id="tab-campo" class="space-y-6">
+            <!-- ABA 0: APP DE CAMPO COM GPS & PROTOCOLO DE CÂMARA EM TEMPO REAL -->
+            <div id="tab-campo" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-3 gap-2">
                         <div>
-                            <h4 class="font-bold text-base text-amber-400 flex items-center gap-2">
-                                <i class="fa-solid fa-mobile-screen-button"></i> Aplicativo de Campo (Instalável APK / Web)
+                            <h4 id="lbl-tab-campo-titulo" class="font-bold text-base text-amber-400 flex items-center gap-2">
+                                <i class="fa-solid fa-mobile-screen-button"></i> Aplicativo de Campo (Registo & Câmara em Tempo Real)
                             </h4>
-                            <p class="text-xs text-slate-400">Registo passo a passo com rastreamento GPS obrigatório, fotos e sincronização cloud em tempo real.</p>
+                            <p class="text-xs text-slate-400">Registo passo a passo com rastreamento GPS e câmara automática (máximo 10 fotos opcionais).</p>
                         </div>
                         <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-xl text-xs font-mono font-bold flex items-center gap-2">
                             <i class="fa-solid fa-satellite animate-pulse"></i>
@@ -167,7 +139,7 @@
                         </div>
                         <div id="step-indicator-3" class="p-3 rounded-xl bg-slate-950 text-slate-400 border border-slate-800 font-bold flex items-center gap-2 transition">
                             <span class="w-6 h-6 rounded-full bg-slate-900 text-slate-400 flex items-center justify-center text-xs">3</span>
-                            <span>Zona, Bairro & Fotos Iniciais/Finais</span>
+                            <span>Zona, Câmara Real & Notas Finais</span>
                         </div>
                     </div>
 
@@ -244,10 +216,10 @@
                         </div>
                     </div>
 
-                    <!-- FORMULÁRIO PASSO 3 -->
+                    <!-- FORMULÁRIO PASSO 3 (CÂMARA EM TEMPO REAL & NOTAS OPCIONAIS) -->
                     <div id="wizard-step-3" class="hidden bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-camera-retro"></i> Passo 3: Localização (Zona/Bairro) & Fotografias da Obra (Antes e Depois)
+                            <i class="fa-solid fa-camera"></i> Passo 3: Zona, Câmara em Tempo Real (Até 10 Fotos Opcionais) & Notas de Informação
                         </h5>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -258,21 +230,30 @@
                                 <label class="block font-semibold text-slate-400 mb-1">Bairro / Endereço Exato *</label>
                                 <input type="text" id="campo-bairro" required placeholder="Ex: Bairro Polana Cimento" class="w-full p-3 bg-slate-900 border border-slate-800 rounded-xl text-white">
                             </div>
-                            <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Fotografias Iniciais do Local (Antes da Obra) *</label>
-                                <input type="file" id="campo-fotos-antes" accept="image/*" multiple class="w-full p-2 bg-slate-900 border border-slate-800 rounded-xl text-white text-xs file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-400">
-                                <span class="text-[10px] text-slate-500 mt-1 block">Carregue fotos reais do local para validação do Administrador.</span>
+                            
+                            <!-- PROTOCOLO DE CÂMARA EM TEMPO REAL -->
+                            <div class="md:col-span-2 bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+                                <div class="flex flex-wrap justify-between items-center gap-2">
+                                    <div>
+                                        <label class="block font-bold text-amber-400">Captura de Câmara em Tempo Real (Início da Obra)</label>
+                                        <span class="text-[10px] text-slate-400">Ativar câmara do telemóvel/computador. Não obrigatório (Máximo 10 fotos).</span>
+                                    </div>
+                                    <label class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded-xl cursor-pointer shadow transition flex items-center gap-2">
+                                        <i class="fa-solid fa-camera-retro"></i>
+                                        <span>Disparar Câmara / Tirar Foto</span>
+                                        <input type="file" id="campo-fotos-camera" accept="image/*" capture="environment" multiple onchange="processarFotosCameraTempoReal(event)" class="hidden">
+                                    </label>
+                                </div>
+                                <div id="container-previa-fotos-campo" class="flex flex-wrap gap-2 pt-2">
+                                    <span class="text-[11px] text-slate-500 italic">Nenhuma foto capturada ainda.</span>
+                                </div>
                             </div>
-                            <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Fotografias do Trabalho Feito (Após Conclusão) *</label>
-                                <input type="file" id="campo-fotos-depois" accept="image/*" multiple class="w-full p-2 bg-slate-900 border border-slate-800 rounded-xl text-white text-xs file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-emerald-500 file:text-slate-950 hover:file:bg-emerald-400">
-                                <span class="text-[10px] text-slate-500 mt-1 block">Registo visual final para arquivo e auditoria na nuvem.</span>
-                            </div>
-                        </div>
 
-                        <div class="bg-amber-500/10 border border-amber-500/30 p-3 rounded-xl text-[11px] text-amber-300 flex items-center gap-2">
-                            <i class="fa-solid fa-triangle-exclamation text-base"></i>
-                            <span>Atenção: Sem o preenchimento rigoroso e verdadeiro de todos os campos e fotografias, o sistema bloqueará a submissão e gravação na nuvem.</span>
+                            <!-- CAMPO DE NOTAS PARA OS DIRETORES -->
+                            <div class="md:col-span-2">
+                                <label class="block font-semibold text-slate-400 mb-1">Notas Informativas / Observações para os Directores ou Chefes:</label>
+                                <textarea id="campo-notas-informacao" rows="3" placeholder="Insira detalhes adicionais sobre o andamento do trabalho, pendências ou avisos..." class="w-full p-3 bg-slate-900 border border-slate-800 rounded-xl text-white"></textarea>
+                            </div>
                         </div>
 
                         <div class="flex justify-between pt-2">
@@ -281,25 +262,25 @@
                             </button>
                             <button type="button" onclick="submeterRegistoCampo()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3 rounded-xl shadow-lg transition flex items-center gap-2">
                                 <i class="fa-solid fa-cloud-arrow-up"></i>
-                                <span>Aprovar e Salvar Atividade na Nuvem</span>
+                                <span>Salvar Cadastro Inicial na Nuvem</span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ABA 0.1: MONITORIZAÇÃO GPS EM TEMPO REAL -->
+            <!-- ABA 0.1: MONITORIZAÇÃO GPS & CONCLUSÃO DE TRABALHO ACABADO -->
             <div id="tab-monitor" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
                         <div>
                             <h4 class="font-bold text-base text-amber-400 flex items-center gap-2">
-                                <i class="fa-solid fa-satellite-dish"></i> Monitorização de Atividades & GPS em Tempo Real
+                                <i class="fa-solid fa-satellite-dish"></i> Monitorização de Obras, Trabalhos Acabados & Notas
                             </h4>
-                            <p class="text-xs text-slate-400">Acompanhe todas as intervenções dos operários no terreno, respetivas coordenadas e fotografias armazenadas.</p>
+                            <p class="text-xs text-slate-400">Visualize intervenções, clique nas fotos para ampliar e atualize as obras concluídas com fotos de acabamento.</p>
                         </div>
                         <button onclick="renderizarMonitorizacaoCampo()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-2 px-4 rounded-xl text-xs transition flex items-center gap-2">
-                            <i class="fa-solid fa-rotate"></i> Atualizar Dados Nuvem
+                            <i class="fa-solid fa-rotate"></i> Atualizar Monitorização Nuvem
                         </button>
                     </div>
 
@@ -307,7 +288,40 @@
                 </div>
             </div>
 
-            <!-- ABA 1: ORÇAMENTOS E INSTALAÇÕES -->
+            <!-- MODAL PARA ADICIONAR FOTOS DE TRABALHO ACABADO E NOTAS FINAIS -->
+            <div id="modal-concluir-obra" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
+                <div class="bg-slate-900 border-2 border-emerald-500 p-6 rounded-2xl max-w-lg w-full space-y-4 shadow-2xl text-xs">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <h3 class="font-bold text-sm text-emerald-400 uppercase"><i class="fa-solid fa-circle-check mr-2"></i> Concluir Obra / Trabalho Acabado</h3>
+                        <button onclick="fecharModalConcluirObra()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-base"></i></button>
+                    </div>
+                    <input type="hidden" id="modal-obra-id">
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block font-semibold text-slate-400 mb-1">Fotografias de Trabalho Acabado / Finalizado (Até 10 fotos):</label>
+                            <input type="file" id="modal-fotos-acabadas" accept="image/*" capture="environment" multiple class="w-full p-2 bg-slate-950 border border-slate-800 rounded-xl text-white file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:bg-emerald-500 file:text-slate-950 font-semibold">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-400 mb-1">Notas Finais / Relatório do Operário para os Directores:</label>
+                            <textarea id="modal-notas-finais" rows="3" placeholder="Informe detalhes finais da conclusão..." class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex justify-end gap-2 pt-2">
+                        <button type="button" onclick="fecharModalConcluirObra()" class="bg-slate-800 text-slate-300 font-bold px-4 py-2.5 rounded-xl">Cancelar</button>
+                        <button type="button" onclick="salvarConclusaoObraNuvem()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow">Salvar Obra Concluída</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL PARA AMPLIAR FOTO AO CLICAR -->
+            <div id="modal-ampliar-foto" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 z-50" onclick="fecharModalAmpliarFoto()">
+                <div class="relative max-w-4xl w-full flex flex-col items-center">
+                    <button onclick="fecharModalAmpliarFoto()" class="absolute -top-10 right-0 text-white text-xl bg-slate-800 hover:bg-slate-700 w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+                    <img id="imagem-ampliada-src" src="" class="max-h-[80vh] max-w-full rounded-2xl border-2 border-amber-500 shadow-2xl object-contain">
+                </div>
+            </div>
+
+            <!-- ABA 1: ORÇAMENTOS E INSTALAÇÕES (FATURA A4) -->
             <div id="tab-orcamentos" class="hidden space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-1 bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
@@ -409,20 +423,20 @@
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <button onclick="gerarFaturaPDF()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-xs">
-                                <i class="fa-solid fa-file-arrow-down"></i>
-                                <span>Gerar Orçamento Oficial A4</span>
+                            <button onclick="gerarFaturaOficialA4()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-xs">
+                                <i class="fa-solid fa-file-invoice"></i>
+                                <span>Gerar Fatura Oficial A4 Completa</span>
                             </button>
                             <button onclick="gerarTalaoTermico()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 text-xs">
                                 <i class="fa-solid fa-receipt"></i>
-                                <span>Imprimir Talão POS</span>
+                                <span>Imprimir Talão de Pagamento</span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ABA 2: BALCÃO DE VENDAS DIRETAS -->
+            <!-- ABA 2: BALCÃO DE VENDAS DIRETAS (POS) -->
             <div id="tab-vendas" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
                     <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex justify-between items-center">
@@ -498,8 +512,8 @@
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                <button onclick="emitirTalaoCaixaPDF()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl text-xs shadow transition flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-receipt"></i> Fatura Talão A4
+                                <button onclick="emitirFaturaVendaA4()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl text-xs shadow transition flex items-center justify-center gap-1.5">
+                                    <i class="fa-solid fa-file-invoice"></i> Fatura Oficial A4
                                 </button>
                                 <button onclick="emitirTalaoTermicoBalcao()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-3 rounded-xl text-xs transition flex items-center justify-center gap-1.5">
                                     <i class="fa-solid fa-print"></i> Talão POS 80mm
@@ -510,7 +524,7 @@
                 </div>
             </div>
 
-            <!-- NOVA ABA: RECURSOS HUMANOS (RH) & DADOS PESSOAIS DOS FUNCIONÁRIOS -->
+            <!-- ABA: RECURSOS HUMANOS (RH) & FOTO AMPLIADA -->
             <div id="tab-rh" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
@@ -518,13 +532,12 @@
                             <h4 class="font-bold text-base text-indigo-400 flex items-center gap-2">
                                 <i class="fa-solid fa-id-card"></i> Quadro de Funcionários & Fichas Individuais de RH
                             </h4>
-                            <p class="text-xs text-slate-400">Selecione um funcionário registado para gerir a sua identificação oficial, fotografia, BI, morada e dados contratuais.</p>
+                            <p class="text-xs text-slate-400">Clique na foto do funcionário para ampliá-la e gire/edite os dados oficiais e governamentais.</p>
                         </div>
                         <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs px-3 py-1 rounded-full font-bold">Módulo de RH & Privacidade</span>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <!-- LISTA DE FUNCIONÁRIOS -->
                         <div class="lg:col-span-1 bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
                             <h5 class="font-bold text-xs uppercase text-amber-400 flex items-center gap-1.5">
                                 <i class="fa-solid fa-users-gear"></i> Lista de Utilizadores do Sistema
@@ -532,14 +545,11 @@
                             <div id="rh-lista-funcionarios" class="space-y-2 max-h-[450px] overflow-y-auto pr-1 text-xs"></div>
                         </div>
 
-                        <!-- PAINEL DETALHADO DO FUNCIONÁRIO SELECIONADO -->
                         <div class="lg:col-span-2 bg-slate-950 p-6 rounded-xl border border-slate-800 space-y-6 text-xs">
                             <div id="rh-detalhes-container" class="hidden space-y-6">
-                                
-                                <!-- CABEÇALHO COM FOTO DO WINDOWS -->
                                 <div class="flex flex-col sm:flex-row items-center gap-6 bg-slate-900 p-4 rounded-xl border border-slate-800">
                                     <div class="relative group">
-                                        <div id="rh-foto-preview" class="w-28 h-28 rounded-2xl bg-slate-950 border-2 border-indigo-500/40 flex items-center justify-center overflow-hidden shadow-inner">
+                                        <div id="rh-foto-preview" class="w-28 h-28 rounded-2xl bg-slate-950 border-2 border-indigo-500/40 flex items-center justify-center overflow-hidden shadow-inner cursor-pointer" onclick="ampliarFotoFuncionarioAtual()" title="Clique para ampliar foto">
                                             <i class="fa-solid fa-user text-4xl text-slate-700"></i>
                                         </div>
                                         <label for="rh-input-foto" class="absolute bottom-0 right-0 bg-indigo-600 hover:bg-indigo-500 text-white p-2 rounded-xl cursor-pointer shadow-lg transition" title="Carregar Foto do Computador">
@@ -556,7 +566,6 @@
                                     </div>
                                 </div>
 
-                                <!-- FORMULÁRIO DE FICHA DADOS GOVERNAMENTAIS / PESSOAIS -->
                                 <form onsubmit="guardarFichaRH(event)" class="space-y-4">
                                     <input type="hidden" id="rh-user-id">
 
@@ -636,7 +645,7 @@
                 </div>
             </div>
 
-            <!-- ABA 3: RELATÓRIOS & LUCROS -->
+            <!-- ABA 3: RELATÓRIOS & DETALHES AO CLICAR -->
             <div id="tab-relatorios" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
@@ -644,7 +653,7 @@
                             <h4 class="font-bold text-base text-amber-400">
                                 <i class="fa-solid fa-chart-pie mr-2"></i> Relatórios Financeiros, Faturamento & Sincronização Nuvem
                             </h4>
-                            <p class="text-xs text-slate-400">Estatísticas, margens brutas e fluxo de caixa consolidado</p>
+                            <p class="text-xs text-slate-400">Clique em qualquer registo do histórico para abrir os detalhes completos da operação</p>
                         </div>
                         <button onclick="exportarRelatorioCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-xs transition flex items-center gap-2 shadow">
                             <i class="fa-solid fa-file-excel"></i> Exportar Relatório Executivo (CSV)
@@ -670,26 +679,64 @@
                     </div>
 
                     <div class="space-y-3">
-                        <h5 class="font-bold text-xs uppercase text-slate-300">Histórico Financeiro Sincronizado:</h5>
+                        <h5 class="font-bold text-xs uppercase text-slate-300">Histórico Financeiro Sincronizado (Clique para Detalhes):</h5>
                         <div id="lista-logs" class="space-y-2 max-h-[300px] overflow-y-auto pr-2 text-xs"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- ABA 4: PAINEL DO ADMINISTRADOR -->
+            <!-- MODAL DE DETALHES DO RELATÓRIO -->
+            <div id="modal-detalhes-relatorio" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
+                <div class="bg-slate-900 border-2 border-amber-500 p-6 rounded-2xl max-w-lg w-full space-y-4 shadow-2xl text-xs">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <h3 class="font-bold text-sm text-amber-400 uppercase"><i class="fa-solid fa-file-lines mr-2"></i> Detalhes Completos da Operação</h3>
+                        <button onclick="fecharModalDetalhesRelatorio()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-base"></i></button>
+                    </div>
+                    <div id="conteudo-detalhes-relatorio" class="space-y-2 text-slate-300 font-mono max-h-[60vh] overflow-y-auto"></div>
+                    <div class="flex justify-end pt-2">
+                        <button onclick="fecharModalDetalhesRelatorio()" class="bg-amber-500 text-slate-950 font-bold px-6 py-2.5 rounded-xl">Fechar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA 4: PAINEL DO ADMINISTRADOR (DEFINIÇÕES GLOBAIS DE TEXTOS E LOGOTIPO) -->
             <div id="tab-admin" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
                         <div>
                             <h4 class="font-bold text-base text-amber-400">
-                                <i class="fa-solid fa-sliders mr-2"></i> Painel de Controlo & Configurações do Administrador
+                                <i class="fa-solid fa-sliders mr-2"></i> Painel de Controlo & Definições Globais do Sistema
                             </h4>
-                            <p class="text-xs text-slate-400">ELECTRO HONÁRIO & SERVIÇOS SU, LDA. | NUIT: 402027037</p>
+                            <p class="text-xs text-slate-400">Personalize títulos, nomes de abas, logótipo da empresa e configure utilizadores.</p>
                         </div>
                         <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-bold">Dono / Administrador</span>
                     </div>
 
-                    <!-- CRIAR NOVO UTILIZADOR COM HIERARQUIA DE FUNÇÕES -->
+                    <!-- DEFINIÇÕES GLOBAIS DE TEXTOS E LOGOTIPO -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
+                        <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-gears"></i> Definições Globais: Logotipo & Transcrição de Textos do Sistema
+                        </h5>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Nome da Empresa (Cabeçalho)</label>
+                                <input type="text" id="def-empresa-nome" value="ELECTRO HONÁRIO & SERVIÇOS SU, LDA." class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Subtítulo / Slogan do Sistema</label>
+                                <input type="text" id="def-empresa-sub" value="Sistema ERP, Rastreamento GPS, Gestão de RH & Operações M-Pesa / e-Mola" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Logótipo da Empresa (Carregar Imagem / Windows)</label>
+                                <input type="file" id="def-input-logotipo" accept="image/*" class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-white file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:bg-amber-500 file:text-slate-950 font-bold text-xs">
+                            </div>
+                        </div>
+                        <button onclick="guardarDefinicoesGlobaisSistema()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-lg transition shadow flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-floppy-disk"></i> Guardar Definições e Transcrições em Todo o Sistema
+                        </button>
+                    </div>
+
+                    <!-- CRIAR NOVO UTILIZADOR COM HIERARQUIA -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
                             <i class="fa-solid fa-user-plus"></i> Criar Novo Utilizador / Função no Sistema
@@ -856,14 +903,15 @@
 
     <!-- RODAPÉ -->
     <footer class="bg-slate-900 border-t border-slate-800 py-3 text-center text-xs text-slate-500">
-        ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema ERP Cloud, RH & App Campo
+        <span id="footer-empresa-txt">ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema ERP Cloud, RH & App Campo</span>
     </footer>
 
-    <!-- SCRIPT UNIFICADO COM FUNCIONALIDADES DE RH -->
+    <!-- SCRIPT GERAL UNIFICADO -->
     <script>
         let operadoraCloudAtual = 'M-Pesa';
         let coordenadasGPSAtuais = { lat: -25.9692, lng: 32.5732, precisao: 'Maputo (GPS Padrão)' };
         let funcionarioRHSelecionadoId = null;
+        let fotosCameraCampoTemp = [];
 
         function atualizarRelogio() {
             const agora = new Date();
@@ -881,6 +929,51 @@
         }
         setInterval(atualizarRelogio, 1000);
         atualizarRelogio();
+
+        function carregarDefinicoesGlobaisNaUI() {
+            let defs = JSON.parse(localStorage.getItem('electro_honario_definicoes') || '{}');
+            if(defs.nomeEmpresa) {
+                const elTitle = document.getElementById('sys-company-title');
+                if(elTitle) elTitle.innerHTML = `${defs.nomeEmpresa} <span class="text-amber-500 text-xs px-2 py-0.5 bg-amber-500/10 rounded-full border border-amber-500/30">NUIT: 402027037</span>`;
+                const elFooter = document.getElementById('footer-empresa-txt');
+                if(elFooter) elFooter.textContent = `${defs.nomeEmpresa} (NUIT: 402027037) • Sistema ERP Cloud, RH & App Campo`;
+            }
+            if(defs.subEmpresa) {
+                const elSub = document.getElementById('sys-company-subtitle');
+                if(elSub) elSub.textContent = defs.subEmpresa;
+            }
+            if(defs.logotipoBase64) {
+                const logoContainer = document.getElementById('header-logo-container');
+                if(logoContainer) {
+                    logoContainer.innerHTML = `<img src="${defs.logotipoBase64}" class="w-full h-full object-cover rounded-2xl">`;
+                }
+            }
+        }
+
+        function guardarDefinicoesGlobaisSistema() {
+            const nomeEmp = document.getElementById('def-empresa-nome')?.value.trim();
+            const subEmp = document.getElementById('def-empresa-sub')?.value.trim();
+            const fileLogo = document.getElementById('def-input-logotipo');
+
+            let defs = JSON.parse(localStorage.getItem('electro_honario_definicoes') || '{}');
+            if(nomeEmp) defs.nomeEmpresa = nomeEmp;
+            if(subEmp) defs.subEmpresa = subEmp;
+
+            if(fileLogo && fileLogo.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    defs.logotipoBase64 = e.target.result;
+                    localStorage.setItem('electro_honario_definicoes', JSON.stringify(defs));
+                    alert('✅ Definições e logótipo guardados com sucesso!');
+                    carregarDefinicoesGlobaisNaUI();
+                };
+                reader.readAsDataURL(fileLogo.files[0]);
+            } else {
+                localStorage.setItem('electro_honario_definicoes', JSON.stringify(defs));
+                alert('✅ Definições e transcrições guardadas com sucesso!');
+                carregarDefinicoesGlobaisNaUI();
+            }
+        }
 
         function capturarCoordenadasGPS() {
             const gpsLabel = document.getElementById('campo-gps-coords');
@@ -904,6 +997,49 @@
                     { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
                 );
             }
+        }
+
+        function processarFotosCameraTempoReal(event) {
+            const files = event.target.files;
+            if(!files || files.length === 0) return;
+
+            if(fotosCameraCampoTemp.length + files.length > 10) {
+                alert('⚠️ O limite máximo é de 10 fotografias por registo de campo.');
+                return;
+            }
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    fotosCameraCampoTemp.push(e.target.result);
+                    atualizarPreviaFotosCampo();
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function atualizarPreviaFotosCampo() {
+            const container = document.getElementById('container-previa-fotos-campo');
+            if(!container) return;
+            if(fotosCameraCampoTemp.length === 0) {
+                container.innerHTML = '<span class="text-[11px] text-slate-500 italic">Nenhuma foto capturada ainda.</span>';
+                return;
+            }
+            let html = '';
+            fotosCameraCampoTemp.forEach((foto, idx) => {
+                html += `
+                    <div class="relative w-16 h-16 rounded-lg overflow-hidden border border-amber-500/40">
+                        <img src="${foto}" class="w-full h-full object-cover cursor-pointer" onclick="abrirModalAmpliarFoto('${foto}')">
+                        <button type="button" onclick="removerFotoCampoTemp(${idx})" class="absolute top-0 right-0 bg-red-600 text-white w-4 h-4 rounded-bl text-[9px] flex items-center justify-center">×</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function removerFotoCampoTemp(idx) {
+            fotosCameraCampoTemp.splice(idx, 1);
+            atualizarPreviaFotosCampo();
         }
 
         function avancarPassoCampo(passoAlvo) {
@@ -963,11 +1099,10 @@
             const tipoAtividade = document.getElementById('campo-tipo-atividade')?.value;
             const zona = document.getElementById('campo-zona')?.value.trim();
             const bairro = document.getElementById('campo-bairro')?.value.trim();
-            const fileAntes = document.getElementById('campo-fotos-antes');
-            const fileDepois = document.getElementById('campo-fotos-depois');
+            const notasInfo = document.getElementById('campo-notas-informacao')?.value.trim();
 
-            if (!zona || !bairro || !fileAntes.files.length || !fileDepois.files.length) {
-                alert('⚠️ Atenção: Para concluir a aprovação, deve preencher a Zona, Bairro e anexar obrigatoriamente as Fotografias Iniciais e Finais do trabalho!');
+            if (!zona || !bairro) {
+                alert('⚠️ Preencha a Zona e o Bairro para salvar o cadastro inicial.');
                 return;
             }
 
@@ -978,37 +1113,75 @@
                 if(chk && chk.checked) matsSelecionados.push(m.nome);
             });
 
-            lerImagensComoBase64(fileAntes.files, (fotosAntesArr) => {
-                lerImagensComoBase64(fileDepois.files, (fotosDepoisArr) => {
-                    const sessao = obterSessaoAtual();
-                    const operarioNome = sessao ? (sessao.nome || sessao.user) : 'Operário Campo';
+            const sessao = obterSessaoAtual();
+            const operarioNome = sessao ? (sessao.nome || sessao.user) : 'Operário Campo';
 
-                    const novaAtividade = {
-                        id: Date.now(),
-                        tipo: 'Atividade de Campo GPS',
-                        operario: operarioNome,
-                        cliente: nomeCli,
-                        contacto: telCli,
-                        imovel: tipoImovel,
-                        atividade: tipoAtividade,
-                        materiais: matsSelecionados,
-                        zona: zona,
-                        bairro: bairro,
-                        gps: coordenadasGPSAtuais,
-                        fotosAntes: fotosAntesArr,
-                        fotosDepois: fotosDepoisArr,
-                        data: new Date().toLocaleString('pt-PT'),
-                        faturamentoNumeric: 0
-                    };
+            const novaAtividade = {
+                id: Date.now(),
+                tipo: 'Atividade de Campo GPS',
+                operario: operarioNome,
+                cliente: nomeCli,
+                contacto: telCli,
+                imovel: tipoImovel,
+                atividade: tipoAtividade,
+                materiais: matsSelecionados,
+                zona: zona,
+                bairro: bairro,
+                gps: coordenadasGPSAtuais,
+                fotosAntes: fotosCameraCampoTemp, // Fotos de início (opcionais, até 10)
+                fotosAcabadas: [], // Fase 2 posterior
+                notasOperario: notasInfo,
+                estadoObra: 'Em Execução',
+                data: new Date().toLocaleString('pt-PT'),
+                faturamentoNumeric: 0
+            };
 
-                    let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-                    logs.unshift(novaAtividade);
+            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
+            logs.unshift(novaAtividade);
+            localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
+
+            alert('✅ Cadastro inicial de campo gravado com sucesso na nuvem!');
+            fotosCameraCampoTemp = [];
+            location.reload();
+        }
+
+        function abrirModalConcluirObra(idLog) {
+            document.getElementById('modal-obra-id').value = idLog;
+            document.getElementById('modal-concluir-obra').classList.remove('hidden');
+        }
+
+        function fecharModalConcluirObra() {
+            document.getElementById('modal-concluir-obra').classList.add('hidden');
+        }
+
+        function salvarConclusaoObraNuvem() {
+            const idLog = parseInt(document.getElementById('modal-obra-id').value);
+            const notasFinais = document.getElementById('modal-notas-finais').value.trim();
+            const fileInput = document.getElementById('modal-fotos-acabadas');
+
+            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
+            let idx = logs.findIndex(l => l.id === idLog);
+
+            if(idx !== -1) {
+                if(fileInput.files.length > 0) {
+                    lerImagensComoBase64(fileInput.files, (fotosAcabadasArr) => {
+                        logs[idx].fotosAcabadas = fotosAcabadasArr;
+                        logs[idx].notasOperario += (logs[idx].notasOperario ? ' | ' : '') + 'Conclusão: ' + notasFinais;
+                        logs[idx].estadoObra = 'Concluído';
+                        localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
+                        alert('✅ Obra finalizada com fotos de trabalho acabado e notas salvas para a auditoria dos directores!');
+                        fecharModalConcluirObra();
+                        renderizarMonitorizacaoCampo();
+                    });
+                } else {
+                    logs[idx].notasOperario += (logs[idx].notasOperario ? ' | ' : '') + 'Conclusão: ' + notasFinais;
+                    logs[idx].estadoObra = 'Concluído';
                     localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-
-                    alert('✅ Atividade de campo registada com sucesso, com coordenadas GPS e fotografias guardadas na nuvem para monitorização do Administrador!');
-                    location.reload();
-                });
-            });
+                    alert('✅ Obra finalizada e notas salvas com sucesso!');
+                    fecharModalConcluirObra();
+                    renderizarMonitorizacaoCampo();
+                }
+            }
         }
 
         function lerImagensComoBase64(files, callback) {
@@ -1026,6 +1199,15 @@
             });
         }
 
+        function abrirModalAmpliarFoto(src) {
+            document.getElementById('imagem-ampliada-src').src = src;
+            document.getElementById('modal-ampliar-foto').classList.remove('hidden');
+        }
+
+        function fecharModalAmpliarFoto() {
+            document.getElementById('modal-ampliar-foto').classList.add('hidden');
+        }
+
         function renderizarMonitorizacaoCampo() {
             const container = document.getElementById('lista-atividades-monitorizadas');
             if(!container) return;
@@ -1033,7 +1215,7 @@
             let atividadesCampo = logs.filter(l => l.tipo === 'Atividade de Campo GPS');
 
             if(atividadesCampo.length === 0) {
-                container.innerHTML = '<div class="bg-slate-950 p-6 rounded-xl border border-slate-800 text-center text-slate-500">Nenhuma atividade de campo registada neste momento.</div>';
+                container.innerHTML = '<div class="bg-slate-950 p-6 rounded-xl border border-slate-800 text-center text-slate-500">Nenhuma obra registada neste momento.</div>';
                 return;
             }
 
@@ -1041,40 +1223,46 @@
             atividadesCampo.forEach(a => {
                 let fotosAntesHtml = '';
                 (a.fotosAntes || []).forEach(f => {
-                    fotosAntesHtml += `<img src="${f}" class="w-20 h-20 object-cover rounded-lg border border-amber-500/30 cursor-pointer hover:scale-105 transition" onclick="window.open('${f}')">`;
+                    fotosAntesHtml += `<img src="${f}" class="w-16 h-16 object-cover rounded-lg border border-amber-500/30 cursor-pointer hover:scale-105 transition" onclick="abrirModalAmpliarFoto('${f}')">`;
                 });
 
-                let fotosDepoisHtml = '';
-                (a.fotosDepois || []).forEach(f => {
-                    fotosDepoisHtml += `<img src="${f}" class="w-20 h-20 object-cover rounded-lg border border-emerald-500/30 cursor-pointer hover:scale-105 transition" onclick="window.open('${f}')">`;
+                let fotosAcabadasHtml = '';
+                (a.fotosAcabadas || []).forEach(f => {
+                    fotosAcabadasHtml += `<img src="${f}" class="w-16 h-16 object-cover rounded-lg border border-emerald-500/30 cursor-pointer hover:scale-105 transition" onclick="abrirModalAmpliarFoto('${f}')">`;
                 });
 
                 let matsStr = (a.materiais || []).join(', ');
+                let estadoBadge = a.estadoObra === 'Concluído' ? '<span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-bold">Concluído</span>' : '<span class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded font-bold">Em Execução</span>';
 
                 html += `
                     <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4 text-xs">
                         <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-2">
                             <div>
                                 <span class="text-amber-400 font-bold uppercase tracking-wider text-sm"><i class="fa-solid fa-helmet-safety mr-1.5"></i> ${a.atividade}</span>
-                                <span class="text-slate-400 block mt-0.5">Operário Responsável: <strong class="text-white">${a.operario}</strong> | Data: ${a.data}</span>
+                                <span class="text-slate-400 block mt-0.5">Operário: <strong class="text-white">${a.operario}</strong> | Data: ${a.data} | Estado: ${estadoBadge}</span>
                             </div>
-                            <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-3 py-1 rounded-full font-mono font-bold">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Lat: ${a.gps?.lat}, Lng: ${a.gps?.lng}
-                            </span>
+                            <div class="flex items-center gap-2">
+                                <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-3 py-1 rounded-full font-mono font-bold text-[10px]">
+                                    <i class="fa-solid fa-location-dot mr-1"></i> Lat: ${a.gps?.lat}, Lng: ${a.gps?.lng}
+                                </span>
+                                <button onclick="abrirModalConcluirObra(${a.id})" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-lg shadow">
+                                    <i class="fa-solid fa-camera mr-1"></i> Concluir / Fotos Finais
+                                </button>
+                            </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-slate-300">
                             <div><strong>Cliente:</strong> ${a.cliente} (${a.contacto})</div>
                             <div><strong>Imóvel/Zona:</strong> ${a.imovel} | ${a.zona}, ${a.bairro}</div>
-                            <div><strong>Materiais Usados:</strong> ${matsStr || 'Nenhum'}</div>
+                            <div><strong>Notas Informativas:</strong> <span class="text-amber-300 italic">${a.notasOperario || 'Nenhuma nota informada.'}</span></div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-slate-900">
                             <div>
-                                <span class="block text-amber-400 font-bold mb-2">📸 Fotografias Iniciais (Antes da Obra):</span>
-                                <div class="flex flex-wrap gap-2">${fotosAntesHtml || '<span class="text-slate-500">Sem fotos</span>'}</div>
+                                <span class="block text-amber-400 font-bold mb-1">📸 Fotos Iniciais (Início):</span>
+                                <div class="flex flex-wrap gap-2">${fotosAntesHtml || '<span class="text-slate-500 italic">Sem fotos iniciais</span>'}</div>
                             </div>
                             <div>
-                                <span class="block text-emerald-400 font-bold mb-2">📸 Fotografias Finais (Trabalho Concluído):</span>
-                                <div class="flex flex-wrap gap-2">${fotosDepoisHtml || '<span class="text-slate-500">Sem fotos</span>'}</div>
+                                <span class="block text-emerald-400 font-bold mb-1">📸 Fotos de Trabalho Acabado (Finalizado):</span>
+                                <div class="flex flex-wrap gap-2">${fotosAcabadasHtml || '<span class="text-slate-500 italic">Aguardando fotos finais de conclusão</span>'}</div>
                             </div>
                         </div>
                     </div>
@@ -1216,39 +1404,49 @@
             document.getElementById('app-dashboard').classList.remove('hidden');
             document.getElementById('welcome-msg').textContent = `Bem-vindo, ${userObj.nome || userObj.user}`;
 
-            const btnVendas = document.getElementById('tab-btn-vendas');
-            const btnRH = document.getElementById('tab-btn-rh');
-            const btnRelatorios = document.getElementById('tab-btn-relatorios');
-            const btnAdmin = document.getElementById('tab-btn-admin');
+            const menuContainer = document.getElementById('menu-abas-container');
+            let htmlAbas = '';
 
-            // HIERARQUIA DE PRIVACIDADE E CONTROLO DE ABAS
             if (userObj.role === 'admin') {
                 document.getElementById('role-desc').textContent = 'Administrador Geral / Chefe (Acesso Total)';
-                btnVendas.classList.remove('hidden');
-                btnRH.classList.remove('hidden');
-                btnRelatorios.classList.remove('hidden');
-                btnAdmin.classList.remove('hidden');
+                htmlAbas = `
+                    <button onclick="mudarAba('campo')" id="tab-btn-campo" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-location-crosshairs"></i> App Campo (GPS)</button>
+                    <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"><i class="fa-solid fa-satellite-dish"></i> Monitor GPS</button>
+                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras</button>
+                    <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão (POS)</button>
+                    <button onclick="mudarAba('rh')" id="tab-btn-rh" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-semibold text-xs rounded-xl transition border border-indigo-500/30"><i class="fa-solid fa-id-card mr-1.5"></i> Gestão de RH</button>
+                    <button onclick="mudarAba('relatorios')" id="tab-btn-relatorios" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-chart-line mr-1.5"></i> Relatórios</button>
+                    <button onclick="mudarAba('admin')" id="tab-btn-admin" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-400 font-semibold text-xs rounded-xl transition border border-amber-500/30"><i class="fa-solid fa-sliders mr-1.5"></i> Administrador</button>
+                `;
             } else if (userObj.role === 'gerente') {
                 document.getElementById('role-desc').textContent = 'Director / Gerente (Supervisão & Operações)';
-                btnVendas.classList.remove('hidden');
-                btnRH.classList.remove('hidden');
-                btnRelatorios.classList.remove('hidden');
-                btnAdmin.classList.add('hidden');
+                htmlAbas = `
+                    <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-satellite-dish"></i> Monitor GPS</button>
+                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras</button>
+                    <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão (POS)</button>
+                    <button onclick="mudarAba('rh')" id="tab-btn-rh" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-semibold text-xs rounded-xl transition border border-indigo-500/30"><i class="fa-solid fa-id-card mr-1.5"></i> Gestão de RH</button>
+                    <button onclick="mudarAba('relatorios')" id="tab-btn-relatorios" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-chart-line mr-1.5"></i> Relatórios</button>
+                `;
             } else if (userObj.role === 'vendas') {
                 document.getElementById('role-desc').textContent = 'Operador de Balcão (Vendas Directas POS)';
-                btnVendas.classList.remove('hidden');
-                btnRH.classList.add('hidden');
-                btnRelatorios.classList.add('hidden');
-                btnAdmin.classList.add('hidden');
+                htmlAbas = `
+                    <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão (POS)</button>
+                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras</button>
+                `;
             } else {
                 document.getElementById('role-desc').textContent = 'Técnico de Campo (Operação GPS)';
-                btnVendas.classList.add('hidden');
-                btnRH.classList.add('hidden');
-                btnRelatorios.classList.add('hidden');
-                btnAdmin.classList.add('hidden');
+                htmlAbas = `
+                    <button onclick="mudarAba('campo')" id="tab-btn-campo" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-location-crosshairs"></i> App Campo (GPS)</button>
+                    <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"><i class="fa-solid fa-satellite-dish"></i> Obras & Conclusão</button>
+                `;
             }
 
-            mudarAba('campo');
+            if(menuContainer) menuContainer.innerHTML = htmlAbas;
+
+            if (userObj.role === 'admin' || userObj.role === 'tecnico') mudarAba('campo');
+            else if (userObj.role === 'gerente') mudarAba('monitor');
+            else if (userObj.role === 'vendas') mudarAba('vendas');
+
             capturarCoordenadasGPS();
             carregarChecklistMateriaisCampo();
             renderizarCatalogoMateriais();
@@ -1282,7 +1480,7 @@
             if(aba === 'admin') renderizarTabelasAdmin();
         }
 
-        // --- MÓDULO DE RH & DADOS PESSOAIS DOS FUNCIONÁRIOS ---
+        // --- MÓDULO DE RH & FOTO AMPLIADA ---
         function renderizarListaRH() {
             const container = document.getElementById('rh-lista-funcionarios');
             if(!container) return;
@@ -1296,7 +1494,7 @@
                 html += `
                     <div onclick="selecionarFuncionarioRH(${u.id})" class="p-3 bg-slate-900 border border-slate-800 hover:border-indigo-500/50 rounded-xl cursor-pointer transition flex items-center justify-between">
                         <div class="flex items-center space-x-3">
-                            <div class="w-9 h-9 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-indigo-400 overflow-hidden">
+                            <div class="w-9 h-9 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-indigo-400 overflow-hidden" onclick="event.stopPropagation(); ${u.foto ? `abrirModalAmpliarFoto('${u.foto}')` : ''}">
                                 ${u.foto ? `<img src="${u.foto}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-user"></i>`}
                             </div>
                             <div>
@@ -1344,6 +1542,13 @@
             } else {
                 preview.innerHTML = `<i class="fa-solid fa-user text-4xl text-slate-700"></i>`;
             }
+        }
+
+        function ampliarFotoFuncionarioAtual() {
+            if(!funcionarioRHSelecionadoId) return;
+            let users = obterUtilizadoresDoSistema();
+            let u = users.find(x => x.id === funcionarioRHSelecionadoId);
+            if(u && u.foto) abrirModalAmpliarFoto(u.foto);
         }
 
         function carregarFotoFuncionario(event) {
@@ -1561,19 +1766,51 @@
             alert('✨ Kit Residencial Padrão inserido com sucesso!');
         }
 
+        // --- DIFERENCIAÇÃO ENTRE TALÃO DE PAGAMENTO E FATURA OFICIAL A4 ---
         function gerarTalaoTermico() {
             const cliente = document.getElementById('cli-nome')?.value.trim() || 'Cliente Geral';
             const totalGeral = document.getElementById('res-total')?.textContent || '0.00 MT';
             const janela = window.open('', '_blank', 'width=400,height=600');
             if(janela) {
-                janela.document.write(`<html><head><title>Talão</title></head><body onload="window.print(); window.close();" style="font-family:monospace;font-size:12px;padding:10px"><h2 style="text-align:center">ELECTRO HONÁRIO</h2><p style="text-align:center">NUIT: 402027037</p><hr><p>Cliente: ${cliente}</p><p>Total: ${totalGeral}</p></body></html>`);
+                janela.document.write(`<html><head><title>Talão de Pagamento</title></head><body onload="window.print(); window.close();" style="font-family:monospace;font-size:12px;padding:10px"><h2 style="text-align:center">ELECTRO HONÁRIO</h2><p style="text-align:center">NUIT: 402027037<br>TALÃO DE PAGAMENTO POS</p><hr><p>Cliente: ${cliente}</p><p>Data: ${new Date().toLocaleString()}</p><hr><p><b>Total Pago: ${totalGeral}</b></p><hr><p style="text-align:center">Obrigado pela preferência!</p></body></html>`);
             }
         }
 
-        function emitirTalaoTermicoBalcao() { gerarTalaoTermico(); }
-        function emitirTalaoCaixaPDF() { gerarTalaoTermico(); }
-        function gerarFaturaPDF() { gerarTalaoTermico(); }
+        function emitirTalaoTermicoBalcao() {
+            const cliente = document.getElementById('venda-cliente-nome')?.value.trim() || 'Cliente Balcão';
+            const totalGeral = document.getElementById('venda-total')?.textContent || '0.00 MT';
+            const janela = window.open('', '_blank', 'width=400,height=600');
+            if(janela) {
+                janela.document.write(`<html><head><title>Talão POS</title></head><body onload="window.print(); window.close();" style="font-family:monospace;font-size:12px;padding:10px"><h2 style="text-align:center">ELECTRO HONÁRIO</h2><p style="text-align:center">TALÃO DE CAIXA / POS</p><hr><p>Comprador: ${cliente}</p><p>Método: ${document.getElementById('venda-metodo-pagamento').value}</p><p><b>Total: ${totalGeral}</b></p></body></html>`);
+            }
+        }
 
+        function gerarFaturaOficialA4() {
+            const cliente = document.getElementById('cli-nome')?.value.trim() || 'Cliente Geral';
+            const morada = document.getElementById('cli-bairro')?.value.trim() || 'Maputo';
+            const contacto = document.getElementById('cli-contacto')?.value.trim() || 'N/A';
+            const total = document.getElementById('res-total')?.textContent || '0.00 MT';
+            const iva = document.getElementById('res-iva')?.textContent || '0.00 MT';
+            const subtotal = document.getElementById('res-materiais')?.textContent || '0.00 MT';
+
+            const janela = window.open('', '_blank', 'width=800,height=900');
+            if(janela) {
+                janela.document.write(`<html><head><title>Fatura A4 Oficial</title><style>body{font-family:Arial,sans-serif;padding:30px;color:#000;}h1{color:#78350f;margin:0;}table{width:100%;border-collapse:collapse;margin-top:20px;}th,td{border:1px solid #ccc;padding:8px;text-align:left;font-size:12px;}th{background:#f3f4f6;}</style></head><body onload="window.print(); window.close();">
+                    <div style="display:flex;justify-content:space-between;border-bottom:2px solid #78350f;padding-bottom:15px;">
+                        <div><h1>ELECTRO HONÁRIO & SERVIÇOS</h1><p style="font-size:11px;margin:2px 0;">NUIT: 402027037 | Maputo, Moçambique</p></div>
+                        <div style="text-align:right;"><h2>FATURA OFICIAL A4</h2><p style="font-size:11px;margin:2px 0;">Data: ${new Date().toLocaleDateString()}</p></div>
+                    </div>
+                    <div style="margin-top:20px;font-size:12px;"><p><b>Cliente:</b> ${cliente}</p><p><b>Morada:</b> ${morada}</p><p><b>Contacto / NUIT:</b> ${contacto}</p></div>
+                    <table><tr><th>Descrição do Artigo / Serviço</th><th>Categoria</th><th>Preço</th></tr><tr><td>Instalação / Material Elétrico SOCOAL</td><td>Geral</td><td>${subtotal}</td></tr></table>
+                    <div style="margin-top:30px;text-align:right;font-size:13px;"><p><b>IVA (16%):</b> ${iva}</p><h3>TOTAL GERAL: ${total}</h3></div>
+                    <div style="margin-top:50px;text-align:center;font-size:10px;color:#555;"><hr>Processado por Computador - ERP Cloud Electro Honório</div>
+                </body></html>`);
+            }
+        }
+
+        function emitirFaturaVendaA4() { gerarFaturaOficialA4(); }
+
+        // --- RELATÓRIOS COM DETALHES AO CLICAR ---
         function exportarRelatorioCSV() {
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
             let csv = "Tipo,Operario,Cliente,Zona,Data\n";
@@ -1593,16 +1830,50 @@
             let html = '';
             let totalFaturado = 0;
 
-            logs.forEach(l => {
+            logs.forEach((l, index) => {
                 let valor = l.faturamentoNumeric || 0;
                 totalFaturado += valor;
-                html += `<div class="bg-slate-900 p-3 rounded border border-slate-800 flex justify-between items-center text-xs"><div><strong class="text-amber-400">[${l.tipo}]</strong> ${l.cliente || 'Registo'} - ${l.zona || ''}</div><div class="text-right text-slate-400">${l.data}</div></div>`;
+                html += `
+                    <div onclick="abrirDetalhesRelatorio(${index})" class="bg-slate-900 p-3 rounded-lg border border-slate-800 hover:border-amber-500/50 cursor-pointer flex justify-between items-center text-xs transition">
+                        <div>
+                            <strong class="text-amber-400">[${l.tipo}]</strong> ${l.cliente || 'Registo'} - ${l.zona || 'Maputo'} (${l.atividade || 'Geral'})
+                        </div>
+                        <div class="text-right text-slate-400">
+                            ${l.data} <i class="fa-solid fa-chevron-right ml-2 text-[10px] text-amber-500"></i>
+                        </div>
+                    </div>
+                `;
             });
             
-            container.innerHTML = html || '<div class="text-slate-500 text-center">Sem registos na nuvem.</div>';
+            container.innerHTML = html || '<div class="text-slate-500 text-center py-4">Sem registos na nuvem.</div>';
             
             if(document.getElementById('stat-faturamento')) document.getElementById('stat-faturamento').textContent = totalFaturado.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
             if(document.getElementById('stat-total-ops')) document.getElementById('stat-total-ops').textContent = logs.length;
+        }
+
+        function abrirDetalhesRelatorio(index) {
+            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
+            let l = logs[index];
+            if(!l) return;
+
+            let conteudo = `
+                <p><b>Tipo:</b> ${l.tipo}</p>
+                <p><b>Operário:</b> ${l.operario || 'N/A'}</p>
+                <p><b>Cliente:</b> ${l.cliente || 'N/A'} (${l.contacto || 'N/A'})</p>
+                <p><b>Atividade:</b> ${l.atividade || 'N/A'}</p>
+                <p><b>Imóvel:</b> ${l.imovel || 'N/A'}</p>
+                <p><b>Zona / Bairro:</b> ${l.zona || 'N/A'}, ${l.bairro || 'N/A'}</p>
+                <p><b>Coordenadas GPS:</b> Lat: ${l.gps?.lat || '--'}, Lng: ${l.gps?.lng || '--'}</p>
+                <p><b>Notas do Operário:</b> ${l.notasOperario || 'Nenhuma nota'}</p>
+                <p><b>Estado da Obra:</b> ${l.estadoObra || 'N/A'}</p>
+                <p><b>Data:</b> ${l.data}</p>
+            `;
+            document.getElementById('conteudo-detalhes-relatorio').innerHTML = conteudo;
+            document.getElementById('modal-detalhes-relatorio').classList.remove('hidden');
+        }
+
+        function fecharModalDetalhesRelatorio() {
+            document.getElementById('modal-detalhes-relatorio').classList.add('hidden');
         }
 
         function renderizarTabelasAdmin() {
@@ -1637,6 +1908,7 @@
         function limparApenasHistorico() { alert('🧹 Todo o histórico foi limpo!'); }
 
         window.onload = function() {
+            carregarDefinicoesGlobaisNaUI();
             renderizarCatalogoMateriais();
             renderizarBalcãoVendas();
             atualizarCalculos();
