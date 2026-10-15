@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - ERP & Monitorização GPS em Tempo Real</title>
+    <title>ELECTRO HONÁRIO & SERVIÇOS SU, LDA. - ERP, RH & Monitorização GPS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -34,7 +34,7 @@
                     ELECTRO HONÁRIO & SERVIÇOS 
                     <span class="text-amber-500 text-xs px-2 py-0.5 bg-amber-500/10 rounded-full border border-amber-500/30">NUIT: 402027037</span>
                 </h1>
-                <p class="text-xs text-slate-400">Sistema ERP com Rastreamento GPS, Operações de Campo & M-Pesa / e-Mola</p>
+                <p class="text-xs text-slate-400">Sistema ERP, Rastreamento GPS, Gestão de RH & Operações M-Pesa / e-Mola</p>
             </div>
         </div>
         
@@ -103,13 +103,14 @@
                     </div>
                 </div>
 
+                <!-- MENU DE ABAS COM RESTRIÇÃO DE PRIVACIDADE -->
                 <div class="flex items-center gap-2 flex-wrap">
                     <button onclick="mudarAba('campo')" id="tab-btn-campo" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5">
-                        <i class="fa-solid fa-location-crosshairs"></i> App Campo (GPS / Registo)
+                        <i class="fa-solid fa-location-crosshairs"></i> App Campo (GPS)
                     </button>
 
                     <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-satellite-dish"></i> Monitor GPS Tempo Real
+                        <i class="fa-solid fa-satellite-dish"></i> Monitor GPS
                     </button>
 
                     <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition">
@@ -118,6 +119,10 @@
                     
                     <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="hidden px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition">
                         <i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão (POS)
+                    </button>
+
+                    <button onclick="mudarAba('rh')" id="tab-btn-rh" class="hidden px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-semibold text-xs rounded-xl transition border border-indigo-500/30">
+                        <i class="fa-solid fa-id-card mr-1.5"></i> Gestão de RH (Funcionários)
                     </button>
 
                     <button onclick="mudarAba('relatorios')" id="tab-btn-relatorios" class="hidden px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition">
@@ -505,6 +510,132 @@
                 </div>
             </div>
 
+            <!-- NOVA ABA: RECURSOS HUMANOS (RH) & DADOS PESSOAIS DOS FUNCIONÁRIOS -->
+            <div id="tab-rh" class="hidden space-y-6">
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
+                    <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
+                        <div>
+                            <h4 class="font-bold text-base text-indigo-400 flex items-center gap-2">
+                                <i class="fa-solid fa-id-card"></i> Quadro de Funcionários & Fichas Individuais de RH
+                            </h4>
+                            <p class="text-xs text-slate-400">Selecione um funcionário registado para gerir a sua identificação oficial, fotografia, BI, morada e dados contratuais.</p>
+                        </div>
+                        <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs px-3 py-1 rounded-full font-bold">Módulo de RH & Privacidade</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- LISTA DE FUNCIONÁRIOS -->
+                        <div class="lg:col-span-1 bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+                            <h5 class="font-bold text-xs uppercase text-amber-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-users-gear"></i> Lista de Utilizadores do Sistema
+                            </h5>
+                            <div id="rh-lista-funcionarios" class="space-y-2 max-h-[450px] overflow-y-auto pr-1 text-xs"></div>
+                        </div>
+
+                        <!-- PAINEL DETALHADO DO FUNCIONÁRIO SELECIONADO -->
+                        <div class="lg:col-span-2 bg-slate-950 p-6 rounded-xl border border-slate-800 space-y-6 text-xs">
+                            <div id="rh-detalhes-container" class="hidden space-y-6">
+                                
+                                <!-- CABEÇALHO COM FOTO DO WINDOWS -->
+                                <div class="flex flex-col sm:flex-row items-center gap-6 bg-slate-900 p-4 rounded-xl border border-slate-800">
+                                    <div class="relative group">
+                                        <div id="rh-foto-preview" class="w-28 h-28 rounded-2xl bg-slate-950 border-2 border-indigo-500/40 flex items-center justify-center overflow-hidden shadow-inner">
+                                            <i class="fa-solid fa-user text-4xl text-slate-700"></i>
+                                        </div>
+                                        <label for="rh-input-foto" class="absolute bottom-0 right-0 bg-indigo-600 hover:bg-indigo-500 text-white p-2 rounded-xl cursor-pointer shadow-lg transition" title="Carregar Foto do Computador">
+                                            <i class="fa-solid fa-camera"></i>
+                                        </label>
+                                        <input type="file" id="rh-input-foto" accept="image/*" onchange="carregarFotoFuncionario(event)" class="hidden">
+                                    </div>
+                                    <div class="text-center sm:text-left space-y-1">
+                                        <h3 id="rh-nome-titulo" class="text-lg font-black text-white">--</h3>
+                                        <div class="flex flex-wrap justify-center sm:justify-start gap-2 pt-1">
+                                            <span id="rh-role-badge" class="bg-indigo-500/20 text-indigo-400 border border-indigo-500/40 px-2.5 py-0.5 rounded-full font-bold">--</span>
+                                            <span id="rh-user-badge" class="bg-slate-800 text-slate-300 px-2.5 py-0.5 rounded-full font-mono">--</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- FORMULÁRIO DE FICHA DADOS GOVERNAMENTAIS / PESSOAIS -->
+                                <form onsubmit="guardarFichaRH(event)" class="space-y-4">
+                                    <input type="hidden" id="rh-user-id">
+
+                                    <h5 class="font-bold text-amber-400 uppercase tracking-wider border-b border-slate-800 pb-1 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-address-card"></i> Identificação Oficial & Governamental
+                                    </h5>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <div>
+                                            <label class="block font-semibold text-slate-400 mb-1">Nome Completo Oficial *</label>
+                                            <input type="text" id="rh-nome-completo" required class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                        </div>
+                                        <div>
+                                            <label class="block font-semibold text-slate-400 mb-1">Número do BI (Bilhete de Identidade) *</label>
+                                            <input type="text" id="rh-num-bi" placeholder="Ex: 110100234123M" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
+                                        </div>
+                                        <div>
+                                            <label class="block font-semibold text-slate-400 mb-1">NUIT Pessoal *</label>
+                                            <input type="text" id="rh-num-nuit" placeholder="Ex: 102938475" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
+                                        </div>
+                                        <div>
+                                            <label class="block font-semibold text-slate-400 mb-1">Data de Nascimento</label>
+                                            <input type="date" id="rh-data-nasc" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                        </div>
+                                    </div>
+
+                                    <h5 class="font-bold text-amber-400 uppercase tracking-wider border-b border-slate-800 pb-1 flex items-center gap-1.5 pt-2">
+                                        <i class="fa-solid fa-location-dot"></i> Contactos & Morada de Residência
+                                    </h5>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <div>
+                                            <label class="block font-semibold text-slate-400 mb-1">Telefone Principal *</label>
+                                            <input type="text" id="rh-telefone" placeholder="+258 84 000 0000" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
+                                        </div>
+                                        <div>
+                                            <label class="block font-semibold text-slate-400 mb-1">Endereço de E-mail</label>
+                                            <input type="email" id="rh-email" placeholder="funcionario@electrohonario.co.mz" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                        </div>
+                                        <div>
+                                            <label class="block font-semibold text-slate-400 mb-1">Cidade / Província</label>
+                                            <input type="text" id="rh-cidade" placeholder="Ex: Maputo" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                        </div>
+                                        <div>
+                                            <label class="block font-semibold text-slate-400 mb-1">Bairro & Av. / Rua / Casa *</label>
+                                            <input type="text" id="rh-morada" placeholder="Ex: Bairro Polana, Av. Eduardo Mondlane, Nº 120" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                        </div>
+                                    </div>
+
+                                    <h5 class="font-bold text-amber-400 uppercase tracking-wider border-b border-slate-800 pb-1 flex items-center gap-1.5 pt-2">
+                                        <i class="fa-solid fa-briefcase"></i> Contrato & Dados Laborais
+                                    </h5>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <div>
+                                            <label class="block font-semibold text-slate-400 mb-1">Data de Admissão / Entrada</label>
+                                            <input type="date" id="rh-data-admissao" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                        </div>
+                                        <div>
+                                            <label class="block font-semibold text-slate-400 mb-1">Salário Base (MT)</label>
+                                            <input type="number" step="0.01" id="rh-salario" placeholder="Ex: 25000.00" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-end pt-3">
+                                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition flex items-center gap-2">
+                                            <i class="fa-solid fa-floppy-disk"></i>
+                                            <span>Guardar Ficha de RH na Nuvem</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div id="rh-sem-selecao" class="text-center py-16 text-slate-500 space-y-2">
+                                <i class="fa-solid fa-user-gear text-4xl text-slate-700"></i>
+                                <p class="text-xs">Selecione um funcionário na lista à esquerda para visualizar e editar os dados completos de identificação.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- ABA 3: RELATÓRIOS & LUCROS -->
             <div id="tab-relatorios" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
@@ -558,10 +689,10 @@
                         <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-bold">Dono / Administrador</span>
                     </div>
 
-                    <!-- CRIAR NOVO UTILIZADOR -->
+                    <!-- CRIAR NOVO UTILIZADOR COM HIERARQUIA DE FUNÇÕES -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
-                            <i class="fa-solid fa-user-plus"></i> Criar Novo Utilizador / Técnico no Sistema
+                            <i class="fa-solid fa-user-plus"></i> Criar Novo Utilizador / Função no Sistema
                         </h5>
                         <form onsubmit="criarNovoUtilizador(event)" class="grid grid-cols-1 md:grid-cols-4 gap-3">
                             <div>
@@ -577,11 +708,12 @@
                                 <input type="password" id="novo-user-pass" required placeholder="••••••••" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                             </div>
                             <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Função / Nível de Acesso</label>
+                                <label class="block font-semibold text-slate-400 mb-1">Função / Categoria de Acesso *</label>
                                 <select id="novo-user-role" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-amber-400 font-bold">
                                     <option value="tecnico">Técnico de Campo (App + GPS)</option>
                                     <option value="vendas">Operador de Balcão (POS)</option>
-                                    <option value="admin">Administrador (Acesso Total)</option>
+                                    <option value="gerente">Director / Gerente (Monitorização + POS)</option>
+                                    <option value="admin">Administrador / Chefe (Acesso Total)</option>
                                 </select>
                             </div>
                             <div class="md:col-span-4 flex justify-end pt-1">
@@ -724,13 +856,14 @@
 
     <!-- RODAPÉ -->
     <footer class="bg-slate-900 border-t border-slate-800 py-3 text-center text-xs text-slate-500">
-        ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema ERP Cloud & App Campo
+        ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema ERP Cloud, RH & App Campo
     </footer>
 
-    <!-- SCRIPT UNIFICADO -->
+    <!-- SCRIPT UNIFICADO COM FUNCIONALIDADES DE RH -->
     <script>
         let operadoraCloudAtual = 'M-Pesa';
         let coordenadasGPSAtuais = { lat: -25.9692, lng: 32.5732, precisao: 'Maputo (GPS Padrão)' };
+        let funcionarioRHSelecionadoId = null;
 
         function atualizarRelogio() {
             const agora = new Date();
@@ -950,13 +1083,35 @@
             container.innerHTML = html;
         }
 
-        // --- GESTÃO DE UTILIZADORES (TOTALMENTE INTEGRADA) ---
+        // --- GESTÃO DE UTILIZADORES & NÍVEIS DE PRIVACIDADE ---
         function obterUtilizadoresDoSistema() {
             let users = localStorage.getItem('electro_honario_users');
             if (!users || JSON.parse(users).length === 0) {
                 const adminPredefinido = [
-                    { id: 1, user: 'alberto', pass: 'mugabe', nome: 'Alberto Mugabe (Administrador)', role: 'admin', online: false },
-                    { id: 2, user: 'operario1', pass: '1234', nome: 'João Operário (Técnico de Campo)', role: 'tecnico', online: false }
+                    { 
+                        id: 1, 
+                        user: 'alberto', 
+                        pass: 'mugabe', 
+                        nome: 'Alberto Mugabe (Administrador Geral)', 
+                        role: 'admin', 
+                        online: false,
+                        bi: '110100293841M',
+                        nuit: '402027037',
+                        telefone: '+258 84 649 4014',
+                        morada: 'Cidade de Maputo, Bairro Central'
+                    },
+                    { 
+                        id: 2, 
+                        user: 'operario1', 
+                        pass: '1234', 
+                        nome: 'João Operário (Técnico de Campo)', 
+                        role: 'tecnico', 
+                        online: false,
+                        bi: '110293847561B',
+                        nuit: '102938475',
+                        telefone: '+258 84 123 4567',
+                        morada: 'Maputo, Bairro Polana Cimento'
+                    }
                 ];
                 localStorage.setItem('electro_honario_users', JSON.stringify(adminPredefinido));
                 return adminPredefinido;
@@ -982,23 +1137,31 @@
                 return;
             }
 
+            let labelRole = role === 'admin' ? 'Administrador' : role === 'gerente' ? 'Director / Gerente' : role === 'vendas' ? 'Operador POS' : 'Técnico de Campo';
+
             const novoUser = {
                 id: Date.now(),
                 user: username,
                 pass: pass,
-                nome: `${nome} (${role === 'admin' ? 'Administrador' : role === 'tecnico' ? 'Técnico de Campo' : 'Balcão POS'})`,
+                nome: `${nome} (${labelRole})`,
                 role: role,
-                online: false
+                online: false,
+                bi: '',
+                nuit: '',
+                telefone: '',
+                morada: '',
+                foto: ''
             };
 
             listaUsers.push(novoUser);
             localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
-            alert(`✅ Utilizador "${nome}" adicionado com sucesso!`);
+            alert(`✅ Utilizador "${nome}" criado com sucesso!`);
             
             document.getElementById('novo-user-nome').value = '';
             document.getElementById('novo-user-username').value = '';
             document.getElementById('novo-user-pass').value = '';
             renderizarTabelasAdmin();
+            renderizarListaRH();
         }
 
         function removerUtilizador(idUser) {
@@ -1012,6 +1175,7 @@
                 listaUsers = listaUsers.filter(u => u.id !== idUser);
                 localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
                 renderizarTabelasAdmin();
+                renderizarListaRH();
             }
         }
 
@@ -1022,7 +1186,7 @@
             const erroEl = document.getElementById('login-error');
 
             if (inputUser === 'alberto' && inputPass === 'mugabe') {
-                const adminUser = { id: 1, user: 'alberto', pass: 'mugabe', nome: 'Alberto Mugabe (Administrador)', role: 'admin', online: true };
+                const adminUser = { id: 1, user: 'alberto', pass: 'mugabe', nome: 'Alberto Mugabe (Administrador Geral)', role: 'admin', online: true };
                 localStorage.setItem('electro_honario_sessao_atual', JSON.stringify(adminUser));
                 ativarSessao(adminUser);
                 return;
@@ -1053,22 +1217,33 @@
             document.getElementById('welcome-msg').textContent = `Bem-vindo, ${userObj.nome || userObj.user}`;
 
             const btnVendas = document.getElementById('tab-btn-vendas');
+            const btnRH = document.getElementById('tab-btn-rh');
             const btnRelatorios = document.getElementById('tab-btn-relatorios');
             const btnAdmin = document.getElementById('tab-btn-admin');
 
+            // HIERARQUIA DE PRIVACIDADE E CONTROLO DE ABAS
             if (userObj.role === 'admin') {
-                document.getElementById('role-desc').textContent = 'Administrador Geral (Acesso Total)';
+                document.getElementById('role-desc').textContent = 'Administrador Geral / Chefe (Acesso Total)';
                 btnVendas.classList.remove('hidden');
+                btnRH.classList.remove('hidden');
                 btnRelatorios.classList.remove('hidden');
                 btnAdmin.classList.remove('hidden');
-            } else if (userObj.role === 'vendas') {
-                document.getElementById('role-desc').textContent = 'Operador de Balcão (POS)';
+            } else if (userObj.role === 'gerente') {
+                document.getElementById('role-desc').textContent = 'Director / Gerente (Supervisão & Operações)';
                 btnVendas.classList.remove('hidden');
+                btnRH.classList.remove('hidden');
+                btnRelatorios.classList.remove('hidden');
+                btnAdmin.classList.add('hidden');
+            } else if (userObj.role === 'vendas') {
+                document.getElementById('role-desc').textContent = 'Operador de Balcão (Vendas Directas POS)';
+                btnVendas.classList.remove('hidden');
+                btnRH.classList.add('hidden');
                 btnRelatorios.classList.add('hidden');
                 btnAdmin.classList.add('hidden');
             } else {
-                document.getElementById('role-desc').textContent = 'Operário / Técnico de Campo';
+                document.getElementById('role-desc').textContent = 'Técnico de Campo (Operação GPS)';
                 btnVendas.classList.add('hidden');
+                btnRH.classList.add('hidden');
                 btnRelatorios.classList.add('hidden');
                 btnAdmin.classList.add('hidden');
             }
@@ -1079,6 +1254,7 @@
             renderizarCatalogoMateriais();
             renderizarBalcãoVendas();
             renderizarTabelasAdmin();
+            renderizarListaRH();
         }
 
         function terminarSessao() {
@@ -1087,7 +1263,7 @@
         }
 
         function mudarAba(aba) {
-            const tabs = ['campo', 'monitor', 'orcamentos', 'vendas', 'relatorios', 'admin'];
+            const tabs = ['campo', 'monitor', 'orcamentos', 'vendas', 'rh', 'relatorios', 'admin'];
             tabs.forEach(t => {
                 const el = document.getElementById(`tab-${t}`);
                 if(el) el.classList.add('hidden');
@@ -1101,8 +1277,120 @@
             if(btnAtivo) btnAtivo.className = 'px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow';
 
             if(aba === 'monitor') renderizarMonitorizacaoCampo();
+            if(aba === 'rh') renderizarListaRH();
             if(aba === 'relatorios') renderizarRelatorios();
             if(aba === 'admin') renderizarTabelasAdmin();
+        }
+
+        // --- MÓDULO DE RH & DADOS PESSOAIS DOS FUNCIONÁRIOS ---
+        function renderizarListaRH() {
+            const container = document.getElementById('rh-lista-funcionarios');
+            if(!container) return;
+
+            let users = obterUtilizadoresDoSistema();
+            let html = '';
+
+            users.forEach(u => {
+                let badgeClass = u.role === 'admin' ? 'text-amber-400 bg-amber-500/10' : u.role === 'gerente' ? 'text-indigo-400 bg-indigo-500/10' : 'text-emerald-400 bg-emerald-500/10';
+                
+                html += `
+                    <div onclick="selecionarFuncionarioRH(${u.id})" class="p-3 bg-slate-900 border border-slate-800 hover:border-indigo-500/50 rounded-xl cursor-pointer transition flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-9 h-9 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-indigo-400 overflow-hidden">
+                                ${u.foto ? `<img src="${u.foto}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-user"></i>`}
+                            </div>
+                            <div>
+                                <span class="font-bold text-white block text-xs">${u.nome}</span>
+                                <span class="text-[10px] text-slate-400 font-mono">@${u.user}</span>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded ${badgeClass}">${u.role}</span>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function selecionarFuncionarioRH(idUser) {
+            funcionarioRHSelecionadoId = idUser;
+            let users = obterUtilizadoresDoSistema();
+            let u = users.find(x => x.id === idUser);
+
+            if(!u) return;
+
+            document.getElementById('rh-sem-selecao').classList.add('hidden');
+            document.getElementById('rh-detalhes-container').classList.remove('hidden');
+
+            document.getElementById('rh-user-id').value = u.id;
+            document.getElementById('rh-nome-titulo').textContent = u.nome;
+            document.getElementById('rh-role-badge').textContent = u.role.toUpperCase();
+            document.getElementById('rh-user-badge').textContent = '@' + u.user;
+
+            document.getElementById('rh-nome-completo').value = u.nomeCompleto || u.nome || '';
+            document.getElementById('rh-num-bi').value = u.bi || '';
+            document.getElementById('rh-num-nuit').value = u.nuit || '';
+            document.getElementById('rh-data-nasc').value = u.dataNascimento || '';
+            document.getElementById('rh-telefone').value = u.telefone || '';
+            document.getElementById('rh-email').value = u.email || '';
+            document.getElementById('rh-cidade').value = u.cidade || '';
+            document.getElementById('rh-morada').value = u.morada || '';
+            document.getElementById('rh-data-admissao').value = u.dataAdmissao || '';
+            document.getElementById('rh-salario').value = u.salario || '';
+
+            const preview = document.getElementById('rh-foto-preview');
+            if(u.foto) {
+                preview.innerHTML = `<img src="${u.foto}" class="w-full h-full object-cover">`;
+            } else {
+                preview.innerHTML = `<i class="fa-solid fa-user text-4xl text-slate-700"></i>`;
+            }
+        }
+
+        function carregarFotoFuncionario(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Foto = e.target.result;
+                document.getElementById('rh-foto-preview').innerHTML = `<img src="${base64Foto}" class="w-full h-full object-cover">`;
+
+                if(funcionarioRHSelecionadoId) {
+                    let users = obterUtilizadoresDoSistema();
+                    let idx = users.findIndex(u => u.id === funcionarioRHSelecionadoId);
+                    if(idx !== -1) {
+                        users[idx].foto = base64Foto;
+                        localStorage.setItem('electro_honario_users', JSON.stringify(users));
+                        renderizarListaRH();
+                    }
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function guardarFichaRH(event) {
+            event.preventDefault();
+            if(!funcionarioRHSelecionadoId) return;
+
+            let users = obterUtilizadoresDoSistema();
+            let idx = users.findIndex(u => u.id === funcionarioRHSelecionadoId);
+
+            if(idx !== -1) {
+                users[idx].nomeCompleto = document.getElementById('rh-nome-completo')?.value;
+                users[idx].bi = document.getElementById('rh-num-bi')?.value;
+                users[idx].nuit = document.getElementById('rh-num-nuit')?.value;
+                users[idx].dataNascimento = document.getElementById('rh-data-nasc')?.value;
+                users[idx].telefone = document.getElementById('rh-telefone')?.value;
+                users[idx].email = document.getElementById('rh-email')?.value;
+                users[idx].cidade = document.getElementById('rh-cidade')?.value;
+                users[idx].morada = document.getElementById('rh-morada')?.value;
+                users[idx].dataAdmissao = document.getElementById('rh-data-admissao')?.value;
+                users[idx].salario = document.getElementById('rh-salario')?.value;
+
+                localStorage.setItem('electro_honario_users', JSON.stringify(users));
+                alert('✅ Ficha e dados de RH guardados com sucesso na nuvem!');
+                renderizarListaRH();
+            }
         }
 
         // --- GESTÃO DE MATERIAIS SOCOAL ---
@@ -1328,7 +1616,7 @@
                         <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg border border-slate-800">
                             <div>
                                 <span class="font-bold text-white block">${u.nome}</span>
-                                <span class="text-[10px] text-amber-400 font-mono">Username: ${u.user} | Nível: ${u.role}</span>
+                                <span class="text-[10px] text-amber-400 font-mono">Username: ${u.user} | Função: ${u.role}</span>
                             </div>
                             <div class="flex items-center space-x-3">
                                 ${st}
