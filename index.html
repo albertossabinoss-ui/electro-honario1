@@ -69,7 +69,7 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="flex-grow flex items-center justify-center p-4">
         
-        <!-- TELA DE LOGIN SEGURA (SEM CREDENCIAIS EXPOSTAS) -->
+        <!-- TELA DE LOGIN SEGURA -->
         <div id="login-screen" class="w-full max-w-md bg-slate-900/90 backdrop-blur-md border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
             <div class="text-center space-y-2">
                 <div id="login-logo-container" class="inline-block rounded-full mb-2 border border-amber-500/20 shadow-inner overflow-hidden w-16 h-16 flex items-center justify-center mx-auto bg-slate-900">
@@ -121,7 +121,7 @@
                 </button>
             </div>
 
-            <!-- ABA 0: APP DE CAMPO COM GPS & PROTOCOLO DE CÂMARA EM TEMPO REAL -->
+            <!-- ABA 0: APP DE CAMPO COM GPS -->
             <div id="tab-campo" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-3 gap-2">
@@ -225,7 +225,7 @@
 
                     <div id="wizard-step-3" class="hidden bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-camera"></i> Passo 3: Zona, Câmara em Tempo Real (Até 10 Fotos Opcionais) & Notas de Informação
+                            <i class="fa-solid fa-camera"></i> Passo 3: Zona, Câmara em Tempo Real & Notas de Informação
                         </h5>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -241,7 +241,7 @@
                                 <div class="flex flex-wrap justify-between items-center gap-2">
                                     <div>
                                         <label class="block font-bold text-amber-400">Captura de Câmara em Tempo Real (Início da Obra)</label>
-                                        <span class="text-[10px] text-slate-400">Ativar câmara do telemóvel/computador. Não obrigatório (Máximo 10 fotos).</span>
+                                        <span class="text-[10px] text-slate-400">Ativar câmara do telemóvel/computador (Máximo 10 fotos).</span>
                                     </div>
                                     <label class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded-xl cursor-pointer shadow transition flex items-center gap-2">
                                         <i class="fa-solid fa-camera-retro"></i>
@@ -255,8 +255,8 @@
                             </div>
 
                             <div class="md:col-span-2">
-                                <label class="block font-semibold text-slate-400 mb-1">Notas Informativas / Observações para os Directores ou Chefes:</label>
-                                <textarea id="campo-notas-informacao" rows="3" placeholder="Insira detalhes adicionais sobre o andamento do trabalho, pendências ou avisos..." class="w-full p-3 bg-slate-900 border border-slate-800 rounded-xl text-white"></textarea>
+                                <label class="block font-semibold text-slate-400 mb-1">Notas Informativas / Observações do Técnico para os Directores:</label>
+                                <textarea id="campo-notas-informacao" rows="3" placeholder="Insira detalhes adicionais sobre o andamento do trabalho, pendências ou avisos do técnico..." class="w-full p-3 bg-slate-900 border border-slate-800 rounded-xl text-white"></textarea>
                             </div>
                         </div>
 
@@ -273,34 +273,110 @@
                 </div>
             </div>
 
-            <!-- ABA 0.1: MONITORIZAÇÃO GPS & CONCLUSÃO -->
+            <!-- ABA 0.1: MONITORIZAÇÃO GPS, MAPA & ATIVIDADES DO TÉCNICO -->
             <div id="tab-monitor" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
                         <div>
                             <h4 class="font-bold text-base text-amber-400 flex items-center gap-2">
-                                <i class="fa-solid fa-satellite-dish"></i> Monitorização de Obras, Mapa GPS & Conclusão
+                                <i class="fa-solid fa-satellite-dish"></i> Monitorização de Obras, Mapa GPS, Fotos & Notas do Técnico
                             </h4>
-                            <p class="text-xs text-slate-400">Visualize intervenções geolocalizadas no mapa em tempo real e atualize as obras concluídas.</p>
+                            <p class="text-xs text-slate-400">Acompanhe todas as atividades feitas pelo técnico no campo, localizações GPS, fotografias e notas enviadas.</p>
                         </div>
                         <button onclick="renderizarMonitorizacaoCampo()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-2 px-4 rounded-xl text-xs transition flex items-center gap-2">
                             <i class="fa-solid fa-rotate"></i> Atualizar Monitorização Nuvem
                         </button>
                     </div>
 
-                    <!-- MAPA INTERATIVO LEAFLET / OPENSTREETMAP -->
-                    <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
-                        <h5 class="font-bold text-xs uppercase text-amber-400 flex items-center gap-2">
-                            <i class="fa-solid fa-map-location-dot"></i> Mapa de Operações de Campo (GPS Interativo)
-                        </h5>
-                        <div id="mapa-gps-interativo" class="w-full h-[350px] rounded-xl border border-slate-800 z-10"></div>
+                    <!-- MAPA COMPACTO COM VISUALIZAÇÃO EM DETALHES -->
+                    <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-bold text-xs uppercase text-amber-400 flex items-center gap-2">
+                                <i class="fa-solid fa-map-location-dot"></i> Mapa de Operações de Campo (Ângulo Ajustado / GPS Detalhado)
+                            </h5>
+                            <span class="text-[10px] text-slate-400">Use os botões de Zoom (+ / -) para visualizar detalhes do local.</span>
+                        </div>
+                        <div id="mapa-gps-interativo" class="w-full h-[220px] rounded-xl border border-slate-800 z-10 shadow-inner"></div>
                     </div>
 
-                    <div id="lista-atividades-monitorizadas" class="space-y-4 max-h-[400px] overflow-y-auto pr-2"></div>
+                    <div class="space-y-3">
+                        <h5 class="font-bold text-xs uppercase text-slate-300 flex items-center gap-2">
+                            <i class="fa-solid fa-clipboard-check text-amber-500"></i> Atividades, Fotos & Notas Registadas pelo Técnico
+                        </h5>
+                        <div id="lista-atividades-monitorizadas" class="space-y-4 max-h-[450px] overflow-y-auto pr-2"></div>
+                    </div>
                 </div>
             </div>
 
-            <!-- MODAL PARA ADICIONAR FOTOS DE TRABALHO ACABADO E NOTAS FINAIS -->
+            <!-- NOVA ABA: GRÁFICOS DE MONITORIZAÇÃO DETALHADA -->
+            <div id="tab-graficos" class="hidden space-y-6">
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
+                    <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
+                        <div>
+                            <h4 class="font-bold text-base text-amber-400 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-column"></i> Gráficos de Monitorização Detalhada & Cumprimento de Metas
+                            </h4>
+                            <p class="text-xs text-slate-400">Análise gráfica de desempenho de intervenções no campo, obras executadas e taxas de sucesso.</p>
+                        </div>
+                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-bold">Painel Analítico</span>
+                    </div>
+
+                    <!-- LEGENDA DE CUMPIRMENTO DE META -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+                        <span class="font-bold text-white uppercase"><i class="fa-solid fa-bullseye text-amber-500 mr-1.5"></i> Cumprimento de Meta:</span>
+                        <div class="flex flex-wrap gap-4 text-[11px]">
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> ≥ 100%</span>
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-green-400"></span> 80-99%</span>
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-400"></span> 50-79%</span>
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-orange-500"></span> 25-49%</span>
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500"></span> < 25%</span>
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-slate-500"></span> Sem dados</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
+                            <h5 class="font-bold text-xs uppercase text-amber-400 border-b border-slate-800 pb-2">Status das Intervenções de Campo</h5>
+                            <div class="space-y-3 text-xs">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span>Obras Concluídas</span>
+                                        <span id="grafico-pct-concluidas" class="font-bold text-emerald-400">0%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-900 rounded-full h-3 border border-slate-800 overflow-hidden">
+                                        <div id="bar-concluidas" class="bg-emerald-500 h-full transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span>Obras Em Execução</span>
+                                        <span id="grafico-pct-execucao" class="font-bold text-amber-400">0%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-900 rounded-full h-3 border border-slate-800 overflow-hidden">
+                                        <div id="bar-execucao" class="bg-amber-500 h-full transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
+                            <h5 class="font-bold text-xs uppercase text-amber-400 border-b border-slate-800 pb-2">Resumo Geral de Volume</h5>
+                            <div class="grid grid-cols-2 gap-3 text-center">
+                                <div class="bg-slate-900 p-3 rounded-xl border border-slate-800">
+                                    <span class="text-[10px] text-slate-400 uppercase font-semibold block">Total de Intervenções</span>
+                                    <span id="grafico-total-obras" class="text-2xl font-black text-amber-400 font-mono">0</span>
+                                </div>
+                                <div class="bg-slate-900 p-3 rounded-xl border border-slate-800">
+                                    <span class="text-[10px] text-slate-400 uppercase font-semibold block">Técnicos Ativos</span>
+                                    <span id="grafico-total-tecnicos" class="text-2xl font-black text-indigo-400 font-mono">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL PARA CONCLUIR OBRA -->
             <div id="modal-concluir-obra" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
                 <div class="bg-slate-900 border-2 border-emerald-500 p-6 rounded-2xl max-w-lg w-full space-y-4 shadow-2xl text-xs">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-2">
@@ -544,7 +620,7 @@
                             <h4 class="font-bold text-base text-indigo-400 flex items-center gap-2">
                                 <i class="fa-solid fa-id-card"></i> Quadro de Funcionários & Fichas Individuais de RH
                             </h4>
-                            <p class="text-xs text-slate-400">Clique na foto do funcionário para ampliá-la e gire/edite os dados oficiais e governamentais.</p>
+                            <p class="text-xs text-slate-400">Clique na foto do funcionário para ampliá-la e gira/edite os dados oficiais e governamentais.</p>
                         </div>
                         <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs px-3 py-1 rounded-full font-bold">Módulo de RH & Privacidade</span>
                     </div>
@@ -657,15 +733,15 @@
                 </div>
             </div>
 
-            <!-- ABA 3: RELATÓRIOS -->
+            <!-- ABA 3: RELATÓRIOS & RESUMO DIÁRIO CONSOLIDADO -->
             <div id="tab-relatorios" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
                         <div>
                             <h4 class="font-bold text-base text-amber-400">
-                                <i class="fa-solid fa-chart-pie mr-2"></i> Relatórios Financeiros, Faturamento & Sincronização Nuvem
+                                <i class="fa-solid fa-chart-pie mr-2"></i> Relatórios Financeiros, Resumo Diário & Atividades Globais
                             </h4>
-                            <p class="text-xs text-slate-400">Clique em qualquer registo do histórico para abrir os detalhes completos da operação</p>
+                            <p class="text-xs text-slate-400">Consolidado diário completo de tudo o que aconteceu no app de campo e no sistema geral.</p>
                         </div>
                         <button onclick="exportarRelatorioCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-xs transition flex items-center gap-2 shadow">
                             <i class="fa-solid fa-file-excel"></i> Exportar Relatório Executivo (CSV)
@@ -690,8 +766,18 @@
                         </div>
                     </div>
 
+                    <!-- CAIXA DE RESUMO DIÁRIO INTEGRADO -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-amber-500/30 space-y-3">
+                        <h5 class="font-bold text-xs uppercase text-amber-400 flex items-center gap-2">
+                            <i class="fa-solid fa-calendar-day"></i> Resumo Diário de Atividades (App + Sistema Geral)
+                        </h5>
+                        <div id="caixa-resumo-diario" class="text-xs text-slate-300 space-y-2">
+                            <!-- Inserido dinamicamente via JS -->
+                        </div>
+                    </div>
+
                     <div class="space-y-3">
-                        <h5 class="font-bold text-xs uppercase text-slate-300">Histórico Financeiro Sincronizado (Clique para Detalhes):</h5>
+                        <h5 class="font-bold text-xs uppercase text-slate-300">Histórico de Operações Sincronizadas (Clique para Detalhes):</h5>
                         <div id="lista-logs" class="space-y-2 max-h-[300px] overflow-y-auto pr-2 text-xs"></div>
                     </div>
                 </div>
@@ -711,22 +797,44 @@
                 </div>
             </div>
 
-            <!-- ABA 4: PAINEL DO ADMINISTRADOR -->
+            <!-- ABA 4: PAINEL DO ADMINISTRADOR (DONO DO SISTEMA) -->
             <div id="tab-admin" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
                         <div>
                             <h4 class="font-bold text-base text-amber-400">
-                                <i class="fa-solid fa-sliders mr-2"></i> Painel de Controlo & Definições Globais do Sistema
+                                <i class="fa-solid fa-sliders mr-2"></i> Painel de Controlo & Definições Globais do Sistema (Dono)
                             </h4>
-                            <p class="text-xs text-slate-400">Personalize títulos, nomes de abas, logótipo da empresa e configure utilizadores.</p>
+                            <p class="text-xs text-slate-400">Personalize títulos, nomes de abas, logótipo da empresa e controle todas as funções.</p>
                         </div>
                         <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-bold">Dono / Administrador</span>
                     </div>
 
+                    <!-- CONTROLO DE AJUSTE DE ABAS DO SISTEMA INTEIRO -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-gears"></i> Definições Globais: Logotipo & Transcrição de Textos do Sistema
+                            <i class="fa-solid fa-border-all"></i> Ajustar Nomes e Visibilidade de Abas no Sistema Inteiro
+                        </h5>
+                        <p class="text-[11px] text-slate-400">Como Dono do Sistema, pode renomear os títulos principais para adaptar à sua empresa.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Título Aba Campo</label>
+                                <input type="text" id="def-nome-aba-campo" value="App Campo (GPS)" class="w-full p-2 bg-slate-900 border border-slate-800 rounded text-white">
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Título Aba Monitor</label>
+                                <input type="text" id="def-nome-aba-monitor" value="Monitor GPS" class="w-full p-2 bg-slate-900 border border-slate-800 rounded text-white">
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Título Aba Gráficos</label>
+                                <input type="text" id="def-nome-aba-graficos" value="Gráficos" class="w-full p-2 bg-slate-900 border border-slate-800 rounded text-white">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
+                        <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-gears"></i> Definições Globais: Logotipo & Transcrição de Textos
                         </h5>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -911,7 +1019,7 @@
         <span id="footer-empresa-txt">ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema ERP Cloud, RH & App Campo</span>
     </footer>
 
-    <!-- SCRIPT GERAL UNIFICADO COM SUPORTE PWA & MAPAS -->
+    <!-- SCRIPT GERAL UNIFICADO COM TODAS AS NOVAS FUNÇÕES -->
     <script>
         let operadoraCloudAtual = 'M-Pesa';
         let coordenadasGPSAtuais = { lat: -25.9692, lng: 32.5732, precisao: 'Maputo (GPS Padrão)' };
@@ -921,7 +1029,7 @@
         let mapaLeafletInstance = null;
         let marcadoresMapaLayer = null;
 
-        // Registo do Service Worker para suporte PWA e offline
+        // Registo do Service Worker para suporte PWA
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(`
@@ -1152,7 +1260,7 @@
             });
 
             const sessao = obterSessaoAtual();
-            const operarioNome = sessao ? (sessao.nome || sessao.user) : 'Operário Campo';
+            const operarioNome = sessao ? (sessao.nome || sessao.user) : 'Técnico de Campo';
 
             const novaAtividade = {
                 id: Date.now(),
@@ -1246,13 +1354,13 @@
             document.getElementById('modal-ampliar-foto').classList.add('hidden');
         }
 
-        // INICIALIZAÇÃO E ATUALIZAÇÃO DO MAPA LEAFLET EM TEMPO REAL
+        // INICIALIZAÇÃO E ATUALIZAÇÃO DO MAPA COMPACTO LEAFLET
         function inicializarMapaGPSLeaflet(atividadesCampo) {
             const elMapa = document.getElementById('mapa-gps-interativo');
             if(!elMapa) return;
 
             if(!mapaLeafletInstance) {
-                mapaLeafletInstance = L.map('mapa-gps-interativo').setView([-25.9692, 32.5732], 13);
+                mapaLeafletInstance = L.map('mapa-gps-interativo').setView([-25.9692, 32.5732], 12);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,
                     attribution: '© OpenStreetMap contributors'
@@ -1271,12 +1379,12 @@
 
                     let corPin = a.estadoObra === 'Concluído' ? '🟢' : '🟠';
                     let marker = L.marker([lat, lng]).addTo(marcadoresMapaLayer);
-                    marker.bindPopup(`<b>${corPin} ${a.atividade}</b><br>Cliente: ${a.cliente}<br>Zona: ${a.zona}, ${a.bairro}<br>Estado: ${a.estadoObra}`);
+                    marker.bindPopup(`<b>${corPin} ${a.atividade}</b><br>Técnico: ${a.operario}<br>Cliente: ${a.cliente}<br>Local: ${a.zona}, ${a.bairro}<br>Estado: ${a.estadoObra}`);
                 }
             });
 
             if(bounds.length > 0) {
-                mapaLeafletInstance.fitBounds(bounds, { padding: [50, 50] });
+                mapaLeafletInstance.fitBounds(bounds, { padding: [30, 30] });
             }
         }
 
@@ -1286,11 +1394,11 @@
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
             let atividadesCampo = logs.filter(l => l.tipo === 'Atividade de Campo GPS');
 
-            // Renderizar Mapa Leaflet atualizado
+            // Renderizar Mapa Leaflet Compacto
             inicializarMapaGPSLeaflet(atividadesCampo);
 
             if(atividadesCampo.length === 0) {
-                container.innerHTML = '<div class="bg-slate-950 p-6 rounded-xl border border-slate-800 text-center text-slate-500">Nenhuma obra registada neste momento.</div>';
+                container.innerHTML = '<div class="bg-slate-950 p-6 rounded-xl border border-slate-800 text-center text-slate-500">Nenhuma obra registada pelo técnico até ao momento.</div>';
                 return;
             }
 
@@ -1298,22 +1406,22 @@
             atividadesCampo.forEach(a => {
                 let fotosAntesHtml = '';
                 (a.fotosAntes || []).forEach(f => {
-                    fotosAntesHtml += `<img src="${f}" class="w-16 h-16 object-cover rounded-lg border border-amber-500/30 cursor-pointer hover:scale-105 transition" onclick="abrirModalAmpliarFoto('${f}')">`;
+                    fotosAntesHtml += `<img src="${f}" class="w-16 h-16 object-cover rounded-lg border border-amber-500/40 cursor-pointer hover:scale-105 transition" onclick="abrirModalAmpliarFoto('${f}')">`;
                 });
 
                 let fotosAcabadasHtml = '';
                 (a.fotosAcabadas || []).forEach(f => {
-                    fotosAcabadasHtml += `<img src="${f}" class="w-16 h-16 object-cover rounded-lg border border-emerald-500/30 cursor-pointer hover:scale-105 transition" onclick="abrirModalAmpliarFoto('${f}')">`;
+                    fotosAcabadasHtml += `<img src="${f}" class="w-16 h-16 object-cover rounded-lg border border-emerald-500/40 cursor-pointer hover:scale-105 transition" onclick="abrirModalAmpliarFoto('${f}')">`;
                 });
 
-                let estadoBadge = a.estadoObra === 'Concluído' ? '<span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-bold">Concluído</span>' : '<span class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded font-bold">Em Execução</span>';
+                let estadoBadge = a.estadoObra === 'Concluído' ? '<span class="text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">Concluído</span>' : '<span class="text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded font-bold">Em Execução</span>';
 
                 html += `
                     <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4 text-xs">
-                        <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-2">
+                        <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-2 gap-2">
                             <div>
                                 <span class="text-amber-400 font-bold uppercase tracking-wider text-sm"><i class="fa-solid fa-helmet-safety mr-1.5"></i> ${a.atividade}</span>
-                                <span class="text-slate-400 block mt-0.5">Operário: <strong class="text-white">${a.operario}</strong> | Data: ${a.data} | Estado: ${estadoBadge}</span>
+                                <span class="text-slate-400 block mt-0.5">Técnico em Campo: <strong class="text-white">${a.operario}</strong> | Data: ${a.data} | Estado: ${estadoBadge}</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-3 py-1 rounded-full font-mono font-bold text-[10px]">
@@ -1327,15 +1435,15 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-slate-300">
                             <div><strong>Cliente:</strong> ${a.cliente} (${a.contacto})</div>
                             <div><strong>Imóvel/Zona:</strong> ${a.imovel} | ${a.zona}, ${a.bairro}</div>
-                            <div><strong>Notas Informativas:</strong> <span class="text-amber-300 italic">${a.notasOperario || 'Nenhuma nota informada.'}</span></div>
+                            <div><strong>Notas Informativas do Técnico:</strong> <span class="text-amber-300 italic font-semibold">${a.notasOperario || 'Nenhuma nota informada pelo técnico.'}</span></div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-slate-900">
                             <div>
-                                <span class="block text-amber-400 font-bold mb-1">📸 Fotos Iniciais (Início):</span>
-                                <div class="flex flex-wrap gap-2">${fotosAntesHtml || '<span class="text-slate-500 italic">Sem fotos iniciais</span>'}</div>
+                                <span class="block text-amber-400 font-bold mb-1">📸 Fotos Capturadas no Campo (Início):</span>
+                                <div class="flex flex-wrap gap-2">${fotosAntesHtml || '<span class="text-slate-500 italic">Sem fotos tiradas pelo técnico</span>'}</div>
                             </div>
                             <div>
-                                <span class="block text-emerald-400 font-bold mb-1">📸 Fotos de Trabalho Acabado (Finalizado):</span>
+                                <span class="block text-emerald-400 font-bold mb-1">📸 Fotos de Conclusão (Trabalho Acabado):</span>
                                 <div class="flex flex-wrap gap-2">${fotosAcabadasHtml || '<span class="text-slate-500 italic">Aguardando fotos finais de conclusão</span>'}</div>
                             </div>
                         </div>
@@ -1343,6 +1451,30 @@
                 `;
             });
             container.innerHTML = html;
+        }
+
+        function renderizarGraficosAnaliticos() {
+            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
+            let atividadesCampo = logs.filter(l => l.tipo === 'Atividade de Campo GPS');
+            let total = atividadesCampo.length;
+
+            let concluidas = atividadesCampo.filter(a => a.estadoObra === 'Concluído').length;
+            let execucao = total - concluidas;
+
+            let pctConcluidas = total > 0 ? Math.round((concluidas / total) * 100) : 0;
+            let pctExecucao = total > 0 ? Math.round((execucao / total) * 100) : 0;
+
+            document.getElementById('grafico-pct-concluidas').textContent = `${pctConcluidas}% (${concluidas})`;
+            document.getElementById('bar-concluidas').style.width = `${pctConcluidas}%`;
+
+            document.getElementById('grafico-pct-execucao').textContent = `${pctExecucao}% (${execucao})`;
+            document.getElementById('bar-execucao').style.width = `${pctExecucao}%`;
+
+            document.getElementById('grafico-total-obras').textContent = total;
+
+            let users = obterUtilizadoresDoSistema();
+            let tecnicos = users.filter(u => u.role === 'tecnico' || u.role === 'admin').length;
+            document.getElementById('grafico-total-tecnicos').textContent = tecnicos;
         }
 
         function obterUtilizadoresDoSistema() {
@@ -1485,6 +1617,7 @@
                 htmlAbas = `
                     <button onclick="mudarAba('campo')" id="tab-btn-campo" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-location-crosshairs"></i> App Campo (GPS)</button>
                     <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"><i class="fa-solid fa-satellite-dish"></i> Monitor GPS</button>
+                    <button onclick="mudarAba('graficos')" id="tab-btn-graficos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"><i class="fa-solid fa-chart-column"></i> Gráficos</button>
                     <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras</button>
                     <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão (POS)</button>
                     <button onclick="mudarAba('rh')" id="tab-btn-rh" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-semibold text-xs rounded-xl transition border border-indigo-500/30"><i class="fa-solid fa-id-card mr-1.5"></i> Gestão de RH</button>
@@ -1495,6 +1628,7 @@
                 document.getElementById('role-desc').textContent = 'Director / Gerente (Supervisão & Operações)';
                 htmlAbas = `
                     <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-satellite-dish"></i> Monitor GPS</button>
+                    <button onclick="mudarAba('graficos')" id="tab-btn-graficos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"><i class="fa-solid fa-chart-column"></i> Gráficos</button>
                     <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras</button>
                     <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão (POS)</button>
                     <button onclick="mudarAba('rh')" id="tab-btn-rh" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-semibold text-xs rounded-xl transition border border-indigo-500/30"><i class="fa-solid fa-id-card mr-1.5"></i> Gestão de RH</button>
@@ -1534,7 +1668,7 @@
         }
 
         function mudarAba(aba) {
-            const tabs = ['campo', 'monitor', 'orcamentos', 'vendas', 'rh', 'relatorios', 'admin'];
+            const tabs = ['campo', 'monitor', 'graficos', 'orcamentos', 'vendas', 'rh', 'relatorios', 'admin'];
             tabs.forEach(t => {
                 const el = document.getElementById(`tab-${t}`);
                 if(el) el.classList.add('hidden');
@@ -1551,6 +1685,7 @@
                 renderizarMonitorizacaoCampo();
                 setTimeout(() => { if(mapaLeafletInstance) mapaLeafletInstance.invalidateSize(); }, 200);
             }
+            if(aba === 'graficos') renderizarGraficosAnaliticos();
             if(aba === 'rh') renderizarListaRH();
             if(aba === 'relatorios') renderizarRelatorios();
             if(aba === 'admin') renderizarTabelasAdmin();
@@ -1897,14 +2032,23 @@
 
         function renderizarRelatorios() {
             const container = document.getElementById('lista-logs');
+            const resumoContainer = document.getElementById('caixa-resumo-diario');
             if(!container) return;
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
             let html = '';
             let totalFaturado = 0;
 
+            let contagemHoje = 0;
+            let campoHoje = 0;
+            let vendasHoje = 0;
+
             logs.forEach((l, index) => {
                 let valor = l.faturamentoNumeric || 0;
                 totalFaturado += valor;
+                contagemHoje++;
+                if (l.tipo === 'Atividade de Campo GPS') campoHoje++;
+                else vendasHoje++;
+
                 html += `
                     <div onclick="abrirDetalhesRelatorio(${index})" class="bg-slate-900 p-3 rounded-lg border border-slate-800 hover:border-amber-500/50 cursor-pointer flex justify-between items-center text-xs transition">
                         <div>
@@ -1916,6 +2060,25 @@
                     </div>
                 `;
             });
+
+            if (resumoContainer) {
+                resumoContainer.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                            <span class="text-slate-400 block text-[11px]">Total de Registos Hoje</span>
+                            <span class="text-lg font-bold text-amber-400">${contagemHoje} operações</span>
+                        </div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                            <span class="text-slate-400 block text-[11px]">Atividades de Campo</span>
+                            <span class="text-lg font-bold text-emerald-400">${campoHoje} intervenções</span>
+                        </div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                            <span class="text-slate-400 block text-[11px]">Vendas & Orçamentos</span>
+                            <span class="text-lg font-bold text-indigo-400">${vendasHoje} registos</span>
+                        </div>
+                    </div>
+                `;
+            }
             
             container.innerHTML = html || '<div class="text-slate-500 text-center py-4">Sem registos na nuvem.</div>';
             
@@ -1930,13 +2093,13 @@
 
             let conteudo = `
                 <p><b>Tipo:</b> ${l.tipo}</p>
-                <p><b>Operário:</b> ${l.operario || 'N/A'}</p>
+                <p><b>Operário / Técnico:</b> ${l.operario || 'N/A'}</p>
                 <p><b>Cliente:</b> ${l.cliente || 'N/A'} (${l.contacto || 'N/A'})</p>
                 <p><b>Atividade:</b> ${l.atividade || 'N/A'}</p>
                 <p><b>Imóvel:</b> ${l.imovel || 'N/A'}</p>
                 <p><b>Zona / Bairro:</b> ${l.zona || 'N/A'}, ${l.bairro || 'N/A'}</p>
                 <p><b>Coordenadas GPS:</b> Lat: ${l.gps?.lat || '--'}, Lng: ${l.gps?.lng || '--'}</p>
-                <p><b>Notas do Operário:</b> ${l.notasOperario || 'Nenhuma nota'}</p>
+                <p><b>Notas do Técnico:</b> ${l.notasOperario || 'Nenhuma nota'}</p>
                 <p><b>Estado da Obra:</b> ${l.estadoObra || 'N/A'}</p>
                 <p><b>Data:</b> ${l.data}</p>
             `;
