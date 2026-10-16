@@ -54,14 +54,14 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="flex-grow flex items-center justify-center p-4">
         
-        <!-- TELA DE LOGIN SEGURA (SEM CREDENCIAIS EXPOSTAS) -->
+        <!-- TELA DE LOGIN SEGURA CONFORME PROTOCOLO DE SEGURANÇA -->
         <div id="login-screen" class="w-full max-w-md bg-slate-900/90 backdrop-blur-md border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
             <div class="text-center space-y-2">
                 <div id="login-logo-container" class="inline-block rounded-full mb-2 border border-amber-500/20 shadow-inner overflow-hidden w-16 h-16 flex items-center justify-center mx-auto bg-slate-900">
                     <i class="fa-solid fa-shield-halved text-3xl text-amber-500"></i>
                 </div>
                 <h2 class="text-2xl font-bold tracking-tight text-white">Acesso Restrito ao Sistema</h2>
-                <p class="text-xs text-slate-400">Identifique-se para aceder ao ERP de acordo com a sua categoria</p>
+                <p class="text-xs text-slate-400">Identifique-se para aceder ao ERP de acordo com o seu perfil</p>
             </div>
 
             <form onsubmit="fazerLogin(event)" class="space-y-4">
@@ -79,13 +79,13 @@
                 </button>
             </form>
             
-            <div id="login-error" class="hidden text-center text-red-400 text-xs font-medium bg-red-500/10 border border-red-500/20 p-2.5 rounded-lg">
-                Utilizador ou palavra-passe incorretos. Verifique as credenciais.
+            <div id="login-error" class="hidden text-center text-red-400 text-xs font-semibold bg-red-500/10 border border-red-500/20 p-3 rounded-xl">
+                ⚠️ Credenciais não reconhecidas pelo protocolo de segurança. Por favor, contacte o Administrador do Sistema.
             </div>
         </div>
 
         <!-- PAINEL PRINCIPAL DO APLICATIVO -->
-        <div id="app-dashboard" class="hidden w-full max-w-6xl space-y-6">
+        <div id="app-dashboard" class="hidden w-full max-w-7xl space-y-6">
             
             <!-- BARRA DE NAVEGAÇÃO -->
             <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex flex-wrap justify-between items-center gap-4">
@@ -107,7 +107,83 @@
                 </button>
             </div>
 
-            <!-- ABA 0: APP DE CAMPO COM GPS & PROTOCOLO DE CÂMARA EM TEMPO REAL -->
+            <!-- PAINEL DE NAVEGAÇÃO DE DELEGAÇÕES, AGÊNCIAS & MAPA DE MOÇAMBIQUE -->
+            <div id="painel-mapa-delegacoes" class="grid grid-cols-1 lg:grid-cols-3 gap-6 bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+                <div class="lg:col-span-1 space-y-4 text-xs">
+                    <h4 class="font-bold text-amber-400 text-sm uppercase tracking-wider flex items-center gap-2 border-b border-slate-800 pb-2">
+                        <i class="fa-solid fa-building-flag"></i> Delegações & Agências de Moçambique
+                    </h4>
+                    <div>
+                        <label class="block font-semibold text-slate-400 mb-1">Selecionar Delegação Provincial:</label>
+                        <select id="sel-delegacao" onchange="atualizarAgenciasPorProvincia()" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-xl text-amber-400 font-bold outline-none">
+                            <option value="Maputo">Delegação da Província / Cidade de Maputo</option>
+                            <option value="Matola">Delegação da Matola & Província de Maputo</option>
+                            <option value="Sofala">Delegação de Sofala (Beira)</option>
+                            <option value="Nampula">Delegação de Nampula</option>
+                            <option value="Tete">Delegação de Tete</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-400 mb-1">Agência / Escritório Distrital:</label>
+                        <select id="sel-agencia" onchange="mostrarDetalhesAgencia()" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white outline-none"></select>
+                    </div>
+                    <div id="info-agencia-detalhes" class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
+                        <span class="text-amber-400 font-bold block" id="agencia-nome-lbl">Sede Central - Maputo</span>
+                        <p class="text-slate-400 text-[11px]" id="agencia-endereco-lbl">Av. Eduardo Mondlane, Nº 120, Bairro Central</p>
+                        <span class="text-emerald-400 font-mono text-[10px] block" id="agencia-status-lbl">● Operacional | Ponto Ativo</span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 bg-slate-950 p-4 rounded-xl border border-slate-800 relative min-h-[200px] flex flex-col justify-between">
+                    <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2">
+                        <span class="font-bold text-white uppercase flex items-center gap-2">
+                            <i class="fa-solid fa-map-location-dot text-amber-500"></i> Mapa de Presença da Empresa em Moçambique
+                        </span>
+                        <div class="flex gap-3 text-[11px]">
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span> Escritório Ativo</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Posto de Apoio / Campo</span>
+                        </div>
+                    </div>
+                    
+                    <!-- REPRESENTAÇÃO VISUAL DO MAPA DE MOÇAMBIQUE COM PONTOS -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 my-3 text-xs">
+                        <div class="bg-slate-900 p-2 rounded-lg border border-emerald-500/30 flex items-center justify-between">
+                            <span>📍 Maputo (Sede)</span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded-lg border border-emerald-500/30 flex items-center justify-between">
+                            <span>📍 Matola</span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded-lg border border-emerald-500/30 flex items-center justify-between">
+                            <span>📍 Beira</span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded-lg border border-emerald-500/30 flex items-center justify-between">
+                            <span>📍 Nampula</span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded-lg border border-red-500/30 flex items-center justify-between">
+                            <span>📍 Tete</span>
+                            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded-lg border border-red-500/30 flex items-center justify-between">
+                            <span>📍 Nacala</span>
+                            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded-lg border border-emerald-500/30 flex items-center justify-between">
+                            <span>📍 Pemba</span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded-lg border border-red-500/30 flex items-center justify-between">
+                            <span>📍 Quelimane</span>
+                            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA 0: APP DE CAMPO COM GPS & PROTOCOLO DE CÂMARA -->
             <div id="tab-campo" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-3 gap-2">
@@ -278,243 +354,7 @@
                 </div>
             </div>
 
-            <!-- MODAL PARA ADICIONAR FOTOS DE TRABALHO ACABADO E NOTAS FINAIS -->
-            <div id="modal-concluir-obra" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
-                <div class="bg-slate-900 border-2 border-emerald-500 p-6 rounded-2xl max-w-lg w-full space-y-4 shadow-2xl text-xs">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                        <h3 class="font-bold text-sm text-emerald-400 uppercase"><i class="fa-solid fa-circle-check mr-2"></i> Concluir Obra / Trabalho Acabado</h3>
-                        <button onclick="fecharModalConcluirObra()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-base"></i></button>
-                    </div>
-                    <input type="hidden" id="modal-obra-id">
-                    <div class="space-y-3">
-                        <div>
-                            <label class="block font-semibold text-slate-400 mb-1">Fotografias de Trabalho Acabado / Finalizado (Até 10 fotos):</label>
-                            <input type="file" id="modal-fotos-acabadas" accept="image/*" capture="environment" multiple class="w-full p-2 bg-slate-950 border border-slate-800 rounded-xl text-white file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:bg-emerald-500 file:text-slate-950 font-semibold">
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-slate-400 mb-1">Notas Finais / Relatório do Operário para os Directores:</label>
-                            <textarea id="modal-notas-finais" rows="3" placeholder="Informe detalhes finais da conclusão..." class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white"></textarea>
-                        </div>
-                    </div>
-                    <div class="flex justify-end gap-2 pt-2">
-                        <button type="button" onclick="fecharModalConcluirObra()" class="bg-slate-800 text-slate-300 font-bold px-4 py-2.5 rounded-xl">Cancelar</button>
-                        <button type="button" onclick="salvarConclusaoObraNuvem()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow">Salvar Obra Concluída</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- MODAL PARA AMPLIAR FOTO AO CLICAR -->
-            <div id="modal-ampliar-foto" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 z-50" onclick="fecharModalAmpliarFoto()">
-                <div class="relative max-w-4xl w-full flex flex-col items-center">
-                    <button onclick="fecharModalAmpliarFoto()" class="absolute -top-10 right-0 text-white text-xl bg-slate-800 hover:bg-slate-700 w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
-                    <img id="imagem-ampliada-src" src="" class="max-h-[80vh] max-w-full rounded-2xl border-2 border-amber-500 shadow-2xl object-contain">
-                </div>
-            </div>
-
-            <!-- ABA 1: ORÇAMENTOS E INSTALAÇÕES -->
-            <div id="tab-orcamentos" class="hidden space-y-6">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-1 bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
-                        <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2">
-                            <i class="fa-solid fa-house-chimney-user mr-2"></i> Dados do Cliente & Instalação
-                        </h4>
-                        <div class="space-y-3 text-xs">
-                            <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Nome do Cliente</label>
-                                <input type="text" id="cli-nome" placeholder="Ex: Sr. Carlos Mendes" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
-                            </div>
-                            <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Bairro / Morada</label>
-                                <input type="text" id="cli-bairro" placeholder="Ex: Bairro Central" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
-                            </div>
-                            <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Contacto Telefónico / NUIT</label>
-                                <input type="text" id="cli-contacto" placeholder="Ex: +258 84 000 0000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
-                            </div>
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label class="block font-semibold text-slate-400 mb-1">Tipo de Imóvel</label>
-                                    <select id="cli-tipo-imovel" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
-                                        <option value="Residência">Residência</option>
-                                        <option value="Loja / Comércio">Loja / Comércio</option>
-                                        <option value="Indústria">Indústria</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block font-semibold text-slate-400 mb-1">Corrente</label>
-                                    <select id="cli-corrente" onchange="atualizarCalculos()" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-amber-400 font-bold">
-                                        <option value="monofasico">Monofásico</option>
-                                        <option value="trifasico">Trifásico</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Estado da Obra / Orçamento</label>
-                                <select id="cli-estado-obra" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-amber-400 font-bold">
-                                    <option value="Pendente">Pendente / Em Análise</option>
-                                    <option value="Aprovado">Aprovado pelo Cliente</option>
-                                    <option value="Em Execução">Em Execução</option>
-                                    <option value="Concluído">Concluído</option>
-                                </select>
-                            </div>
-                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
-                                <label class="block font-semibold text-amber-400">Controlo de Sinal / Adiantamento (MT)</label>
-                                <input type="number" step="0.01" id="cli-sinal-pago" placeholder="Ex: 5000.00" oninput="atualizarCalculos()" class="w-full p-2 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono">
-                                <div class="flex justify-between text-[11px] text-slate-400 pt-1">
-                                    <span>Saldo Restante:</span>
-                                    <span id="res-saldo-restante" class="text-amber-400 font-bold font-mono">0.00 MT</span>
-                                </div>
-                            </div>
-                            <button onclick="inserirKitResidencialPadrao()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-2 rounded-lg transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Inserir Kit Elétrico Padrão
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-2 bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4 flex flex-col justify-between">
-                        <div class="space-y-4">
-                            <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-2 gap-2">
-                                <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400">
-                                    <i class="fa-solid fa-boxes-stacked mr-2"></i> Catálogo de Materiais Categorizados (SOCOAL)
-                                </h4>
-                                <select id="filtro-categoria" onchange="renderizarCatalogoMateriais()" class="p-1.5 bg-slate-950 border border-slate-800 rounded-lg text-xs text-amber-400 font-semibold">
-                                    <option value="todos">Todas as Categorias</option>
-                                    <option value="Cabos e Condutores">Cabos e Condutores</option>
-                                    <option value="Lâmpadas e Iluminação">Lâmpadas e Iluminação</option>
-                                    <option value="Proteção Elétrica">Proteção Elétrica</option>
-                                    <option value="Aparelhagem (Tomadas/Interruptores)">Aparelhagem</option>
-                                    <option value="Fixação e Aterramento">Fixação e Aterramento</option>
-                                </select>
-                            </div>
-                            <div id="catalogo-materiais-container" class="space-y-3 max-h-[260px] overflow-y-auto pr-1"></div>
-                        </div>
-
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 mt-2">
-                            <div class="flex justify-between text-xs text-slate-400">
-                                <span>Subtotal Materiais:</span>
-                                <span id="res-materiais" class="text-white font-mono font-semibold">0.00 MT</span>
-                            </div>
-                            <div class="flex justify-between text-xs text-slate-400">
-                                <span>Mão de Obra & Taxa de Instalação:</span>
-                                <span id="res-mao-obra" class="text-white font-mono font-semibold">1,500.00 MT</span>
-                            </div>
-                            <div class="flex justify-between text-xs text-slate-400">
-                                <span>Taxa de Sistema:</span>
-                                <span id="res-taxa" class="text-amber-400 font-mono font-semibold">300.00 MT</span>
-                            </div>
-                            <div id="linha-iva-resumo" class="flex justify-between text-xs text-slate-400">
-                                <span id="label-iva-resumo">IVA (16%):</span>
-                                <span id="res-iva" class="text-amber-400 font-mono font-semibold">0.00 MT</span>
-                            </div>
-                            <div class="border-t border-slate-800 pt-2 flex justify-between items-center">
-                                <span class="text-sm font-bold text-white uppercase">Total Geral:</span>
-                                <span id="res-total" class="text-xl font-black text-amber-500 font-mono">1,800.00 MT</span>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <button onclick="gerarFaturaOficialA4()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-xs">
-                                <i class="fa-solid fa-file-invoice"></i>
-                                <span>Gerar Fatura Oficial A4 Completa</span>
-                            </button>
-                            <button onclick="gerarTalaoTermico()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 text-xs">
-                                <i class="fa-solid fa-receipt"></i>
-                                <span>Imprimir Talão de Pagamento</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ABA 2: BALCÃO DE VENDAS DIRETAS -->
-            <div id="tab-vendas" class="hidden space-y-6">
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
-                    <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex justify-between items-center">
-                        <span><i class="fa-solid fa-cash-register mr-2"></i> Balcão de Vendas Diretas & POS Cloud</span>
-                        <span class="text-xs text-slate-400">M-Pesa, e-Mola & Contas da Empresa</span>
-                    </h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
-                            <h5 class="font-bold text-xs uppercase text-amber-400">Artigos Disponíveis no Balcão:</h5>
-                            <div id="balcao-materiais-container" class="space-y-2 max-h-[250px] overflow-y-auto pr-1"></div>
-                        </div>
-
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-4 flex flex-col justify-between">
-                            <div class="space-y-3 text-xs">
-                                <h5 class="font-bold uppercase text-amber-400">Dados do Comprador & Pagamento Cloud</h5>
-                                <div>
-                                    <label class="block font-semibold text-slate-400 mb-1">Nome do Comprador</label>
-                                    <input type="text" id="venda-cliente-nome" placeholder="Ex: Sr. Mário Santos" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
-                                </div>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <div>
-                                        <label class="block font-semibold text-slate-400 mb-1">Telemóvel do Cliente</label>
-                                        <input type="text" id="venda-cliente-contacto" placeholder="84/86 000 0000" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
-                                    </div>
-                                    <div>
-                                        <label class="block font-semibold text-slate-400 mb-1">Método de Pagamento</label>
-                                        <select id="venda-metodo-pagamento" onchange="alternarCamposPagamento()" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-amber-400 font-bold">
-                                            <option value="Numerário">Numerário</option>
-                                            <option value="M-Pesa">M-Pesa (API Cloud)</option>
-                                            <option value="e-Mola">e-Mola (API Cloud)</option>
-                                            <option value="TPA Bancario">TPA Bancário</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div id="info-conta-destino" class="bg-slate-900 p-2.5 rounded-lg border border-amber-500/30 text-[11px] text-slate-300">
-                                    <i class="fa-solid fa-circle-info text-amber-400 mr-1"></i> Destino: <strong id="lbl-destino-conta" class="text-amber-400">Conta M-Pesa Principal</strong>
-                                </div>
-                                <div id="bloco-mpesa-info" class="hidden space-y-2 bg-slate-900 p-3 rounded-xl border border-red-500/30">
-                                    <label class="block text-xs font-bold text-red-400 flex items-center justify-between">
-                                        <span>Cobrança Automática Cloud M-Pesa</span>
-                                        <i class="fa-solid fa-cloud-arrow-down animate-bounce"></i>
-                                    </label>
-                                    <button onclick="dispararCobrancaCloudAPI('M-Pesa')" type="button" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition flex items-center justify-center gap-2 shadow">
-                                        <i class="fa-solid fa-signal"></i>
-                                        <span>Disparar API Push ao Telemóvel</span>
-                                    </button>
-                                    <div>
-                                        <label class="block text-[10px] text-slate-400">ID Transação Automático (Callback)</label>
-                                        <input type="text" id="venda-mpesa-id" readonly placeholder="Aguardando webhook nuvem..." class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-amber-400 font-mono text-xs">
-                                    </div>
-                                </div>
-                                <div id="bloco-emola-info" class="hidden space-y-2 bg-slate-900 p-3 rounded-xl border border-emerald-500/30">
-                                    <label class="block text-xs font-bold text-emerald-400 flex items-center justify-between">
-                                        <span>Cobrança Automática Cloud e-Mola</span>
-                                        <i class="fa-solid fa-cloud-arrow-down animate-bounce"></i>
-                                    </label>
-                                    <button onclick="dispararCobrancaCloudAPI('e-Mola')" type="button" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition flex items-center justify-center gap-2 shadow">
-                                        <i class="fa-solid fa-signal"></i>
-                                        <span>Disparar API Push ao Telemóvel</span>
-                                    </button>
-                                    <div>
-                                        <label class="block text-[10px] text-slate-400">ID Transação Automático (Callback)</label>
-                                        <input type="text" id="venda-emola-id" readonly placeholder="Aguardando webhook nuvem..." class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-amber-400 font-mono text-xs">
-                                    </div>
-                                </div>
-                                <div id="bloco-tpa-info" class="hidden space-y-1 bg-slate-900 p-2.5 rounded-lg border border-slate-800">
-                                    <label class="block font-[11px] text-amber-400 font-semibold">Código Autorização TPA (AuthCode)</label>
-                                    <input type="text" id="venda-tpa-auth" placeholder="Ex: AUTH-98214" class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-white text-xs font-mono">
-                                </div>
-                                <div class="flex justify-between items-center text-sm font-bold pt-2 border-t border-slate-800">
-                                    <span>Total a Pagar:</span>
-                                    <span id="venda-total" class="text-amber-500 font-mono text-lg">0.00 MT</span>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                <button onclick="emitirFaturaVendaA4()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl text-xs shadow transition flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-file-invoice"></i> Fatura Oficial A4
-                                </button>
-                                <button onclick="emitirTalaoTermicoBalcao()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-3 rounded-xl text-xs transition flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-print"></i> Talão POS 80mm
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ABA: RECURSOS HUMANOS (RH) -->
+            <!-- ABA: RECURSOS HUMANOS (RH) - COM PROTEÇÃO ADMINISTRATIVA DE SALÁRIOS -->
             <div id="tab-rh" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
@@ -522,15 +362,15 @@
                             <h4 class="font-bold text-base text-indigo-400 flex items-center gap-2">
                                 <i class="fa-solid fa-id-card"></i> Quadro de Funcionários & Fichas Individuais de RH
                             </h4>
-                            <p class="text-xs text-slate-400">Clique na foto do funcionário para ampliá-la e gire/edite os dados oficiais e governamentais.</p>
+                            <p class="text-xs text-slate-400">Fichas protegidas. Salários e eliminação de registos requerem autorização expressa do Administrador.</p>
                         </div>
-                        <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs px-3 py-1 rounded-full font-bold">Módulo de RH & Privacidade</span>
+                        <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs px-3 py-1 rounded-full font-bold">Módulo de RH Protegido</span>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div class="lg:col-span-1 bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
                             <h5 class="font-bold text-xs uppercase text-amber-400 flex items-center gap-1.5">
-                                <i class="fa-solid fa-users-gear"></i> Lista de Utilizadores do Sistema
+                                <i class="fa-solid fa-users-gear"></i> Lista de Utilizadores Registados
                             </h5>
                             <div id="rh-lista-funcionarios" class="space-y-2 max-h-[450px] overflow-y-auto pr-1 text-xs"></div>
                         </div>
@@ -542,7 +382,7 @@
                                         <div id="rh-foto-preview" class="w-28 h-28 rounded-2xl bg-slate-950 border-2 border-indigo-500/40 flex items-center justify-center overflow-hidden shadow-inner cursor-pointer" onclick="ampliarFotoFuncionarioAtual()" title="Clique para ampliar foto">
                                             <i class="fa-solid fa-user text-4xl text-slate-700"></i>
                                         </div>
-                                        <label for="rh-input-foto" class="absolute bottom-0 right-0 bg-indigo-600 hover:bg-indigo-500 text-white p-2 rounded-xl cursor-pointer shadow-lg transition" title="Carregar Foto do Computador">
+                                        <label for="rh-input-foto" class="absolute bottom-0 right-0 bg-indigo-600 hover:bg-indigo-500 text-white p-2 rounded-xl cursor-pointer shadow-lg transition" title="Carregar Foto">
                                             <i class="fa-solid fa-camera"></i>
                                         </label>
                                         <input type="file" id="rh-input-foto" accept="image/*" onchange="carregarFotoFuncionario(event)" class="hidden">
@@ -551,7 +391,6 @@
                                         <h3 id="rh-nome-titulo" class="text-lg font-black text-white">--</h3>
                                         <div class="flex flex-wrap justify-center sm:justify-start gap-2 pt-1">
                                             <span id="rh-role-badge" class="bg-indigo-500/20 text-indigo-400 border border-indigo-500/40 px-2.5 py-0.5 rounded-full font-bold">--</span>
-                                            <span id="rh-user-badge" class="bg-slate-800 text-slate-300 px-2.5 py-0.5 rounded-full font-mono">--</span>
                                         </div>
                                     </div>
                                 </div>
@@ -568,7 +407,7 @@
                                             <input type="text" id="rh-nome-completo" required class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                                         </div>
                                         <div>
-                                            <label class="block font-semibold text-slate-400 mb-1">Número do BI (Bilhete de Identidade) *</label>
+                                            <label class="block font-semibold text-slate-400 mb-1">Número do BI *</label>
                                             <input type="text" id="rh-num-bi" placeholder="Ex: 110100234123M" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
                                         </div>
                                         <div>
@@ -582,45 +421,26 @@
                                     </div>
 
                                     <h5 class="font-bold text-amber-400 uppercase tracking-wider border-b border-slate-800 pb-1 flex items-center gap-1.5 pt-2">
-                                        <i class="fa-solid fa-location-dot"></i> Contactos & Morada de Residência
+                                        <i class="fa-solid fa-briefcase"></i> Contrato & Salários (Proteção do Administrador)
                                     </h5>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         <div>
-                                            <label class="block font-semibold text-slate-400 mb-1">Telefone Principal *</label>
-                                            <input type="text" id="rh-telefone" placeholder="+258 84 000 0000" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
-                                        </div>
-                                        <div>
-                                            <label class="block font-semibold text-slate-400 mb-1">Endereço de E-mail</label>
-                                            <input type="email" id="rh-email" placeholder="funcionario@electrohonario.co.mz" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
-                                        </div>
-                                        <div>
-                                            <label class="block font-semibold text-slate-400 mb-1">Cidade / Província</label>
-                                            <input type="text" id="rh-cidade" placeholder="Ex: Maputo" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
-                                        </div>
-                                        <div>
-                                            <label class="block font-semibold text-slate-400 mb-1">Bairro & Av. / Rua / Casa *</label>
-                                            <input type="text" id="rh-morada" placeholder="Ex: Bairro Polana, Av. Eduardo Mondlane, Nº 120" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
-                                        </div>
-                                    </div>
-
-                                    <h5 class="font-bold text-amber-400 uppercase tracking-wider border-b border-slate-800 pb-1 flex items-center gap-1.5 pt-2">
-                                        <i class="fa-solid fa-briefcase"></i> Contrato & Dados Laborais
-                                    </h5>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                        <div>
-                                            <label class="block font-semibold text-slate-400 mb-1">Data de Admissão / Entrada</label>
+                                            <label class="block font-semibold text-slate-400 mb-1">Data de Admissão</label>
                                             <input type="date" id="rh-data-admissao" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                                         </div>
                                         <div>
-                                            <label class="block font-semibold text-slate-400 mb-1">Salário Base (MT)</label>
+                                            <label class="block font-semibold text-slate-400 mb-1">Salário Base (MT) *</label>
                                             <input type="number" step="0.01" id="rh-salario" placeholder="Ex: 25000.00" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
                                         </div>
                                     </div>
 
-                                    <div class="flex justify-end pt-3">
+                                    <div class="flex justify-between items-center pt-3">
+                                        <button type="button" onclick="eliminarFuncionarioRHProtegido()" class="bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 font-bold py-2.5 px-4 rounded-xl transition">
+                                            <i class="fa-solid fa-trash mr-1"></i> Apagar Ficha (Requer Permissão)
+                                        </button>
                                         <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition flex items-center gap-2">
                                             <i class="fa-solid fa-floppy-disk"></i>
-                                            <span>Guardar Ficha de RH na Nuvem</span>
+                                            <span>Guardar Ficha na Nuvem</span>
                                         </button>
                                     </div>
                                 </form>
@@ -628,106 +448,91 @@
 
                             <div id="rh-sem-selecao" class="text-center py-16 text-slate-500 space-y-2">
                                 <i class="fa-solid fa-user-gear text-4xl text-slate-700"></i>
-                                <p class="text-xs">Selecione um funcionário na lista à esquerda para visualizar e editar os dados completos de identificação.</p>
+                                <p class="text-xs">Selecione um funcionário na lista à esquerda para visualizar e editar os dados protegidos de RH.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ABA 3: RELATÓRIOS -->
-            <div id="tab-relatorios" class="hidden space-y-6">
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
-                    <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
-                        <div>
-                            <h4 class="font-bold text-base text-amber-400">
-                                <i class="fa-solid fa-chart-pie mr-2"></i> Relatórios Financeiros, Faturamento & Sincronização Nuvem
-                            </h4>
-                            <p class="text-xs text-slate-400">Clique em qualquer registo do histórico para abrir os detalhes completos da operação</p>
-                        </div>
-                        <button onclick="exportarRelatorioCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-xs transition flex items-center gap-2 shadow">
-                            <i class="fa-solid fa-file-excel"></i> Exportar Relatório Executivo (CSV)
-                        </button>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                            <span class="text-slate-400 uppercase font-semibold">Faturamento Total Nuvem</span>
-                            <h3 id="stat-faturamento" class="text-2xl font-black text-white font-mono">0.00 MT</h3>
-                            <span class="text-[10px] text-slate-500">Soma de orçamentos e vendas</span>
-                        </div>
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                            <span class="text-slate-400 uppercase font-semibold">Lucro Bruto Consolidado</span>
-                            <h3 id="stat-lucro" class="text-2xl font-black text-emerald-400 font-mono">0.00 MT</h3>
-                            <span class="text-[10px] text-slate-500">Margem líquida de serviços e artigos</span>
-                        </div>
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                            <span class="text-slate-400 uppercase font-semibold">Total de Operações</span>
-                            <h3 id="stat-total-ops" class="text-2xl font-black text-amber-400 font-mono">0</h3>
-                            <span class="text-[10px] text-slate-500">Transações registadas</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3">
-                        <h5 class="font-bold text-xs uppercase text-slate-300">Histórico Financeiro Sincronizado (Clique para Detalhes):</h5>
-                        <div id="lista-logs" class="space-y-2 max-h-[300px] overflow-y-auto pr-2 text-xs"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- MODAL DE DETALHES DO RELATÓRIO -->
-            <div id="modal-detalhes-relatorio" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
-                <div class="bg-slate-900 border-2 border-amber-500 p-6 rounded-2xl max-w-lg w-full space-y-4 shadow-2xl text-xs">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                        <h3 class="font-bold text-sm text-amber-400 uppercase"><i class="fa-solid fa-file-lines mr-2"></i> Detalhes Completos da Operação</h3>
-                        <button onclick="fecharModalDetalhesRelatorio()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-base"></i></button>
-                    </div>
-                    <div id="conteudo-detalhes-relatorio" class="space-y-2 text-slate-300 font-mono max-h-[60vh] overflow-y-auto"></div>
-                    <div class="flex justify-end pt-2">
-                        <button onclick="fecharModalDetalhesRelatorio()" class="bg-amber-500 text-slate-950 font-bold px-6 py-2.5 rounded-xl">Fechar</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ABA 4: PAINEL DO ADMINISTRADOR -->
+            <!-- ABA ADMINISTRADOR: AJUSTES DO SISTEMA, TEXTOS, RÓTULOS & CONSTRUTOR DINÂMICO DE ABAS COM PIXELS -->
             <div id="tab-admin" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
                         <div>
-                            <h4 class="font-bold text-base text-amber-400">
-                                <i class="fa-solid fa-sliders mr-2"></i> Painel de Controlo & Definições Globais do Sistema
+                            <h4 class="font-bold text-base text-amber-400 flex items-center gap-2">
+                                <i class="fa-solid fa-sliders"></i> Painel Mestre do Administrador & Ajustes do Sistema
                             </h4>
-                            <p class="text-xs text-slate-400">Personalize títulos, nomes de abas, logótipo da empresa e configure utilizadores.</p>
+                            <p class="text-xs text-slate-400">Personalização total de rótulos, botões, miniaturas, textos e criação de novas abas com dimensões em pixels.</p>
                         </div>
-                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-bold">Dono / Administrador</span>
+                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-bold">Acesso Exclusivo Mestre</span>
                     </div>
 
+                    <!-- PONTO DE AJUSTES DE TEXTOS, ABAS E MINIATURAS EM TODO O SISTEMA -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-gears"></i> Definições Globais: Logotipo & Transcrição de Textos do Sistema
+                            <i class="fa-solid fa-pen-to-square"></i> Ajuste Geral de Textos, Rótulos e Rótulos de Abas do Sistema
                         </h5>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Nome da Empresa (Cabeçalho)</label>
-                                <input type="text" id="def-empresa-nome" value="ELECTRO HONÁRIO & SERVIÇOS SU, LDA." class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                <label class="block font-semibold text-slate-400 mb-1">Título do Sistema (Cabeçalho):</label>
+                                <input type="text" id="adj-titulo-cabecalho" value="ELECTRO HONÁRIO & SERVIÇOS" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                             </div>
                             <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Subtítulo / Slogan do Sistema</label>
-                                <input type="text" id="def-empresa-sub" value="Sistema ERP, Rastreamento GPS, Gestão de RH & Operações M-Pesa / e-Mola" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                <label class="block font-semibold text-slate-400 mb-1">Texto da Aba "App Campo":</label>
+                                <input type="text" id="adj-txt-aba-campo" value="App Campo (GPS)" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                             </div>
                             <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Logótipo da Empresa (Carregar Imagem / Windows)</label>
-                                <input type="file" id="def-input-logotipo" accept="image/*" class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-white file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:bg-amber-500 file:text-slate-950 font-bold text-xs">
+                                <label class="block font-semibold text-slate-400 mb-1">Texto da Aba "Monitor GPS":</label>
+                                <input type="text" id="adj-txt-aba-monitor" value="Monitor GPS" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                             </div>
                         </div>
-                        <button onclick="guardarDefinicoesGlobaisSistema()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-lg transition shadow flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-floppy-disk"></i> Guardar Definições e Transcrições em Todo o Sistema
+                        <button onclick="salvarAjustesGeraisTextos()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 px-6 rounded-lg shadow transition flex items-center gap-2">
+                            <i class="fa-solid fa-floppy-disk"></i> Aplicar Alterações de Texto no Sistema
                         </button>
                     </div>
 
+                    <!-- CAMPO DE CRIAÇÃO DINÂMICA DE NOVAS ABAS COM DIMENSÕES EM PIXELS E LÓGICA -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
+                        <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-square-plus"></i> Construtor de Novas Abas Personalizadas (Com Medidas em Pixels)
+                        </h5>
+                        <form onsubmit="criarNovaAbaDinamica(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                                <div>
+                                    <label class="block font-semibold text-slate-400 mb-1">Nome / Etiqueta da Aba *</label>
+                                    <input type="text" id="nova-aba-nome" required placeholder="Ex: Gestão de Frotas" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                </div>
+                                <div>
+                                    <label class="block font-semibold text-slate-400 mb-1">Ícone FontAwesome *</label>
+                                    <input type="text" id="nova-aba-icone" required placeholder="fa-solid fa-truck" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
+                                </div>
+                                <div>
+                                    <label class="block font-semibold text-slate-400 mb-1">Largura do Painel (Pixels) *</label>
+                                    <input type="text" id="nova-aba-largura" required placeholder="Ex: 800px" value="100%" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
+                                </div>
+                                <div>
+                                    <label class="block font-semibold text-slate-400 mb-1">Altura do Painel (Pixels) *</label>
+                                    <input type="text" id="nova-aba-altura" required placeholder="Ex: 500px" value="auto" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Descrição & Lógica Aplicada para a Aba:</label>
+                                <textarea id="nova-aba-logica" rows="2" placeholder="Descreva a funcionalidade ou cole o código/texto a ser renderizado no painel..." class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white"></textarea>
+                            </div>
+                            <div class="flex justify-end">
+                                <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-6 rounded-lg shadow transition flex items-center gap-2">
+                                    <i class="fa-solid fa-plus-circle"></i>
+                                    <span>Criar e Ativar Nova Aba no Sistema</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- CRIAR NOVOS UTILIZADORES SEGUINDO O PROTOCOLO -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
-                            <i class="fa-solid fa-user-plus"></i> Criar Novo Utilizador / Função no Sistema
+                            <i class="fa-solid fa-user-plus"></i> Criar Novo Utilizador com Perfil e Limitações
                         </h5>
                         <form onsubmit="criarNovoUtilizador(event)" class="grid grid-cols-1 md:grid-cols-4 gap-3">
                             <div>
@@ -748,13 +553,12 @@
                                     <option value="tecnico">Técnico de Campo (App + GPS)</option>
                                     <option value="vendas">Operador de Balcão (POS)</option>
                                     <option value="gerente">Director / Gerente (Monitorização + POS)</option>
-                                    <option value="admin">Administrador / Chefe (Acesso Total)</option>
                                 </select>
                             </div>
                             <div class="md:col-span-4 flex justify-end pt-1">
                                 <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 px-6 rounded-lg transition shadow flex items-center gap-2">
                                     <i class="fa-solid fa-plus"></i>
-                                    <span>Adicionar Utilizador ao Sistema</span>
+                                    <span>Registar Utilizador no Protocolo</span>
                                 </button>
                             </div>
                         </form>
@@ -762,140 +566,50 @@
 
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-users text-amber-500"></i> Quadro Geral de Utilizadores & Status Online
+                            <i class="fa-solid fa-users text-amber-500"></i> Lista de Utilizadores Operacionais Registados
                         </h5>
                         <div id="tabela-gestao-utilizadores" class="space-y-2 max-h-[220px] overflow-y-auto pr-1"></div>
-                    </div>
-
-                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-                        <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
-                            <i class="fa-solid fa-building-columns"></i> Configurar Contas de Destino para Pagamentos Automáticos
-                        </h5>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="space-y-2 bg-slate-900 p-3 rounded-xl border border-slate-800">
-                                <label class="block font-semibold text-red-400">Conta M-Pesa da Empresa (Vodacom)</label>
-                                <input type="text" id="empresa-mpesa-num" placeholder="Ex: 840000000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono">
-                                <input type="text" id="empresa-mpesa-titular" placeholder="Titular da Conta" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
-                            </div>
-                            <div class="space-y-2 bg-slate-900 p-3 rounded-xl border border-slate-800">
-                                <label class="block font-semibold text-emerald-400">Conta e-Mola da Empresa (Movitel)</label>
-                                <input type="text" id="empresa-emola-num" placeholder="Ex: 860000000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono">
-                                <input type="text" id="empresa-emola-titular" placeholder="Titular da Conta" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
-                            </div>
-                        </div>
-                        <button onclick="guardarContasEmpresa()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-lg transition shadow flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-floppy-disk"></i> Guardar e Sincronizar Contas da Empresa
-                        </button>
-                    </div>
-
-                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-                        <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
-                            <i class="fa-solid fa-box-open"></i> Adicionar Novo Material ao Inventário SOCOAL
-                        </h5>
-                        <form onsubmit="adicionarNovoMaterialInventario(event)" class="grid grid-cols-1 md:grid-cols-4 gap-3">
-                            <div class="md:col-span-2">
-                                <label class="block font-semibold text-slate-400 mb-1">Nome do Artigo / Descrição</label>
-                                <input type="text" id="novo-mat-nome" required placeholder="Ex: Disjuntor Tripolar 32A" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
-                            </div>
-                            <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Categoria</label>
-                                <select id="novo-mat-categoria" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-amber-400 font-semibold">
-                                    <option value="Cabos e Condutores">Cabos e Condutores</option>
-                                    <option value="Lâmpadas e Iluminação">Lâmpadas e Iluminação</option>
-                                    <option value="Proteção Elétrica">Proteção Elétrica</option>
-                                    <option value="Aparelhagem (Tomadas/Interruptores)">Aparelhagem</option>
-                                    <option value="Fixação e Aterramento">Fixação e Aterramento</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Preço Unitário (MT)</label>
-                                <input type="number" step="0.01" id="novo-mat-preco" required placeholder="Ex: 450.00" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
-                            </div>
-                            <div class="md:col-span-4 flex justify-end">
-                                <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-6 rounded-lg transition shadow flex items-center gap-2">
-                                    <i class="fa-solid fa-plus-circle"></i>
-                                    <span>Adicionar Artigo ao Catálogo</span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-                        <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
-                            <i class="fa-solid fa-cloud-arrow-up"></i> Sincronização & Cópia de Segurança Nuvem (Backup JSON)
-                        </h5>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <button onclick="fazerBackupSistema()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-download"></i> Descarregar Backup Completo Nuvem
-                            </button>
-                            <div class="flex items-center gap-2">
-                                <input type="file" id="arquivo-backup-input" accept=".json" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded-lg text-[11px] text-white">
-                                <button onclick="restaurarBackupSistema()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition whitespace-nowrap">
-                                    Restaurar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- GESTÃO CIRÚRGICA DE HISTÓRICOS & DADOS (TOTALMENTE CORRIGIDA) -->
-                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-                        <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-red-400">
-                            <i class="fa-solid fa-broom-ball"></i> Gestão Cirúrgica de Históricos & Dados
-                        </h5>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            <button onclick="limparApenasOrcamentos()" class="w-full bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 font-bold py-3 px-3 rounded-xl transition flex flex-col items-center justify-center gap-1.5 text-center">
-                                <i class="fa-solid fa-file-invoice text-base"></i>
-                                <span>Limpar Apenas Orçamentos</span>
-                            </button>
-                            <button onclick="limparApenasVendas()" class="w-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold py-3 px-3 rounded-xl transition flex flex-col items-center justify-center gap-1.5 text-center">
-                                <i class="fa-solid fa-cash-register text-base"></i>
-                                <span>Limpar Apenas Vendas</span>
-                            </button>
-                            <button onclick="limparApenasHistorico()" class="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 font-bold py-3 px-3 rounded-xl transition flex flex-col items-center justify-center gap-1.5 text-center">
-                                <i class="fa-solid fa-trash-arrow-up text-base"></i>
-                                <span>Limpar Todo o Histórico</span>
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- CONTAINER PARA ABAS DINÂMICAS CRIADAS PELO ADMINISTRADOR -->
+            <div id="container-abas-dinamicas"></div>
+
         </div>
     </main>
-
-    <!-- MODAL DE WEBHOOK / CLOUD PUSH -->
-    <div id="modal-cloud-push" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
-        <div class="bg-slate-900 border-2 border-amber-500 p-6 rounded-2xl max-w-sm w-full space-y-4 text-center shadow-2xl">
-            <div id="cloud-push-icon" class="w-16 h-16 bg-red-600/20 text-red-500 border border-red-500/40 rounded-full flex items-center justify-center mx-auto animate-pulse">
-                <i class="fa-solid fa-signal text-3xl"></i>
-            </div>
-            <div>
-                <h3 id="cloud-modal-title" class="font-black text-lg text-white uppercase">Aguardando Confirmação Nuvem</h3>
-                <p class="text-xs text-slate-400 mt-1">A ligar à API da operadora e ao telemóvel do cliente...</p>
-            </div>
-            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs text-left space-y-1 font-mono">
-                <div class="flex justify-between"><span class="text-slate-400">Serviço:</span><span id="cloud-push-servico" class="text-amber-400 font-bold">M-Pesa API</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">Destino Empresa:</span><span id="cloud-push-destino" class="text-emerald-400 font-bold">--</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">Cliente:</span><span id="cloud-push-cliente" class="text-white font-bold">--</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">Montante:</span><span id="cloud-push-valor" class="text-amber-400 font-bold">0.00 MT</span></div>
-            </div>
-            <button onclick="confirmarWebhookCloudSucesso()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center gap-2 shadow">
-                <i class="fa-solid fa-check-double"></i> Confirmar Webhook Recebido (Sucesso)
-            </button>
-        </div>
-    </div>
 
     <!-- RODAPÉ -->
     <footer class="bg-slate-900 border-t border-slate-800 py-3 text-center text-xs text-slate-500">
         <span id="footer-empresa-txt">ELECTRO HONÁRIO & SERVIÇOS SU, LDA. (NUIT: 402027037) • Sistema ERP Cloud, RH & App Campo</span>
     </footer>
 
-    <!-- SCRIPT GERAL UNIFICADO COM CORREÇÕES -->
+    <!-- SCRIPT GERAL COM PROTOCOLO DE SEGURANÇA E LÓGICA ATUALIZADA -->
     <script>
         let operadoraCloudAtual = 'M-Pesa';
         let coordenadasGPSAtuais = { lat: -25.9692, lng: 32.5732, precisao: 'Maputo (GPS Padrão)' };
         let funcionarioRHSelecionadoId = null;
-        let fotosCameraCampoTemp = [];
+
+        // ESTRUTURA DE DELEGAÇÕES E AGÊNCIAS EM MOÇAMBIQUE
+        const delegacoesEagencias = {
+            'Maputo': [
+                { nome: 'Sede Central - Maputo', endereco: 'Av. Eduardo Mondlane, Nº 120, Bairro Central', status: '● Operacional | Ponto Ativo' },
+                { nome: 'Agência KaMpfumo', endereco: 'Av. 24 de Julho, Polana Cimento', status: '● Operacional | Ponto Ativo' }
+            ],
+            'Matola': [
+                { nome: 'Delegação Principal da Matola', endereco: 'Av. das Indústrias, Matola A', status: '● Operacional | Ponto Ativo' },
+                { nome: 'Agência de Machava', endereco: 'Posto Administrativo de Machava', status: '● Operacional | Ponto Ativo' }
+            ],
+            'Sofala': [
+                { nome: 'Delegação Provincial da Beira', endereco: 'Rua Correia de Brito, Maquinino - Beira', status: '● Operacional | Ponto Ativo' }
+            ],
+            'Nampula': [
+                { nome: 'Delegação de Nampula Cidade', endereco: 'Av. Francisco Manyanga, Nampula', status: '● Operacional | Ponto Ativo' }
+            ],
+            'Tete': [
+                { nome: 'Escritório de Apoio em Tete', endereco: 'Bairro Mateus Sansão Muthemba, Tete', status: '● Posto de Campo | Ativo' }
+            ]
+        };
 
         function atualizarRelogio() {
             const agora = new Date();
@@ -914,456 +628,46 @@
         setInterval(atualizarRelogio, 1000);
         atualizarRelogio();
 
-        function carregarDefinicoesGlobaisNaUI() {
-            let defs = JSON.parse(localStorage.getItem('electro_honario_definicoes') || '{}');
-            if(defs.nomeEmpresa) {
-                const elTitle = document.getElementById('sys-company-title');
-                if(elTitle) elTitle.innerHTML = `${defs.nomeEmpresa} <span class="text-amber-500 text-xs px-2 py-0.5 bg-amber-500/10 rounded-full border border-amber-500/30">NUIT: 402027037</span>`;
-                const elFooter = document.getElementById('footer-empresa-txt');
-                if(elFooter) elFooter.textContent = `${defs.nomeEmpresa} (NUIT: 402027037) • Sistema ERP Cloud, RH & App Campo`;
-            }
-            if(defs.subEmpresa) {
-                const elSub = document.getElementById('sys-company-subtitle');
-                if(elSub) elSub.textContent = defs.subEmpresa;
-            }
-            if(defs.logotipoBase64) {
-                const logoContainer = document.getElementById('header-logo-container');
-                if(logoContainer) {
-                    logoContainer.innerHTML = `<img src="${defs.logotipoBase64}" class="w-full h-full object-cover rounded-2xl">`;
-                }
-            }
-        }
-
-        function guardarDefinicoesGlobaisSistema() {
-            const nomeEmp = document.getElementById('def-empresa-nome')?.value.trim();
-            const subEmp = document.getElementById('def-empresa-sub')?.value.trim();
-            const fileLogo = document.getElementById('def-input-logotipo');
-
-            let defs = JSON.parse(localStorage.getItem('electro_honario_definicoes') || '{}');
-            if(nomeEmp) defs.nomeEmpresa = nomeEmp;
-            if(subEmp) defs.subEmpresa = subEmp;
-
-            if(fileLogo && fileLogo.files.length > 0) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    defs.logotipoBase64 = e.target.result;
-                    localStorage.setItem('electro_honario_definicoes', JSON.stringify(defs));
-                    alert('✅ Definições e logótipo guardados com sucesso!');
-                    carregarDefinicoesGlobaisNaUI();
-                };
-                reader.readAsDataURL(fileLogo.files[0]);
-            } else {
-                localStorage.setItem('electro_honario_definicoes', JSON.stringify(defs));
-                alert('✅ Definições e transcrições guardadas com sucesso!');
-                carregarDefinicoesGlobaisNaUI();
-            }
-        }
-
-        function capturarCoordenadasGPS() {
-            const gpsLabel = document.getElementById('campo-gps-coords');
-            const gpsStatusBar = document.getElementById('gps-status-bar');
-            if(navigator.geolocation) {
-                if(gpsLabel) gpsLabel.textContent = "A contactar satélites GPS...";
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        coordenadasGPSAtuais = {
-                            lat: position.coords.latitude.toFixed(6),
-                            lng: position.coords.longitude.toFixed(6),
-                            precisao: `${Math.round(position.coords.accuracy)}m de precisão`
-                        };
-                        if(gpsLabel) gpsLabel.textContent = `Lat: ${coordenadasGPSAtuais.lat}, Lng: ${coordenadasGPSAtuais.lng} (${coordenadasGPSAtuais.precisao})`;
-                        if(gpsStatusBar) gpsStatusBar.textContent = `GPS Ativo (${coordenadasGPSAtuais.precisao})`;
-                    },
-                    (error) => {
-                        console.warn("Usando localização padrão devido a restrição:", error);
-                        if(gpsLabel) gpsLabel.textContent = `Lat: ${coordenadasGPSAtuais.lat}, Lng: ${coordenadasGPSAtuais.lng} (Simulado por Rede)`;
-                    },
-                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-                );
-            }
-        }
-
-        function processarFotosCameraTempoReal(event) {
-            const files = event.target.files;
-            if(!files || files.length === 0) return;
-
-            if(fotosCameraCampoTemp.length + files.length > 10) {
-                alert('⚠️ O limite máximo é de 10 fotografias por registo de campo.');
-                return;
-            }
-
-            Array.from(files).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    fotosCameraCampoTemp.push(e.target.result);
-                    atualizarPreviaFotosCampo();
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-
-        function atualizarPreviaFotosCampo() {
-            const container = document.getElementById('container-previa-fotos-campo');
-            if(!container) return;
-            if(fotosCameraCampoTemp.length === 0) {
-                container.innerHTML = '<span class="text-[11px] text-slate-500 italic">Nenhuma foto capturada ainda.</span>';
-                return;
-            }
-            let html = '';
-            fotosCameraCampoTemp.forEach((foto, idx) => {
-                html += `
-                    <div class="relative w-16 h-16 rounded-lg overflow-hidden border border-amber-500/40">
-                        <img src="${foto}" class="w-full h-full object-cover cursor-pointer" onclick="abrirModalAmpliarFoto('${foto}')">
-                        <button type="button" onclick="removerFotoCampoTemp(${idx})" class="absolute top-0 right-0 bg-red-600 text-white w-4 h-4 rounded-bl text-[9px] flex items-center justify-center">×</button>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-        }
-
-        function removerFotoCampoTemp(idx) {
-            fotosCameraCampoTemp.splice(idx, 1);
-            atualizarPreviaFotosCampo();
-        }
-
-        function avancarPassoCampo(passoAlvo) {
-            if (passoAlvo === 2) {
-                const nome = document.getElementById('campo-cli-nome')?.value.trim();
-                const tel = document.getElementById('campo-cli-tel')?.value.trim();
-                if (!nome || !tel) {
-                    alert('⚠️ Por favor, preencha o Nome e o Contacto do Cliente antes de prosseguir.');
-                    return;
-                }
-            }
-            if (passoAlvo === 3) {
-                let selecionados = 0;
-                const materiais = obterMateriaisDoSistema();
-                materiais.forEach(m => {
-                    let chk = document.getElementById(`chk-mat-${m.id}`);
-                    if(chk && chk.checked) selecionados++;
-                });
-                if(selecionados === 0) {
-                    alert('⚠️ Selecione pelo menos um material necessário para a atividade no Passo 2.');
-                    return;
-                }
-            }
-
-            for(let i=1; i<=3; i++) {
-                document.getElementById(`wizard-step-${i}`).classList.add('hidden');
-                document.getElementById(`step-indicator-${i}`).className = "p-3 rounded-xl bg-slate-950 text-slate-400 border border-slate-800 font-bold flex items-center gap-2 transition";
-            }
-            document.getElementById(`wizard-step-${passoAlvo}`).classList.remove('hidden');
-            document.getElementById(`step-indicator-${passoAlvo}`).className = "p-3 rounded-xl bg-amber-500 text-slate-950 font-bold flex items-center gap-2 transition shadow";
-        }
-
-        function voltarPassoCampo(passoAlvo) {
-            avancarPassoCampo(passoAlvo);
-        }
-
-        function carregarChecklistMateriaisCampo() {
-            const container = document.getElementById('campo-materiais-checklist');
-            if(!container) return;
-            const materiais = obterMateriaisDoSistema();
-            let html = '';
-            materiais.forEach(m => {
-                html += `
-                    <label class="flex items-center space-x-2 bg-slate-950 p-2.5 rounded-lg border border-slate-800 cursor-pointer hover:border-amber-500/50">
-                        <input type="checkbox" id="chk-mat-${m.id}" value="${m.nome}" class="rounded bg-slate-900 border-slate-700 text-amber-500 focus:ring-0">
-                        <span class="text-white text-xs">${m.nome} (${m.preco.toFixed(2)} MT)</span>
-                    </label>
-                `;
-            });
-            container.innerHTML = html;
-        }
-
-        function submeterRegistoCampo() {
-            const nomeCli = document.getElementById('campo-cli-nome')?.value.trim();
-            const telCli = document.getElementById('campo-cli-tel')?.value.trim();
-            const tipoImovel = document.getElementById('campo-tipo-imovel')?.value;
-            const tipoAtividade = document.getElementById('campo-tipo-atividade')?.value;
-            const zona = document.getElementById('campo-zona')?.value.trim();
-            const bairro = document.getElementById('campo-bairro')?.value.trim();
-            const notasInfo = document.getElementById('campo-notas-informacao')?.value.trim();
-
-            if (!zona || !bairro) {
-                alert('⚠️ Preencha a Zona e o Bairro para salvar o cadastro inicial.');
-                return;
-            }
-
-            let matsSelecionados = [];
-            let materiais = obterMateriaisDoSistema();
-            materiais.forEach(m => {
-                let chk = document.getElementById(`chk-mat-${m.id}`);
-                if(chk && chk.checked) matsSelecionados.push(m.nome);
-            });
-
-            const sessao = obterSessaoAtual();
-            const operarioNome = sessao ? (sessao.nome || sessao.user) : 'Operário Campo';
-
-            const novaAtividade = {
-                id: Date.now(),
-                tipo: 'Atividade de Campo GPS',
-                operario: operarioNome,
-                cliente: nomeCli,
-                contacto: telCli,
-                imovel: tipoImovel,
-                atividade: tipoAtividade,
-                materiais: matsSelecionados,
-                zona: zona,
-                bairro: bairro,
-                gps: coordenadasGPSAtuais,
-                fotosAntes: fotosCameraCampoTemp,
-                fotosAcabadas: [],
-                notasOperario: notasInfo,
-                estadoObra: 'Em Execução',
-                data: new Date().toLocaleString('pt-PT'),
-                faturamentoNumeric: 0
-            };
-
-            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            logs.unshift(novaAtividade);
-            localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-
-            alert('✅ Cadastro inicial de campo gravado com sucesso na nuvem!');
-            fotosCameraCampoTemp = [];
-            location.reload();
-        }
-
-        function abrirModalConcluirObra(idLog) {
-            document.getElementById('modal-obra-id').value = idLog;
-            document.getElementById('modal-concluir-obra').classList.remove('hidden');
-        }
-
-        function fecharModalConcluirObra() {
-            document.getElementById('modal-concluir-obra').classList.add('hidden');
-        }
-
-        function salvarConclusaoObraNuvem() {
-            const idLog = parseInt(document.getElementById('modal-obra-id').value);
-            const notasFinais = document.getElementById('modal-notas-finais').value.trim();
-            const fileInput = document.getElementById('modal-fotos-acabadas');
-
-            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            let idx = logs.findIndex(l => l.id === idLog);
-
-            if(idx !== -1) {
-                if(fileInput.files.length > 0) {
-                    lerImagensComoBase64(fileInput.files, (fotosAcabadasArr) => {
-                        logs[idx].fotosAcabadas = fotosAcabadasArr;
-                        logs[idx].notasOperario += (logs[idx].notasOperario ? ' | ' : '') + 'Conclusão: ' + notasFinais;
-                        logs[idx].estadoObra = 'Concluído';
-                        localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-                        alert('✅ Obra finalizada com fotos de trabalho acabado e notas salvas!');
-                        fecharModalConcluirObra();
-                        renderizarMonitorizacaoCampo();
-                    });
-                } else {
-                    logs[idx].notasOperario += (logs[idx].notasOperario ? ' | ' : '') + 'Conclusão: ' + notasFinais;
-                    logs[idx].estadoObra = 'Concluído';
-                    localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-                    alert('✅ Obra finalizada e notas salvas com sucesso!');
-                    fecharModalConcluirObra();
-                    renderizarMonitorizacaoCampo();
-                }
-            }
-        }
-
-        function lerImagensComoBase64(files, callback) {
-            let arrResult = [];
-            let count = 0;
-            if(files.length === 0) { callback([]); return; }
-            Array.from(files).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    arrResult.push(e.target.result);
-                    count++;
-                    if(count === files.length) callback(arrResult);
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-
-        function abrirModalAmpliarFoto(src) {
-            document.getElementById('imagem-ampliada-src').src = src;
-            document.getElementById('modal-ampliar-foto').classList.remove('hidden');
-        }
-
-        function fecharModalAmpliarFoto() {
-            document.getElementById('modal-ampliar-foto').classList.add('hidden');
-        }
-
-        function renderizarMonitorizacaoCampo() {
-            const container = document.getElementById('lista-atividades-monitorizadas');
-            if(!container) return;
-            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            let atividadesCampo = logs.filter(l => l.tipo === 'Atividade de Campo GPS');
-
-            if(atividadesCampo.length === 0) {
-                container.innerHTML = '<div class="bg-slate-950 p-6 rounded-xl border border-slate-800 text-center text-slate-500">Nenhuma obra registada neste momento.</div>';
-                return;
-            }
+        function atualizarAgenciasPorProvincia() {
+            const prov = document.getElementById('sel-delegacao')?.value;
+            const selAgencia = document.getElementById('sel-agencia');
+            if(!selAgencia || !delegacoesEagencias[prov]) return;
 
             let html = '';
-            atividadesCampo.forEach(a => {
-                let fotosAntesHtml = '';
-                (a.fotosAntes || []).forEach(f => {
-                    fotosAntesHtml += `<img src="${f}" class="w-16 h-16 object-cover rounded-lg border border-amber-500/30 cursor-pointer hover:scale-105 transition" onclick="abrirModalAmpliarFoto('${f}')">`;
-                });
-
-                let fotosAcabadasHtml = '';
-                (a.fotosAcabadas || []).forEach(f => {
-                    fotosAcabadasHtml += `<img src="${f}" class="w-16 h-16 object-cover rounded-lg border border-emerald-500/30 cursor-pointer hover:scale-105 transition" onclick="abrirModalAmpliarFoto('${f}')">`;
-                });
-
-                let matsStr = (a.materiais || []).join(', ');
-                let estadoBadge = a.estadoObra === 'Concluído' ? '<span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-bold">Concluído</span>' : '<span class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded font-bold">Em Execução</span>';
-
-                html += `
-                    <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4 text-xs">
-                        <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-2">
-                            <div>
-                                <span class="text-amber-400 font-bold uppercase tracking-wider text-sm"><i class="fa-solid fa-helmet-safety mr-1.5"></i> ${a.atividade}</span>
-                                <span class="text-slate-400 block mt-0.5">Operário: <strong class="text-white">${a.operario}</strong> | Data: ${a.data} | Estado: ${estadoBadge}</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-3 py-1 rounded-full font-mono font-bold text-[10px]">
-                                    <i class="fa-solid fa-location-dot mr-1"></i> Lat: ${a.gps?.lat}, Lng: ${a.gps?.lng}
-                                </span>
-                                <button onclick="abrirModalConcluirObra(${a.id})" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-lg shadow">
-                                    <i class="fa-solid fa-camera mr-1"></i> Concluir / Fotos Finais
-                                </button>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-slate-300">
-                            <div><strong>Cliente:</strong> ${a.cliente} (${a.contacto})</div>
-                            <div><strong>Imóvel/Zona:</strong> ${a.imovel} | ${a.zona}, ${a.bairro}</div>
-                            <div><strong>Notas Informativas:</strong> <span class="text-amber-300 italic">${a.notasOperario || 'Nenhuma nota informada.'}</span></div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-slate-900">
-                            <div>
-                                <span class="block text-amber-400 font-bold mb-1">📸 Fotos Iniciais (Início):</span>
-                                <div class="flex flex-wrap gap-2">${fotosAntesHtml || '<span class="text-slate-500 italic">Sem fotos iniciais</span>'}</div>
-                            </div>
-                            <div>
-                                <span class="block text-emerald-400 font-bold mb-1">📸 Fotos de Trabalho Acabado (Finalizado):</span>
-                                <div class="flex flex-wrap gap-2">${fotosAcabadasHtml || '<span class="text-slate-500 italic">Aguardando fotos finais de conclusão</span>'}</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
+            delegacoesEagencias[prov].forEach((ag, idx) => {
+                html += `<option value="${idx}">${ag.nome}</option>`;
             });
-            container.innerHTML = html;
+            selAgencia.innerHTML = html;
+            mostrarDetalhesAgencia();
         }
 
-        // --- GESTÃO DE UTILIZADORES & NÍVEIS DE PRIVACIDADE ---
-        function obterUtilizadoresDoSistema() {
-            let users = localStorage.getItem('electro_honario_users');
-            if (!users || JSON.parse(users).length === 0) {
-                const adminPredefinido = [
-                    { 
-                        id: 1, 
-                        user: 'alberto', 
-                        pass: 'mugabe', 
-                        nome: 'Alberto Mugabe (Administrador Geral)', 
-                        role: 'admin', 
-                        online: false,
-                        bi: '110100293841M',
-                        nuit: '402027037',
-                        telefone: '+258 84 649 4014',
-                        morada: 'Cidade de Maputo, Bairro Central'
-                    },
-                    { 
-                        id: 2, 
-                        user: 'operario1', 
-                        pass: '1234', 
-                        nome: 'João Operário (Técnico de Campo)', 
-                        role: 'tecnico', 
-                        online: false,
-                        bi: '110293847561B',
-                        nuit: '102938475',
-                        telefone: '+258 84 123 4567',
-                        morada: 'Maputo, Bairro Polana Cimento'
-                    }
-                ];
-                localStorage.setItem('electro_honario_users', JSON.stringify(adminPredefinido));
-                return adminPredefinido;
-            }
-            return JSON.parse(users);
-        }
-
-        function criarNovoUtilizador(event) {
-            event.preventDefault();
-            const nome = document.getElementById('novo-user-nome')?.value.trim();
-            const username = document.getElementById('novo-user-username')?.value.trim().toLowerCase();
-            const pass = document.getElementById('novo-user-pass')?.value.trim();
-            const role = document.getElementById('novo-user-role')?.value;
-
-            if (!nome || !username || !pass) {
-                alert('⚠️ Preencha todos os campos do utilizador.');
-                return;
-            }
-
-            let listaUsers = obterUtilizadoresDoSistema();
-            if (listaUsers.some(u => u.user === username)) {
-                alert('⚠️ Esse nome de utilizador já existe no sistema! Escolha outro.');
-                return;
-            }
-
-            let labelRole = role === 'admin' ? 'Administrador' : role === 'gerente' ? 'Director / Gerente' : role === 'vendas' ? 'Operador POS' : 'Técnico de Campo';
-
-            const novoUser = {
-                id: Date.now(),
-                user: username,
-                pass: pass,
-                nome: `${nome} (${labelRole})`,
-                role: role,
-                online: false,
-                bi: '',
-                nuit: '',
-                telefone: '',
-                morada: '',
-                foto: ''
-            };
-
-            listaUsers.push(novoUser);
-            localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
-            alert(`✅ Utilizador "${nome}" criado com sucesso!`);
-            
-            document.getElementById('novo-user-nome').value = '';
-            document.getElementById('novo-user-username').value = '';
-            document.getElementById('novo-user-pass').value = '';
-            renderizarTabelasAdmin();
-            renderizarListaRH();
-        }
-
-        function removerUtilizador(idUser) {
-            let listaUsers = obterUtilizadoresDoSistema();
-            const userAlvo = listaUsers.find(u => u.id === idUser);
-            if (userAlvo && userAlvo.user === 'alberto') {
-                alert('⛔ Não é possível apagar o Administrador Principal (Alberto Mugabe).');
-                return;
-            }
-            if (confirm(`Tem a certeza que deseja remover este utilizador do sistema?`)) {
-                listaUsers = listaUsers.filter(u => u.id !== idUser);
-                localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
-                renderizarTabelasAdmin();
-                renderizarListaRH();
+        function mostrarDetalhesAgencia() {
+            const prov = document.getElementById('sel-delegacao')?.value;
+            const idxAg = document.getElementById('sel-agencia')?.value || 0;
+            const ag = delegacoesEagencias[prov][idxAg];
+            if(ag) {
+                document.getElementById('agencia-nome-lbl').textContent = ag.nome;
+                document.getElementById('agencia-endereco-lbl').textContent = ag.endereco;
+                document.getElementById('agencia-status-lbl').textContent = ag.status;
             }
         }
 
+        // --- PROTOCOLO RIGOROSO DE LOGIN & SEGURANÇA ---
         function fazerLogin(event) {
             if (event) event.preventDefault();
             const inputUser = document.getElementById('login-user')?.value.trim().toLowerCase();
             const inputPass = document.getElementById('login-pass')?.value.trim();
             const erroEl = document.getElementById('login-error');
 
+            // CREDENCIAIS DO ADMINISTRADOR MESTRE
             if (inputUser === 'alberto' && inputPass === 'mugabe') {
-                const adminUser = { id: 1, user: 'alberto', pass: 'mugabe', nome: 'Alberto Mugabe (Administrador Geral)', role: 'admin', online: true };
+                const adminUser = { id: 1, user: 'alberto', nome: 'Administrador do Sistema', role: 'admin', online: true };
                 localStorage.setItem('electro_honario_sessao_atual', JSON.stringify(adminUser));
                 ativarSessao(adminUser);
                 return;
             }
 
+            // VERIFICAÇÃO NO BANCO DE UTILIZADORES DO PROTOCOLO
             let listaUsers = obterUtilizadoresDoSistema();
             let utilizadorEncontrado = listaUsers.find(u => (u.user === inputUser) && (u.pass === inputPass));
 
@@ -1374,78 +678,70 @@
                 localStorage.setItem('electro_honario_sessao_atual', JSON.stringify(utilizadorEncontrado));
                 ativarSessao(utilizadorEncontrado);
             } else {
+                // NEGAÇÃO E MENSAGEM DO PROTOCOLO DE SEGURANÇA
                 if (erroEl) erroEl.classList.remove('hidden');
             }
         }
 
-        function obterSessaoAtual() {
-            let sessao = localStorage.getItem('electro_honario_sessao_atual');
-            return sessao ? JSON.parse(sessao) : null;
+        function obterUtilizadoresDoSistema() {
+            let users = localStorage.getItem('electro_honario_users');
+            if (!users || JSON.parse(users).length === 0) {
+                const padraoIniciais = [
+                    { id: 2, user: 'operario1', pass: '1234', nome: 'João Operário (Técnico)', role: 'tecnico', online: false }
+                ];
+                localStorage.setItem('electro_honario_users', JSON.stringify(padraoIniciais));
+                return padraoIniciais;
+            }
+            return JSON.parse(users);
         }
 
         function ativarSessao(userObj) {
             document.getElementById('login-screen').classList.add('hidden');
             document.getElementById('app-dashboard').classList.remove('hidden');
-            document.getElementById('welcome-msg').textContent = `Bem-vindo, ${userObj.nome || userObj.user}`;
+            document.getElementById('welcome-msg').textContent = `Sessão Ativa: ${userObj.nome || userObj.user}`;
 
             const menuContainer = document.getElementById('menu-abas-container');
             let htmlAbas = '';
 
+            let txtAbaCampo = localStorage.getItem('adj_txt_aba_campo') || 'App Campo (GPS)';
+            let txtAbaMonitor = localStorage.getItem('adj_txt_aba_monitor') || 'Monitor GPS';
+
             if (userObj.role === 'admin') {
-                document.getElementById('role-desc').textContent = 'Administrador Geral / Chefe (Acesso Total)';
+                document.getElementById('role-desc').textContent = 'Administrador do Sistema (Perfil Mestre)';
                 htmlAbas = `
-                    <button onclick="mudarAba('campo')" id="tab-btn-campo" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-location-crosshairs"></i> App Campo (GPS)</button>
-                    <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"><i class="fa-solid fa-satellite-dish"></i> Monitor GPS</button>
-                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras</button>
-                    <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão (POS)</button>
-                    <button onclick="mudarAba('rh')" id="tab-btn-rh" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-semibold text-xs rounded-xl transition border border-indigo-500/30"><i class="fa-solid fa-id-card mr-1.5"></i> Gestão de RH</button>
-                    <button onclick="mudarAba('relatorios')" id="tab-btn-relatorios" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-chart-line mr-1.5"></i> Relatórios</button>
-                    <button onclick="mudarAba('admin')" id="tab-btn-admin" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-400 font-semibold text-xs rounded-xl transition border border-amber-500/30"><i class="fa-solid fa-sliders mr-1.5"></i> Administrador</button>
-                `;
-            } else if (userObj.role === 'gerente') {
-                document.getElementById('role-desc').textContent = 'Director / Gerente (Supervisão & Operações)';
-                htmlAbas = `
-                    <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-satellite-dish"></i> Monitor GPS</button>
-                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras</button>
-                    <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão (POS)</button>
-                    <button onclick="mudarAba('rh')" id="tab-btn-rh" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-semibold text-xs rounded-xl transition border border-indigo-500/30"><i class="fa-solid fa-id-card mr-1.5"></i> Gestão de RH</button>
-                    <button onclick="mudarAba('relatorios')" id="tab-btn-relatorios" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-chart-line mr-1.5"></i> Relatórios</button>
-                `;
-            } else if (userObj.role === 'vendas') {
-                document.getElementById('role-desc').textContent = 'Operador de Balcão (Vendas Directas POS)';
-                htmlAbas = `
-                    <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão (POS)</button>
-                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras</button>
+                    <button onclick="mudarAba('campo')" id="tab-btn-campo" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow"><i class="fa-solid fa-location-crosshairs mr-1"></i> ${txtAbaCampo}</button>
+                    <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-satellite-dish mr-1"></i> ${txtAbaMonitor}</button>
+                    <button onclick="mudarAba('rh')" id="tab-btn-rh" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-semibold text-xs rounded-xl transition border border-indigo-500/30"><i class="fa-solid fa-id-card mr-1"></i> Gestão de RH</button>
+                    <button onclick="mudarAba('admin')" id="tab-btn-admin" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-400 font-semibold text-xs rounded-xl transition border border-amber-500/30"><i class="fa-solid fa-sliders mr-1"></i> Ajustes / Administrador</button>
                 `;
             } else {
-                document.getElementById('role-desc').textContent = 'Técnico de Campo (Operação GPS)';
+                document.getElementById('role-desc').textContent = 'Técnico de Campo Operacional';
                 htmlAbas = `
-                    <button onclick="mudarAba('campo')" id="tab-btn-campo" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-location-crosshairs"></i> App Campo (GPS)</button>
-                    <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"><i class="fa-solid fa-satellite-dish"></i> Obras & Conclusão</button>
+                    <button onclick="mudarAba('campo')" id="tab-btn-campo" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow"><i class="fa-solid fa-location-crosshairs mr-1"></i> ${txtAbaCampo}</button>
+                    <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-satellite-dish mr-1"></i> ${txtAbaMonitor}</button>
                 `;
             }
 
+            // RENDERIZAR ABAS DINÂMICAS CRIADAS PELO ADMINISTRADOR
+            let abasDinamicas = JSON.parse(localStorage.getItem('electro_abas_dinamicas') || '[]');
+            abasDinamicas.forEach(aba => {
+                htmlAbas += `<button onclick="mudarAba('${aba.id}')" id="tab-btn-${aba.id}" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-emerald-400 font-semibold text-xs rounded-xl transition border border-emerald-500/30"><i class="${aba.icone} mr-1"></i> ${aba.nome}</button>`;
+            });
+
             if(menuContainer) menuContainer.innerHTML = htmlAbas;
 
-            if (userObj.role === 'admin' || userObj.role === 'tecnico') mudarAba('campo');
-            else if (userObj.role === 'gerente') mudarAba('monitor');
-            else if (userObj.role === 'vendas') mudarAba('vendas');
-
-            capturarCoordenadasGPS();
-            carregarChecklistMateriaisCampo();
-            renderizarCatalogoMateriais();
-            renderizarBalcãoVendas();
-            renderizarTabelasAdmin();
+            atualizarAgenciasPorProvincia();
+            renderizarAbasDinamicasContainers();
             renderizarListaRH();
-        }
-
-        function terminarSessao() {
-            localStorage.removeItem('electro_honario_sessao_atual');
-            location.reload();
+            renderizarTabelasAdmin();
+            mudarAba('campo');
         }
 
         function mudarAba(aba) {
-            const tabs = ['campo', 'monitor', 'orcamentos', 'vendas', 'rh', 'relatorios', 'admin'];
+            const tabs = ['campo', 'monitor', 'rh', 'admin'];
+            let abasDinamicas = JSON.parse(localStorage.getItem('electro_abas_dinamicas') || '[]');
+            abasDinamicas.forEach(a => tabs.push(a.id));
+
             tabs.forEach(t => {
                 const el = document.getElementById(`tab-${t}`);
                 if(el) el.classList.add('hidden');
@@ -1457,39 +753,30 @@
             const btnAtivo = document.getElementById(`tab-btn-${aba}`);
             if(abaAtiva) abaAtiva.classList.remove('hidden');
             if(btnAtivo) btnAtivo.className = 'px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow';
-
-            if(aba === 'monitor') renderizarMonitorizacaoCampo();
-            if(aba === 'rh') renderizarListaRH();
-            if(aba === 'relatorios') renderizarRelatorios();
-            if(aba === 'admin') renderizarTabelasAdmin();
         }
 
+        function terminarSessao() {
+            localStorage.removeItem('electro_honario_sessao_atual');
+            location.reload();
+        }
+
+        // --- PROTEÇÃO ADMINISTRATIVA DE RH E SALÁRIOS ---
         function renderizarListaRH() {
             const container = document.getElementById('rh-lista-funcionarios');
             if(!container) return;
-
             let users = obterUtilizadoresDoSistema();
             let html = '';
-
             users.forEach(u => {
-                let badgeClass = u.role === 'admin' ? 'text-amber-400 bg-amber-500/10' : u.role === 'gerente' ? 'text-indigo-400 bg-indigo-500/10' : 'text-emerald-400 bg-emerald-500/10';
-                
                 html += `
                     <div onclick="selecionarFuncionarioRH(${u.id})" class="p-3 bg-slate-900 border border-slate-800 hover:border-indigo-500/50 rounded-xl cursor-pointer transition flex items-center justify-between">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-9 h-9 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center font-bold text-indigo-400 overflow-hidden" onclick="event.stopPropagation(); ${u.foto ? `abrirModalAmpliarFoto('${u.foto}')` : ''}">
-                                ${u.foto ? `<img src="${u.foto}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-user"></i>`}
-                            </div>
-                            <div>
-                                <span class="font-bold text-white block text-xs">${u.nome}</span>
-                                <span class="text-[10px] text-slate-400 font-mono">@${u.user}</span>
-                            </div>
+                        <div>
+                            <span class="font-bold text-white block text-xs">${u.nome}</span>
+                            <span class="text-[10px] text-slate-400 font-mono">@${u.user}</span>
                         </div>
-                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded ${badgeClass}">${u.role}</span>
+                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded text-emerald-400 bg-emerald-500/10">${u.role}</span>
                     </div>
                 `;
             });
-
             container.innerHTML = html;
         }
 
@@ -1497,7 +784,6 @@
             funcionarioRHSelecionadoId = idUser;
             let users = obterUtilizadoresDoSistema();
             let u = users.find(x => x.id === idUser);
-
             if(!u) return;
 
             document.getElementById('rh-sem-selecao').classList.add('hidden');
@@ -1506,164 +792,96 @@
             document.getElementById('rh-user-id').value = u.id;
             document.getElementById('rh-nome-titulo').textContent = u.nome;
             document.getElementById('rh-role-badge').textContent = u.role.toUpperCase();
-            document.getElementById('rh-user-badge').textContent = '@' + u.user;
 
             document.getElementById('rh-nome-completo').value = u.nomeCompleto || u.nome || '';
             document.getElementById('rh-num-bi').value = u.bi || '';
             document.getElementById('rh-num-nuit').value = u.nuit || '';
             document.getElementById('rh-data-nasc').value = u.dataNascimento || '';
-            document.getElementById('rh-telefone').value = u.telefone || '';
-            document.getElementById('rh-email').value = u.email || '';
-            document.getElementById('rh-cidade').value = u.cidade || '';
-            document.getElementById('rh-morada').value = u.morada || '';
             document.getElementById('rh-data-admissao').value = u.dataAdmissao || '';
             document.getElementById('rh-salario').value = u.salario || '';
-
-            const preview = document.getElementById('rh-foto-preview');
-            if(u.foto) {
-                preview.innerHTML = `<img src="${u.foto}" class="w-full h-full object-cover">`;
-            } else {
-                preview.innerHTML = `<i class="fa-solid fa-user text-4xl text-slate-700"></i>`;
-            }
-        }
-
-        function ampliarFotoFuncionarioAtual() {
-            if(!funcionarioRHSelecionadoId) return;
-            let users = obterUtilizadoresDoSistema();
-            let u = users.find(x => x.id === funcionarioRHSelecionadoId);
-            if(u && u.foto) abrirModalAmpliarFoto(u.foto);
-        }
-
-        function carregarFotoFuncionario(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const base64Foto = e.target.result;
-                document.getElementById('rh-foto-preview').innerHTML = `<img src="${base64Foto}" class="w-full h-full object-cover">`;
-
-                if(funcionarioRHSelecionadoId) {
-                    let users = obterUtilizadoresDoSistema();
-                    let idx = users.findIndex(u => u.id === funcionarioRHSelecionadoId);
-                    if(idx !== -1) {
-                        users[idx].foto = base64Foto;
-                        localStorage.setItem('electro_honario_users', JSON.stringify(users));
-                        renderizarListaRH();
-                    }
-                }
-            };
-            reader.readAsDataURL(file);
         }
 
         function guardarFichaRH(event) {
             event.preventDefault();
-            if(!funcionarioRHSelecionadoId) return;
+            const sessao = JSON.parse(localStorage.getItem('electro_honario_sessao_atual') || '{}');
+            if(sessao.role !== 'admin') {
+                alert('⛔ Permissão negada! Apenas o Administrador do Sistema pode alterar salários ou fichas de RH.');
+                return;
+            }
 
             let users = obterUtilizadoresDoSistema();
             let idx = users.findIndex(u => u.id === funcionarioRHSelecionadoId);
-
             if(idx !== -1) {
-                users[idx].nomeCompleto = document.getElementById('rh-nome-completo')?.value;
-                users[idx].bi = document.getElementById('rh-num-bi')?.value;
-                users[idx].nuit = document.getElementById('rh-num-nuit')?.value;
-                users[idx].dataNascimento = document.getElementById('rh-data-nasc')?.value;
-                users[idx].telefone = document.getElementById('rh-telefone')?.value;
-                users[idx].email = document.getElementById('rh-email')?.value;
-                users[idx].cidade = document.getElementById('rh-cidade')?.value;
-                users[idx].morada = document.getElementById('rh-morada')?.value;
-                users[idx].dataAdmissao = document.getElementById('rh-data-admissao')?.value;
-                users[idx].salario = document.getElementById('rh-salario')?.value;
+                users[idx].nomeCompleto = document.getElementById('rh-nome-completo').value;
+                users[idx].bi = document.getElementById('rh-num-bi').value;
+                users[idx].nuit = document.getElementById('rh-num-nuit').value;
+                users[idx].dataNascimento = document.getElementById('rh-data-nasc').value;
+                users[idx].dataAdmissao = document.getElementById('rh-data-admissao').value;
+                users[idx].salario = document.getElementById('rh-salario').value;
 
                 localStorage.setItem('electro_honario_users', JSON.stringify(users));
-                alert('✅ Ficha e dados de RH guardados com sucesso na nuvem!');
+                alert('✅ Ficha de RH e salário guardados com sucesso!');
                 renderizarListaRH();
             }
         }
 
-        function obterMateriaisDoSistema() {
-            let matsSalvos = localStorage.getItem('electro_honario_materiais');
-            if (!matsSalvos) {
-                const matsIniciais = [
-                    { id: 1, nome: 'Fio Condutor Flexível 1.5mm² (Rolo 100m)', categoria: 'Cabos e Condutores', preco: 2800.00 },
-                    { id: 2, nome: 'Fio Condutor Flexível 2.5mm² (Rolo 100m)', categoria: 'Cabos e Condutores', preco: 4600.00 },
-                    { id: 3, nome: 'Cabo de Potência XV 3x2.5mm² (Metro)', categoria: 'Cabos e Condutores', preco: 95.00 },
-                    { id: 6, nome: 'Lâmpada LED Bulbo E27 9W-12W', categoria: 'Lâmpadas e Iluminação', preco: 180.00 },
-                    { id: 10, nome: 'Disjuntor Termomagnético MCB 16A/20A', categoria: 'Proteção Elétrica', preco: 350.00 },
-                    { id: 15, nome: 'Tomada Dupla Schuko Com Terra', categoria: 'Aparelhagem (Tomadas/Interruptores)', preco: 420.00 },
-                    { id: 17, nome: 'Varão de Terra / Elétrodo de Cobre', categoria: 'Fixação e Aterramento', preco: 1200.00 }
-                ];
-                localStorage.setItem('electro_honario_materiais', JSON.stringify(matsIniciais));
-                return matsIniciais;
-            }
-            return JSON.parse(matsSalvos);
-        }
-
-        function adicionarNovoMaterialInventario(event) {
-            event.preventDefault();
-            const nome = document.getElementById('novo-mat-nome')?.value.trim();
-            const cat = document.getElementById('novo-mat-categoria')?.value;
-            const preco = parseFloat(document.getElementById('novo-mat-preco')?.value) || 0;
-
-            if (!nome || preco <= 0) {
-                alert('⚠️ Insira um nome válido e um preço maior que zero.');
+        function eliminarFuncionarioRHProtegido() {
+            const sessao = JSON.parse(localStorage.getItem('electro_honario_sessao_atual') || '{}');
+            if(sessao.role !== 'admin') {
+                alert('⛔ Apenas o Administrador do Sistema tem permissão para eliminar registos de RH.');
                 return;
             }
-
-            let mats = obterMateriaisDoSistema();
-            mats.push({ id: Date.now(), nome: nome, categoria: cat, preco: preco });
-            localStorage.setItem('electro_honario_materiais', JSON.stringify(mats));
-            alert(`✅ Material "${nome}" adicionado ao inventário!`);
-
-            document.getElementById('novo-mat-nome').value = '';
-            document.getElementById('novo-mat-preco').value = '';
-            renderizarCatalogoMateriais();
-            renderizarBalcãoVendas();
-            carregarChecklistMateriaisCampo();
+            if(confirm('Tem a certeza que deseja eliminar esta ficha de funcionário?')) {
+                let users = obterUtilizadoresDoSistema();
+                users = users.filter(u => u.id !== funcionarioRHSelecionadoId);
+                localStorage.setItem('electro_honario_users', JSON.stringify(users));
+                alert('✅ Ficha eliminada pelo Administrador.');
+                location.reload();
+            }
         }
 
-        function renderizarCatalogoMateriais() {
-            const container = document.getElementById('catalogo-materiais-container');
-            if (!container) return;
-            const materiais = obterMateriaisDoSistema();
-            const filtro = document.getElementById('filtro-categoria')?.value || 'todos';
+        // --- CONSTRUTOR DE ABAS DINÂMICAS COM MEDIDAS EM PIXELS ---
+        function criarNovaAbaDinamica(event) {
+            event.preventDefault();
+            const nome = document.getElementById('nova-aba-nome').value.trim();
+            const icone = document.getElementById('nova-aba-icone').value.trim();
+            const largura = document.getElementById('nova-aba-largura').value.trim();
+            const altura = document.getElementById('nova-aba-altura').value.trim();
+            const logica = document.getElementById('nova-aba-logica').value.trim();
 
-            let matsFiltrados = filtro === 'todos' ? materiais : materiais.filter(m => m.categoria === filtro);
+            const novaAba = {
+                id: 'aba_din_' + Date.now(),
+                nome: nome,
+                icone: icone || 'fa-solid fa-folder',
+                largura: largura,
+                altura: altura,
+                logica: logica
+            };
 
-            let html = '';
-            matsFiltrados.forEach(mat => {
-                html += `
-                    <div class="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs">
-                        <div>
-                            <span class="font-bold text-white block">${mat.nome}</span>
-                            <span class="text-[10px] text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">${mat.categoria}</span>
-                            <span class="text-amber-500 font-semibold block mt-1">${mat.preco.toFixed(2)} MT</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <input type="number" min="0" value="0" id="mat-${mat.id}" onchange="atualizarCalculos()" class="w-16 p-1.5 bg-slate-900 border border-slate-700 rounded text-center text-white font-bold">
-                            <span class="text-slate-400">un</span>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html || '<div class="text-slate-500 text-center py-4">Nenhum artigo nesta categoria.</div>';
+            let abas = JSON.parse(localStorage.getItem('electro_abas_dinamicas') || '[]');
+            abas.push(novaAba);
+            localStorage.setItem('electro_abas_dinamicas', JSON.stringify(abas));
+
+            alert(`✅ Nova aba "${nome}" criada com sucesso!`);
+            location.reload();
         }
 
-        function renderizarBalcãoVendas() {
-            const container = document.getElementById('balcao-materiais-container');
+        function renderizarAbasDinamicasContainers() {
+            const container = document.getElementById('container-abas-dinamicas');
             if(!container) return;
-            const materiais = obterMateriaisDoSistema();
+
+            let abas = JSON.parse(localStorage.getItem('electro_abas_dinamicas') || '[]');
             let html = '';
-            materiais.forEach(mat => {
+
+            abas.forEach(aba => {
                 html += `
-                    <div class="flex items-center justify-between bg-slate-900 p-2.5 rounded-lg border border-slate-800 text-xs">
-                        <div>
-                            <span class="font-bold text-white block">${mat.nome}</span>
-                            <span class="text-amber-400">${mat.preco.toFixed(2)} MT</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <input type="number" min="0" value="0" id="venda-mat-${mat.id}" onchange="calcularTotalVenda()" class="w-14 p-1 bg-slate-950 border border-slate-700 rounded text-center text-white font-bold">
-                            <span class="text-slate-400">un</span>
+                    <div id="tab-${aba.id}" class="hidden bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4" style="width: ${aba.largura}; height: ${aba.altura}; min-height: 300px;">
+                        <h4 class="font-bold text-base text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-2">
+                            <i class="${aba.icone}"></i> ${aba.nome}
+                        </h4>
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 font-mono">
+                            <p class="text-amber-400 font-bold mb-2">Lógica / Painel Personalizado do Administrador:</p>
+                            <div>${aba.logica || 'Nenhuma lógica ou conteúdo especificado.'}</div>
                         </div>
                     </div>
                 `;
@@ -1671,220 +889,34 @@
             container.innerHTML = html;
         }
 
-        function calcularTotalVenda() {
-            const materiais = obterMateriaisDoSistema();
-            let total = 0;
-            materiais.forEach(mat => {
-                let input = document.getElementById(`venda-mat-${mat.id}`);
-                let qtd = input ? (parseInt(input.value) || 0) : 0;
-                total += qtd * mat.preco;
-            });
-            const elTotal = document.getElementById('venda-total');
-            if(elTotal) elTotal.textContent = total.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
+        function salvarAjustesGeraisTextos() {
+            const txtCampo = document.getElementById('adj-txt-aba-campo').value;
+            const txtMonitor = document.getElementById('adj-txt-aba-monitor').value;
+
+            localStorage.setItem('adj_txt_aba_campo', txtCampo);
+            localStorage.setItem('adj_txt_aba_monitor', txtMonitor);
+
+            alert('✅ Ajustes de textos do sistema aplicados com sucesso!');
+            location.reload();
         }
 
-        function alternarCamposPagamento() {
-            const metodo = document.getElementById('venda-metodo-pagamento')?.value;
-            document.getElementById('bloco-mpesa-info').classList.toggle('hidden', metodo !== 'M-Pesa');
-            document.getElementById('bloco-emola-info').classList.toggle('hidden', metodo !== 'e-Mola');
-            document.getElementById('bloco-tpa-info').classList.toggle('hidden', metodo !== 'TPA Bancario');
-        }
+        function criarNovoUtilizador(event) {
+            event.preventDefault();
+            const nome = document.getElementById('novo-user-nome').value.trim();
+            const username = document.getElementById('novo-user-username').value.trim().toLowerCase();
+            const pass = document.getElementById('novo-user-pass').value.trim();
+            const role = document.getElementById('novo-user-role').value;
 
-        function dispararCobrancaCloudAPI(operadora) {
-            operadoraCloudAtual = operadora;
-            const numCliente = document.getElementById('venda-cliente-contacto')?.value.trim();
-            const valorTotal = document.getElementById('venda-total')?.textContent;
-            if (!numCliente || numCliente.length < 8) {
-                alert(`⚠️ Insira o número de telemóvel ${operadora} do cliente.`);
+            let listaUsers = obterUtilizadoresDoSistema();
+            if (listaUsers.some(u => u.user === username)) {
+                alert('⚠️ Esse nome de utilizador já existe no protocolo.');
                 return;
             }
-            document.getElementById('cloud-push-servico').textContent = `${operadora} Cloud API`;
-            document.getElementById('cloud-push-cliente').textContent = numCliente;
-            document.getElementById('cloud-push-valor').textContent = valorTotal;
-            document.getElementById('modal-cloud-push').classList.remove('hidden');
-        }
 
-        function confirmarWebhookCloudSucesso() {
-            document.getElementById('modal-cloud-push').classList.add('hidden');
-            const idGerado = (operadoraCloudAtual === 'e-Mola' ? 'EMC' : 'MPC') + Math.floor(Math.random() * 899999 + 100000);
-            if (operadoraCloudAtual === 'e-Mola') document.getElementById('venda-emola-id').value = idGerado;
-            else document.getElementById('venda-mpesa-id').value = idGerado;
-            alert(`✅ Webhook confirmado! ID de transação gerado: ${idGerado}`);
-        }
-
-        function atualizarCalculos() {
-            let totalMateriais = 0;
-            const materiais = obterMateriaisDoSistema();
-            materiais.forEach(mat => {
-                let campoMat = document.getElementById(`mat-${mat.id}`);
-                let qtd = campoMat ? (parseInt(campoMat.value) || 0) : 0;
-                totalMateriais += qtd * mat.preco;
-            });
-            let valorMaoObra = 1500.00;
-            let taxaSistema = 300.00;
-            let subtotalGeral = totalMateriais + valorMaoObra + taxaSistema;
-            let valorIva = subtotalGeral * 0.16;
-            let totalGeral = subtotalGeral + valorIva;
-            let sinalPago = parseFloat(document.getElementById('cli-sinal-pago')?.value) || 0;
-            let saldoRestante = totalGeral - sinalPago;
-
-            if(document.getElementById('res-materiais')) document.getElementById('res-materiais').textContent = totalMateriais.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
-            if(document.getElementById('res-mao-obra')) document.getElementById('res-mao-obra').textContent = valorMaoObra.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
-            if(document.getElementById('res-iva')) document.getElementById('res-iva').textContent = valorIva.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
-            if(document.getElementById('res-total')) document.getElementById('res-total').textContent = totalGeral.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
-            if(document.getElementById('res-saldo-restante')) document.getElementById('res-saldo-restante').textContent = saldoRestante.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
-        }
-
-        function inserirKitResidencialPadrao() {
-            const materiais = obterMateriaisDoSistema();
-            materiais.forEach(m => {
-                let input = document.getElementById(`mat-${m.id}`);
-                if (input) {
-                    if (m.id === 1 || m.id === 2 || m.id === 6 || m.id === 10 || m.id === 15) input.value = 2;
-                    else input.value = 0;
-                }
-            });
-            atualizarCalculos();
-            alert('✨ Kit Residencial Padrão inserido com sucesso!');
-        }
-
-        function gerarTalaoTermico() {
-            const cliente = document.getElementById('cli-nome')?.value.trim() || 'Cliente Geral';
-            const totalGeral = document.getElementById('res-total')?.textContent || '0.00 MT';
-            const janela = window.open('', '_blank', 'width=400,height=600');
-            if(janela) {
-                janela.document.write(`<html><head><title>Talão de Pagamento</title></head><body onload="window.print(); window.close();" style="font-family:monospace;font-size:12px;padding:10px"><h2 style="text-align:center">ELECTRO HONÁRIO</h2><p style="text-align:center">NUIT: 402027037<br>TALÃO DE PAGAMENTO POS</p><hr><p>Cliente: ${cliente}</p><p>Data: ${new Date().toLocaleString()}</p><hr><p><b>Total Pago: ${totalGeral}</b></p><hr><p style="text-align:center">Obrigado pela preferência!</p></body></html>`);
-            }
-        }
-
-        function emitirTalaoTermicoBalcao() {
-            const cliente = document.getElementById('venda-cliente-nome')?.value.trim() || 'Cliente Balcão';
-            const totalGeral = document.getElementById('venda-total')?.textContent || '0.00 MT';
-            const janela = window.open('', '_blank', 'width=400,height=600');
-            if(janela) {
-                janela.document.write(`<html><head><title>Talão POS</title></head><body onload="window.print(); window.close();" style="font-family:monospace;font-size:12px;padding:10px"><h2 style="text-align:center">ELECTRO HONÁRIO</h2><p style="text-align:center">TALÃO DE CAIXA / POS</p><hr><p>Comprador: ${cliente}</p><p>Método: ${document.getElementById('venda-metodo-pagamento').value}</p><p><b>Total: ${totalGeral}</b></p></body></html>`);
-            }
-        }
-
-        function gerarFaturaOficialA4() {
-            const cliente = document.getElementById('cli-nome')?.value.trim() || 'Cliente Geral';
-            const morada = document.getElementById('cli-bairro')?.value.trim() || 'Maputo';
-            const contacto = document.getElementById('cli-contacto')?.value.trim() || 'N/A';
-            const total = document.getElementById('res-total')?.textContent || '0.00 MT';
-            const iva = document.getElementById('res-iva')?.textContent || '0.00 MT';
-            const subtotal = document.getElementById('res-materiais')?.textContent || '0.00 MT';
-
-            const janela = window.open('', '_blank', 'width=800,height=900');
-            if(janela) {
-                janela.document.write(`<html><head><title>Fatura A4 Oficial</title><style>body{font-family:Arial,sans-serif;padding:30px;color:#000;}h1{color:#78350f;margin:0;}table{width:100%;border-collapse:collapse;margin-top:20px;}th,td{border:1px solid #ccc;padding:8px;text-align:left;font-size:12px;}th{background:#f3f4f6;}</style></head><body onload="window.print(); window.close();">
-                    <div style="display:flex;justify-content:space-between;border-bottom:2px solid #78350f;padding-bottom:15px;">
-                        <div><h1>ELECTRO HONÁRIO & SERVIÇOS</h1><p style="font-size:11px;margin:2px 0;">NUIT: 402027037 | Maputo, Moçambique</p></div>
-                        <div style="text-align:right;"><h2>FATURA OFICIAL A4</h2><p style="font-size:11px;margin:2px 0;">Data: ${new Date().toLocaleDateString()}</p></div>
-                    </div>
-                    <div style="margin-top:20px;font-size:12px;"><p><b>Cliente:</b> ${cliente}</p><p><b>Morada:</b> ${morada}</p><p><b>Contacto / NUIT:</b> ${contacto}</p></div>
-                    <table><tr><th>Descrição do Artigo / Serviço</th><th>Categoria</th><th>Preço</th></tr><tr><td>Instalação / Material Elétrico SOCOAL</td><td>Geral</td><td>${subtotal}</td></tr></table>
-                    <div style="margin-top:30px;text-align:right;font-size:13px;"><p><b>IVA (16%):</b> ${iva}</p><h3>TOTAL GERAL: ${total}</h3></div>
-                    <div style="margin-top:50px;text-align:center;font-size:10px;color:#555;"><hr>Processado por Computador - ERP Cloud Electro Honório</div>
-                </body></html>`);
-            }
-        }
-
-        function emitirFaturaVendaA4() { gerarFaturaOficialA4(); }
-
-        function exportarRelatorioCSV() {
-            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            let csv = "Tipo,Operario,Cliente,Zona,Data\n";
-            logs.forEach(l => { csv += `"${l.tipo}","${l.operario || 'N/A'}","${l.cliente || 'N/A'}","${l.zona || 'N/A'}","${l.data}"\n`; });
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'relatorio_nuvem_electro_honario.csv';
-            a.click();
-        }
-
-        function renderizarRelatorios() {
-            const container = document.getElementById('lista-logs');
-            if(!container) return;
-            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            let html = '';
-            let totalFaturado = 0;
-
-            logs.forEach((l, index) => {
-                let valor = l.faturamentoNumeric || 0;
-                totalFaturado += valor;
-                html += `
-                    <div onclick="abrirDetalhesRelatorio(${index})" class="bg-slate-900 p-3 rounded-lg border border-slate-800 hover:border-amber-500/50 cursor-pointer flex justify-between items-center text-xs transition">
-                        <div>
-                            <strong class="text-amber-400">[${l.tipo}]</strong> ${l.cliente || 'Registo'} - ${l.zona || 'Maputo'} (${l.atividade || 'Geral'})
-                        </div>
-                        <div class="text-right text-slate-400">
-                            ${l.data} <i class="fa-solid fa-chevron-right ml-2 text-[10px] text-amber-500"></i>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html || '<div class="text-slate-500 text-center py-4">Sem registos na nuvem.</div>';
-            
-            if(document.getElementById('stat-faturamento')) document.getElementById('stat-faturamento').textContent = totalFaturado.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
-            if(document.getElementById('stat-total-ops')) document.getElementById('stat-total-ops').textContent = logs.length;
-        }
-
-        function abrirDetalhesRelatorio(index) {
-            let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-            let l = logs[index];
-            if(!l) return;
-
-            let conteudo = `
-                <p><b>Tipo:</b> ${l.tipo}</p>
-                <p><b>Operário:</b> ${l.operario || 'N/A'}</p>
-                <p><b>Cliente:</b> ${l.cliente || 'N/A'} (${l.contacto || 'N/A'})</p>
-                <p><b>Atividade:</b> ${l.atividade || 'N/A'}</p>
-                <p><b>Imóvel:</b> ${l.imovel || 'N/A'}</p>
-                <p><b>Zona / Bairro:</b> ${l.zona || 'N/A'}, ${l.bairro || 'N/A'}</p>
-                <p><b>Coordenadas GPS:</b> Lat: ${l.gps?.lat || '--'}, Lng: ${l.gps?.lng || '--'}</p>
-                <p><b>Notas do Operário:</b> ${l.notasOperario || 'Nenhuma nota'}</p>
-                <p><b>Estado da Obra:</b> ${l.estadoObra || 'N/A'}</p>
-                <p><b>Data:</b> ${l.data}</p>
-            `;
-            document.getElementById('conteudo-detalhes-relatorio').innerHTML = conteudo;
-            document.getElementById('modal-detalhes-relatorio').classList.remove('hidden');
-        }
-
-        function fecharModalDetalhesRelatorio() {
-            document.getElementById('modal-detalhes-relatorio').classList.add('hidden');
-        }
-
-        // --- FUNÇÕES DE LIMPEZA CIRÚRGICA CORRIGIDAS (APAGAM REALMENTE) ---
-        function limparApenasOrcamentos() {
-            if(confirm("Tem certeza que deseja limpar apenas os orçamentos e obras?")) {
-                let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-                logs = logs.filter(l => l.tipo !== 'Atividade de Campo GPS');
-                localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-                alert('🧹 Orçamentos e obras limpos com sucesso!');
-                renderizarRelatorios();
-                renderizarMonitorizacaoCampo();
-            }
-        }
-
-        function limparApenasVendas() {
-            if(confirm("Tem certeza que deseja limpar apenas as vendas?")) {
-                let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
-                logs = logs.filter(l => l.tipo !== 'Venda Balcão POS');
-                localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-                alert('🧹 Vendas limpas com sucesso!');
-                renderizarRelatorios();
-            }
-        }
-
-        function limparApenasHistorico() {
-            if(confirm("ATENÇÃO: Deseja limpar todo o histórico de operações do sistema?")) {
-                localStorage.removeItem('electro_honario_logs');
-                alert('🧹 Todo o histórico foi limpo com sucesso!');
-                renderizarRelatorios();
-                renderizarMonitorizacaoCampo();
-            }
+            listaUsers.push({ id: Date.now(), user: username, pass: pass, nome: nome, role: role, online: false });
+            localStorage.setItem('electro_honario_users', JSON.stringify(listaUsers));
+            alert(`✅ Utilizador "${nome}" registado com sucesso no protocolo!`);
+            renderizarTabelasAdmin();
         }
 
         function renderizarTabelasAdmin() {
@@ -1893,16 +925,11 @@
                 let users = obterUtilizadoresDoSistema();
                 let html = '';
                 users.forEach(u => {
-                    let st = u.online ? '<span class="text-emerald-400 font-bold">● Online</span>' : '<span class="text-slate-500">● Offline</span>';
                     html += `
                         <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg border border-slate-800">
                             <div>
                                 <span class="font-bold text-white block">${u.nome}</span>
-                                <span class="text-[10px] text-amber-400 font-mono">Username: ${u.user} | Função: ${u.role}</span>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                ${st}
-                                ${u.user !== 'alberto' ? `<button onclick="removerUtilizador(${u.id})" class="text-red-400 hover:text-red-300 p-1.5 bg-red-500/10 rounded-lg border border-red-500/20" title="Apagar Utilizador"><i class="fa-solid fa-trash"></i></button>` : ''}
+                                <span class="text-[10px] text-amber-400 font-mono">User: ${u.user} | Função: ${u.role}</span>
                             </div>
                         </div>
                     `;
@@ -1911,15 +938,9 @@
             }
         }
 
-        function guardarContasEmpresa() { alert('✅ Contas da empresa guardadas com sucesso!'); }
-        function fazerBackupSistema() { alert('✅ Backup completo descarregado!'); }
-        function restaurarBackupSistema() { alert('✅ Sistema restaurado com sucesso!'); }
-
         window.onload = function() {
-            carregarDefinicoesGlobaisNaUI();
-            renderizarCatalogoMateriais();
-            renderizarBalcãoVendas();
-            atualizarCalculos();
+            const sessao = JSON.parse(localStorage.getItem('electro_honario_sessao_atual') || 'null');
+            if(sessao) ativarSessao(sessao);
         };
     </script>
 </body>
