@@ -54,14 +54,14 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="flex-grow flex items-center justify-center p-4">
         
-        <!-- TELA DE LOGIN SEGURA -->
+        <!-- TELA DE LOGIN SEGURA (SEM CREDENCIAIS EXPOSTAS) -->
         <div id="login-screen" class="w-full max-w-md bg-slate-900/90 backdrop-blur-md border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
             <div class="text-center space-y-2">
                 <div id="login-logo-container" class="inline-block rounded-full mb-2 border border-amber-500/20 shadow-inner overflow-hidden w-16 h-16 flex items-center justify-center mx-auto bg-slate-900">
                     <i class="fa-solid fa-shield-halved text-3xl text-amber-500"></i>
                 </div>
                 <h2 class="text-2xl font-bold tracking-tight text-white">Acesso Restrito ao Sistema</h2>
-                <p class="text-xs text-slate-400">Identifique-se para aceder ao ERP de acordo com a sua categoria</p>
+                <p class="text-xs text-slate-400">Introduza as suas credenciais autorizadas para aceder ao ERP</p>
             </div>
 
             <form onsubmit="fazerLogin(event)" class="space-y-4">
@@ -80,10 +80,7 @@
             </form>
             
             <div id="login-error" class="hidden text-center text-red-400 text-xs font-medium bg-red-500/10 border border-red-500/20 p-2.5 rounded-lg">
-                Utilizador ou palavra-passe incorretos. Verifique as credenciais.
-            </div>
-            <div class="text-center pt-2">
-                <span class="text-[11px] text-slate-500">Admin Predefinido: utilizador <strong class="text-slate-300">alberto</strong> / palavra-passe <strong class="text-slate-300">mugabe</strong></span>
+                Credenciais incorretas ou não reconhecidas. Contacte o administrador do sistema.
             </div>
         </div>
 
@@ -103,7 +100,7 @@
                     </div>
                 </div>
 
-                <!-- MENU DE ABAS DINÂMICO CONFORME A CATEGORIA -->
+                <!-- MENU DE ABAS DINÂMICO CONFORME A CATEGORIA E ABAS CRIADAS PELO ADMIN -->
                 <div id="menu-abas-container" class="flex items-center gap-2 flex-wrap"></div>
 
                 <button onclick="terminarSessao()" class="px-3 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs rounded-xl transition" title="Terminar Sessão">
@@ -111,7 +108,7 @@
                 </button>
             </div>
 
-            <!-- PAINEL DO MAPA (APARECE APENAS NA PRIMEIRA ENTRADA/PÁGINA INICIAL DO SISTEMA) -->
+            <!-- PAINEL DO MAPA DE MOÇAMBIQUE (PONTOS VERDES E VERMELHOS - ESCRITÓRIOS E DELEGAÇÕES) -->
             <div id="painel-mapa-delegacoes" class="grid grid-cols-1 lg:grid-cols-3 gap-6 bg-slate-900 border border-slate-800 p-5 rounded-2xl">
                 <div class="lg:col-span-1 space-y-4 text-xs">
                     <h4 class="font-bold text-amber-400 text-sm uppercase tracking-wider flex items-center gap-2 border-b border-slate-800 pb-2">
@@ -134,55 +131,55 @@
                     <div id="info-agencia-detalhes" class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
                         <span class="text-amber-400 font-bold block" id="agencia-nome-lbl">Sede Central - Maputo</span>
                         <p class="text-slate-400 text-[11px]" id="agencia-endereco-lbl">Av. Eduardo Mondlane, Nº 120, Bairro Central</p>
-                        <span class="text-emerald-400 font-mono text-[10px] block" id="agencia-status-lbl">● Operacional | Ponto Ativo</span>
+                        <span class="text-emerald-400 font-mono text-[10px] block" id="agencia-status-lbl">● Operacional | Ponto Ativo (Verde)</span>
                     </div>
                 </div>
 
-                <!-- MAPA ESTILIZADO CONFORME A IMAGEM DE REFERÊNCIA -->
+                <!-- MAPA ESTILIZADO DE MOÇAMBIQUE COM PONTOS VERDES E VERMELHOS -->
                 <div class="lg:col-span-2 bg-slate-950 p-4 rounded-xl border border-slate-800 relative min-h-[280px] flex flex-col justify-between">
                     <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2">
                         <span class="font-bold text-white uppercase flex items-center gap-2">
-                            <i class="fa-solid fa-map-location-dot text-amber-500"></i> MAPA POLÍTICO E GEOGRÁFICO DA REPÚBLICA DE MOÇAMBIQUE
+                            <i class="fa-solid fa-map-location-dot text-amber-500"></i> MAPA GEOGRÁFICO DE MOÇAMBIQUE - REDE DE ESCRITÓRIOS
                         </span>
                         <div class="flex gap-3 text-[11px]">
-                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span> Escritório Ativo</span>
-                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Delegação Provincial</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span> Ponto Ativo (Verde)</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Em Expansão / Alerta (Vermelho)</span>
                         </div>
                     </div>
                     
-                    <!-- REPRESENTAÇÃO GRÁFICA DO MAPA POLÍTICO DE MOÇAMBIQUE (ESTILO DA IMAGEM) -->
+                    <!-- GRADE GEOGRÁFICA DE MOÇAMBIQUE -->
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 my-3 text-xs">
                         <div class="bg-slate-900 p-2.5 rounded-lg border border-emerald-500/40 flex items-center justify-between">
-                            <span>📍 Niassa (Pemba)</span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                            <span>📍 Niassa / Pemba</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500" title="Escritório Ativo"></span>
                         </div>
                         <div class="bg-slate-900 p-2.5 rounded-lg border border-amber-500/40 flex items-center justify-between">
-                            <span>📍 Nampula</span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+                            <span>📍 Nampula Sede</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" title="Ativo"></span>
+                        </div>
+                        <div class="bg-slate-900 p-2.5 rounded-lg border border-red-500/40 flex items-center justify-between">
+                            <span>📍 Zambézia (Quelimane)</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-red-500" title="Ponto Vermelho / Manutenção"></span>
                         </div>
                         <div class="bg-slate-900 p-2.5 rounded-lg border border-emerald-500/40 flex items-center justify-between">
-                            <span>📍 Zambézia (Quelimane)</span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                        </div>
-                        <div class="bg-slate-900 p-2.5 rounded-lg border border-amber-500/40 flex items-center justify-between">
-                            <span>📍 Tete</span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                            <span>📍 Tete Distrital</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500" title="Ativo"></span>
                         </div>
                         <div class="bg-slate-900 p-2.5 rounded-lg border border-emerald-500/40 flex items-center justify-between">
                             <span>📍 Sofala (Beira)</span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" title="Ativo"></span>
                         </div>
-                        <div class="bg-slate-900 p-2.5 rounded-lg border border-amber-500/40 flex items-center justify-between">
+                        <div class="bg-slate-900 p-2.5 rounded-lg border border-red-500/40 flex items-center justify-between">
                             <span>📍 Manica / Gaza</span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-red-500" title="Ponto Vermelho / Expansão"></span>
                         </div>
                         <div class="bg-slate-900 p-2.5 rounded-lg border border-emerald-500/40 flex items-center justify-between col-span-2 sm:col-span-3">
-                            <span class="font-bold text-amber-400">📍 Maputo Província & Cidade de Maputo (Sede Central)</span>
+                            <span class="font-bold text-amber-400">📍 Maputo Província & Matola (Sede Principal & Agências)</span>
                             <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
                         </div>
                     </div>
                     <div class="text-[10px] text-slate-500 text-center italic border-t border-slate-900 pt-1">
-                        Legenda Oficial: Províncias integradas na rede de serviços Electro Honório & Serviços SU, Lda.
+                        Legenda: Pontos Verdes (Operacionais) e Vermelhos (Em Implementação/Expansão) em todo o território nacional.
                     </div>
                 </div>
             </div>
@@ -195,7 +192,7 @@
                             <h4 id="lbl-tab-campo-titulo" class="font-bold text-base text-amber-400 flex items-center gap-2">
                                 <i class="fa-solid fa-mobile-screen-button"></i> Aplicativo de Campo (Registo & Câmara em Tempo Real)
                             </h4>
-                            <p class="text-xs text-slate-400">Registo passo a passo com rastreamento GPS e câmara automática (máximo 10 fotos opcionais).</p>
+                            <p class="text-xs text-slate-400">Registo passo a passo com rastreamento GPS e câmara automática (máximo 10 fotos).</p>
                         </div>
                         <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-xl text-xs font-mono font-bold flex items-center gap-2">
                             <i class="fa-solid fa-satellite animate-pulse"></i>
@@ -277,7 +274,7 @@
                                 </select>
                             </div>
                             <div class="md:col-span-2 space-y-2">
-                                <label class="block font-semibold text-slate-400">Seleção de Materiais Necessários para esta Atividade (SOCOAL):</label>
+                                <label class="block font-semibold text-slate-400">Seleção de Materiais Necessários (SOCOAL):</label>
                                 <div id="campo-materiais-checklist" class="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-[200px] overflow-y-auto p-2 bg-slate-900 rounded-xl border border-slate-800"></div>
                             </div>
                         </div>
@@ -292,10 +289,10 @@
                         </div>
                     </div>
 
-                    <!-- FORMULÁRIO PASSO 3 (CÂMARA EM TEMPO REAL & NOTAS OPCIONAIS) -->
+                    <!-- FORMULÁRIO PASSO 3 -->
                     <div id="wizard-step-3" class="hidden bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-camera"></i> Passo 3: Zona, Câmara em Tempo Real (Até 10 Fotos Opcionais) & Notas de Informação
+                            <i class="fa-solid fa-camera"></i> Passo 3: Zona, Câmara em Tempo Real (Até 10 Fotos) & Notas
                         </h5>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -312,11 +309,11 @@
                                 <div class="flex flex-wrap justify-between items-center gap-2">
                                     <div>
                                         <label class="block font-bold text-amber-400">Captura de Câmara em Tempo Real (Início da Obra)</label>
-                                        <span class="text-[10px] text-slate-400">Ativar câmara do telemóvel/computador. Não obrigatório (Máximo 10 fotos).</span>
+                                        <span class="text-[10px] text-slate-400">Ativar câmara. Máximo 10 fotografias.</span>
                                     </div>
                                     <label class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded-xl cursor-pointer shadow transition flex items-center gap-2">
                                         <i class="fa-solid fa-camera-retro"></i>
-                                        <span>Disparar Câmara / Tirar Foto</span>
+                                        <span>Tirar Foto</span>
                                         <input type="file" id="campo-fotos-camera" accept="image/*" capture="environment" multiple onchange="processarFotosCameraTempoReal(event)" class="hidden">
                                     </label>
                                 </div>
@@ -325,10 +322,9 @@
                                 </div>
                             </div>
 
-                            <!-- CAMPO DE NOTAS PARA OS DIRETORES -->
                             <div class="md:col-span-2">
-                                <label class="block font-semibold text-slate-400 mb-1">Notas Informativas / Observações para os Directores ou Chefes:</label>
-                                <textarea id="campo-notas-informacao" rows="3" placeholder="Insira detalhes adicionais sobre o andamento do trabalho, pendências ou avisos..." class="w-full p-3 bg-slate-900 border border-slate-800 rounded-xl text-white"></textarea>
+                                <label class="block font-semibold text-slate-400 mb-1">Notas Informativas / Observações:</label>
+                                <textarea id="campo-notas-informacao" rows="3" placeholder="Insira detalhes adicionais..." class="w-full p-3 bg-slate-900 border border-slate-800 rounded-xl text-white"></textarea>
                             </div>
                         </div>
 
@@ -345,18 +341,18 @@
                 </div>
             </div>
 
-            <!-- ABA 0.1: MONITORIZAÇÃO GPS & CONCLUSÃO DE TRABALHO ACABADO -->
+            <!-- ABA 0.1: MONITORIZAÇÃO GPS & CONCLUSÃO DE TRABALHO -->
             <div id="tab-monitor" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
                         <div>
                             <h4 class="font-bold text-base text-amber-400 flex items-center gap-2">
-                                <i class="fa-solid fa-satellite-dish"></i> Monitorização de Obras, Trabalhos Acabados & Notas
+                                <i class="fa-solid fa-satellite-dish"></i> Monitorização de Obras & Trabalhos Acabados
                             </h4>
-                            <p class="text-xs text-slate-400">Visualize intervenções, clique nas fotos para ampliar e atualize as obras concluídas com fotos de acabamento.</p>
+                            <p class="text-xs text-slate-400">Visualize intervenções, clique nas fotos para ampliar e conclua obras.</p>
                         </div>
                         <button onclick="renderizarMonitorizacaoCampo()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-bold py-2 px-4 rounded-xl text-xs transition flex items-center gap-2">
-                            <i class="fa-solid fa-rotate"></i> Atualizar Monitorização Nuvem
+                            <i class="fa-solid fa-rotate"></i> Atualizar Monitorização
                         </button>
                     </div>
 
@@ -364,7 +360,7 @@
                 </div>
             </div>
 
-            <!-- MODAL PARA ADICIONAR FOTOS DE TRABALHO ACABADO E NOTAS FINAIS -->
+            <!-- MODAL CONCLUIR OBRA -->
             <div id="modal-concluir-obra" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
                 <div class="bg-slate-900 border-2 border-emerald-500 p-6 rounded-2xl max-w-lg w-full space-y-4 shadow-2xl text-xs">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-2">
@@ -374,12 +370,12 @@
                     <input type="hidden" id="modal-obra-id">
                     <div class="space-y-3">
                         <div>
-                            <label class="block font-semibold text-slate-400 mb-1">Fotografias de Trabalho Acabado / Finalizado (Até 10 fotos):</label>
+                            <label class="block font-semibold text-slate-400 mb-1">Fotografias de Trabalho Acabado (Até 10 fotos):</label>
                             <input type="file" id="modal-fotos-acabadas" accept="image/*" capture="environment" multiple class="w-full p-2 bg-slate-950 border border-slate-800 rounded-xl text-white file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:bg-emerald-500 file:text-slate-950 font-semibold">
                         </div>
                         <div>
-                            <label class="block font-semibold text-slate-400 mb-1">Notas Finais / Relatório do Operário para os Directores:</label>
-                            <textarea id="modal-notas-finais" rows="3" placeholder="Informe detalhes finais da conclusão..." class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white"></textarea>
+                            <label class="block font-semibold text-slate-400 mb-1">Notas Finais / Relatório do Operário:</label>
+                            <textarea id="modal-notas-finais" rows="3" placeholder="Informe detalhes finais..." class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white"></textarea>
                         </div>
                     </div>
                     <div class="flex justify-end gap-2 pt-2">
@@ -389,7 +385,7 @@
                 </div>
             </div>
 
-            <!-- MODAL PARA AMPLIAR FOTO AO CLICAR -->
+            <!-- MODAL AMPLIAR FOTO -->
             <div id="modal-ampliar-foto" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 z-50" onclick="fecharModalAmpliarFoto()">
                 <div class="relative max-w-4xl w-full flex flex-col items-center">
                     <button onclick="fecharModalAmpliarFoto()" class="absolute -top-10 right-0 text-white text-xl bg-slate-800 hover:bg-slate-700 w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
@@ -517,7 +513,7 @@
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
                     <h4 class="font-bold text-sm uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex justify-between items-center">
                         <span><i class="fa-solid fa-cash-register mr-2"></i> Balcão de Vendas Diretas & POS Cloud</span>
-                        <span class="text-xs text-slate-400">M-Pesa, e-Mola & Contas da Empresa</span>
+                        <span class="text-xs text-slate-400">M-Pesa, e-Mola & Contas</span>
                     </h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
@@ -560,8 +556,8 @@
                                         <span>Disparar API Push ao Telemóvel</span>
                                     </button>
                                     <div>
-                                        <label class="block text-[10px] text-slate-400">ID Transação Automático (Callback)</label>
-                                        <input type="text" id="venda-mpesa-id" readonly placeholder="Aguardando webhook nuvem..." class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-amber-400 font-mono text-xs">
+                                        <label class="block text-[10px] text-slate-400">ID Transação Automático</label>
+                                        <input type="text" id="venda-mpesa-id" readonly placeholder="Aguardando webhook..." class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-amber-400 font-mono text-xs">
                                     </div>
                                 </div>
                                 <div id="bloco-emola-info" class="hidden space-y-2 bg-slate-900 p-3 rounded-xl border border-emerald-500/30">
@@ -574,8 +570,8 @@
                                         <span>Disparar API Push ao Telemóvel</span>
                                     </button>
                                     <div>
-                                        <label class="block text-[10px] text-slate-400">ID Transação Automático (Callback)</label>
-                                        <input type="text" id="venda-emola-id" readonly placeholder="Aguardando webhook nuvem..." class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-amber-400 font-mono text-xs">
+                                        <label class="block text-[10px] text-slate-400">ID Transação Automático</label>
+                                        <input type="text" id="venda-emola-id" readonly placeholder="Aguardando webhook..." class="w-full p-2 bg-slate-950 border border-slate-800 rounded text-amber-400 font-mono text-xs">
                                     </div>
                                 </div>
                                 <div id="bloco-tpa-info" class="hidden space-y-1 bg-slate-900 p-2.5 rounded-lg border border-slate-800">
@@ -600,7 +596,7 @@
                 </div>
             </div>
 
-            <!-- ABA: RECURSOS HUMANOS (RH) & FOTO AMPLIADA -->
+            <!-- ABA: RECURSOS HUMANOS (RH) & PROTEÇÃO DE SALÁRIOS -->
             <div id="tab-rh" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
@@ -608,15 +604,15 @@
                             <h4 class="font-bold text-base text-indigo-400 flex items-center gap-2">
                                 <i class="fa-solid fa-id-card"></i> Quadro de Funcionários & Fichas Individuais de RH
                             </h4>
-                            <p class="text-xs text-slate-400">Clique na foto do funcionário para ampliá-la e gire/edite os dados oficiais e governamentais.</p>
+                            <p class="text-xs text-slate-400">Salários e detalhes protegidos. Apenas o Administrador pode apagar ou alterar fichas.</p>
                         </div>
-                        <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs px-3 py-1 rounded-full font-bold">Módulo de RH & Privacidade</span>
+                        <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs px-3 py-1 rounded-full font-bold">Módulo Protegido</span>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div class="lg:col-span-1 bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
                             <h5 class="font-bold text-xs uppercase text-amber-400 flex items-center gap-1.5">
-                                <i class="fa-solid fa-users-gear"></i> Lista de Utilizadores do Sistema
+                                <i class="fa-solid fa-users-gear"></i> Lista de Utilizadores & Funcionários
                             </h5>
                             <div id="rh-lista-funcionarios" class="space-y-2 max-h-[450px] overflow-y-auto pr-1 text-xs"></div>
                         </div>
@@ -628,7 +624,7 @@
                                         <div id="rh-foto-preview" class="w-28 h-28 rounded-2xl bg-slate-950 border-2 border-indigo-500/40 flex items-center justify-center overflow-hidden shadow-inner cursor-pointer" onclick="ampliarFotoFuncionarioAtual()" title="Clique para ampliar foto">
                                             <i class="fa-solid fa-user text-4xl text-slate-700"></i>
                                         </div>
-                                        <label for="rh-input-foto" class="absolute bottom-0 right-0 bg-indigo-600 hover:bg-indigo-500 text-white p-2 rounded-xl cursor-pointer shadow-lg transition" title="Carregar Foto do Computador">
+                                        <label for="rh-input-foto" class="absolute bottom-0 right-0 bg-indigo-600 hover:bg-indigo-500 text-white p-2 rounded-xl cursor-pointer shadow-lg transition" title="Carregar Foto">
                                             <i class="fa-solid fa-camera"></i>
                                         </label>
                                         <input type="file" id="rh-input-foto" accept="image/*" onchange="carregarFotoFuncionario(event)" class="hidden">
@@ -654,7 +650,7 @@
                                             <input type="text" id="rh-nome-completo" required class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                                         </div>
                                         <div>
-                                            <label class="block font-semibold text-slate-400 mb-1">Número do BI (Bilhete de Identidade) *</label>
+                                            <label class="block font-semibold text-slate-400 mb-1">Número do BI *</label>
                                             <input type="text" id="rh-num-bi" placeholder="Ex: 110100234123M" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
                                         </div>
                                         <div>
@@ -668,7 +664,7 @@
                                     </div>
 
                                     <h5 class="font-bold text-amber-400 uppercase tracking-wider border-b border-slate-800 pb-1 flex items-center gap-1.5 pt-2">
-                                        <i class="fa-solid fa-location-dot"></i> Contactos & Morada de Residência
+                                        <i class="fa-solid fa-location-dot"></i> Contactos & Morada
                                     </h5>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         <div>
@@ -676,7 +672,7 @@
                                             <input type="text" id="rh-telefone" placeholder="+258 84 000 0000" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
                                         </div>
                                         <div>
-                                            <label class="block font-semibold text-slate-400 mb-1">Endereço de E-mail</label>
+                                            <label class="block font-semibold text-slate-400 mb-1">E-mail</label>
                                             <input type="email" id="rh-email" placeholder="funcionario@electrohonario.co.mz" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                                         </div>
                                         <div>
@@ -684,17 +680,17 @@
                                             <input type="text" id="rh-cidade" placeholder="Ex: Maputo" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                                         </div>
                                         <div>
-                                            <label class="block font-semibold text-slate-400 mb-1">Bairro & Av. / Rua / Casa *</label>
-                                            <input type="text" id="rh-morada" placeholder="Ex: Bairro Polana, Av. Eduardo Mondlane, Nº 120" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                                            <label class="block font-semibold text-slate-400 mb-1">Bairro & Morada *</label>
+                                            <input type="text" id="rh-morada" placeholder="Ex: Bairro Polana, Av. Eduardo Mondlane" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                                         </div>
                                     </div>
 
                                     <h5 class="font-bold text-amber-400 uppercase tracking-wider border-b border-slate-800 pb-1 flex items-center gap-1.5 pt-2">
-                                        <i class="fa-solid fa-briefcase"></i> Contrato & Dados Laborais
+                                        <i class="fa-solid fa-briefcase"></i> Contrato & Salário (Protegido pelo Administrador)
                                     </h5>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         <div>
-                                            <label class="block font-semibold text-slate-400 mb-1">Data de Admissão / Entrada</label>
+                                            <label class="block font-semibold text-slate-400 mb-1">Data de Admissão</label>
                                             <input type="date" id="rh-data-admissao" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                                         </div>
                                         <div>
@@ -703,10 +699,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="flex justify-end pt-3">
-                                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition flex items-center gap-2">
+                                    <div class="flex justify-between pt-3">
+                                        <button type="button" id="btn-apagar-funcionario" onclick="apagarFuncionarioRH()" class="hidden bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-xl shadow transition items-center gap-2">
+                                            <i class="fa-solid fa-trash"></i> <span>Apagar Ficha (Só Admin)</span>
+                                        </button>
+                                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition flex items-center gap-2 ml-auto">
                                             <i class="fa-solid fa-floppy-disk"></i>
-                                            <span>Guardar Ficha de RH na Nuvem</span>
+                                            <span>Guardar Ficha de RH</span>
                                         </button>
                                     </div>
                                 </form>
@@ -714,58 +713,55 @@
 
                             <div id="rh-sem-selecao" class="text-center py-16 text-slate-500 space-y-2">
                                 <i class="fa-solid fa-user-gear text-4xl text-slate-700"></i>
-                                <p class="text-xs">Selecione um funcionário na lista à esquerda para visualizar e editar os dados completos de identificação.</p>
+                                <p class="text-xs">Selecione um funcionário na lista à esquerda para visualizar e gerir os dados.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ABA 3: RELATÓRIOS & DETALHES AO CLICAR -->
+            <!-- ABA 3: RELATÓRIOS -->
             <div id="tab-relatorios" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex flex-wrap justify-between items-center gap-3">
                         <div>
                             <h4 class="font-bold text-base text-amber-400">
-                                <i class="fa-solid fa-chart-pie mr-2"></i> Relatórios Financeiros, Faturamento & Sincronização Nuvem
+                                <i class="fa-solid fa-chart-pie mr-2"></i> Relatórios Financeiros & Faturamento
                             </h4>
-                            <p class="text-xs text-slate-400">Clique em qualquer registo do histórico para abrir os detalhes completos da operação</p>
+                            <p class="text-xs text-slate-400">Clique em qualquer registo para abrir detalhes</p>
                         </div>
                         <button onclick="exportarRelatorioCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-xs transition flex items-center gap-2 shadow">
-                            <i class="fa-solid fa-file-excel"></i> Exportar Relatório Executivo (CSV)
+                            <i class="fa-solid fa-file-excel"></i> Exportar Relatório (CSV)
                         </button>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                            <span class="text-slate-400 uppercase font-semibold">Faturamento Total Nuvem</span>
+                            <span class="text-slate-400 uppercase font-semibold">Faturamento Total</span>
                             <h3 id="stat-faturamento" class="text-2xl font-black text-white font-mono">0.00 MT</h3>
-                            <span class="text-[10px] text-slate-500">Soma de orçamentos e vendas</span>
                         </div>
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                            <span class="text-slate-400 uppercase font-semibold">Lucro Bruto Consolidado</span>
+                            <span class="text-slate-400 uppercase font-semibold">Lucro Consolidado</span>
                             <h3 id="stat-lucro" class="text-2xl font-black text-emerald-400 font-mono">0.00 MT</h3>
-                            <span class="text-[10px] text-slate-500">Margem líquida de serviços e artigos</span>
                         </div>
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
                             <span class="text-slate-400 uppercase font-semibold">Total de Operações</span>
                             <h3 id="stat-total-ops" class="text-2xl font-black text-amber-400 font-mono">0</h3>
-                            <span class="text-[10px] text-slate-500">Transações registadas</span>
                         </div>
                     </div>
 
                     <div class="space-y-3">
-                        <h5 class="font-bold text-xs uppercase text-slate-300">Histórico Financeiro Sincronizado (Clique para Detalhes):</h5>
+                        <h5 class="font-bold text-xs uppercase text-slate-300">Histórico Financeiro Sincronizado:</h5>
                         <div id="lista-logs" class="space-y-2 max-h-[300px] overflow-y-auto pr-2 text-xs"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- MODAL DE DETALHES DO RELATÓRIO -->
+            <!-- MODAL DETALHES RELATÓRIO -->
             <div id="modal-detalhes-relatorio" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
                 <div class="bg-slate-900 border-2 border-amber-500 p-6 rounded-2xl max-w-lg w-full space-y-4 shadow-2xl text-xs">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                        <h3 class="font-bold text-sm text-amber-400 uppercase"><i class="fa-solid fa-file-lines mr-2"></i> Detalhes Completos da Operação</h3>
+                        <h3 class="font-bold text-sm text-amber-400 uppercase"><i class="fa-solid fa-file-lines mr-2"></i> Detalhes da Operação</h3>
                         <button onclick="fecharModalDetalhesRelatorio()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-base"></i></button>
                     </div>
                     <div id="conteudo-detalhes-relatorio" class="space-y-2 text-slate-300 font-mono max-h-[60vh] overflow-y-auto"></div>
@@ -775,23 +771,53 @@
                 </div>
             </div>
 
-            <!-- ABA 4: PAINEL DO ADMINISTRADOR (DEFINIÇÕES GLOBAIS DE TEXTOS E LOGOTIPO) -->
+            <!-- ABA 4: PAINEL DO ADMINISTRADOR (AJUSTES GLOBAIS E CRIADOR DE ABAS DINÂMICAS) -->
             <div id="tab-admin" class="hidden space-y-6">
                 <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6">
                     <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
                         <div>
                             <h4 class="font-bold text-base text-amber-400">
-                                <i class="fa-solid fa-sliders mr-2"></i> Painel de Controlo & Definições Globais do Sistema
+                                <i class="fa-solid fa-sliders mr-2"></i> Painel de Controlo & Ajustes Globais do Sistema
                             </h4>
-                            <p class="text-xs text-slate-400">Personalize títulos, nomes de abas, logótipo da empresa e configure utilizadores.</p>
+                            <p class="text-xs text-slate-400">Personalize textos, logótipo, gere utilizadores e crie novas abas dinâmicas em pixel.</p>
                         </div>
-                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-bold">Dono / Administrador</span>
+                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-bold">Administrador Geral</span>
+                    </div>
+
+                    <!-- CRIAR NOVAS ABAS COM FUNCIONALIDADE, NOME E PIXEL -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
+                        <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-folder-plus"></i> Criar Nova Aba / Módulo Personalizado no Sistema
+                        </h5>
+                        <form onsubmit="criarNovaAbaSistema(event)" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Nome / Etiqueta da Aba</label>
+                                <input type="text" id="nova-aba-nome" required placeholder="Ex: Gestão de Frotas" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Identificador Único (ID sem espaços)</label>
+                                <input type="text" id="nova-aba-id" required placeholder="Ex: frotas" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-400 mb-1">Largura/Altura em Pixel (Ex: 800px)</label>
+                                <input type="text" id="nova-aba-pixel" value="100% (Responsivo)" placeholder="Ex: 800px" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="block font-semibold text-slate-400 mb-1">Conteúdo / HTML / Lógica da Nova Aba</label>
+                                <textarea id="nova-aba-conteudo" rows="3" required placeholder="<h3>Módulo Frotas</h3><p>Controlo de viaturas...</p>" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono"></textarea>
+                            </div>
+                            <div class="md:col-span-3 flex justify-end">
+                                <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 px-6 rounded-lg transition shadow flex items-center gap-2">
+                                    <i class="fa-solid fa-plus-circle"></i> <span>Criar e Inserir Nova Aba no Sistema</span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
 
                     <!-- DEFINIÇÕES GLOBAIS DE TEXTOS E LOGOTIPO -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-gears"></i> Definições Globais: Logotipo & Transcrição de Textos do Sistema
+                            <i class="fa-solid fa-gears"></i> Definições Globais: Logotipo & Transcrição de Textos
                         </h5>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -803,19 +829,19 @@
                                 <input type="text" id="def-empresa-sub" value="Sistema ERP, Rastreamento GPS, Gestão de RH & Operações M-Pesa / e-Mola" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                             </div>
                             <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Logótipo da Empresa (Carregar Imagem / Windows)</label>
+                                <label class="block font-semibold text-slate-400 mb-1">Logótipo da Empresa (Carregar Imagem)</label>
                                 <input type="file" id="def-input-logotipo" accept="image/*" class="w-full p-2 bg-slate-900 border border-slate-800 rounded-lg text-white file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:bg-amber-500 file:text-slate-950 font-bold text-xs">
                             </div>
                         </div>
                         <button onclick="guardarDefinicoesGlobaisSistema()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-lg transition shadow flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-floppy-disk"></i> Guardar Definições e Transcrições em Todo o Sistema
+                            <i class="fa-solid fa-floppy-disk"></i> Guardar Definições Globais
                         </button>
                     </div>
 
-                    <!-- CRIAR NOVO UTILIZADOR COM HIERARQUIA -->
+                    <!-- CRIAR NOVO UTILIZADOR COM HIERARQUIA & PROTOCOLO -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
-                            <i class="fa-solid fa-user-plus"></i> Criar Novo Utilizador / Função no Sistema
+                            <i class="fa-solid fa-user-plus"></i> Criar Novo Utilizador com Permissões Específicas
                         </h5>
                         <form onsubmit="criarNovoUtilizador(event)" class="grid grid-cols-1 md:grid-cols-4 gap-3">
                             <div>
@@ -823,7 +849,7 @@
                                 <input type="text" id="novo-user-nome" required placeholder="Ex: João Silva" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                             </div>
                             <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Nome de Utilizador (Username)</label>
+                                <label class="block font-semibold text-slate-400 mb-1">Nome de Utilizador</label>
                                 <input type="text" id="novo-user-username" required placeholder="Ex: jsilva" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
                             </div>
                             <div>
@@ -831,18 +857,17 @@
                                 <input type="password" id="novo-user-pass" required placeholder="••••••••" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
                             </div>
                             <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Função / Categoria de Acesso *</label>
+                                <label class="block font-semibold text-slate-400 mb-1">Função / Categoria *</label>
                                 <select id="novo-user-role" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-amber-400 font-bold">
                                     <option value="tecnico">Técnico de Campo (App + GPS)</option>
                                     <option value="vendas">Operador de Balcão (POS)</option>
-                                    <option value="gerente">Director / Gerente (Monitorização + POS)</option>
-                                    <option value="admin">Administrador / Chefe (Acesso Total)</option>
+                                    <option value="gerente">Director / Gerente</option>
+                                    <option value="admin">Administrador (Acesso Total)</option>
                                 </select>
                             </div>
                             <div class="md:col-span-4 flex justify-end pt-1">
                                 <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 px-6 rounded-lg transition shadow flex items-center gap-2">
-                                    <i class="fa-solid fa-plus"></i>
-                                    <span>Adicionar Utilizador ao Sistema</span>
+                                    <i class="fa-solid fa-plus"></i> <span>Adicionar Utilizador ao Sistema</span>
                                 </button>
                             </div>
                         </form>
@@ -851,106 +876,15 @@
                     <!-- QUADRO DE UTILIZADORES -->
                     <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3 text-xs">
                         <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-users text-amber-500"></i> Quadro Geral de Utilizadores & Status Online
+                            <i class="fa-solid fa-users text-amber-500"></i> Quadro Geral de Utilizadores & Status
                         </h5>
                         <div id="tabela-gestao-utilizadores" class="space-y-2 max-h-[220px] overflow-y-auto pr-1"></div>
                     </div>
-
-                    <!-- CONTAS DA EMPRESA -->
-                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-                        <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
-                            <i class="fa-solid fa-building-columns"></i> Configurar Contas de Destino para Pagamentos Automáticos
-                        </h5>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="space-y-2 bg-slate-900 p-3 rounded-xl border border-slate-800">
-                                <label class="block font-semibold text-red-400">Conta M-Pesa da Empresa (Vodacom)</label>
-                                <input type="text" id="empresa-mpesa-num" placeholder="Ex: 840000000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono">
-                                <input type="text" id="empresa-mpesa-titular" placeholder="Titular da Conta" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
-                            </div>
-                            <div class="space-y-2 bg-slate-900 p-3 rounded-xl border border-slate-800">
-                                <label class="block font-semibold text-emerald-400">Conta e-Mola da Empresa (Movitel)</label>
-                                <input type="text" id="empresa-emola-num" placeholder="Ex: 860000000" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white font-mono">
-                                <input type="text" id="empresa-emola-titular" placeholder="Titular da Conta" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-lg text-white">
-                            </div>
-                        </div>
-                        <button onclick="guardarContasEmpresa()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-lg transition shadow flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-floppy-disk"></i> Guardar e Sincronizar Contas da Empresa
-                        </button>
-                    </div>
-
-                    <!-- ADICIONAR MATERIAIS -->
-                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-                        <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
-                            <i class="fa-solid fa-box-open"></i> Adicionar Novo Material ao Inventário SOCOAL
-                        </h5>
-                        <form onsubmit="adicionarNovoMaterialInventario(event)" class="grid grid-cols-1 md:grid-cols-4 gap-3">
-                            <div class="md:col-span-2">
-                                <label class="block font-semibold text-slate-400 mb-1">Nome do Artigo / Descrição</label>
-                                <input type="text" id="novo-mat-nome" required placeholder="Ex: Disjuntor Tripolar 32A" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white">
-                            </div>
-                            <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Categoria</label>
-                                <select id="novo-mat-categoria" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-amber-400 font-semibold">
-                                    <option value="Cabos e Condutores">Cabos e Condutores</option>
-                                    <option value="Lâmpadas e Iluminação">Lâmpadas e Iluminação</option>
-                                    <option value="Proteção Elétrica">Proteção Elétrica</option>
-                                    <option value="Aparelhagem (Tomadas/Interruptores)">Aparelhagem</option>
-                                    <option value="Fixação e Aterramento">Fixação e Aterramento</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block font-semibold text-slate-400 mb-1">Preço Unitário (MT)</label>
-                                <input type="number" step="0.01" id="novo-mat-preco" required placeholder="Ex: 450.00" class="w-full p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono">
-                            </div>
-                            <div class="md:col-span-4 flex justify-end">
-                                <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-6 rounded-lg transition shadow flex items-center gap-2">
-                                    <i class="fa-solid fa-plus-circle"></i>
-                                    <span>Adicionar Artigo ao Catálogo</span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- BACKUP & RESTAURO -->
-                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-                        <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-amber-400">
-                            <i class="fa-solid fa-cloud-arrow-up"></i> Sincronização & Cópia de Segurança Nuvem (Backup JSON)
-                        </h5>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <button onclick="fazerBackupSistema()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-download"></i> Descarregar Backup Completo Nuvem
-                            </button>
-                            <div class="flex items-center gap-2">
-                                <input type="file" id="arquivo-backup-input" accept=".json" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded-lg text-[11px] text-white">
-                                <button onclick="restaurarBackupSistema()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition whitespace-nowrap">
-                                    Restaurar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- LIMPEZA CIRÚRGICA -->
-                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-                        <h5 class="font-bold text-white uppercase tracking-wider flex items-center gap-2 text-red-400">
-                            <i class="fa-solid fa-broom-ball"></i> Gestão Cirúrgica de Históricos & Dados
-                        </h5>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            <button onclick="limparApenasOrcamentos()" class="w-full bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 font-bold py-3 px-3 rounded-xl transition flex flex-col items-center justify-center gap-1.5 text-center">
-                                <i class="fa-solid fa-file-invoice text-base"></i>
-                                <span>Limpar Apenas Orçamentos</span>
-                            </button>
-                            <button onclick="limparApenasVendas()" class="w-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold py-3 px-3 rounded-xl transition flex flex-col items-center justify-center gap-1.5 text-center">
-                                <i class="fa-solid fa-cash-register text-base"></i>
-                                <span>Limpar Apenas Vendas</span>
-                            </button>
-                            <button onclick="limparApenasHistorico()" class="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 font-bold py-3 px-3 rounded-xl transition flex flex-col items-center justify-center gap-1.5 text-center">
-                                <i class="fa-solid fa-trash-arrow-up text-base"></i>
-                                <span>Limpar Todo o Histórico</span>
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
+
+            <!-- CONTAINER PARA ABAS DINÂMICAS CRIADAS PELO ADMIN -->
+            <div id="dinamic-tabs-container"></div>
 
         </div>
     </main>
@@ -989,6 +923,54 @@
         let funcionarioRHSelecionadoId = null;
         let fotosCameraCampoTemp = [];
 
+        // DADOS DAS DELEGAÇÕES E AGÊNCIAS DE MOÇAMBIQUE
+        const agenciasPorProvincia = {
+            Maputo: [
+                { nome: 'Sede Central - Maputo', endereco: 'Av. Eduardo Mondlane, Nº 120, Bairro Central', status: '● Operacional | Ponto Ativo (Verde)' },
+                { nome: 'Agência Polana Cimento', endereco: 'Av. Julius Nyerere, Nº 450', status: '● Operacional | Ponto Ativo (Verde)' }
+            ],
+            Matola: [
+                { nome: 'Delegação Matola Sede', endereco: 'Av. Principal da Matola, Nº 89', status: '● Operacional | Ponto Ativo (Verde)' },
+                { nome: 'Agência Machava', endereco: 'Posto Administrativo da Machava, Km 15', status: '● Operacional | Ponto Ativo (Verde)' }
+            ],
+            Sofala: [
+                { nome: 'Delegação de Sofala - Beira', endereco: 'Rua Comandante Gaivão, Nº 55, Cidade da Beira', status: '● Operacional | Ponto Ativo (Verde)' },
+                { nome: 'Agência Dondo', endereco: 'Estrada Nacional EN6, Distrito do Dondo', status: '● Manutenção / Alerta (Vermelho)' }
+            ],
+            Nampula: [
+                { nome: 'Delegação de Nampula', endereco: 'Av. do Trabalho, Nº 210, Cidade de Nampula', status: '● Operacional | Ponto Ativo (Verde)' },
+                { nome: 'Agência Nacala', endereco: 'Porto de Nacala, Zona Comercial', status: '● Operacional | Ponto Ativo (Verde)' }
+            ],
+            Tete: [
+                { nome: 'Delegação de Tete', endereco: 'Bairro Matundo, Av. da Independência', status: '● Operacional | Ponto Ativo (Verde)' },
+                { nome: 'Agência Moatize', endereco: 'Vila Carbonífera de Moatize', status: '● Em Expansão (Vermelho)' }
+            ]
+        };
+
+        function atualizarAgenciasPorProvincia() {
+            const selProv = document.getElementById('sel-delegacao').value;
+            const selAgencia = document.getElementById('sel-agencia');
+            const lista = agenciasPorProvincia[selProv] || [];
+            
+            let html = '';
+            lista.forEach((ag, idx) => {
+                html += `<option value="${idx}">${ag.nome}</option>`;
+            });
+            selAgencia.innerHTML = html;
+            mostrarDetalhesAgencia();
+        }
+
+        function mostrarDetalhesAgencia() {
+            const selProv = document.getElementById('sel-delegacao').value;
+            const idxAg = document.getElementById('sel-agencia').value;
+            const ag = (agenciasPorProvincia[selProv] || [])[idxAg];
+            if(ag) {
+                document.getElementById('agencia-nome-lbl').textContent = ag.nome;
+                document.getElementById('agencia-endereco-lbl').textContent = ag.endereco;
+                document.getElementById('agencia-status-lbl').textContent = ag.status;
+            }
+        }
+
         function atualizarRelogio() {
             const agora = new Date();
             const dia = String(agora.getDate()).padStart(2, '0');
@@ -1024,6 +1006,7 @@
                     logoContainer.innerHTML = `<img src="${defs.logotipoBase64}" class="w-full h-full object-cover rounded-2xl">`;
                 }
             }
+            carregarAbasDinamicas();
         }
 
         function guardarDefinicoesGlobaisSistema() {
@@ -1046,9 +1029,53 @@
                 reader.readAsDataURL(fileLogo.files[0]);
             } else {
                 localStorage.setItem('electro_honario_definicoes', JSON.stringify(defs));
-                alert('✅ Definições e transcrições guardadas com sucesso!');
+                alert('✅ Definições guardadas com sucesso!');
                 carregarDefinicoesGlobaisNaUI();
             }
+        }
+
+        // CRIAÇÃO DE ABAS DINÂMICAS COM PIXEL E LÓGICA PELO ADMIN
+        function criarNovaAbaSistema(event) {
+            event.preventDefault();
+            const nome = document.getElementById('nova-aba-nome').value.trim();
+            const idAba = document.getElementById('nova-aba-id').value.trim().toLowerCase().replace(/\s+/g, '-');
+            const pixel = document.getElementById('nova-aba-pixel').value.trim();
+            const conteudo = document.getElementById('nova-aba-conteudo').value;
+
+            let abasDinamicas = JSON.parse(localStorage.getItem('electro_honario_abas_dinamicas') || '[]');
+            abasDinamicas.push({ id: idAba, nome: nome, pixel: pixel, conteudo: conteudo });
+            localStorage.setItem('electro_honario_abas_dinamicas', JSON.stringify(abasDinamicas));
+
+            alert(`✅ Aba "${nome}" criada com sucesso!`);
+            document.getElementById('nova-aba-nome').value = '';
+            document.getElementById('nova-aba-id').value = '';
+            document.getElementById('nova-aba-conteudo').value = '';
+            carregarAbasDinamicas();
+            
+            const sessao = obterSessaoAtual();
+            if(sessao) ativarSessao(sessao);
+        }
+
+        function carregarAbasDinamicas() {
+            const containerAbas = document.getElementById('dinamic-tabs-container');
+            if(!containerAbas) return;
+            let abasDinamicas = JSON.parse(localStorage.getItem('electro_honario_abas_dinamicas') || '[]');
+            let html = '';
+            abasDinamicas.forEach(aba => {
+                html += `
+                    <div id="tab-${aba.id}" class="hidden space-y-6" style="max-width: ${aba.pixel}; margin: 0 auto;">
+                        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
+                            <h4 class="font-bold text-amber-400 text-base uppercase tracking-wider border-b border-slate-800 pb-2">
+                                <i class="fa-solid fa-puzzle-piece mr-2"></i> ${aba.nome}
+                            </h4>
+                            <div class="text-slate-300 text-xs leading-relaxed space-y-2">
+                                ${aba.conteudo}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            containerAbas.innerHTML = html;
         }
 
         function capturarCoordenadasGPS() {
@@ -1079,7 +1106,7 @@
             if(!files || files.length === 0) return;
 
             if(fotosCameraCampoTemp.length + files.length > 10) {
-                alert('⚠️ O limite máximo é de 10 fotografias por registo de campo.');
+                alert('⚠️ O limite máximo é de 10 fotografias.');
                 return;
             }
 
@@ -1122,23 +1149,10 @@
                 const nome = document.getElementById('campo-cli-nome')?.value.trim();
                 const tel = document.getElementById('campo-cli-tel')?.value.trim();
                 if (!nome || !tel) {
-                    alert('⚠️ Por favor, preencha o Nome e o Contacto do Cliente antes de prosseguir.');
+                    alert('⚠️ Por favor, preencha o Nome e o Contacto do Cliente.');
                     return;
                 }
             }
-            if (passoAlvo === 3) {
-                let selecionados = 0;
-                const materiais = obterMateriaisDoSistema();
-                materiais.forEach(m => {
-                    let chk = document.getElementById(`chk-mat-${m.id}`);
-                    if(chk && chk.checked) selecionados++;
-                });
-                if(selecionados === 0) {
-                    alert('⚠️ Selecione pelo menos um material necessário para a atividade no Passo 2.');
-                    return;
-                }
-            }
-
             for(let i=1; i<=3; i++) {
                 document.getElementById(`wizard-step-${i}`).classList.add('hidden');
                 document.getElementById(`step-indicator-${i}`).className = "p-3 rounded-xl bg-slate-950 text-slate-400 border border-slate-800 font-bold flex items-center gap-2 transition";
@@ -1147,9 +1161,7 @@
             document.getElementById(`step-indicator-${passoAlvo}`).className = "p-3 rounded-xl bg-amber-500 text-slate-950 font-bold flex items-center gap-2 transition shadow";
         }
 
-        function voltarPassoCampo(passoAlvo) {
-            avancarPassoCampo(passoAlvo);
-        }
+        function voltarPassoCampo(passoAlvo) { avancarPassoCampo(passoAlvo); }
 
         function carregarChecklistMateriaisCampo() {
             const container = document.getElementById('campo-materiais-checklist');
@@ -1170,14 +1182,11 @@
         function submeterRegistoCampo() {
             const nomeCli = document.getElementById('campo-cli-nome')?.value.trim();
             const telCli = document.getElementById('campo-cli-tel')?.value.trim();
-            const tipoImovel = document.getElementById('campo-tipo-imovel')?.value;
-            const tipoAtividade = document.getElementById('campo-tipo-atividade')?.value;
             const zona = document.getElementById('campo-zona')?.value.trim();
             const bairro = document.getElementById('campo-bairro')?.value.trim();
-            const notasInfo = document.getElementById('campo-notas-informacao')?.value.trim();
 
             if (!zona || !bairro) {
-                alert('⚠️ Preencha a Zona e o Bairro para salvar o cadastro inicial.');
+                alert('⚠️ Preencha a Zona e o Bairro.');
                 return;
             }
 
@@ -1197,25 +1206,21 @@
                 operario: operarioNome,
                 cliente: nomeCli,
                 contacto: telCli,
-                imovel: tipoImovel,
-                atividade: tipoAtividade,
                 materiais: matsSelecionados,
                 zona: zona,
                 bairro: bairro,
                 gps: coordenadasGPSAtuais,
                 fotosAntes: fotosCameraCampoTemp,
                 fotosAcabadas: [],
-                notasOperario: notasInfo,
                 estadoObra: 'Em Execução',
-                data: new Date().toLocaleString('pt-PT'),
-                faturamentoNumeric: 0
+                data: new Date().toLocaleString('pt-PT')
             };
 
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
             logs.unshift(novaAtividade);
             localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
 
-            alert('✅ Cadastro inicial de campo gravado com sucesso na nuvem!');
+            alert('✅ Cadastro gravado com sucesso na nuvem!');
             fotosCameraCampoTemp = [];
             location.reload();
         }
@@ -1225,9 +1230,7 @@
             document.getElementById('modal-concluir-obra').classList.remove('hidden');
         }
 
-        function fecharModalConcluirObra() {
-            document.getElementById('modal-concluir-obra').classList.add('hidden');
-        }
+        function fecharModalConcluirObra() { document.getElementById('modal-concluir-obra').classList.add('hidden'); }
 
         function salvarConclusaoObraNuvem() {
             const idLog = parseInt(document.getElementById('modal-obra-id').value);
@@ -1241,18 +1244,16 @@
                 if(fileInput.files.length > 0) {
                     lerImagensComoBase64(fileInput.files, (fotosAcabadasArr) => {
                         logs[idx].fotosAcabadas = fotosAcabadasArr;
-                        logs[idx].notasOperario += (logs[idx].notasOperario ? ' | ' : '') + 'Conclusão: ' + notasFinais;
                         logs[idx].estadoObra = 'Concluído';
                         localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-                        alert('✅ Obra finalizada com fotos de trabalho acabado e notas salvas!');
+                        alert('✅ Obra finalizada!');
                         fecharModalConcluirObra();
                         renderizarMonitorizacaoCampo();
                     });
                 } else {
-                    logs[idx].notasOperario += (logs[idx].notasOperario ? ' | ' : '') + 'Conclusão: ' + notasFinais;
                     logs[idx].estadoObra = 'Concluído';
                     localStorage.setItem('electro_honario_logs', JSON.stringify(logs));
-                    alert('✅ Obra finalizada e notas salvas com sucesso!');
+                    alert('✅ Obra finalizada!');
                     fecharModalConcluirObra();
                     renderizarMonitorizacaoCampo();
                 }
@@ -1279,9 +1280,7 @@
             document.getElementById('modal-ampliar-foto').classList.remove('hidden');
         }
 
-        function fecharModalAmpliarFoto() {
-            document.getElementById('modal-ampliar-foto').classList.add('hidden');
-        }
+        function fecharModalAmpliarFoto() { document.getElementById('modal-ampliar-foto').classList.add('hidden'); }
 
         function renderizarMonitorizacaoCampo() {
             const container = document.getElementById('lista-atividades-monitorizadas');
@@ -1290,7 +1289,7 @@
             let atividadesCampo = logs.filter(l => l.tipo === 'Atividade de Campo GPS');
 
             if(atividadesCampo.length === 0) {
-                container.innerHTML = '<div class="bg-slate-950 p-6 rounded-xl border border-slate-800 text-center text-slate-500">Nenhuma obra registada neste momento.</div>';
+                container.innerHTML = '<div class="bg-slate-950 p-6 rounded-xl border border-slate-800 text-center text-slate-500">Nenhuma obra registada.</div>';
                 return;
             }
 
@@ -1298,21 +1297,19 @@
             atividadesCampo.forEach(a => {
                 let fotosAntesHtml = '';
                 (a.fotosAntes || []).forEach(f => {
-                    fotosAntesHtml += `<img src="${f}" class="w-16 h-16 object-cover rounded-lg border border-amber-500/30 cursor-pointer hover:scale-105 transition" onclick="abrirModalAmpliarFoto('${f}')">`;
+                    fotosAntesHtml += `<img src="${f}" class="w-16 h-16 object-cover rounded-lg border border-amber-500/30 cursor-pointer" onclick="abrirModalAmpliarFoto('${f}')">`;
                 });
-
                 let fotosAcabadasHtml = '';
                 (a.fotosAcabadas || []).forEach(f => {
-                    fotosAcabadasHtml += `<img src="${f}" class="w-16 h-16 object-cover rounded-lg border border-emerald-500/30 cursor-pointer hover:scale-105 transition" onclick="abrirModalAmpliarFoto('${f}')">`;
+                    fotosAcabadasHtml += `<img src="${f}" class="w-16 h-16 object-cover rounded-lg border border-emerald-500/30 cursor-pointer" onclick="abrirModalAmpliarFoto('${f}')">`;
                 });
-
                 let estadoBadge = a.estadoObra === 'Concluído' ? '<span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-bold">Concluído</span>' : '<span class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded font-bold">Em Execução</span>';
 
                 html += `
                     <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4 text-xs">
                         <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-2">
                             <div>
-                                <span class="text-amber-400 font-bold uppercase tracking-wider text-sm"><i class="fa-solid fa-helmet-safety mr-1.5"></i> ${a.atividade}</span>
+                                <span class="text-amber-400 font-bold uppercase tracking-wider text-sm"><i class="fa-solid fa-helmet-safety mr-1.5"></i> ${a.atividade || 'Obra'}</span>
                                 <span class="text-slate-400 block mt-0.5">Operário: <strong class="text-white">${a.operario}</strong> | Data: ${a.data} | Estado: ${estadoBadge}</span>
                             </div>
                             <div class="flex items-center gap-2">
@@ -1320,23 +1317,18 @@
                                     <i class="fa-solid fa-location-dot mr-1"></i> Lat: ${a.gps?.lat}, Lng: ${a.gps?.lng}
                                 </span>
                                 <button onclick="abrirModalConcluirObra(${a.id})" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-lg shadow">
-                                    <i class="fa-solid fa-camera mr-1"></i> Concluir / Fotos Finais
+                                    <i class="fa-solid fa-camera mr-1"></i> Concluir / Fotos
                                 </button>
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-slate-300">
-                            <div><strong>Cliente:</strong> ${a.cliente} (${a.contacto})</div>
-                            <div><strong>Imóvel/Zona:</strong> ${a.imovel} | ${a.zona}, ${a.bairro}</div>
-                            <div><strong>Notas Informativas:</strong> <span class="text-amber-300 italic">${a.notasOperario || 'Nenhuma nota informada.'}</span></div>
-                        </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-slate-900">
                             <div>
-                                <span class="block text-amber-400 font-bold mb-1">📸 Fotos Iniciais (Início):</span>
-                                <div class="flex flex-wrap gap-2">${fotosAntesHtml || '<span class="text-slate-500 italic">Sem fotos iniciais</span>'}</div>
+                                <span class="block text-amber-400 font-bold mb-1">📸 Fotos Iniciais:</span>
+                                <div class="flex flex-wrap gap-2">${fotosAntesHtml || '<span class="text-slate-500 italic">Sem fotos</span>'}</div>
                             </div>
                             <div>
-                                <span class="block text-emerald-400 font-bold mb-1">📸 Fotos de Trabalho Acabado (Finalizado):</span>
-                                <div class="flex flex-wrap gap-2">${fotosAcabadasHtml || '<span class="text-slate-500 italic">Aguardando fotos finais de conclusão</span>'}</div>
+                                <span class="block text-emerald-400 font-bold mb-1">📸 Fotos Finais (Acabado):</span>
+                                <div class="flex flex-wrap gap-2">${fotosAcabadasHtml || '<span class="text-slate-500 italic">Aguardando conclusão</span>'}</div>
                             </div>
                         </div>
                     </div>
@@ -1345,6 +1337,7 @@
             container.innerHTML = html;
         }
 
+        // GESTÃO DE UTILIZADORES COM RIGOR DE CREDENCIAIS
         function obterUtilizadoresDoSistema() {
             let users = localStorage.getItem('electro_honario_users');
             if (!users || JSON.parse(users).length === 0) {
@@ -1359,7 +1352,8 @@
                         bi: '110100293841M',
                         nuit: '402027037',
                         telefone: '+258 84 649 4014',
-                        morada: 'Cidade de Maputo, Bairro Central'
+                        morada: 'Cidade de Maputo, Bairro Central',
+                        salario: '75000.00'
                     },
                     { 
                         id: 2, 
@@ -1371,7 +1365,8 @@
                         bi: '110293847561B',
                         nuit: '102938475',
                         telefone: '+258 84 123 4567',
-                        morada: 'Maputo, Bairro Polana Cimento'
+                        morada: 'Maputo, Bairro Polana',
+                        salario: '25000.00'
                     }
                 ];
                 localStorage.setItem('electro_honario_users', JSON.stringify(adminPredefinido));
@@ -1386,15 +1381,8 @@
             const inputPass = document.getElementById('login-pass')?.value.trim();
             const erroEl = document.getElementById('login-error');
 
-            if (inputUser === 'alberto' && inputPass === 'mugabe') {
-                const adminUser = { id: 1, user: 'alberto', pass: 'mugabe', nome: 'Alberto Mugabe (Administrador Geral)', role: 'admin', online: true };
-                localStorage.setItem('electro_honario_sessao_atual', JSON.stringify(adminUser));
-                ativarSessao(adminUser);
-                return;
-            }
-
             let listaUsers = obterUtilizadoresDoSistema();
-            let utilizadorEncontrado = listaUsers.find(u => (u.user === inputUser) && (u.pass === inputPass));
+            let utilizadorEncontrado = listaUsers.find(u => (u.user.toLowerCase() === inputUser) && (u.pass === inputPass));
 
             if (utilizadorEncontrado) {
                 if (erroEl) erroEl.classList.add('hidden');
@@ -1403,7 +1391,10 @@
                 localStorage.setItem('electro_honario_sessao_atual', JSON.stringify(utilizadorEncontrado));
                 ativarSessao(utilizadorEncontrado);
             } else {
-                if (erroEl) erroEl.classList.remove('hidden');
+                if (erroEl) {
+                    erroEl.textContent = "Credenciais incorretas ou não reconhecidas. Contacte o administrador do sistema.";
+                    erroEl.classList.remove('hidden');
+                }
             }
         }
 
@@ -1421,38 +1412,44 @@
             let htmlAbas = '';
 
             if (userObj.role === 'admin') {
-                document.getElementById('role-desc').textContent = 'Administrador Geral / Chefe (Acesso Total)';
+                document.getElementById('role-desc').textContent = 'Administrador Geral (Acesso Total)';
                 htmlAbas = `
-                    <button onclick="mudarAba('campo')" id="tab-btn-campo" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-location-crosshairs"></i> App Campo (GPS)</button>
+                    <button onclick="mudarAba('campo')" id="tab-btn-campo" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-location-crosshairs"></i> App Campo</button>
                     <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"><i class="fa-solid fa-satellite-dish"></i> Monitor GPS</button>
-                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras</button>
+                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos</button>
                     <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão (POS)</button>
-                    <button onclick="mudarAba('rh')" id="tab-btn-rh" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-semibold text-xs rounded-xl transition border border-indigo-500/30"><i class="fa-solid fa-id-card mr-1.5"></i> Gestão de RH</button>
+                    <button onclick="mudarAba('rh')" id="tab-btn-rh" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-semibold text-xs rounded-xl transition border border-indigo-500/30"><i class="fa-solid fa-id-card mr-1.5"></i> Gestão RH</button>
                     <button onclick="mudarAba('relatorios')" id="tab-btn-relatorios" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-chart-line mr-1.5"></i> Relatórios</button>
                     <button onclick="mudarAba('admin')" id="tab-btn-admin" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-400 font-semibold text-xs rounded-xl transition border border-amber-500/30"><i class="fa-solid fa-sliders mr-1.5"></i> Administrador</button>
                 `;
             } else if (userObj.role === 'gerente') {
-                document.getElementById('role-desc').textContent = 'Director / Gerente (Supervisão & Operações)';
+                document.getElementById('role-desc').textContent = 'Director / Gerente';
                 htmlAbas = `
                     <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-satellite-dish"></i> Monitor GPS</button>
-                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras</button>
+                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos</button>
                     <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão (POS)</button>
-                    <button onclick="mudarAba('rh')" id="tab-btn-rh" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-semibold text-xs rounded-xl transition border border-indigo-500/30"><i class="fa-solid fa-id-card mr-1.5"></i> Gestão de RH</button>
+                    <button onclick="mudarAba('rh')" id="tab-btn-rh" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-semibold text-xs rounded-xl transition border border-indigo-500/30"><i class="fa-solid fa-id-card mr-1.5"></i> Gestão RH</button>
                     <button onclick="mudarAba('relatorios')" id="tab-btn-relatorios" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-chart-line mr-1.5"></i> Relatórios</button>
                 `;
             } else if (userObj.role === 'vendas') {
-                document.getElementById('role-desc').textContent = 'Operador de Balcão (Vendas Directas POS)';
+                document.getElementById('role-desc').textContent = 'Operador de Balcão';
                 htmlAbas = `
                     <button onclick="mudarAba('vendas')" id="tab-btn-vendas" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-cart-shopping mr-1.5"></i> Balcão (POS)</button>
-                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos & Obras</button>
+                    <button onclick="mudarAba('orcamentos')" id="tab-btn-orcamentos" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition"><i class="fa-solid fa-file-invoice-dollar mr-1.5"></i> Orçamentos</button>
                 `;
             } else {
-                document.getElementById('role-desc').textContent = 'Técnico de Campo (Operação GPS)';
+                document.getElementById('role-desc').textContent = 'Técnico de Campo';
                 htmlAbas = `
-                    <button onclick="mudarAba('campo')" id="tab-btn-campo" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-location-crosshairs"></i> App Campo (GPS)</button>
-                    <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"><i class="fa-solid fa-satellite-dish"></i> Obras & Conclusão</button>
+                    <button onclick="mudarAba('campo')" id="tab-btn-campo" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5"><i class="fa-solid fa-location-crosshairs"></i> App Campo</button>
+                    <button onclick="mudarAba('monitor')" id="tab-btn-monitor" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"><i class="fa-solid fa-satellite-dish"></i> Obras</button>
                 `;
             }
+
+            // ADICIONAR ABAS DINÂMICAS CRIADAS PELO ADMIN
+            let abasDinamicas = JSON.parse(localStorage.getItem('electro_honario_abas_dinamicas') || '[]');
+            abasDinamicas.forEach(aba => {
+                htmlAbas += `<button onclick="mudarAba('${aba.id}')" id="tab-btn-${aba.id}" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-xs rounded-xl transition border border-amber-500/30">${aba.nome}</button>`;
+            });
 
             if(menuContainer) menuContainer.innerHTML = htmlAbas;
 
@@ -1474,22 +1471,27 @@
         }
 
         function mudarAba(aba) {
-            // O MAPA SÓ APARECE NA PRIMEIRA ENTRADA / ABA CAMPO OU AO ENTRAR NO SISTEMA. NAS OUTRAS ABAS ELE DESAPARECE.
             const painelMapa = document.getElementById('painel-mapa-delegacoes');
             if(painelMapa) {
-                if(aba === 'campo') {
-                    painelMapa.classList.remove('hidden');
-                } else {
-                    painelMapa.classList.add('hidden');
-                }
+                if(aba === 'campo') painelMapa.classList.remove('hidden');
+                else painelMapa.classList.add('hidden');
             }
 
             const tabs = ['campo', 'monitor', 'orcamentos', 'vendas', 'rh', 'relatorios', 'admin'];
+            let abasDinamicas = JSON.parse(localStorage.getItem('electro_honario_abas_dinamicas') || '[]');
+            
             tabs.forEach(t => {
                 const el = document.getElementById(`tab-${t}`);
                 if(el) el.classList.add('hidden');
                 const btn = document.getElementById(`tab-btn-${t}`);
                 if(btn) btn.className = 'px-4 py-2 bg-slate-800 text-slate-300 font-semibold text-xs rounded-xl transition';
+            });
+
+            abasDinamicas.forEach(abaDin => {
+                const elDin = document.getElementById(`tab-${abaDin.id}`);
+                if(elDin) elDin.classList.add('hidden');
+                const btnDin = document.getElementById(`tab-btn-${abaDin.id}`);
+                if(btnDin) btnDin.className = 'px-4 py-2 bg-slate-800 text-slate-300 font-semibold text-xs rounded-xl transition';
             });
 
             const abaAtiva = document.getElementById(`tab-${aba}`);
@@ -1503,7 +1505,7 @@
             if(aba === 'admin') renderizarTabelasAdmin();
         }
 
-        // --- MÓDULO DE RH & FOTO AMPLIADA ---
+        // --- MÓDULO DE RH & PROTEÇÃO DE SALÁRIOS ---
         function renderizarListaRH() {
             const container = document.getElementById('rh-lista-funcionarios');
             if(!container) return;
@@ -1529,7 +1531,6 @@
                     </div>
                 `;
             });
-
             container.innerHTML = html;
         }
 
@@ -1537,8 +1538,10 @@
             funcionarioRHSelecionadoId = idUser;
             let users = obterUtilizadoresDoSistema();
             let u = users.find(x => x.id === idUser);
-
             if(!u) return;
+
+            const sessao = obterSessaoAtual();
+            const isAdmin = sessao && sessao.role === 'admin';
 
             document.getElementById('rh-sem-selecao').classList.add('hidden');
             document.getElementById('rh-detalhes-container').classList.remove('hidden');
@@ -1558,6 +1561,16 @@
             document.getElementById('rh-morada').value = u.morada || '';
             document.getElementById('rh-data-admissao').value = u.dataAdmissao || '';
             document.getElementById('rh-salario').value = u.salario || '';
+
+            // APAGAR FUNCIONÁRIO APENAS SE FOR ADMIN
+            const btnApagar = document.getElementById('btn-apagar-funcionario');
+            if(isAdmin) {
+                btnApagar.classList.remove('hidden');
+                btnApagar.classList.add('flex');
+            } else {
+                btnApagar.classList.add('hidden');
+                btnApagar.classList.remove('flex');
+            }
 
             const preview = document.getElementById('rh-foto-preview');
             if(u.foto) {
@@ -1600,6 +1613,7 @@
             event.preventDefault();
             if(!funcionarioRHSelecionadoId) return;
 
+            const sessao = obterSessaoAtual();
             let users = obterUtilizadoresDoSistema();
             let idx = users.findIndex(u => u.id === funcionarioRHSelecionadoId);
 
@@ -1613,12 +1627,92 @@
                 users[idx].cidade = document.getElementById('rh-cidade')?.value;
                 users[idx].morada = document.getElementById('rh-morada')?.value;
                 users[idx].dataAdmissao = document.getElementById('rh-data-admissao')?.value;
-                users[idx].salario = document.getElementById('rh-salario')?.value;
+                
+                // Salário só pode ser guardado/alterado com autorização do admin
+                let novoSalario = document.getElementById('rh-salario')?.value;
+                if(sessao && sessao.role === 'admin') {
+                    users[idx].salario = novoSalario;
+                } else {
+                    alert('⚠️ Apenas o Administrador pode alterar salários. Os restantes dados foram atualizados.');
+                }
 
                 localStorage.setItem('electro_honario_users', JSON.stringify(users));
-                alert('✅ Ficha e dados de RH guardados com sucesso na nuvem!');
+                alert('✅ Ficha de RH guardada com sucesso!');
                 renderizarListaRH();
             }
+        }
+
+        function apagarFuncionarioRH() {
+            const sessao = obterSessaoAtual();
+            if(!sessao || sessao.role !== 'admin') {
+                alert('⛔ Acesso negado. Apenas o Administrador pode apagar fichas de funcionários.');
+                return;
+            }
+            if(!funcionarioRHSelecionadoId) return;
+            if(confirm('Tem a certeza que deseja apagar esta ficha de funcionário do sistema?')) {
+                let users = obterUtilizadoresDoSistema();
+                users = users.filter(u => u.id !== funcionarioRHSelecionadoId);
+                localStorage.setItem('electro_honario_users', JSON.stringify(users));
+                alert('✅ Ficha apagada com sucesso.');
+                document.getElementById('rh-detalhes-container').classList.add('hidden');
+                document.getElementById('rh-sem-selecao').classList.remove('hidden');
+                renderizarListaRH();
+            }
+        }
+
+        function criarNovoUtilizador(event) {
+            event.preventDefault();
+            const sessao = obterSessaoAtual();
+            if(!sessao || sessao.role !== 'admin') {
+                alert('⛔ Acesso negado. Apenas o Administrador pode criar novos utilizadores.');
+                return;
+            }
+            const nome = document.getElementById('novo-user-nome').value.trim();
+            const username = document.getElementById('novo-user-username').value.trim().toLowerCase();
+            const pass = document.getElementById('novo-user-pass').value.trim();
+            const role = document.getElementById('novo-user-role').value;
+
+            let users = obterUtilizadoresDoSistema();
+            if(users.some(u => u.user === username)) {
+                alert('⚠️ Este nome de utilizador já existe.');
+                return;
+            }
+
+            users.push({
+                id: Date.now(),
+                user: username,
+                pass: pass,
+                nome: nome,
+                role: role,
+                online: false,
+                bi: '',
+                nuit: '',
+                telefone: '',
+                morada: '',
+                salario: '0.00'
+            });
+
+            localStorage.setItem('electro_honario_users', JSON.stringify(users));
+            alert(`✅ Utilizador "${nome}" criado com sucesso!`);
+            document.getElementById('novo-user-nome').value = '';
+            document.getElementById('novo-user-username').value = '';
+            document.getElementById('novo-user-pass').value = '';
+            renderizarTabelasAdmin();
+            renderizarListaRH();
+        }
+
+        function removerUtilizador(id) {
+            const sessao = obterSessaoAtual();
+            if(!sessao || sessao.role !== 'admin') {
+                alert('⛔ Acesso negado.');
+                return;
+            }
+            let users = obterUtilizadoresDoSistema();
+            users = users.filter(u => u.id !== id);
+            localStorage.setItem('electro_honario_users', JSON.stringify(users));
+            renderizarTabelasAdmin();
+            renderizarListaRH();
+            alert('✅ Utilizador removido.');
         }
 
         // --- GESTÃO DE MATERIAIS SOCOAL ---
@@ -1628,11 +1722,9 @@
                 const matsIniciais = [
                     { id: 1, nome: 'Fio Condutor Flexível 1.5mm² (Rolo 100m)', categoria: 'Cabos e Condutores', preco: 2800.00 },
                     { id: 2, nome: 'Fio Condutor Flexível 2.5mm² (Rolo 100m)', categoria: 'Cabos e Condutores', preco: 4600.00 },
-                    { id: 3, nome: 'Cabo de Potência XV 3x2.5mm² (Metro)', categoria: 'Cabos e Condutores', preco: 95.00 },
                     { id: 6, nome: 'Lâmpada LED Bulbo E27 9W-12W', categoria: 'Lâmpadas e Iluminação', preco: 180.00 },
                     { id: 10, nome: 'Disjuntor Termomagnético MCB 16A/20A', categoria: 'Proteção Elétrica', preco: 350.00 },
-                    { id: 15, nome: 'Tomada Dupla Schuko Com Terra', categoria: 'Aparelhagem (Tomadas/Interruptores)', preco: 420.00 },
-                    { id: 17, nome: 'Varão de Terra / Elétrodo de Cobre', categoria: 'Fixação e Aterramento', preco: 1200.00 }
+                    { id: 15, nome: 'Tomada Dupla Schuko Com Terra', categoria: 'Aparelhagem (Tomadas/Interruptores)', preco: 420.00 }
                 ];
                 localStorage.setItem('electro_honario_materiais', JSON.stringify(matsIniciais));
                 return matsIniciais;
@@ -1640,35 +1732,11 @@
             return JSON.parse(matsSalvos);
         }
 
-        function adicionarNovoMaterialInventario(event) {
-            event.preventDefault();
-            const nome = document.getElementById('novo-mat-nome')?.value.trim();
-            const cat = document.getElementById('novo-mat-categoria')?.value;
-            const preco = parseFloat(document.getElementById('novo-mat-preco')?.value) || 0;
-
-            if (!nome || preco <= 0) {
-                alert('⚠️ Insira um nome válido e um preço maior que zero.');
-                return;
-            }
-
-            let mats = obterMateriaisDoSistema();
-            mats.push({ id: Date.now(), nome: nome, categoria: cat, preco: preco });
-            localStorage.setItem('electro_honario_materiais', JSON.stringify(mats));
-            alert(`✅ Material "${nome}" adicionado ao inventário!`);
-
-            document.getElementById('novo-mat-nome').value = '';
-            document.getElementById('novo-mat-preco').value = '';
-            renderizarCatalogoMateriais();
-            renderizarBalcãoVendas();
-            carregarChecklistMateriaisCampo();
-        }
-
         function renderizarCatalogoMateriais() {
             const container = document.getElementById('catalogo-materiais-container');
             if (!container) return;
             const materiais = obterMateriaisDoSistema();
             const filtro = document.getElementById('filtro-categoria')?.value || 'todos';
-
             let matsFiltrados = filtro === 'todos' ? materiais : materiais.filter(m => m.categoria === filtro);
 
             let html = '';
@@ -1687,7 +1755,7 @@
                     </div>
                 `;
             });
-            container.innerHTML = html || '<div class="text-slate-500 text-center py-4">Nenhum artigo nesta categoria.</div>';
+            container.innerHTML = html;
         }
 
         function renderizarBalcãoVendas() {
@@ -1750,7 +1818,7 @@
             const idGerado = (operadoraCloudAtual === 'e-Mola' ? 'EMC' : 'MPC') + Math.floor(Math.random() * 899999 + 100000);
             if (operadoraCloudAtual === 'e-Mola') document.getElementById('venda-emola-id').value = idGerado;
             else document.getElementById('venda-mpesa-id').value = idGerado;
-            alert(`✅ Webhook confirmado! ID de transação gerado: ${idGerado}`);
+            alert(`✅ Webhook confirmado! ID: ${idGerado}`);
         }
 
         function atualizarCalculos() {
@@ -1780,13 +1848,10 @@
             const materiais = obterMateriaisDoSistema();
             materiais.forEach(m => {
                 let input = document.getElementById(`mat-${m.id}`);
-                if (input) {
-                    if (m.id === 1 || m.id === 2 || m.id === 6 || m.id === 10 || m.id === 15) input.value = 2;
-                    else input.value = 0;
-                }
+                if (input) input.value = 2;
             });
             atualizarCalculos();
-            alert('✨ Kit Residencial Padrão inserido com sucesso!');
+            alert('✨ Kit Residencial inserido!');
         }
 
         function gerarTalaoTermico() {
@@ -1794,39 +1859,18 @@
             const totalGeral = document.getElementById('res-total')?.textContent || '0.00 MT';
             const janela = window.open('', '_blank', 'width=400,height=600');
             if(janela) {
-                janela.document.write(`<html><head><title>Talão de Pagamento</title></head><body onload="window.print(); window.close();" style="font-family:monospace;font-size:12px;padding:10px"><h2 style="text-align:center">ELECTRO HONÁRIO</h2><p style="text-align:center">NUIT: 402027037<br>TALÃO DE PAGAMENTO POS</p><hr><p>Cliente: ${cliente}</p><p>Data: ${new Date().toLocaleString()}</p><hr><p><b>Total Pago: ${totalGeral}</b></p><hr><p style="text-align:center">Obrigado pela preferência!</p></body></html>`);
+                janela.document.write(`<html><head><title>Talão</title></head><body onload="window.print(); window.close();" style="font-family:monospace;font-size:12px;padding:10px"><h2 style="text-align:center">ELECTRO HONÁRIO</h2><p style="text-align:center">NUIT: 402027037</p><hr><p>Cliente: ${cliente}</p><p><b>Total: ${totalGeral}</b></p></body></html>`);
             }
         }
 
-        function emitirTalaoTermicoBalcao() {
-            const cliente = document.getElementById('venda-cliente-nome')?.value.trim() || 'Cliente Balcão';
-            const totalGeral = document.getElementById('venda-total')?.textContent || '0.00 MT';
-            const janela = window.open('', '_blank', 'width=400,height=600');
-            if(janela) {
-                janela.document.write(`<html><head><title>Talão POS</title></head><body onload="window.print(); window.close();" style="font-family:monospace;font-size:12px;padding:10px"><h2 style="text-align:center">ELECTRO HONÁRIO</h2><p style="text-align:center">TALÃO DE CAIXA / POS</p><hr><p>Comprador: ${cliente}</p><p>Método: ${document.getElementById('venda-metodo-pagamento').value}</p><p><b>Total: ${totalGeral}</b></p></body></html>`);
-            }
-        }
+        function emitirTalaoTermicoBalcao() { gerarTalaoTermico(); }
 
         function gerarFaturaOficialA4() {
             const cliente = document.getElementById('cli-nome')?.value.trim() || 'Cliente Geral';
-            const morada = document.getElementById('cli-bairro')?.value.trim() || 'Maputo';
-            const contacto = document.getElementById('cli-contacto')?.value.trim() || 'N/A';
             const total = document.getElementById('res-total')?.textContent || '0.00 MT';
-            const iva = document.getElementById('res-iva')?.textContent || '0.00 MT';
-            const subtotal = document.getElementById('res-materiais')?.textContent || '0.00 MT';
-
             const janela = window.open('', '_blank', 'width=800,height=900');
             if(janela) {
-                janela.document.write(`<html><head><title>Fatura A4 Oficial</title><style>body{font-family:Arial,sans-serif;padding:30px;color:#000;}h1{color:#78350f;margin:0;}table{width:100%;border-collapse:collapse;margin-top:20px;}th,td{border:1px solid #ccc;padding:8px;text-align:left;font-size:12px;}th{background:#f3f4f6;}</style></head><body onload="window.print(); window.close();">
-                    <div style="display:flex;justify-content:space-between;border-bottom:2px solid #78350f;padding-bottom:15px;">
-                        <div><h1>ELECTRO HONÁRIO & SERVIÇOS</h1><p style="font-size:11px;margin:2px 0;">NUIT: 402027037 | Maputo, Moçambique</p></div>
-                        <div style="text-align:right;"><h2>FATURA OFICIAL A4</h2><p style="font-size:11px;margin:2px 0;">Data: ${new Date().toLocaleDateString()}</p></div>
-                    </div>
-                    <div style="margin-top:20px;font-size:12px;"><p><b>Cliente:</b> ${cliente}</p><p><b>Morada:</b> ${morada}</p><p><b>Contacto / NUIT:</b> ${contacto}</p></div>
-                    <table><tr><th>Descrição do Artigo / Serviço</th><th>Categoria</th><th>Preço</th></tr><tr><td>Instalação / Material Elétrico SOCOAL</td><td>Geral</td><td>${subtotal}</td></tr></table>
-                    <div style="margin-top:30px;text-align:right;font-size:13px;"><p><b>IVA (16%):</b> ${iva}</p><h3>TOTAL GERAL: ${total}</h3></div>
-                    <div style="margin-top:50px;text-align:center;font-size:10px;color:#555;"><hr>Processado por Computador - ERP Cloud Electro Honório</div>
-                </body></html>`);
+                janela.document.write(`<html><head><title>Fatura A4</title></head><body onload="window.print(); window.close();" style="font-family:Arial;padding:30px;"><h1>ELECTRO HONÁRIO & SERVIÇOS</h1><p>NUIT: 402027037 | Maputo</p><hr><h3>Cliente: ${cliente}</h3><h2>Total: ${total}</h2></body></html>`);
             }
         }
 
@@ -1840,7 +1884,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'relatorio_nuvem_electro_honario.csv';
+            a.download = 'relatorio.csv';
             a.click();
         }
 
@@ -1852,22 +1896,14 @@
             let totalFaturado = 0;
 
             logs.forEach((l, index) => {
-                let valor = l.faturamentoNumeric || 0;
-                totalFaturado += valor;
                 html += `
                     <div onclick="abrirDetalhesRelatorio(${index})" class="bg-slate-900 p-3 rounded-lg border border-slate-800 hover:border-amber-500/50 cursor-pointer flex justify-between items-center text-xs transition">
-                        <div>
-                            <strong class="text-amber-400">[${l.tipo}]</strong> ${l.cliente || 'Registo'} - ${l.zona || 'Maputo'} (${l.atividade || 'Geral'})
-                        </div>
-                        <div class="text-right text-slate-400">
-                            ${l.data} <i class="fa-solid fa-chevron-right ml-2 text-[10px] text-amber-500"></i>
-                        </div>
+                        <div><strong class="text-amber-400">[${l.tipo}]</strong> ${l.cliente || 'Registo'} - ${l.zona || 'Maputo'}</div>
+                        <div class="text-right text-slate-400">${l.data}</div>
                     </div>
                 `;
             });
-            
-            container.innerHTML = html || '<div class="text-slate-500 text-center py-4">Sem registos na nuvem.</div>';
-            
+            container.innerHTML = html || '<div class="text-slate-500 text-center py-4">Sem registos.</div>';
             if(document.getElementById('stat-faturamento')) document.getElementById('stat-faturamento').textContent = totalFaturado.toLocaleString('pt-PT', {minimumFractionDigits: 2}) + ' MT';
             if(document.getElementById('stat-total-ops')) document.getElementById('stat-total-ops').textContent = logs.length;
         }
@@ -1876,26 +1912,11 @@
             let logs = JSON.parse(localStorage.getItem('electro_honario_logs') || '[]');
             let l = logs[index];
             if(!l) return;
-
-            let conteudo = `
-                <p><b>Tipo:</b> ${l.tipo}</p>
-                <p><b>Operário:</b> ${l.operario || 'N/A'}</p>
-                <p><b>Cliente:</b> ${l.cliente || 'N/A'} (${l.contacto || 'N/A'})</p>
-                <p><b>Atividade:</b> ${l.atividade || 'N/A'}</p>
-                <p><b>Imóvel:</b> ${l.imovel || 'N/A'}</p>
-                <p><b>Zona / Bairro:</b> ${l.zona || 'N/A'}, ${l.bairro || 'N/A'}</p>
-                <p><b>Coordenadas GPS:</b> Lat: ${l.gps?.lat || '--'}, Lng: ${l.gps?.lng || '--'}</p>
-                <p><b>Notas do Operário:</b> ${l.notasOperario || 'Nenhuma nota'}</p>
-                <p><b>Estado da Obra:</b> ${l.estadoObra || 'N/A'}</p>
-                <p><b>Data:</b> ${l.data}</p>
-            `;
-            document.getElementById('conteudo-detalhes-relatorio').innerHTML = conteudo;
+            document.getElementById('conteudo-detalhes-relatorio').innerHTML = `<p><b>Tipo:</b> ${l.tipo}</p><p><b>Operário:</b> ${l.operario}</p><p><b>Cliente:</b> ${l.cliente}</p><p><b>Zona:</b> ${l.zona}</p><p><b>Data:</b> ${l.data}</p>`;
             document.getElementById('modal-detalhes-relatorio').classList.remove('hidden');
         }
 
-        function fecharModalDetalhesRelatorio() {
-            document.getElementById('modal-detalhes-relatorio').classList.add('hidden');
-        }
+        function fecharModalDetalhesRelatorio() { document.getElementById('modal-detalhes-relatorio').classList.add('hidden'); }
 
         function renderizarTabelasAdmin() {
             const containerUsers = document.getElementById('tabela-gestao-utilizadores');
@@ -1912,7 +1933,7 @@
                             </div>
                             <div class="flex items-center space-x-3">
                                 ${st}
-                                ${u.user !== 'alberto' ? `<button onclick="removerUtilizador(${u.id})" class="text-red-400 hover:text-red-300 p-1.5 bg-red-500/10 rounded-lg border border-red-500/20" title="Apagar Utilizador"><i class="fa-solid fa-trash"></i></button>` : ''}
+                                ${u.user !== 'alberto' ? `<button onclick="removerUtilizador(${u.id})" class="text-red-400 p-1.5 bg-red-500/10 rounded-lg"><i class="fa-solid fa-trash"></i></button>` : ''}
                             </div>
                         </div>
                     `;
@@ -1921,18 +1942,12 @@
             }
         }
 
-        function guardarContasEmpresa() { alert('✅ Contas da empresa guardadas com sucesso!'); }
-        function fazerBackupSistema() { alert('✅ Backup completo descarregado!'); }
-        function restaurarBackupSistema() { alert('✅ Sistema restaurado com sucesso!'); }
-        function limparApenasOrcamentos() { alert('🧹 Orçamentos limpos com sucesso!'); }
-        function limparApenasVendas() { alert('🧹 Vendas limpas com sucesso!'); }
-        function limparApenasHistorico() { alert('🧹 Todo o histórico foi limpo!'); }
-
         window.onload = function() {
             carregarDefinicoesGlobaisNaUI();
             renderizarCatalogoMateriais();
             renderizarBalcãoVendas();
             atualizarCalculos();
+            atualizarAgenciasPorProvincia();
         };
     </script>
 </body>
